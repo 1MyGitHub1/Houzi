@@ -1,0 +1,42 @@
+﻿<Window
+    x:Class="Monster.AutoSampler.Views.MessagePageView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:cal="http://www.caliburnproject.org"
+    Style="{DynamicResource WindowNoTitleBarSty}"
+    WindowStartupLocation="CenterOwner" 
+    Title="{Binding Title,Mode=OneWay}" 
+    Height="218" Width="342" MinHeight="218" MinWidth="342">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="48"/>
+            <RowDefinition/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="24"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="48"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="48"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Title,Mode=OneWay}" TextWrapping="Wrap" Style="{StaticResource WinChildTitleTextBlockSty}"/>
+        <ScrollViewer Grid.Row="2" Grid.Column="1" MaxWidth="242" HorizontalScrollBarVisibility="Hidden">
+            <ScrollViewer.Content>
+                <TextBlock MaxWidth="242" Text="{Binding Content,Mode=OneWay}"
+                           Style="{StaticResource TextBlockSty}" TextWrapping="Wrap" VerticalAlignment="Top" LineHeight="20"/>
+            </ScrollViewer.Content>
+        </ScrollViewer>
+        <WrapPanel Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center">
+            <Button Content="{Binding YesContent}" cal:Message.Attach="[Event Click]=[Action YesCommand]"
+                    Visibility="{Binding IsShowYes,Mode=OneWay,Converter={StaticResource BoolToVisibilityConverter}}"
+                    Style="{StaticResource ButtonAccentMarginRight4Sty}"/>
+            <Button Content="{Binding CancelContent}" cal:Message.Attach="[Event Click]=[Action CancelCommand]"
+                    Style="{StaticResource ButtonPrimarySty}"/>
+        </WrapPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,8 @@
+
+/.vs
+/Monster.AutoSampler/bin/
+/Monster.AutoSampler/bin/*.*
+/Monster.AutoSampler/obj
+
+/CircleAutoSampler/obj
+/CircleAutoSampler/bin

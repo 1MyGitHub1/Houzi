@@ -1,0 +1,370 @@
+﻿<ltCtl:CustomWindow 
+    x:Class="Totalab_L.SamplerPosSetPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ltCtl="clr-namespace:LabTech.UITheme;assembly=LabTech.UITheme"
+    xmlns:uiCtl="clr-namespace:Mass.UITheme;assembly=Mass.UITheme"
+    xmlns:global ="clr-namespace:Totalab_L"
+    xmlns:themes="clr-namespace:Totalab_L.Themes"
+    WindowStartupLocation="CenterOwner" 
+    Style="{DynamicResource CustomWindowTitleBarCloseSty}"
+    Loaded="CustomWindow_Loaded"
+    Height="740" Width="1280"  Title="SystemSetting">
+
+    <ltCtl:CustomWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Totalab_L;component/Themes/Generic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ltCtl:CustomWindow.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="52"/>
+            <ColumnDefinition Width="578"/>
+            <ColumnDefinition Width="56"/>
+            <ColumnDefinition Width="484"/>
+            <ColumnDefinition Width="6"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="120"/>
+                <RowDefinition Height="8"/>
+                <RowDefinition Height="120"/>
+                <RowDefinition Height="8"/>
+                <RowDefinition Height="120"/>
+                <RowDefinition Height="8"/>
+                <RowDefinition Height="120"/>
+                <RowDefinition Height="8"/>
+                <RowDefinition Height="120"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="4"/>
+                    <ColumnDefinition Width="504"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource TextBlockSty}"  Text="Tray A"  FontSize="14"  FontFamily="SegoeUI" FontWeight="SemiBold"  VerticalAlignment="Top" Margin="0 5"/>
+                <Border BorderBrush="Black" BorderThickness="1" Width="504" Height="120" Grid.Column="2">
+                    <Border.Background>
+                        <ImageBrush ImageSource="{Binding TrayAInfos.TrayBckPath, Source={x:Static global:GlobalInfo.Instance}}" Stretch="None" TileMode="Tile" AlignmentX="Center" AlignmentY="Center"/>
+                    </Border.Background>
+                    <themes:TrayControl Style="{StaticResource TrayControlSty}" Height="118" Width="502" ItemsSource="{Binding TrayAInfos.TrayItemList, Source={x:Static global:GlobalInfo.Instance}}" 
+                                                XCount="{Binding TrayAInfos.XCount, Source={x:Static global:GlobalInfo.Instance}}"  YCount="{Binding TrayAInfos.YCount, Source={x:Static global:GlobalInfo.Instance}}"
+                                                ItemsSize="{Binding TrayAInfos.ItemSize, Source={x:Static global:GlobalInfo.Instance}}">
+                        <themes:TrayControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Ellipse Fill="#3C000000"/>
+                                    <TextBlock Text="{Binding ItemContent}" Foreground="White" HorizontalAlignment="Center"/>
+                                </Grid>
+                            </DataTemplate>
+                        </themes:TrayControl.ItemTemplate>
+                    </themes:TrayControl>
+                </Border>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="4"/>
+                    <ColumnDefinition Width="504"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource TextBlockSty}"  Text="Tray B"  FontSize="14"  FontFamily="SegoeUI" FontWeight="SemiBold"   VerticalAlignment="Top" Margin="0 5"/>
+                <Border BorderBrush="Black" BorderThickness="1" Width="504" Height="120" Grid.Column="2">
+                    <Border.Background>
+                        <ImageBrush ImageSource="{Binding TrayBInfos.TrayBckPath, Source={x:Static global:GlobalInfo.Instance}}" Stretch="None" TileMode="Tile" AlignmentX="Center" AlignmentY="Center"/>
+                    </Border.Background>
+                    <themes:TrayControl Style="{StaticResource TrayControlSty}" Height="118" Width="502" ItemsSource="{Binding TrayBInfos.TrayItemList, Source={x:Static global:GlobalInfo.Instance}}"  
+                                                XCount="{Binding TrayBInfos.XCount, Source={x:Static global:GlobalInfo.Instance}}"  YCount="{Binding TrayBInfos.YCount, Source={x:Static global:GlobalInfo.Instance}}"
+                                                ItemsSize="{Binding TrayBInfos.ItemSize, Source={x:Static global:GlobalInfo.Instance}}">
+                        <themes:TrayControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Ellipse Fill="#3C000000"/>
+                                    <TextBlock Text="{Binding ItemContent}" Foreground="White" HorizontalAlignment="Center"/>
+                                </Grid>
+                            </DataTemplate>
+                        </themes:TrayControl.ItemTemplate>
+                    </themes:TrayControl>
+                </Border>
+            </Grid>
+            <Grid Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="4"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="4"/>
+                    <ColumnDefinition Width="438"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource TextBlockSty}"  Text="Tray C"   FontSize="14"  FontFamily="SegoeUI" FontWeight="SemiBold"   VerticalAlignment="Top" Margin="0 5"/>
+                <Border BorderBrush="Black" BorderThickness="1" Width="60" Height="120" Grid.Column="2">
+                    <themes:TrayControl Style="{StaticResource TrayControlSty}" Height="118" Width="58" ItemsSource="{Binding TrayCleanInfos.TrayItemList, Source={x:Static global:GlobalInfo.Instance}}" 
+                                                XCount="1"  YCount="2"  ItemsSize="{Binding TrayCleanInfos.ItemSize, Source={x:Static global:GlobalInfo.Instance}}">
+                        <themes:TrayControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Ellipse Fill="#3C000000"/>
+                                    <TextBlock Text="{Binding ItemContent}" Foreground="White" HorizontalAlignment="Center"/>
+                                </Grid>
+                            </DataTemplate>
+                        </themes:TrayControl.ItemTemplate>
+                    </themes:TrayControl>
+                </Border>
+                <Border BorderBrush="Black" BorderThickness="1" Width="438" Height="120" Grid.Column="4">
+                    <Border.Background>
+                        <ImageBrush ImageSource="{Binding TrayCInfos.TrayBckPath, Source={x:Static global:GlobalInfo.Instance}}" Stretch="None" TileMode="Tile" AlignmentX="Center" AlignmentY="Center" />
+                    </Border.Background>
+                    <themes:TrayControl Style="{StaticResource TrayControlSty}" Height="118" Width="436" ItemsSource="{Binding TrayCInfos.TrayItemList, Source={x:Static global:GlobalInfo.Instance}}" 
+                                               XCount="{Binding TrayCInfos.XCount, Source={x:Static global:GlobalInfo.Instance}}"  YCount="{Binding TrayCInfos.YCount, Source={x:Static global:GlobalInfo.Instance}}"
+                                                ItemsSize="{Binding TrayCInfos.ItemSize, Source={x:Static global:GlobalInfo.Instance}}">
+                        <themes:TrayControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Ellipse Fill="#3C000000"/>
+                                    <TextBlock Text="{Binding ItemContent}" Foreground="White" HorizontalAlignment="Center"/>
+                                </Grid>
+                            </DataTemplate>
+                        </themes:TrayControl.ItemTemplate>
+                    </themes:TrayControl>
+                </Border>
+            </Grid>
+            <Grid Grid.Row="6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="4"/>
+                    <ColumnDefinition Width="504"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource TextBlockSty}"  Text="Tray D"   FontSize="14"  FontFamily="SegoeUI" FontWeight="SemiBold"   VerticalAlignment="Top" Margin="0 5"/>
+                <Border BorderBrush="Black" BorderThickness="1" Width="504" Height="120" Grid.Column="2">
+                    <Border.Background>
+                        <ImageBrush ImageSource="{Binding TrayDInfos.TrayBckPath, Source={x:Static global:GlobalInfo.Instance}}" Stretch="None" TileMode="Tile" AlignmentX="Center" AlignmentY="Center"/>
+                    </Border.Background>
+                    <themes:TrayControl Style="{StaticResource TrayControlSty}" Height="118" Width="502" ItemsSource="{Binding TrayDInfos.TrayItemList, Source={x:Static global:GlobalInfo.Instance}}" 
+                                                XCount="{Binding TrayDInfos.XCount, Source={x:Static global:GlobalInfo.Instance}}"  YCount="{Binding TrayDInfos.YCount, Source={x:Static global:GlobalInfo.Instance}}"
+                                                ItemsSize="{Binding TrayDInfos.ItemSize, Source={x:Static global:GlobalInfo.Instance}}">
+                        <themes:TrayControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Ellipse Fill="#3C000000"/>
+                                    <TextBlock Text="{Binding ItemContent}" Foreground="White" HorizontalAlignment="Center"/>
+                                </Grid>
+                            </DataTemplate>
+                        </themes:TrayControl.ItemTemplate>
+                    </themes:TrayControl>
+                </Border>
+            </Grid>
+            <Grid Grid.Row="8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="4"/>
+                    <ColumnDefinition Width="504"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource TextBlockSty}"  Text="Tray E"  FontSize="14"  FontFamily="SegoeUI" FontWeight="SemiBold"   VerticalAlignment="Top" Margin="0 5"/>
+                <Border BorderBrush="Black" BorderThickness="1" Width="504" Height="120" Grid.Column="2">
+                    <Border.Background>
+                        <ImageBrush ImageSource="{Binding TrayEInfos.TrayBckPath, Source={x:Static global:GlobalInfo.Instance}}" Stretch="None" TileMode="Tile" AlignmentX="Center" AlignmentY="Center"/>
+                    </Border.Background>
+                    <themes:TrayControl Style="{StaticResource TrayControlSty}" Height="118" Width="502" ItemsSource="{Binding TrayEInfos.TrayItemList, Source={x:Static global:GlobalInfo.Instance}}" 
+                                              XCount="{Binding TrayEInfos.XCount, Source={x:Static global:GlobalInfo.Instance}}"  YCount="{Binding TrayEInfos.YCount, Source={x:Static global:GlobalInfo.Instance}}"
+                                                ItemsSize="{Binding TrayEInfos.ItemSize, Source={x:Static global:GlobalInfo.Instance}}">
+                        <themes:TrayControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Ellipse Fill="#3C000000"/>
+                                    <TextBlock Text="{Binding ItemContent}" Foreground="White" HorizontalAlignment="Center"/>
+                                </Grid>
+                            </DataTemplate>
+                        </themes:TrayControl.ItemTemplate>
+                    </themes:TrayControl>
+                </Border>
+            </Grid>
+        </Grid>
+        <Grid Grid.Column="3" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48"/>
+                <RowDefinition Height="8"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="24"/>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="48"/>
+                <RowDefinition Height="48"/>
+                <RowDefinition Height="8"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="24"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="位置校准" Style="{StaticResource UCtlTitleTextBlockSty}" FontSize="16"/>
+            <Grid Grid.Row="2" Grid.ColumnSpan="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="296"/>
+                    <ColumnDefinition Width="48"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="24"/>
+                    <RowDefinition Height="12"/>
+                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="4"/>
+                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="4"/>
+                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="4"/>
+                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="4"/>
+                    <RowDefinition Height="32"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="机械臂"  Style="{StaticResource TextBlockSty}"/>
+                <StackPanel Grid.Row="2" Orientation="Horizontal">
+                    <RadioButton Style="{StaticResource RadioButtonTextSty}" Content="Rear left" Width="96"/>
+                    <Button Style="{StaticResource ButtonIconPrimarySty}" Width="56" Margin="24 0 0 0">
+                        <Button.Content>
+                            <Image Source="/Totalab_L;component/Images/up@2x.png" Style="{StaticResource Image48Sty}"/>
+                        </Button.Content>
+                    </Button>
+                    <RadioButton Style="{StaticResource RadioButtonTextSty}" Content="Front left" Width="96" Margin="24 0 0 0"/>
+                </StackPanel>
+                <Button Style="{StaticResource ButtonIconPrimarySty}" Width="56" Grid.Row="4">
+                    <Button.Content>
+                        <Image Source="/Totalab_L;component/Images/up-S@2x.png" Style="{StaticResource Image48Sty}"/>
+                    </Button.Content>
+                </Button>
+                <StackPanel Grid.Row="6" Orientation="Horizontal">
+                    <Button Style="{StaticResource ButtonIconPrimarySty}" Width="56">
+                        <Button.Content>
+                            <Image Source="/Totalab_L;component/Images/left@2x.png" Style="{StaticResource Image48Sty}"/>
+                        </Button.Content>
+                    </Button>
+                    <Button Style="{StaticResource ButtonIconPrimarySty}" Width="56" Margin="4 0 0 0">
+                        <Button.Content>
+                            <Image Source="/Totalab_L;component/Images/left-S@2x.png" Style="{StaticResource Image48Sty}"/>
+                        </Button.Content>
+                    </Button>
+                    <Button Style="{StaticResource ButtonPrimarySty}" Width="56" Margin="4 0 0 0" Content="采集"/>
+                    <Button Style="{StaticResource ButtonIconPrimarySty}" Width="56" Margin="4 0 0 0">
+                        <Button.Content>
+                            <Image Source="/Totalab_L;component/Images/right_s@2x.png" Style="{StaticResource Image48Sty}"/>
+                        </Button.Content>
+                    </Button>
+                    <Button Style="{StaticResource ButtonIconPrimarySty}" Width="56" Margin="4 0 0 0">
+                        <Button.Content>
+                            <Image Source="/Totalab_L;component/Images/right@2x.png" Style="{StaticResource Image48Sty}"/>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+                <Button Style="{StaticResource ButtonIconPrimarySty}" Width="56" Grid.Row="8">
+                    <Button.Content>
+                        <Image Source="/Totalab_L;component/Images/down_s@2x.png" Style="{StaticResource Image48Sty}"/>
+                    </Button.Content>
+                </Button>
+                <StackPanel Grid.Row="10" Orientation="Horizontal">
+                    <RadioButton Style="{StaticResource RadioButtonTextSty}" Content="Rear right" Width="96"></RadioButton>
+                    <Button Style="{StaticResource ButtonIconPrimarySty}" Width="56" Margin="24 0 0 0">
+                        <Button.Content>
+                            <Image Source="/Totalab_L;component/Images/down@2x.png" Style="{StaticResource Image48Sty}"/>
+                        </Button.Content>
+                    </Button>
+                    <RadioButton Style="{StaticResource RadioButtonTextSty}" Content="Front right" Width="96" Margin="24 0 0 0"/>
+                </StackPanel>
+                <TextBlock Text="进样针"  Style="{StaticResource TextBlockSty}" Grid.Column="2"/>
+                <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal">
+                    <TextBlock  Text="下降高度" Style="{StaticResource TextBlockSty}" />
+                    <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Margin="10 0 0 0"/>
+                </StackPanel>
+                <Button Style="{StaticResource ButtonPrimarySty}"  Width="74" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Right">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Viewbox Style="{StaticResource Viewbox24Sty}">
+                                <Image Source="/Totalab_L;component/Images/zup@2x.png" Style="{StaticResource Image48Sty}"/>
+                            </Viewbox>
+                            <TextBlock Text="Up1mm" Style="{StaticResource TextBlockSty}"  FontSize="10"  VerticalAlignment="Bottom"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Grid.Row="6" Grid.Column="2" HorizontalAlignment="Right">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Viewbox Style="{StaticResource Viewbox24Sty}">
+                                <Image Source="/Totalab_L;component/Images/zup@2x.png" Style="{StaticResource Image48Sty}"/>
+                            </Viewbox>
+                            <TextBlock Text="Up10mm" Style="{StaticResource TextBlockSty}"  FontSize="10"  VerticalAlignment="Bottom"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Grid.Row="8" Grid.Column="2" HorizontalAlignment="Right">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Viewbox Style="{StaticResource Viewbox24Sty}">
+                                <Image Source="/Totalab_L;component/Images/zup@2x.png" Style="{StaticResource Image48Sty}"/>
+                            </Viewbox>
+                            <TextBlock Text="Dn1mm" Style="{StaticResource TextBlockSty}"  FontSize="10"  VerticalAlignment="Bottom"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Grid.Row="10" Grid.Column="2" HorizontalAlignment="Right">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Viewbox Style="{StaticResource Viewbox24Sty}">
+                                <Image Source="/Totalab_L;component/Images/zup@2x.png" Style="{StaticResource Image48Sty}"/>
+                            </Viewbox>
+                            <TextBlock Text="Dn10mm" Style="{StaticResource TextBlockSty}"  FontSize="10"  VerticalAlignment="Bottom"/>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+            </Grid>
+            <StackPanel Grid.Row="4">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Style="{StaticResource  ButtonPrimarySty}"  Width="76"  Content="取消"/>
+                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Margin="10 0 0 0" Content="保存"/>
+                </StackPanel>
+            </StackPanel>
+            <TextBlock Text="速度设置" Style="{StaticResource UCtlTitleTextBlockSty}" Grid.Row="6" FontSize="16"/>
+            <Grid Grid.Row="8" Grid.ColumnSpan="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="296"/>
+                    <ColumnDefinition Width="48"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="24"/>
+                    <RowDefinition Height="12"/>
+                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="4"/>
+                    <RowDefinition Height="32"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="机械臂"  Style="{StaticResource TextBlockSty}"/>
+                <StackPanel Grid.Row="2" Orientation="Horizontal">
+                    <TextBlock Text="平移速度" Width="92" Style="{StaticResource TextBlockSty}"/>
+                    <ltCtl:CustomNumericBox Style="{StaticResource CustomNumericBoxSty}" Width="74"/>
+                    <TextBlock Text="mm/s" Width="92" Style="{StaticResource TextBlockSty}" Margin="6 0 0 0"/>
+                </StackPanel>
+                <StackPanel Grid.Row="4" Orientation="Horizontal">
+                    <TextBlock Text="转动速度" Width="92" Style="{StaticResource TextBlockSty}"/>
+                    <ltCtl:CustomNumericBox Style="{StaticResource CustomNumericBoxSty}" Width="74"/>
+                    <TextBlock Text="rds/min" Width="92" Style="{StaticResource TextBlockSty}" Margin="6 0 0 0"/>
+                </StackPanel>
+                <TextBlock Text="进样针"  Style="{StaticResource TextBlockSty}" Grid.Column="2"/>
+                <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal">
+                    <TextBlock  Text="下降速度" Style="{StaticResource TextBlockSty}" />
+                    <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Margin="10 0 0 0"/>
+                </StackPanel>
+            </Grid>
+            <StackPanel Grid.Row="10">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Style="{StaticResource  ButtonPrimarySty}"  Width="76"  Content="取消"/>
+                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Margin="10 0 0 0" Content="保存"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <TextBlock Text="mm"  Style="{StaticResource TextBlockSty}" Grid.Column="5" Grid.Row="2"  Margin="0 92 0 0"  VerticalAlignment="Top" Height="32"/>
+        <TextBlock Text="mm/s"  Style="{StaticResource TextBlockSty}" Grid.Column="5"  Grid.Row="2" Margin="0 0 0 180" VerticalAlignment="Bottom" Height="32"/>
+    </Grid>
+</ltCtl:CustomWindow>

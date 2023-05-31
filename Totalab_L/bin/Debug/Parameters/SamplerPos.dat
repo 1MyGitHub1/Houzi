@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SamperPosInfo>
+  <IsNotifying>true</IsNotifying>
+  <HomeX>900</HomeX>
+  <HomeZ>0</HomeZ>
+  <Wash1X>13000</Wash1X>
+  <Wash2X>15000</Wash2X>
+  <Wash3X>17000</Wash3X>
+  <Wash1Z>0</Wash1Z>
+  <Wash2Z>0</Wash2Z>
+  <Wash3Z>0</Wash3Z>
+  <Samp1e1X>4400</Samp1e1X>
+  <Samp1e1Y>27</Samp1e1Y>
+  <Samp1e2X>5100</Samp1e2X>
+  <Samp1e2Y>25</Samp1e2Y>
+  <Samp1e3X>5800</Samp1e3X>
+  <Samp1e3Y>25</Samp1e3Y>
+  <Samp1e4X>6700</Samp1e4X>
+  <Samp1e4Y>27</Samp1e4Y>
+  <Samp1e5X>0</Samp1e5X>
+  <Samp1e5Y>0</Samp1e5Y>
+  <Samp1e6X>0</Samp1e6X>
+  <Samp1e6Y>0</Samp1e6Y>
+  <Samp1e7X>0</Samp1e7X>
+  <Samp1e7Y>0</Samp1e7Y>
+  <Samp1e8X>0</Samp1e8X>
+  <Samp1e8Y>0</Samp1e8Y>
+</SamperPosInfo>

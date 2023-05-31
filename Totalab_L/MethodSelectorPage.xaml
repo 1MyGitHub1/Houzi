@@ -1,0 +1,109 @@
+﻿<ltCtl:CustomWindow 
+    x:Class="Totalab_L.MethodSelectorPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sfdatagrid ="http://schemas.syncfusion.com/wpf"
+    xmlns:ctl="clr-namespace:Mass.Common;assembly=Mass.Common"
+    xmlns:ltCtl="clr-namespace:LabTech.UITheme;assembly=LabTech.UITheme"    
+    WindowStartupLocation="CenterOwner" 
+    Style="{DynamicResource CustomWindowTitleBarCloseSty}"
+    Title="{DynamicResource AutoSampler_Method_OpenMethodTitle}"
+    Height="908" Width="1072">
+
+    <ltCtl:CustomWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/CircleAutoSampler;component/Themes/Generic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ltCtl:CustomWindow.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="48"/>
+            <ColumnDefinition />
+            <ColumnDefinition Width="48"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="12"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="18"/>
+            <RowDefinition/>
+            <RowDefinition Height="4"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="48"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="24"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{DynamicResource MethodSelector_OpenFrom}" Style="{StaticResource TextBlockFore60Sty}"/>
+            <TextBox Grid.Column="1" Text="{Binding MethodFolderPath}" Style="{StaticResource TextBoxSty}" 
+                     IsReadOnly="True" Panel.ZIndex="1"/>
+            <Button x:Name="Btn_OpenMethodFolder" Grid.Column="1" Click="Btn_OpenMethodFolder_Click"
+                    Style="{StaticResource ButtonImage24Sty}" Panel.ZIndex="100000" HorizontalAlignment="Right" Margin="4" >
+                <Button.Content>
+                    <Image Source="/LabTech.UITheme;component/Images/open_folder.png" Style="{StaticResource Image48Sty}"/>
+                </Button.Content>
+            </Button>
+        </Grid>
+        <sfdatagrid:SfDataGrid Grid.Row="3" Grid.Column="1" ItemsSource="{Binding MethodSelectorList}"
+                               SelectedIndex="{Binding SelectionMethodIndex}"       
+                               Style="{StaticResource SfDataGridSty}" SelectionUnit="Row" FrozenColumnCount="2"
+                               MouseDoubleClick="MethodSeclectCommand">
+            <sfdatagrid:SfDataGrid.RowStyle>
+                <Style TargetType="{x:Type sfdatagrid:VirtualizingCellsControl}" BasedOn="{StaticResource SfDataGridSelectionRowSty}">
+                    <Setter Property="RowSelectionBrush" Value="{DynamicResource ThemeBrush40}"/>
+                </Style>
+            </sfdatagrid:SfDataGrid.RowStyle>
+            <sfdatagrid:SfDataGrid.AlternatingRowStyle>
+                <Style TargetType="{x:Type sfdatagrid:VirtualizingCellsControl}" BasedOn="{StaticResource SfDataGridAlternatingRowSty}">
+                    <Setter Property="RowSelectionBrush" Value="{DynamicResource ThemeBrush40}"/>
+                </Style>
+            </sfdatagrid:SfDataGrid.AlternatingRowStyle>
+            <sfdatagrid:SfDataGrid.Columns>
+                <sfdatagrid:GridTemplateColumn MinimumWidth="160" HeaderStyle="{StaticResource SfDataGridHeaderCellBor0Sty}">
+                    <sfdatagrid:GridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{DynamicResource AutoSampler_Method_Name}" Style="{StaticResource DGHeaderTextBlockSty}"/>
+                        </DataTemplate>
+                    </sfdatagrid:GridTemplateColumn.HeaderTemplate>
+                    <sfdatagrid:GridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding MethodName}" ToolTip="{Binding MethodFilePath}" Style="{StaticResource DGCellTextBlockSty}"/>
+                        </DataTemplate>
+                    </sfdatagrid:GridTemplateColumn.CellTemplate>
+                </sfdatagrid:GridTemplateColumn>
+                <sfdatagrid:GridTemplateColumn Width="150">
+                    <sfdatagrid:GridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <ToggleButton x:Name="ToggBtn_SortDirection" IsChecked="{Binding DataContext.SortDirection,ConverterParameter=Ascending,Converter={StaticResource CompareToTrueConverter},RelativeSource={RelativeSource AncestorType={x:Type sfdatagrid:SfDataGrid}}}"
+                                          Style="{StaticResource ToggleButtonSortSty}" Click="ToggBtn_SortDirection_Click">
+                                <ToggleButton.Content>
+                                    <TextBlock Text="{DynamicResource DataGrid_Header_Time}" Style="{StaticResource DGHeaderTextBlockSty}"/>
+                                </ToggleButton.Content>
+                            </ToggleButton>
+                        </DataTemplate>
+                    </sfdatagrid:GridTemplateColumn.HeaderTemplate>
+                    <sfdatagrid:GridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding MethodDate,Mode=OneWay,StringFormat='MM/dd/yyyy HH:mm:ss'}" 
+                                       Style="{StaticResource DGCellTextBlockSty}"/>
+                        </DataTemplate>
+                    </sfdatagrid:GridTemplateColumn.CellTemplate>
+                </sfdatagrid:GridTemplateColumn>
+            </sfdatagrid:SfDataGrid.Columns>
+        </sfdatagrid:SfDataGrid>
+        <WrapPanel Grid.Row="7" Grid.Column="1" HorizontalAlignment="Center">
+            <Button x:Name="Btn_Done" Content="{DynamicResource ButtonContent_Done}" Click="Btn_Done_Click"
+                    Style="{StaticResource ButtonAccentSty}"/>
+            <Button x:Name="Btn_Cancel" Content="{DynamicResource ButtonContent_Cancel}" Click="Btn_Cancel_Click"
+                    Style="{StaticResource ButtonPrimaryMarginLeft4Sty}" />
+        </WrapPanel>
+    </Grid>
+</ltCtl:CustomWindow>

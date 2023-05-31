@@ -1,0 +1,40 @@
+﻿<ltCtl:CustomWindow 
+    x:Class="Totalab_L.RegisterSNPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ltCtl="clr-namespace:LabTech.UITheme;assembly=LabTech.UITheme"
+    Title="{DynamicResource LabMonster_RegisterTitle}" 
+    Style="{DynamicResource CustomWindowTitleBarCloseSty}"
+    WindowStartupLocation="CenterOwner" 
+    KeyUp="CustomWindow_KeyUp"
+    ShowInTaskbar="True" Height="242" Width="584">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="48"/>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="12"/>
+            <ColumnDefinition Width="74"/>
+            <ColumnDefinition Width="41.452"/>
+            <ColumnDefinition Width="6.548"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="52"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="{DynamicResource Common_Content_LicenseFile}" Style="{StaticResource TextBlockFore60Sty}"/>
+        <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding LicenceFilePath,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                 ToolTip="{Binding LicenceFilePath}" Style="{StaticResource TextBoxSty}" IsReadOnly="True"/>
+        <Button Grid.Row="1" Grid.Column="4" x:Name="Btn_BrowseFiles" Content="{DynamicResource ButtonContent_Browse}" 
+                Click="Btn_BrowseFiles_Click" Style="{StaticResource ButtonPrimaryWidStretchSty}"/>
+        <TextBlock Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" Text="{Binding VerifyMessage,Mode=OneWay}" Style="{StaticResource TextBlockWrongSty}"/>
+        <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" x:Name="Btn_Register" Content="{DynamicResource ButtonContent_Register}"
+                Click="Btn_Register_Click" Style="{StaticResource ButtonAccentSty}"/>
+    </Grid>
+</ltCtl:CustomWindow>

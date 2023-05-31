@@ -1,0 +1,125 @@
+﻿<ltCtl:CustomWindow
+    x:Class="Totalab_L.AddSamplePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ltCtl="clr-namespace:LabTech.UITheme;assembly=LabTech.UITheme"
+    WindowStartupLocation="CenterOwner" 
+    Style="{DynamicResource CustomWindowTitleBarCloseSty}"
+    Title="{DynamicResource AutoSampler_AddSam_Title}" Height="650" Width="520">
+
+    <ltCtl:CustomWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/CircleAutoSampler;component/Themes/Generic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ltCtl:CustomWindow.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="48"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="48"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24"/>
+            <RowDefinition/>
+            <RowDefinition Height="48"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="24"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48"/>
+                
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="24"/>
+                <RowDefinition Height="48"/>
+                
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="24"/>
+                <RowDefinition Height="48"/>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="32"/>
+                
+                <RowDefinition Height="24"/>
+                <RowDefinition Height="48"/>
+                <RowDefinition Height="32"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="{DynamicResource AutoSampler_AddSam_SelectSamType}" Style="{StaticResource UCtlChildTitleTextBlockSty}"/>
+            <RadioButton Grid.Row="1" x:Name="radioButton" Content="{DynamicResource AutoSampler_AddSam_NewSample}" GroupName="Ways" 
+                         IsChecked="{Binding IsAddNewSample,UpdateSourceTrigger=PropertyChanged}"
+                         Style="{StaticResource RadioButtonTextSty}"/>
+            <RadioButton Grid.Row="2" x:Name="radioButton1" GroupName="Ways" 
+                         IsChecked="{Binding IsAddNewSample,Converter={StaticResource CompareToFalseConverter},ConverterParameter=True}"
+                         Style="{StaticResource RadioButtonTextSty}">
+                <RadioButton.Content>
+                    <WrapPanel>
+                        <TextBlock Text="{DynamicResource AutoSampler_AddSam_CopySample}"/>
+                        <ComboBox IsEnabled="{Binding IsChecked, ElementName=radioButton1,UpdateSourceTrigger=PropertyChanged}" 
+                                  ItemsSource="{Binding SampleNameList}" SelectedValue="{Binding SampleName}"
+                                  Style="{StaticResource ComboBoxSty}" Width="120" Margin="10 0 0 0"/>
+                    </WrapPanel>
+                </RadioButton.Content>
+            </RadioButton>
+            <RadioButton Grid.Row="3" x:Name="radioButton2" Content="{DynamicResource AutoSampler_AddSam_ImportSamFile}" GroupName="Ways" IsEnabled="False"
+                         Style="{StaticResource RadioButtonTextSty}"/>
+
+            <TextBlock Grid.Row="5" x:Name="textBlock" Text="{DynamicResource AutoSampler_AddSam_SelectAddSamNum}" Style="{StaticResource UCtlChildTitleTextBlockSty}"/>
+            <ltCtl:CustomNumericBox Grid.Row="6"  Text="{Binding AddNumber}" Style="{StaticResource CustomNumericBoxSty}" 
+                                    Width="280" HorizontalAlignment="Left"/>
+
+            <TextBlock Grid.Row="8" x:Name="textBlock2" Text="{DynamicResource AutoSampler_AddSam_SelectSamList}" Style="{StaticResource UCtlChildTitleTextBlockSty}"/>
+            <RadioButton Grid.Row="9" x:Name="radioButton3" Content="{DynamicResource AutoSampler_AddSam_AppendSamListEnd}" GroupName="Position"
+                         IsChecked="{Binding IsAddLast,UpdateSourceTrigger=PropertyChanged}"
+                         Style="{StaticResource RadioButtonTextSty}"/>
+            <RadioButton Grid.Row="10" x:Name="radioButton4" GroupName="Position" 
+                         IsChecked="{Binding IsAddLast,Converter={StaticResource CompareToFalseConverter },ConverterParameter=True}"
+                         Style="{StaticResource RadioButtonTextSty}">
+                <RadioButton.Content>
+                    <WrapPanel>
+                        <TextBlock Text="{DynamicResource AutoSampler_AddSam_InsertBeforeSam}"/>
+                        <ComboBox IsEnabled="{Binding IsChecked,ElementName=radioButton4,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                  ItemsSource="{Binding SampleNamePosList}" SelectedValue="{Binding SamplePosName}"
+                                  Style="{StaticResource ComboBoxSty}" Width="120" Margin="10 0 0 0"/>
+                    </WrapPanel>
+                </RadioButton.Content>
+            </RadioButton>
+
+            <TextBlock Grid.Row="12" Text="{DynamicResource AutoSampler_Run_AnalysisType}" Style="{StaticResource UCtlChildTitleTextBlockSty}"/>
+            <ComboBox Grid.Row="13" ItemsSource="{Binding AnanlysisTypeList}"
+                      SelectedValuePath="Value" SelectedValue ="{Binding Add_AnanlysisType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                      Style="{StaticResource ComboBoxSty}" Width="280" HorizontalAlignment="Left">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource TextBlockSty}">
+                                    <Setter Property="Text" Value="{Binding DisplayName}"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Value}" Value="Quantitative">
+                                            <Setter Property="Text" Value="{DynamicResource AutoSampler_AnaType_Quantitative}"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Value}" Value="SemiQuantative">
+                                            <Setter Property="Text" Value="{DynamicResource AutoSampler_AnaType_SemiQuantative}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </Grid>
+        <WrapPanel Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center">
+            <Button x:Name="Btn_Done" Content="{DynamicResource ButtonContent_Done}" Click="Btn_Done_Click" 
+                    Style="{StaticResource ButtonAccentSty}"/>
+            <Button x:Name="Btn_Cancel" Content="{DynamicResource ButtonContent_Cancel}" Click="Btn_Cancel_Click"
+                    Style="{StaticResource ButtonPrimaryMarginLeft4Sty}"/>
+        </WrapPanel>
+    </Grid>
+</ltCtl:CustomWindow>

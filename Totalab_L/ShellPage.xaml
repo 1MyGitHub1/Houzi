@@ -1,0 +1,707 @@
+﻿<Page 
+    x:Class="Totalab_L.ShellPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uiCtl="clr-namespace:Mass.UITheme;assembly=Mass.UITheme"
+    xmlns:ltCtl="clr-namespace:LabTech.UITheme;assembly=LabTech.UITheme"
+    xmlns:helper="clr-namespace:Mass.Common;assembly=Mass.Common"
+    xmlns:System="clr-namespace:System;assembly=mscorlib" 
+    xmlns:global ="clr-namespace:Totalab_L"
+    xmlns:themes="clr-namespace:Totalab_L.Themes"
+    Loaded="Page_Loaded"
+    mc:Ignorable="d" d:DesignHeight="1200" d:DesignWidth="1600">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Totalab_L;component/Themes/Generic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    <!--IsEnabled="{Binding IsSNRegistered,UpdateSourceTrigger=PropertyChanged}"-->
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="487*"/>
+            <ColumnDefinition Width="313*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="48"/>
+                <RowDefinition Height="48"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Border Grid.RowSpan="2" Background="{StaticResource HorizontalNavBackBrush}"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="12"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{DynamicResource MainMenu_AutoSampler}" Style="{StaticResource UCtlTitleTextBlockSty}" Margin="{StaticResource SecondMenuTitleMargin64}"/>
+                    <CheckBox  IsChecked="{Binding IsUseAutoSampler}" 
+                          Visibility="{Binding IsHimassConnState, Converter={StaticResource BoolToVisibilityConverter},ConverterParameter=True,Source={x:Static global:GlobalInfo.Instance}}"
+                          Content="{DynamicResource AutoSampler_Main_UseAutoSampler}" Margin="24 0 0 0"
+                          Click= "UseAutoSamplerCommand">
+                        <!--<CheckBox.IsEnabled>
+                            <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                                <MultiBinding.ConverterParameter>
+                                    <x:Array Type="{x:Type System:Boolean}">
+                                        <System:Boolean>True</System:Boolean>
+                                        <System:Boolean>True</System:Boolean>
+                                        <System:Boolean>True</System:Boolean>
+                                    </x:Array>
+                                </MultiBinding.ConverterParameter>
+                                <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
+                                <Binding Path="IsConnect" Mode="OneWay"/>
+                                <Binding Path="IsAutoSamplerEnable" Mode="OneWay"/>
+                            </MultiBinding>
+                        </CheckBox.IsEnabled>-->
+                        <CheckBox.Style>
+                            <Style TargetType="CheckBox" BasedOn="{StaticResource CheckBoxTextSty}">
+                                <Setter Property="IsEnabled" Value="False"/>
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"  Value="true"/>
+                                            <Condition Binding="{Binding IsConnect}" Value="true"/>
+                                            <Condition Binding="{Binding IsSNRegistered}" Value="true"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <MultiDataTrigger.Setters>
+                                            <Setter Property="IsEnabled" Value="True"/>
+                                        </MultiDataTrigger.Setters>
+                                    </MultiDataTrigger>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Value="true"/>
+                                            <Condition Binding="{Binding IsConnect}" Value="false"/>
+                                            <Condition Binding="{Binding IsUseAutoSampler}" Value="true"/>
+                                            <Condition Binding="{Binding IsSNRegistered}" Value="true"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <MultiDataTrigger.Setters>
+                                            <Setter Property="IsEnabled" Value="True"/>
+                                        </MultiDataTrigger.Setters>
+                                    </MultiDataTrigger>
+                                    <!--<DataTrigger Binding="{Binding IsUseAutoSampler}" Value="True">
+                                        <Setter Property="IsEnabled" Value="True"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsUseAutoSampler}" Value="False">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>-->
+                                </Style.Triggers>
+                            </Style>
+                        </CheckBox.Style>
+                    </CheckBox>
+                    <!--IsEnabled="{Binding IsUseAutoSampler}"-->
+                    <!--ToolTip="{DynamicResource ButtonContent_Repeat}"-->
+                    <Button Style="{StaticResource ButtonImage24Sty}" Click="ConnectionCommand"  Margin="12 0">
+                        <Button.Content>
+                            <Grid>
+                                <Viewbox Visibility="{Binding IsConnect,Converter={StaticResource CompareToVisibilityConverter},ConverterParameter=False}">
+                                    <Image Source="/LabTech.UITheme;component/Images/device_status/disconnected.png" Width="48" Height="48" Stretch="None"/>
+                                </Viewbox>
+                                <Viewbox Visibility="{Binding IsConnect,Converter={StaticResource CompareToVisibilityConverter},ConverterParameter=True}">
+                                    <Image Source="/LabTech.UITheme;component/Images/device_status/connected.png" Width="48" Height="48" Stretch="None"/>
+                                </Viewbox>
+                            </Grid>
+                        </Button.Content>
+                        <Button.IsEnabled>
+                            <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                                <MultiBinding.ConverterParameter>
+                                    <x:Array Type="{x:Type System:Boolean}">
+                                        <System:Boolean>True</System:Boolean>
+                                        <!--<System:Boolean>True</System:Boolean>-->
+                                    </x:Array>
+                                </MultiBinding.ConverterParameter>
+                                <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
+                                <!--<Binding Path="IsUseAutoSampler" Mode="OneWay"/>-->
+                            </MultiBinding>
+                        </Button.IsEnabled>
+                    </Button>
+                    <TextBlock Text="脱机中" Visibility="{Binding IsSoftwareOffline,ConverterParameter=True,Converter={StaticResource BoolToVisibilityConverter}}"
+                               Style="{StaticResource TextBlockFore60Sty}"/>
+                </StackPanel>
+                <TextBlock Grid.Column="1" x:Name="NameText" 
+                       Text="{Binding CurrentMethod.MethodName,Source={x:Static global:GlobalInfo.Instance},UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                       Style="{StaticResource TextBlockFore60RightSty}" LineHeight="{StaticResource TextLineFontSizeSmallHeight}"
+                       Margin="{StaticResource TextBlockFontSizeSmallMargin}" FontSize="{StaticResource FontSizeSmall}"/>
+                <StackPanel Grid.Column="3" Orientation="Horizontal">
+                    <Button Style="{StaticResource ButtonCmdHeight48MinWidth100LeftSty}" 
+                        Click="CreateMethodCommand">
+                        <Button.IsEnabled>
+                            <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                                <MultiBinding.ConverterParameter>
+                                    <x:Array Type="{x:Type System:Boolean}">
+                                        <System:Boolean>True</System:Boolean>
+                                        <System:Boolean>True</System:Boolean>
+                                        <System:Boolean>True</System:Boolean>
+                                        <System:Boolean>True</System:Boolean>
+                                    </x:Array>
+                                </MultiBinding.ConverterParameter>
+                                <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
+                                <Binding Path="IsConnect" Mode="OneWay"/>
+                                <Binding Path="IsUseAutoSampler" Mode="OneWay"/>
+                                <Binding Path="IsSNRegistered" Mode="OneWay"/>
+                            </MultiBinding>
+                        </Button.IsEnabled>
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <Viewbox Style="{StaticResource Viewbox24Sty}">
+                                    <Image Source="/LabTech.UITheme;component/Images/create.png" Style="{StaticResource Image48Sty}"/>
+                                </Viewbox>
+                                <TextBlock Text="{DynamicResource ButtonContent_Create}" Style="{StaticResource TextBlockBtnCmdSty}"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <Button  Style="{StaticResource ButtonCmdHeight48MinWidth100LeftSty}" 
+                         Click="OpenMethodCommand">
+                        <Button.IsEnabled>
+                            <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                                <MultiBinding.ConverterParameter>
+                                    <x:Array Type="{x:Type System:Boolean}">
+                                        <System:Boolean>True</System:Boolean>
+                                        <System:Boolean>True</System:Boolean>
+                                        <System:Boolean>False</System:Boolean>
+                                        <System:Boolean>True</System:Boolean>
+                                    </x:Array>
+                                </MultiBinding.ConverterParameter>
+                                <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
+                                <Binding Path="IsConnect" Mode="OneWay"/>
+                                <Binding Path="IsHimassConnState" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
+                                <Binding Path="IsSNRegistered" Mode="OneWay"/>
+                            </MultiBinding>
+                        </Button.IsEnabled>
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <Viewbox Style="{StaticResource Viewbox24Sty}">
+                                    <Image Source="/LabTech.UITheme;component/Images/open_file.png" Style="{StaticResource Image48Sty}"/>
+                                </Viewbox>
+                                <TextBlock Text="{DynamicResource ButtonContent_Open}" Style="{StaticResource TextBlockBtnCmdSty}"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <Button Style="{StaticResource ButtonCmdHeight48MinWidth100LeftSty}"
+                        Click="SaveMethodCommand">
+                        <Button.IsEnabled>
+                            <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                                <MultiBinding.ConverterParameter>
+                                    <x:Array Type="{x:Type System:Boolean}">
+                                        <System:Boolean>True</System:Boolean>
+                                        <System:Boolean>True</System:Boolean>
+                                        <System:Boolean>False</System:Boolean>
+                                        <System:Boolean>True</System:Boolean>
+                                    </x:Array>
+                                </MultiBinding.ConverterParameter>
+                                <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
+                                <Binding Path="IsConnect" Mode="OneWay"/>
+                                <Binding Path="IsHimassConnState" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
+                                <Binding Path="IsSNRegistered" Mode="OneWay"/>
+                            </MultiBinding>
+                        </Button.IsEnabled>
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <Viewbox Style="{StaticResource Viewbox24Sty}">
+                                    <Image Source="/LabTech.UITheme;component/Images/save.png" Style="{StaticResource Image48Sty}"/>
+                                </Viewbox>
+                                <TextBlock Text="{DynamicResource ButtonContent_Save}" Style="{StaticResource TextBlockBtnCmdSty}"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <ltCtl:CustomPopupBox PlacementMode="BottomAndAlignRightEdges" Style="{StaticResource CustomPopupBoxIconSty}">
+                        <ltCtl:CustomPopupBox.ToggleContent>
+                            <Image Source="/LabTech.UITheme;component/Images/more.png" Style="{StaticResource Image48Sty}"/>
+                        </ltCtl:CustomPopupBox.ToggleContent>
+                        <StackPanel MinWidth="140">
+                            <Button Content="{DynamicResource ButtonContent_SaveAs}" Style="{StaticResource ButtonPopupBoxSty}"
+                                    Click="SaveAsMethodCommand" >
+                                <Button.IsEnabled>
+                                    <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                                        <MultiBinding.ConverterParameter>
+                                            <x:Array Type="{x:Type System:Boolean}">
+                                                <System:Boolean>True</System:Boolean>
+                                                <System:Boolean>True</System:Boolean>
+                                                <System:Boolean>True</System:Boolean>
+                                                <System:Boolean>False</System:Boolean>
+                                            </x:Array>
+                                        </MultiBinding.ConverterParameter>
+                                        <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
+                                        <Binding Path="IsConnect" Mode="OneWay"/>
+                                        <Binding Path="IsSNRegistered" Mode="OneWay"/>
+                                        <Binding Path="IsHimassConnState" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
+                                    </MultiBinding>
+                                </Button.IsEnabled>
+                            </Button>
+                            <Button Content="{DynamicResource AutoSampler_Main_AdvancedSet}"  Style="{StaticResource ButtonPopupBoxSty}"
+                                Click ="AdvancedSetCommand">
+                                <Button.IsEnabled>
+                                    <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                                        <MultiBinding.ConverterParameter>
+                                            <x:Array Type="{x:Type System:Boolean}">
+                                                <System:Boolean>True</System:Boolean>
+                                                <System:Boolean>True</System:Boolean>
+                                                <System:Boolean>True</System:Boolean>
+                                            </x:Array>
+                                        </MultiBinding.ConverterParameter>
+                                        <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
+                                        <Binding Path="IsConnect" Mode="OneWay"/>
+                                        <Binding Path="IsSNRegistered" Mode="OneWay"/>
+                                    </MultiBinding>
+                                </Button.IsEnabled>
+                            </Button>
+                            <Button x:Name="Btn_About" Content="{DynamicResource ButtonContent_About}" Click="Btn_About_Click" Style="{StaticResource ButtonPopupBoxSty}"/>
+                        </StackPanel>
+                    </ltCtl:CustomPopupBox>
+                </StackPanel>
+            </Grid>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="{StaticResource SecondMenuTitleMargin}">
+                <StackPanel.IsEnabled>
+                    <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                        <MultiBinding.ConverterParameter>
+                            <x:Array Type="{x:Type System:Boolean}">
+                                <System:Boolean>True</System:Boolean>
+                                <System:Boolean>True</System:Boolean>
+                            </x:Array>
+                        </MultiBinding.ConverterParameter>
+                        <Binding Path="IsUseAutoSampler" Mode="OneWay"/>
+                        <Binding Path="IsSNRegistered" Mode="OneWay"/>
+                    </MultiBinding>
+                </StackPanel.IsEnabled>
+                <RadioButton GroupName="AutoSamplerHeadMenu" Content="{DynamicResource AutoSampler_Main_SampleList}" IsChecked="True"
+                         Style="{StaticResource RadioBtnNavHorMinWid120Sty}"  Click ="SampleListCommand"/>
+                <RadioButton GroupName="AutoSamplerHeadMenu" Content="{DynamicResource AutoSampler_Main_Settings}" 
+                         Style="{StaticResource RadioBtnNavHorMinWid120Sty}" Click = "SettingCommand"/>
+            </StackPanel>
+            <Grid Grid.Row="2" Background="{StaticResource CommonWhiteBrush}">
+                <Grid.IsEnabled>
+                    <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                        <MultiBinding.ConverterParameter>
+                            <x:Array Type="{x:Type System:Boolean}">
+                                <System:Boolean>True</System:Boolean>
+                                <System:Boolean>True</System:Boolean>
+                                <System:Boolean>True</System:Boolean>
+                            </x:Array>
+                        </MultiBinding.ConverterParameter>
+                        <Binding Path="IsUseAutoSampler" Mode="OneWay"/>
+                        <Binding Path="IsConnect" Mode="OneWay"/>
+                        <Binding Path="IsSNRegistered" Mode="OneWay"/>
+                    </MultiBinding>
+                </Grid.IsEnabled>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="64"/>
+                    <ColumnDefinition Width="582"/>
+                    <ColumnDefinition Width="52"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="12"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="12"/>
+                        <RowDefinition Height="120"/>
+                        <RowDefinition Height="8"/>
+                        <RowDefinition Height="120"/>
+                        <RowDefinition Height="8"/>
+                        <RowDefinition Height="120"/>
+                        <RowDefinition Height="8"/>
+                        <RowDefinition Height="120"/>
+                        <RowDefinition Height="8"/>
+                        <RowDefinition Height="120"/>
+                        <RowDefinition Height="12"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="48"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="8"/>
+                            <ColumnDefinition Width="176"/>
+                            <ColumnDefinition Width="24"/>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="16"/>
+                            <ColumnDefinition Width="72"/>
+                            <ColumnDefinition Width="4"/>
+                            <ColumnDefinition Width="72"/>
+                            <ColumnDefinition Width="4"/>
+                            <ColumnDefinition Width="72"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{DynamicResource AutoSampler_Main_SampleTray}" Style="{StaticResource UCtlChildTitleTextBlockSty}"/>
+                        <!--SelectedValuePath="Value" SelectedValue="{Binding RackType,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"-->
+                        <ComboBox Grid.Column="2" Height="32" Style="{StaticResource ComboBoxSty}"  SelectionChanged="RackTypeChangedCommand" ItemsSource="{Binding  TrayNameList}"
+                                  SelectedValue="{Binding SelectedTrayName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Value"/>
+                        <ltCtl:CustomNumericBox Grid.Column="4" IsUseShortInt="True" ShortIntValue="{Binding CurrentPosition,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                                Style="{StaticResource CustomNumericBoxSty}" LostFocus="CurrentPositionLostFocusCommand"  MaxValue="{Binding TrayMaxValue}" MinValue="1"/>
+                        <Button Grid.Column="6" Style="{StaticResource ButtonPrimarySty}" Content="{DynamicResource AutoSampler_Main_Sampling}" Width="72" Click="MoveToZCommand"
+                                IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"/>
+                        <Button Grid.Column="8" Style="{StaticResource ButtonPrimarySty}" Content="{DynamicResource AutoSampler_Main_PositionMove}" Width="72"
+                                IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Click ="MoveToPositionCommand"/>
+                        <Button Grid.Column="10" Style="{StaticResource ButtonPrimarySty}" Content="{DynamicResource AutoSampler_Home}" Width="60" 
+                            IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Click="MoveToHomeCommand"/>
+                    </Grid>
+                    <Grid Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="8"/>
+                            <ColumnDefinition Width="504"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <Button Content="Tray A"  Click="TrayTypeBtn_ClickCommand" Height="32" FontSize="14"  FontFamily="SegoeUI" FontWeight="SemiBold" HorizontalContentAlignment="Left" 
+                                    Style="{StaticResource ButtonTextSty}" Background="Transparent" Width="70" HorizontalAlignment="Left"/>
+                            <TextBlock Style="{StaticResource TextBlockSty}" Text="{Binding TrayAInfos.TrayType,Source={x:Static global:GlobalInfo.Instance}}"  Foreground="#3C000000"
+                                               FontSize="12"/>
+                        </StackPanel>
+                        <!--<ltCtl:CustomPopupBox PlacementMode="BottomAndAlignRightEdges" Style="{StaticResource CustomPopupBoxSty}" VerticalAlignment="Top" Width="70" HorizontalAlignment="Left">
+                            <ltCtl:CustomPopupBox.ToggleContent>
+                                <StackPanel HorizontalAlignment="Left">
+                                    <TextBlock Text="Tray A" Style="{StaticResource TextBlockSty}"  FontSize="14"  FontFamily="SegoeUI" FontWeight="SemiBold" Height="32" VerticalAlignment="Center" Margin="0,10,0,0" />
+                                    <TextBlock Style="{StaticResource TextBlockSty}" Text="{Binding TrayAInfos.TrayType,Source={x:Static global:GlobalInfo.Instance}}"  Foreground="#3C000000"
+                                               FontSize="12"/>
+                                </StackPanel>
+                            </ltCtl:CustomPopupBox.ToggleContent>
+                            <StackPanel MinWidth="70">
+                                <ItemsControl ItemsSource="{Binding  TrayTypeButtonList}"/>
+                            </StackPanel>
+                        </ltCtl:CustomPopupBox>-->
+                        <Border BorderBrush="Black" BorderThickness="1" Width="504" Height="120" Grid.Column="2">
+                            <Border.Background>
+                                <ImageBrush ImageSource="{Binding TrayAInfos.TrayBckPath, Source={x:Static global:GlobalInfo.Instance}}" Stretch="None" TileMode="Tile" AlignmentX="Center" AlignmentY="Center"/>
+                            </Border.Background>
+       
+                            <themes:TrayControl Style="{StaticResource TrayControlSty}" Height="118" Width="502" ItemsSource="{Binding TrayAInfos.TrayItemList, Source={x:Static global:GlobalInfo.Instance}}" 
+                                                XCount="{Binding TrayAInfos.XCount, Source={x:Static global:GlobalInfo.Instance}}"  YCount="{Binding TrayAInfos.YCount, Source={x:Static global:GlobalInfo.Instance}}"
+                                                ItemsSize="{Binding TrayAInfos.ItemSize, Source={x:Static global:GlobalInfo.Instance}}">
+                                <themes:TrayControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <RadioButton  GroupName="Tray"  IsChecked="{Binding IsItemSelected,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      Click="TrayAItemClickCommand">
+                                            <RadioButton.Style>
+                                                <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource CircleRadioBtnCmdSty}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ItemStatus}" Value="Free">
+                                                            <Setter Property="Background" Value="#3C000000"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ItemStatus}" Value="Ready">
+                                                            <Setter Property="Background" Value="#6C6C6C"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ItemStatus}" Value="Running">
+                                                            <Setter Property="Background" Value="#00DE00"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ItemStatus}" Value="Complete">
+                                                            <Setter Property="Background" Value="#FF8900"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ItemStatus}" Value="Error">
+                                                            <Setter Property="Background" Value="#FF2D23"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </RadioButton.Style>
+                                            <RadioButton.Content>
+                                                <TextBlock Text="{Binding ItemContent}" Foreground="White"/>
+                                            </RadioButton.Content>
+                                        </RadioButton>
+                                    </DataTemplate>
+                                </themes:TrayControl.ItemTemplate>
+                            </themes:TrayControl>
+                        </Border>
+                    </Grid>
+                    <Grid Grid.Row="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="8"/>
+                            <ColumnDefinition Width="504"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <Button Content="Tray B" Click="TrayTypeBtn_ClickCommand" Height="32" FontSize="14"  FontFamily="SegoeUI" FontWeight="SemiBold" HorizontalContentAlignment="Left" 
+                                    Style="{StaticResource ButtonTextSty}" Background="Transparent" Width="70" HorizontalAlignment="Left"/>
+                            <TextBlock Style="{StaticResource TextBlockSty}" Text="{Binding TrayBInfos.TrayType,Source={x:Static global:GlobalInfo.Instance}}"  Foreground="#3C000000"
+                                               FontSize="12"/>
+                        </StackPanel>
+                        <Border BorderBrush="Black" BorderThickness="1" Width="504" Height="120" Grid.Column="2">
+                            <Border.Background>
+                                <ImageBrush ImageSource="{Binding TrayBInfos.TrayBckPath, Source={x:Static global:GlobalInfo.Instance}}" Stretch="None" TileMode="Tile" AlignmentX="Center" AlignmentY="Center"/>
+                            </Border.Background>
+                            <themes:TrayControl Style="{StaticResource TrayControlSty}" Height="118" Width="502" ItemsSource="{Binding TrayBInfos.TrayItemList, Source={x:Static global:GlobalInfo.Instance}}"  
+                                                XCount="{Binding TrayBInfos.XCount, Source={x:Static global:GlobalInfo.Instance}}"  YCount="{Binding TrayBInfos.YCount, Source={x:Static global:GlobalInfo.Instance}}"
+                                                ItemsSize="{Binding TrayBInfos.ItemSize, Source={x:Static global:GlobalInfo.Instance}}">
+                                <themes:TrayControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <RadioButton GroupName="Tray" IsChecked="{Binding IsItemSelected,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      Click="TrayBItemClickCommand">
+                                            <RadioButton.Style>
+                                                <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource CircleRadioBtnCmdSty}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ItemStatus}" Value="Free">
+                                                            <Setter Property="Background" Value="#3C000000"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ItemStatus}" Value="Ready">
+                                                            <Setter Property="Background" Value="#6C6C6C"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ItemStatus}" Value="Running">
+                                                            <Setter Property="Background" Value="#00DE00"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ItemStatus}" Value="Complete">
+                                                            <Setter Property="Background" Value="#FF8900"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ItemStatus}" Value="Error">
+                                                            <Setter Property="Background" Value="#FF2D23"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </RadioButton.Style>
+                                            <RadioButton.Content>
+                                                <TextBlock Text="{Binding ItemContent}" Foreground="White"/>
+                                            </RadioButton.Content>
+                                        </RadioButton>
+                                    </DataTemplate>
+                                </themes:TrayControl.ItemTemplate>
+                            </themes:TrayControl>
+                        </Border>
+                    </Grid>
+                    <Grid Grid.Row="7">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="8"/>
+                            <ColumnDefinition Width="504"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <Button Content="Tray C"  Height="32" FontSize="14"  FontFamily="SegoeUI" FontWeight="SemiBold" HorizontalContentAlignment="Left" 
+                                    Style="{StaticResource ButtonTextSty}" Background="Transparent" Width="70" HorizontalAlignment="Left"
+                                    Click="StdTrayTypeBtn_ClickCommand"/>
+                            <TextBlock Style="{StaticResource TextBlockSty}" Text="STD"  Foreground="#3C000000"
+                                               FontSize="12"/>
+                        </StackPanel>
+
+                        <Border BorderBrush="Black" BorderThickness="1" Width="504" Height="120" Grid.Column="4">
+                            <Border.Background>
+                                <ImageBrush ImageSource="{Binding TrayCleanInfos.TrayBckPath, Source={x:Static global:GlobalInfo.Instance}}" Stretch="None" TileMode="Tile" AlignmentX="Center" AlignmentY="Center"/>
+                            </Border.Background>
+                            <StackPanel>
+                                <themes:TrayControl Style="{StaticResource TrayControlSty}" Height="{Binding STD1TrayHeight,Source={x:Static global:GlobalInfo.Instance}}" 
+                                                    Width="504" ItemsSource="{Binding TraySTD1Infos.TrayItemList, Source={x:Static global:GlobalInfo.Instance}}" 
+                                               XCount="{Binding TraySTD1Infos.XCount, Source={x:Static global:GlobalInfo.Instance}}"  YCount="{Binding TraySTD1Infos.YCount, Source={x:Static global:GlobalInfo.Instance}}"
+                                                ItemsSize="{Binding TraySTD1Infos.ItemSize, Source={x:Static global:GlobalInfo.Instance}}">
+                                    <themes:TrayControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <RadioButton   GroupName="Tray" IsChecked="{Binding IsItemSelected,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                       Click="TrayCItemClickCommand">
+                                                <RadioButton.Style>
+                                                    <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource CircleRadioBtnCmdSty}">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ItemStatus}" Value="Free">
+                                                                <Setter Property="Background" Value="#3C000000"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding ItemStatus}" Value="Ready">
+                                                                <Setter Property="Background" Value="#6C6C6C"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding ItemStatus}" Value="Running">
+                                                                <Setter Property="Background" Value="#00DE00"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding ItemStatus}" Value="Complete">
+                                                                <Setter Property="Background" Value="#FF8900"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding ItemStatus}" Value="Error">
+                                                                <Setter Property="Background" Value="#FF2D23"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </RadioButton.Style>
+                                                <RadioButton.Content>
+                                                    <TextBlock Text="{Binding ItemContent}" Foreground="White"/>
+                                                </RadioButton.Content>
+                                            </RadioButton>
+                                        </DataTemplate>
+                                    </themes:TrayControl.ItemTemplate>
+                                </themes:TrayControl>
+                                <StackPanel Orientation="Horizontal">
+                                    <themes:TrayControl Style="{StaticResource TrayControlSty}" Height="48" Width="100" ItemsSource="{Binding TrayCleanInfos.TrayItemList, Source={x:Static global:GlobalInfo.Instance}}" 
+                                                XCount="1"  YCount="2"  ItemsSize="{Binding TrayCleanInfos.ItemSize, Source={x:Static global:GlobalInfo.Instance}}" Margin="{Binding CleanTrayMargin, Source={x:Static global:GlobalInfo.Instance}}">
+                                        <themes:TrayControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <RadioButton  Style="{StaticResource CircleRadioBtnCmdSty}" Background="#3C000000" GroupName="Tray" >
+                                                    <RadioButton.Content>
+                                                        <TextBlock Text="{Binding ItemContent}" Foreground="White" FontSize="10"/>
+                                                    </RadioButton.Content>
+                                                </RadioButton>
+                                            </DataTemplate>
+                                        </themes:TrayControl.ItemTemplate>
+                                    </themes:TrayControl>
+                                    <themes:TrayControl Style="{StaticResource TrayControlSty}" Height="{Binding STD2TrayHeight,Source={x:Static global:GlobalInfo.Instance}}"  
+                                                        Width="{Binding STD2TrayWidth,Source={x:Static global:GlobalInfo.Instance}}" 
+                                                        ItemsSource="{Binding TraySTD2Infos.TrayItemList, Source={x:Static global:GlobalInfo.Instance}}" 
+                                               XCount="{Binding TraySTD2Infos.XCount, Source={x:Static global:GlobalInfo.Instance}}"  YCount="{Binding TraySTD2Infos.YCount, Source={x:Static global:GlobalInfo.Instance}}"
+                                                ItemsSize="{Binding TraySTD2Infos.ItemSize, Source={x:Static global:GlobalInfo.Instance}}">
+                                        <themes:TrayControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <RadioButton   GroupName="Tray" IsChecked="{Binding IsItemSelected,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                       Click="TrayCItemClickCommand">
+                                                    <RadioButton.Style>
+                                                        <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource CircleRadioBtnCmdSty}">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding ItemStatus}" Value="Free">
+                                                                    <Setter Property="Background" Value="#3C000000"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ItemStatus}" Value="Ready">
+                                                                    <Setter Property="Background" Value="#6C6C6C"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ItemStatus}" Value="Running">
+                                                                    <Setter Property="Background" Value="#00DE00"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ItemStatus}" Value="Complete">
+                                                                    <Setter Property="Background" Value="#FF8900"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ItemStatus}" Value="Error">
+                                                                    <Setter Property="Background" Value="#FF2D23"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </RadioButton.Style>
+                                                    <RadioButton.Content>
+                                                        <TextBlock Text="{Binding ItemContent}" Foreground="White"/>
+                                                    </RadioButton.Content>
+                                                </RadioButton>
+                                            </DataTemplate>
+                                        </themes:TrayControl.ItemTemplate>
+                                    </themes:TrayControl>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                    <Grid Grid.Row="9">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="8"/>
+                            <ColumnDefinition Width="504"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <Button Content="Tray D" Click="TrayTypeBtn_ClickCommand" Height="32" FontSize="14"  FontFamily="SegoeUI" FontWeight="SemiBold" HorizontalContentAlignment="Left" 
+                                    Style="{StaticResource ButtonTextSty}" Background="Transparent" Width="70" HorizontalAlignment="Left"/>
+                            <TextBlock Style="{StaticResource TextBlockSty}" Text="{Binding TrayDInfos.TrayType,Source={x:Static global:GlobalInfo.Instance}}"  Foreground="#3C000000"
+                                               FontSize="12"/>
+                        </StackPanel>
+                        <Border BorderBrush="Black" BorderThickness="1" Width="504" Height="120" Grid.Column="2">
+                            <Border.Background>
+                                <ImageBrush ImageSource="{Binding TrayDInfos.TrayBckPath, Source={x:Static global:GlobalInfo.Instance}}" Stretch="None" TileMode="Tile" AlignmentX="Center" AlignmentY="Center"/>
+                            </Border.Background>
+                            <themes:TrayControl Style="{StaticResource TrayControlSty}" Height="118" Width="502" ItemsSource="{Binding TrayDInfos.TrayItemList, Source={x:Static global:GlobalInfo.Instance}}" 
+                                                XCount="{Binding TrayDInfos.XCount, Source={x:Static global:GlobalInfo.Instance}}"  YCount="{Binding TrayDInfos.YCount, Source={x:Static global:GlobalInfo.Instance}}"
+                                                ItemsSize="{Binding TrayDInfos.ItemSize, Source={x:Static global:GlobalInfo.Instance}}">
+                                <themes:TrayControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <RadioButton  GroupName="Tray" IsChecked="{Binding IsItemSelected,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                       Click="TrayDItemClickCommand">
+                                            <RadioButton.Style>
+                                                <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource CircleRadioBtnCmdSty}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ItemStatus}" Value="Free">
+                                                            <Setter Property="Background" Value="#3C000000"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ItemStatus}" Value="Ready">
+                                                            <Setter Property="Background" Value="#6C6C6C"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ItemStatus}" Value="Running">
+                                                            <Setter Property="Background" Value="#00DE00"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ItemStatus}" Value="Complete">
+                                                            <Setter Property="Background" Value="#FF8900"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ItemStatus}" Value="Error">
+                                                            <Setter Property="Background" Value="#FF2D23"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </RadioButton.Style>
+                                            <RadioButton.Content>
+                                                <TextBlock Text="{Binding ItemContent}" Foreground="White"/>
+                                            </RadioButton.Content>
+                                        </RadioButton>
+                                    </DataTemplate>
+                                </themes:TrayControl.ItemTemplate>
+                            </themes:TrayControl>
+                        </Border>
+                    </Grid>
+                    <Grid Grid.Row="11">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="8"/>
+                            <ColumnDefinition Width="504"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <Button Content="Tray E" Click="TrayTypeBtn_ClickCommand" Height="32" FontSize="14"  FontFamily="SegoeUI" FontWeight="SemiBold" HorizontalContentAlignment="Left" 
+                                    Style="{StaticResource ButtonTextSty}" Background="Transparent" Width="70" HorizontalAlignment="Left"/>
+                            <TextBlock Style="{StaticResource TextBlockSty}" Text="{Binding TrayEInfos.TrayType,Source={x:Static global:GlobalInfo.Instance}}"  Foreground="#3C000000"
+                                               FontSize="12"/>
+                        </StackPanel>
+                        <Border BorderBrush="Black" BorderThickness="1" Width="504" Height="120" Grid.Column="2">
+                            <Border.Background>
+                                <ImageBrush ImageSource="{Binding TrayEInfos.TrayBckPath, Source={x:Static global:GlobalInfo.Instance}}" Stretch="None" TileMode="Tile" AlignmentX="Center" AlignmentY="Center"/>
+                            </Border.Background>
+                            <themes:TrayControl Style="{StaticResource TrayControlSty}" Height="118" Width="502" ItemsSource="{Binding TrayEInfos.TrayItemList, Source={x:Static global:GlobalInfo.Instance}}" 
+                                              XCount="{Binding TrayEInfos.XCount, Source={x:Static global:GlobalInfo.Instance}}"  YCount="{Binding TrayEInfos.YCount, Source={x:Static global:GlobalInfo.Instance}}"
+                                                ItemsSize="{Binding TrayEInfos.ItemSize, Source={x:Static global:GlobalInfo.Instance}}">
+                                <themes:TrayControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <RadioButton  GroupName="Tray" IsChecked="{Binding IsItemSelected,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                       Click="TrayEItemClickCommand">
+                                            <RadioButton.Style>
+                                                <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource CircleRadioBtnCmdSty}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ItemStatus}" Value="Free">
+                                                            <Setter Property="Background" Value="#3C000000"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ItemStatus}" Value="Ready">
+                                                            <Setter Property="Background" Value="#6C6C6C"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ItemStatus}" Value="Running">
+                                                            <Setter Property="Background" Value="#00DE00"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ItemStatus}" Value="Complete">
+                                                            <Setter Property="Background" Value="#FF8900"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding ItemStatus}" Value="Error">
+                                                            <Setter Property="Background" Value="#FF2D23"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </RadioButton.Style>
+                                            <RadioButton.Content>
+                                                <TextBlock Text="{Binding ItemContent}" Foreground="White"/>
+                                            </RadioButton.Content>
+                                        </RadioButton>
+                                    </DataTemplate>
+                                </themes:TrayControl.ItemTemplate>
+                            </themes:TrayControl>
+                        </Border>
+                    </Grid>
+                    <Grid Grid.Row="13">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="8"/>
+                            <ColumnDefinition Width="504"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="48"/>
+                            <RowDefinition Height="104"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Status" Style="{StaticResource UCtlChildTitleTextBlockSty}"
+                          Visibility="{Binding LogVisibi}"/>
+                        <TextBlock Grid.Column="2" Text="{DynamicResource AutoSampler_Main_Log}" Style="{StaticResource UCtlChildTitleTextBlockSty}"
+                          Visibility="{Binding LogVisibi}"/>
+                        <Border Grid.Row="1" Background="#EF5350" Width="64">
+                            <TextBlock Text="Error" Foreground="White" HorizontalAlignment="Center"/>
+                        </Border>
+                        <ListBox Style="{StaticResource ListBoxSty}"  BorderBrush="Black" BorderThickness="1" Grid.Row="1" Height="104" Grid.Column="2"
+                             ItemsSource="{Binding LogInfo,Source={x:Static global:GlobalInfo.Instance},UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" />
+                    </Grid>
+                </Grid>
+                <ScrollViewer Grid.Column="3" Background="Transparent">
+                    <ScrollViewer.Content>
+                        <ContentControl x:Name="Content_ActiveItem"/>
+                    </ScrollViewer.Content>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

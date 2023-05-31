@@ -1,0 +1,34 @@
+﻿<Application 
+    x:Class="Monster.AutoSampler.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Monster.AutoSampler">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!--<ResourceDictionary Source="/LabTech.UITheme;component/DynamicHeight/HeightTheme_Touch.xaml"/>-->
+
+                <!--<ResourceDictionary Source="/Mass.Language;component/English.xaml"/>
+                <ResourceDictionary Source="/LabTech.UITheme;component/Languages/UITheme_English.xaml"/>
+                <ResourceDictionary Source="/LabTech.UITheme;component/DynamicHeight/HeightTheme_Mouse.xaml"/>
+                <ResourceDictionary Source="/LabTech.UITheme;component/Skins/GreenTheme.xaml"/>
+                <ResourceDictionary Source="/LabTech.UITheme;component/Themes/UIGenericTheme.xaml"/>-->
+
+
+                <ResourceDictionary Source="/Mass.Language;component/Chinese.xaml"/>
+                <ResourceDictionary Source="/LabTech.UITheme;component/Languages/UITheme_Chinese.xaml"/>
+                <ResourceDictionary Source="/LabTech.UITheme;component/DynamicHeight/HeightTheme_Mouse.xaml"/>
+                <ResourceDictionary Source="/LabTech.UITheme;component/Skins/GreenTheme.xaml"/>
+                <ResourceDictionary Source="/LabTech.UITheme;component/Themes/UICommonTheme.xaml"/>
+                <ResourceDictionary Source="/LabTech.UITheme;component/Themes/UIGenericTheme.xaml"/>
+                <ResourceDictionary Source="/LabTech.UITheme.Tlk;component/Themes/UIGenericTheme.xaml"/>
+
+                <ResourceDictionary Source="/Mass.UITheme;component/Themes/UIGenericTheme.xaml"/>
+                <ResourceDictionary>
+                    <local:Bootstrapper x:Key="bootstrapper"/>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

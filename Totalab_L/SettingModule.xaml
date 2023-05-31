@@ -1,0 +1,748 @@
+﻿<UserControl 
+    x:Class="Totalab_L.SettingModule"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ltCtl="clr-namespace:LabTech.UITheme;assembly=LabTech.UITheme"
+             xmlns:System="clr-namespace:System;assembly=mscorlib" 
+             xmlns:global ="clr-namespace:Totalab_L"
+             mc:Ignorable="d" 
+            d:DesignHeight="860" d:DesignWidth="1000" Background="White">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Totalab_L;component/Themes/Generic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <global:RadioButtonConvert x:Key="radioConverterRes"/>
+            <global:MultiVisibleConvert x:Key="MultiVisibleConvertKey"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="12"/>
+            <RowDefinition Height="48"/>
+            <RowDefinition Height="12"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <Button  Style="{StaticResource ButtonCmdHeight48MinWidth100LeftSty}" Click="OpenParaCommand">
+                <Button.IsEnabled>
+                    <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                        <MultiBinding.ConverterParameter>
+                            <x:Array Type="{x:Type System:Boolean}">
+                                <System:Boolean>True</System:Boolean>
+                            </x:Array>
+                        </MultiBinding.ConverterParameter>
+                        <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
+                    </MultiBinding>
+                </Button.IsEnabled>
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <Viewbox Style="{StaticResource Viewbox24Sty}">
+                            <Image Source="/LabTech.UITheme;component/Images/open_file.png" Style="{StaticResource Image48Sty}"/>
+                        </Viewbox>
+                        <TextBlock Text="{DynamicResource ButtonContent_Open}" Style="{StaticResource TextBlockBtnCmdSty}"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Style="{StaticResource ButtonCmdHeight48MinWidth100LeftSty}" Click="SaveParaCommand">
+                <Button.IsEnabled>
+                    <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                        <MultiBinding.ConverterParameter>
+                            <x:Array Type="{x:Type System:Boolean}">
+                                <System:Boolean>True</System:Boolean>
+                            </x:Array>
+                        </MultiBinding.ConverterParameter>
+                        <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
+                    </MultiBinding>
+                </Button.IsEnabled>
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <Viewbox Style="{StaticResource Viewbox24Sty}">
+                            <Image Source="/LabTech.UITheme;component/Images/save.png" Style="{StaticResource Image48Sty}"/>
+                        </Viewbox>
+                        <TextBlock Text="{DynamicResource ButtonContent_Save}" Style="{StaticResource TextBlockBtnCmdSty}"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+        </StackPanel>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="380"/>
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="12"/>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="12"/>
+                    <ColumnDefinition Width="116"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="48"/>
+                    <RowDefinition Height="4"/>
+                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="4"/>
+                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="12"/>
+                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="24"/>
+                </Grid.RowDefinitions>
+                <!--位置参数-->
+                <TextBlock Text="{DynamicResource AutoSampler_LocationParam}" Style="{StaticResource UCtlChildTitleTextBlockSty}"/>
+                <Button Grid.Column="1" Content="{DynamicResource ButtonContent_Reset}" Style="{StaticResource ButtonPrimaryWidStretchSty}"
+                        Click="GoToHomeCommand"/>
+                <TextBlock Text="{DynamicResource AutoSampler_SamplingTube}" Grid.Row="2"/>
+                <TextBlock Grid.Row="4" Text="{DynamicResource AutoSampler_Location}" Style="{StaticResource TextBlockFore60Sty}"/>
+                <ltCtl:CustomNumericBox Grid.Row="4" Grid.Column="1" Text="{Binding PosNumber}"
+                                        IsUseShortInt="True"  Style="{StaticResource CustomNumericBoxSty}"/>
+
+                <Button Grid.Row="4" Grid.Column="3" Click="GoToXYCommand"
+                        IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"
+                        Content="{DynamicResource AutoSampler_Go}" Style="{StaticResource ButtonPrimaryWidStretchSty}"/>
+
+                <TextBlock Grid.Row="6" Text="{DynamicResource AutoSampler_SamplingDepth}" Style="{StaticResource TextBlockFore60Sty}"/>
+                <ltCtl:CustomNumericBox Grid.Row="6" Grid.Column="1" Text="{Binding SettingInfo.SamplingDepth,Source={x:Static global:GlobalInfo.Instance}}">
+                </ltCtl:CustomNumericBox>
+                <Button Grid.Row="6"  Grid.Column="3" Style="{StaticResource ButtonPrimaryWidStretchSty}" Content="{DynamicResource ButtonContent_Set}"
+                        Click="SetCommand" Visibility="{Binding IsSetDepth,Converter={StaticResource CompareToVisibilityConverter},ConverterParameter=True}"/>
+
+                <Button Grid.Row="6"  Grid.Column="3" Style="{StaticResource ButtonAccentWidStretchSty}" Content="{DynamicResource AutoSampler_Go}"
+                        Click ="GoToCommand" IsEnabled="{Binding IsCanZ}"
+                        Visibility="{Binding IsSetDepth,Converter={StaticResource CompareToVisibilityConverter},ConverterParameter=False}"/>
+
+            </Grid>
+            <Grid Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="12"/>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="12"/>
+                    <ColumnDefinition Width="54"/>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="12"/>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="12"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="48"/>
+                    <RowDefinition Height="4"/>
+                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="4"/>
+                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="4"/>
+                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="24"/>
+                </Grid.RowDefinitions>
+                <TextBlock  Text="{DynamicResource AutoSampler_WashSetting}" Style="{StaticResource UCtlChildTitleTextBlockSty}"/>
+                <Button Grid.Column="1"  Content="{DynamicResource ButtonContent_Reset}"
+                        IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"
+                        Style="{StaticResource ButtonPrimaryWidStretchSty}"/>
+
+                <Button Grid.Column="3"  Content="{DynamicResource AutoSampler_Rinse}" 
+                        Visibility="{Binding IsRinse,Converter={StaticResource CompareToVisibilityConverter},ConverterParameter=False}"
+                        IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"
+                        Style="{StaticResource ButtonAccentWidStretchSty}"
+                        Click="RinseCommand"/>
+
+                <Button Grid.Column="3"  Content="{DynamicResource ButtonContent_Stop}" 
+                        Visibility="{Binding IsRinse,Converter={StaticResource CompareToVisibilityConverter},ConverterParameter=True}"
+                        Style="{StaticResource ButtonAccentWidStretchSty}"
+                        Click="StopRinseCommand"/>
+
+                <TextBlock Grid.Row="2"  Text="1号洗针位" Style="{StaticResource TextBlockFore60Sty}"/>
+                <ToggleButton Grid.Column="1" Grid.Row="2"  Style="{StaticResource ToggleButtonSwitchSty}" Grid.ColumnSpan="3" Width="80" HorizontalAlignment="Left"
+                              IsChecked="{Binding SettingInfo.IsWash1Open,Source={x:Static global:GlobalInfo.Instance},UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Grid.Row="4"  Text="{DynamicResource AutoSampler_ConstSet_PumpRate}" Style="{StaticResource TextBlockFore60Sty}"/>
+                <ltCtl:CustomNumericBox Grid.Row="4" Grid.Column="1" DecimalPrecision="1" 
+                                        Text="{Binding SettingInfo.PumpSpeed1,Source={x:Static global:GlobalInfo.Instance}}"
+                                    Style="{StaticResource CustomNumericBoxSty}"/>
+
+                <TextBlock Grid.Row="4" Grid.Column="3" Text="rpm" IsHyphenationEnabled="True" Style="{StaticResource TextBlockFore60Sty}"/>
+                <!--清洗时间-->
+                <TextBlock Grid.Row="6"  Text="{DynamicResource AutoSampler_ConstSet_WashTime}" Style="{StaticResource TextBlockFore60Sty}"/>
+                <ltCtl:CustomNumericBox Grid.Row="6" Grid.Column="1" DecimalPrecision="0"
+                                    IsUseShortInt="True"  Text="{Binding SettingInfo.Wash1Time,Source={x:Static global:GlobalInfo.Instance}}"
+                                    Style="{StaticResource CustomNumericBoxSty}"/>
+
+                <TextBlock Grid.Row="6" Grid.Column="3" Text="s" IsHyphenationEnabled="True" Style="{StaticResource TextBlockFore60Sty}"/>
+                
+                
+                <TextBlock Grid.Row="2"  Grid.Column=" 6" Text="2号洗针位" Style="{StaticResource TextBlockFore60Sty}"/>
+                <ToggleButton Grid.Column="8" Grid.Row="2"  Style="{StaticResource ToggleButtonSwitchSty}"  Grid.ColumnSpan="3" Width="80" HorizontalAlignment="Left"
+                             IsChecked="{Binding SettingInfo.IsWash2Open,Source={x:Static global:GlobalInfo.Instance},UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Grid.Column="6" Grid.Row="4"  Text="{DynamicResource AutoSampler_ConstSet_PumpRate}" Style="{StaticResource TextBlockFore60Sty}"/>
+                <ltCtl:CustomNumericBox Grid.Row="4" Grid.Column="8" DecimalPrecision="1" 
+                                        Text="{Binding SettingInfo.PumpSpeed2,Source={x:Static global:GlobalInfo.Instance}}"
+                                    Style="{StaticResource CustomNumericBoxSty}"/>
+
+                <TextBlock Grid.Row="4" Grid.Column="10" Text="rpm" IsHyphenationEnabled="True" Style="{StaticResource TextBlockFore60Sty}"/>
+                <!--清洗时间-->
+                <TextBlock Grid.Row="6" Grid.Column="6"  Text="{DynamicResource AutoSampler_ConstSet_WashTime}" Style="{StaticResource TextBlockFore60Sty}"/>
+                <ltCtl:CustomNumericBox Grid.Row="6" Grid.Column="8" DecimalPrecision="0"
+                                    IsUseShortInt="True"  Text="{Binding SettingInfo.Wash2Time,Source={x:Static global:GlobalInfo.Instance}}"
+                                    Style="{StaticResource CustomNumericBoxSty}"/>
+
+                <TextBlock Grid.Row="6" Grid.Column="10" Text="s" IsHyphenationEnabled="True" Style="{StaticResource TextBlockFore60Sty}"/>
+            </Grid>
+        </Grid>
+        <ltCtl:CustomDataGrid Style="{StaticResource CustomDataGridSty}" Grid.Row="5">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn HeaderStyle="{StaticResource DGColumnHeadWid100Bor0Sty}">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock  Text="{DynamicResource AutoSampler_I_Step}" Style="{StaticResource DGHeaderTextBlockSty}"/>
+                    </DataGridTemplateColumn.Header>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="240">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="{DynamicResource DataGrid_Header_Action}" Style="{StaticResource DGHeaderTextBlockSty}"/>
+                    </DataGridTemplateColumn.Header>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="240">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock  Text="{DynamicResource AutoSampler_I_Time}" Style="{StaticResource DGHeaderTextBlockSty}"/>
+                    </DataGridTemplateColumn.Header>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="240">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock  Text="{DynamicResource AutoSampler_I_PumpSpeed}" Style="{StaticResource DGHeaderTextBlockSty}"/>
+                    </DataGridTemplateColumn.Header>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="140">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock  Text="{DynamicResource AutoSampler_Location}" Style="{StaticResource DGHeaderTextBlockSty}"/>
+                    </DataGridTemplateColumn.Header>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </ltCtl:CustomDataGrid >
+        <ScrollViewer Grid.Row="6" MaxHeight="600">
+            <StackPanel HorizontalAlignment="Left">
+                <ltCtl:CustomDataGrid Style="{StaticResource CustomDataGridSty}" IsDisplayAddNewBtn="True" HeadersVisibility="None"
+                                      IsEnabled="{Binding IsCanRunning, Source={x:Static global:GlobalInfo.Instance}}"
+                                      ItemsSource="{Binding SettingInfo.PreWashInfos,Source={x:Static global:GlobalInfo.Instance}}"
+                                      BtnAddNew_Click="AddPreWashInfoCommand" Background="Transparent">
+                    <ltCtl:CustomDataGrid.Resources>
+                        <ContextMenu x:Key="DataGridRowContextMenuTemplate" Style="{StaticResource ContextMenuSty}" MinWidth="180" >
+                            <MenuItem Header="{DynamicResource MenuItem_Header_Delete}" Click="DeletePreWashCommand" Style="{StaticResource ContextMenuItemSty}"/>
+                            <MenuItem Header="{DynamicResource AutoSampler_I_ClearArea}" Click="ClearPreWashCommand" Style="{StaticResource ContextMenuItemSty}"/>
+                        </ContextMenu>
+                    </ltCtl:CustomDataGrid.Resources>
+                    <ltCtl:CustomDataGrid.RowStyle>
+                        <Style TargetType="DataGridRow" BasedOn="{StaticResource DataGridRowSty}">
+                            <Setter Property="Tag" Value="{Binding DataContext,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding StepName}" Value="">
+                                    <Setter Property="ContextMenu" Value="{StaticResource DataGridRowContextMenuTemplate}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ltCtl:CustomDataGrid.RowStyle>
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="Step" Width="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding StepName}" Style="{StaticResource DGCellTextBlockSty}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Action" Width="240">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ToggleButton IsChecked="{Binding IsOpenAction,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                                  Style="{StaticResource DGCellToggleButtonSwitchSty}" Visibility="{Binding ActionSwitchVisibility}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Time (s)" Width="240">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ltCtl:CustomNumericBox  MinValue="0" IsUseShortInt="True" ShortIntValue="{Binding WashTime,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                                             Style="{StaticResource DGCellCustomNumericBoxBor0PaddR12Sty}" BorderBrush="Transparent"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Rpm (r/min)" Width="240">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ltCtl:CustomNumericBox MinValue="-100" MaxValue="100" DecimalPrecision="1" MaxLength="6"
+                                                            DoubleValue="{Binding WashPumpSpeed,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                                            Style="{StaticResource DGCellCustomNumericBoxBor0PaddR12Sty}" BorderBrush="Transparent"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Loc" Width="140">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ComboBox SelectedItem="{Binding WashLoc,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DGCellComboBoxSty}"
+                                              ItemsSource="{Binding DataContext.PreWashLocList,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" >
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock>
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource DGCellTextBlockSty}">
+                                                            <Setter Property="Text" Value="{Binding}"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Value="RinseLoc" Binding="{Binding}">
+                                                                    <Setter Property="Text" Value="{DynamicResource AutoSampler_I_RinseLoc}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Value="SampleLoc" Binding="{Binding}">
+                                                                    <Setter Property="Text" Value="{DynamicResource AutoSampler_I_SampleLoc}"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </ltCtl:CustomDataGrid >
+                <Grid Height="64">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="32"/>
+                    </Grid.RowDefinitions>
+                    <Grid Background="#FFF5F5F5" IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="240"/>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="240"/>
+                            <ColumnDefinition Width="140"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{DynamicResource AutoSampler_Main_PreRun}" Style="{StaticResource DGCellTextBlockSty}"/>
+                        <TextBlock Text="{DynamicResource AutoSampler_Main_Flush}" Style="{StaticResource DGCellTextBlockSty}" Grid.Column="1"/>
+                        <ComboBox x:Name="FlushTime_ComboBox" Grid.Column="2" Style="{StaticResource DGCellComboBoxSty}" 
+                                  IsEnabled="{Binding IsHimassConnState,Source={x:Static global:GlobalInfo.Instance}}"
+                                  SelectedIndex="{Binding SettingInfo.PreRunningInfo[0].WashTimeTypeIndex,Source={x:Static global:GlobalInfo.Instance}}">
+                            <ComboBoxItem Content="{DynamicResource AutoSampler_I_Method}"/>
+                            <ComboBoxItem Content="{DynamicResource AutoSampler_I_Custom}"/>
+                        </ComboBox>
+                        <!--Visibility="{Binding ElementName=FlushTime_ComboBox,Path=Text,Converter={StaticResource CompareToVisibilityConverter},
+                                                ConverterParameter=Custom}"-->
+                        <ltCtl:CustomNumericBox Grid.Column="3" Style="{StaticResource DGCellCustomNumericBoxBor0PaddR12Sty}" BorderBrush="Transparent" MinValue="0" IsUseShortInt="True"
+                                                ShortIntValue="{Binding SettingInfo.PreRunningInfo[0].WashTime,Source={x:Static global:GlobalInfo.Instance},UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}">
+                            <ltCtl:CustomNumericBox.Visibility>
+                                <MultiBinding Converter="{StaticResource MultiVisibleConvertKey}">
+                                    <Binding ElementName="FlushTime_ComboBox" Path="Text"></Binding>
+                                </MultiBinding>
+                            </ltCtl:CustomNumericBox.Visibility>
+                            <!--<ltCtl:CustomNumericBox.Visibility>
+                                <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                                </MultiBinding>
+                            </ltCtl:CustomNumericBox.Visibility>-->
+                        </ltCtl:CustomNumericBox>
+
+                        <!--<ComboBox x:Name="FlushSpeed_ComboBox" Grid.Column="4" Style="{StaticResource DGCellComboBoxSty}" 
+                              IsEnabled="{Binding IsHimassConnState,Source={x:Static global:GlobalInfo.Instance}}"
+                              SelectedIndex="{Binding SettingInfo.PreRunningInfo[0].WashSpeedTypeIndex,Source={x:Static global:GlobalInfo.Instance},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                            <ComboBoxItem Content="Method"/>
+                            <ComboBoxItem Content="Custom"/>
+                        </ComboBox>-->
+                        <!--Visibility="{Binding ElementName=FlushTime_ComboBox,Path=Text,Converter={StaticResource CompareToVisibilityConverter}, ConverterParameter=Custom}"-->
+                        <ltCtl:CustomNumericBox Grid.Column="4" Style="{StaticResource DGCellCustomNumericBoxBor0PaddR12Sty}" BorderBrush="Transparent" 
+                                                MinValue="-100" MaxValue="100" DecimalPrecision="1" MaxLength="6"
+                                                DoubleValue="{Binding SettingInfo.PreRunningInfo[0].WashPumpSpeed,Source={x:Static global:GlobalInfo.Instance},UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}">
+                            <ltCtl:CustomNumericBox.Visibility>
+                                <MultiBinding Converter="{StaticResource MultiVisibleConvertKey}">
+                                    <Binding ElementName="FlushTime_ComboBox" Path="Text"></Binding>
+                                </MultiBinding>
+                            </ltCtl:CustomNumericBox.Visibility>
+                        </ltCtl:CustomNumericBox>
+                        <TextBlock Grid.Column="5">
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource DGCellTextBlockSty}">
+                                <Setter Property="Text" Value="{Binding SettingInfo.PreRunningInfo[0].WashLoc,Source={x:Static global:GlobalInfo.Instance}}"/>
+                                    <Style.Triggers>
+                                    <DataTrigger Value="RinseLoc" Binding="{Binding SettingInfo.PreRunningInfo[0].WashLoc,Source={x:Static global:GlobalInfo.Instance}}">
+                                            <Setter Property="Text" Value="{DynamicResource AutoSampler_I_RinseLoc}"/>
+                                        </DataTrigger>
+                                    <DataTrigger Value="SampleLoc" Binding="{Binding SettingInfo.PreRunningInfo[0].WashLoc,Source={x:Static global:GlobalInfo.Instance}}">
+                                            <Setter Property="Text" Value="{DynamicResource AutoSampler_I_SampleLoc}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+                    <Grid Grid.Row="1" IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="240"/>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="240"/>
+                            <ColumnDefinition Width="140"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{DynamicResource AutoSampler_Main_Delay}" Style="{StaticResource DGCellTextBlockSty}" Grid.Column="1"/>
+                        <TextBlock Grid.Column="2" Style="{StaticResource DGCellTextBlockSty}"
+                                   Text="{Binding ElementName=FlushTime_ComboBox,Path=Text,UpdateSourceTrigger=PropertyChanged}" IsEnabled="False"/>
+                        <!--<ComboBox x:Name="DelayTime_ComboBox" Grid.Column="2" Style="{StaticResource DGCellComboBoxSty}" 
+                                  IsEnabled="{Binding IsHimassConnState,Source={x:Static global:GlobalInfo.Instance}}"
+                               SelectedIndex="{Binding SettingInfo.PreRunningInfo[1].WashTimeTypeIndex,Source={x:Static global:GlobalInfo.Instance}}">
+                            <ComboBoxItem Content="Method"/>
+                            <ComboBoxItem Content="Custom"/>
+                        </ComboBox>-->
+                        <ltCtl:CustomNumericBox Grid.Column="3" Style="{StaticResource DGCellCustomNumericBoxBor0PaddR12Sty}" BorderBrush="Transparent" MinValue="0" IsUseShortInt="True"
+                                                ShortIntValue="{Binding SettingInfo.PreRunningInfo[1].WashTime,Source={x:Static global:GlobalInfo.Instance},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" >
+                            <ltCtl:CustomNumericBox.Visibility>
+                                <MultiBinding Converter="{StaticResource MultiVisibleConvertKey}">
+                                    <Binding ElementName="FlushTime_ComboBox" Path="Text"></Binding>
+                                </MultiBinding>
+                            </ltCtl:CustomNumericBox.Visibility>
+                        </ltCtl:CustomNumericBox>
+                     
+                        <!--<ComboBox x:Name="DelaySpeed_ComboBox" Grid.Column="4" Style="{StaticResource DGCellComboBoxSty}" 
+                              IsEnabled="{Binding IsHimassConnState,Source={x:Static global:GlobalInfo.Instance}}"
+                              SelectedIndex="{Binding SettingInfo.PreRunningInfo[1].WashSpeedTypeIndex,Source={x:Static global:GlobalInfo.Instance},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                            <ComboBoxItem Content="Method"/>
+                            <ComboBoxItem Content="Custom"/>
+                        </ComboBox>-->
+                        <!--Visibility="{Binding ElementName=FlushTime_ComboBox,Path=Text,Converter={StaticResource CompareToVisibilityConverter},ConverterParameter=Custom}"-->
+                        <ltCtl:CustomNumericBox Grid.Column="4" Style="{StaticResource DGCellCustomNumericBoxBor0PaddR12Sty}" BorderBrush="Transparent" 
+                                                MinValue="-100" MaxValue="100" DecimalPrecision="1" MaxLength="6"
+                                                DoubleValue="{Binding SettingInfo.PreRunningInfo[1].WashPumpSpeed,Source={x:Static global:GlobalInfo.Instance},UpdateSourceTrigger=PropertyChanged ,Mode=TwoWay}">
+                            <ltCtl:CustomNumericBox.Visibility>
+                                <MultiBinding Converter="{StaticResource MultiVisibleConvertKey}">
+                                    <Binding ElementName="FlushTime_ComboBox" Path="Text"></Binding>
+                                </MultiBinding>
+                            </ltCtl:CustomNumericBox.Visibility>
+                        </ltCtl:CustomNumericBox>
+                        <TextBlock Grid.Column="5">
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource DGCellTextBlockSty}">
+                                    <Setter Property="Text" Value="{Binding SettingInfo.PreRunningInfo[1].WashLoc,Source={x:Static global:GlobalInfo.Instance}}"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Value="RinseLoc" Binding="{Binding SettingInfo.PreRunningInfo[1].WashLoc,Source={x:Static global:GlobalInfo.Instance}}">
+                                            <Setter Property="Text" Value="{DynamicResource AutoSampler_I_RinseLoc}"/>
+                                        </DataTrigger>
+                                        <DataTrigger Value="SampleLoc" Binding="{Binding SettingInfo.PreRunningInfo[1].WashLoc,Source={x:Static global:GlobalInfo.Instance}}">
+                                            <Setter Property="Text" Value="{DynamicResource AutoSampler_I_SampleLoc}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+                </Grid>
+                <!--<ltCtl:CustomDataGrid Style="{StaticResource CustomDataGridSty}" IsDisplayAddNewBtn="False" HeadersVisibility="None"
+                                      IsEnabled="{Binding IsCanRunning, Source={x:Static global:GlobalInfo.Instance}}"
+                                          ItemsSource="{Binding SettingInfo.PreRunningInfo,Source={x:Static global:GlobalInfo.Instance}}"
+                                          BtnAddNew_Click="AddPreRunningInfoCommand" Background="Transparent">
+                    -->
+                <!--<ltCtl:CustomDataGrid.Resources>
+                        <ContextMenu x:Key="DataGridRowContextMenuTemplate" Style="{StaticResource ContextMenuSty}" MinWidth="180" >
+                            <MenuItem Header="Delete"  Style="{StaticResource ContextMenuItemSty}"
+                                                  Tag="{Binding Tag, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu},AncestorLevel=1}}"
+                                                 Click="DeletePreRunningCommand"/>
+                            <MenuItem Header="Clear Area"  Style="{StaticResource ContextMenuItemSty}"
+                                    Click="ClearPreRunningCommand"/>
+                        </ContextMenu>
+                    </ltCtl:CustomDataGrid.Resources>-->
+                <!--
+                    <ltCtl:CustomDataGrid.RowStyle>
+                        <Style TargetType="DataGridRow" BasedOn="{StaticResource DataGridRowSty}">
+                            <Setter Property="Tag" Value="{Binding DataContext,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsCanDelete}" Value="True">
+                                    <Setter Property="ContextMenu" Value="{StaticResource DataGridRowContextMenuTemplate}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ltCtl:CustomDataGrid.RowStyle>
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Width="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding StepName}" Style="{StaticResource DGCellTextBlockSty}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="184">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding WashAction}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="280">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding WashTime}" Style="{StaticResource DGCellTextBoxBor0PaddR12Sty}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="280">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding WashPumpSpeed}" Style="{StaticResource DGCellTextBoxBor0PaddR12Sty}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn  Width="140">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding WashLoc}" Style="{StaticResource DGCellTextBlockSty}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </ltCtl:CustomDataGrid >-->
+
+                <Grid Height="32" IsEnabled="{Binding IsCanRunning, Source={x:Static global:GlobalInfo.Instance}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="240"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="240"/>
+                        <ColumnDefinition Width="140"/>
+                    </Grid.ColumnDefinitions>
+                    <!--IsEnabled="{Binding IsHimassConnState,Source={x:Static global:GlobalInfo.Instance}}"-->
+                    <TextBlock Text="{DynamicResource AutoSampler_Main_Analysis}" Style="{StaticResource DGCellTextBlockSty}"/>
+                    <ComboBox x:Name="AnalysTime_ComboBox" Grid.Column="2" Style="{StaticResource DGCellComboBoxSty}" 
+                              IsEnabled="{Binding IsHimassConnState,Source={x:Static global:GlobalInfo.Instance}}"
+                              SelectedIndex="{Binding SettingInfo.AnalysInfo.WashTimeTypeIndex,Source={x:Static global:GlobalInfo.Instance}}">
+                        <ComboBoxItem Content="{DynamicResource AutoSampler_I_Method}"/>
+                        <ComboBoxItem Content="{DynamicResource AutoSampler_I_Custom}"/>
+                    </ComboBox>
+                    <!--Visibility="{Binding ElementName=AnalysTime_ComboBox,Path=Text,Converter={StaticResource CompareToVisibilityConverter},ConverterParameter=Custom}"-->
+                    <ltCtl:CustomNumericBox Grid.Column="3" Style="{StaticResource DGCellCustomNumericBoxBor0PaddR12Sty}" BorderBrush="Transparent" MinValue="0" IsUseShortInt="True"
+                                            ShortIntValue="{Binding SettingInfo.AnalysInfo.WashTime,Source={x:Static global:GlobalInfo.Instance},UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}">
+                        <ltCtl:CustomNumericBox.Visibility>
+                            <MultiBinding Converter="{StaticResource MultiVisibleConvertKey}">
+                                <Binding ElementName="AnalysTime_ComboBox" Path="Text"></Binding>
+                            </MultiBinding>
+                        </ltCtl:CustomNumericBox.Visibility>
+                    </ltCtl:CustomNumericBox>
+                    <!--<ComboBox x:Name="AnalysSpeed_ComboBox" Grid.Column="4" Style="{StaticResource DGCellComboBoxSty}" 
+                              IsEnabled="{Binding IsHimassConnState,Source={x:Static global:GlobalInfo.Instance}}"
+                              SelectedIndex="{Binding SettingInfo.AnalysInfo.WashSpeedTypeIndex,Source={x:Static global:GlobalInfo.Instance},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                        <ComboBoxItem Content="Method"/>
+                        <ComboBoxItem Content="Custom"/>
+                    </ComboBox>-->
+                    <ltCtl:CustomNumericBox Grid.Column="4" MinValue="-100" MaxValue="100" DecimalPrecision="1" MaxLength="6"
+                                            DoubleValue="{Binding SettingInfo.AnalysInfo.WashPumpSpeed,Source={x:Static global:GlobalInfo.Instance},UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                            Style="{StaticResource DGCellCustomNumericBoxBor0PaddR12Sty}" BorderBrush="Transparent">
+                        <ltCtl:CustomNumericBox.Visibility>
+                            <MultiBinding Converter="{StaticResource MultiVisibleConvertKey}">
+                                <Binding ElementName="AnalysTime_ComboBox" Path="Text"></Binding>
+                            </MultiBinding>
+                        </ltCtl:CustomNumericBox.Visibility>
+                    </ltCtl:CustomNumericBox>
+                    <TextBlock Grid.Column="5">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource DGCellTextBlockSty}">
+                                <Setter Property="Text" Value="{Binding SettingInfo.AnalysInfo.WashLoc,Source={x:Static global:GlobalInfo.Instance}}"/>
+                                <Style.Triggers>
+                                    <DataTrigger Value="RinseLoc" Binding="{Binding SettingInfo.AnalysInfo.WashLoc,Source={x:Static global:GlobalInfo.Instance}}">
+                                        <Setter Property="Text" Value="{DynamicResource AutoSampler_I_RinseLoc}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Value="SampleLoc" Binding="{Binding SettingInfo.AnalysInfo.WashLoc,Source={x:Static global:GlobalInfo.Instance}}">
+                                        <Setter Property="Text" Value="{DynamicResource AutoSampler_I_SampleLoc}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
+                <ltCtl:CustomDataGrid Style="{StaticResource CustomDataGridSty}" IsDisplayAddNewBtn="True" HeadersVisibility="None"
+                                      IsEnabled="{Binding IsCanRunning, Source={x:Static global:GlobalInfo.Instance}}"
+                                      ItemsSource="{Binding SettingInfo.AfterRunningInfo,Source={x:Static global:GlobalInfo.Instance}}"                                        
+                                      BtnAddNew_Click="AddAfterRunningInfoCommand" Background="Transparent">
+                    <ltCtl:CustomDataGrid.Resources>
+                        <ContextMenu x:Key="DataGridRowContextMenuTemplate" Style="{StaticResource ContextMenuSty}" MinWidth="180" >
+                            <MenuItem Header="{DynamicResource MenuItem_Header_Delete}" Click="DeleteAfterRunningCommand" Style="{StaticResource ContextMenuItemSty}"/>
+                            <MenuItem Header="{DynamicResource AutoSampler_I_ClearArea}" Click="ClearAfterRunningCommand" Style="{StaticResource ContextMenuItemSty}"/>
+                        </ContextMenu>
+                    </ltCtl:CustomDataGrid.Resources>
+                    <ltCtl:CustomDataGrid.RowStyle>
+                        <Style TargetType="DataGridRow" BasedOn="{StaticResource DataGridRowSty}">
+                            <Setter Property="Tag" Value="{Binding DataContext,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsCanDelete}" Value="True">
+                                    <Setter Property="ContextMenu" Value="{StaticResource DataGridRowContextMenuTemplate}"/>
+                                </DataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding WashActionKey}" Value="2"/>
+                                        <Condition Binding="{Binding IsHimassConnState,Source={x:Static global:GlobalInfo.Instance}}" Value="False"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ltCtl:CustomDataGrid.RowStyle>
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Width="100">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding StepName}" Style="{StaticResource DGCellTextBlockSty}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="240">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding WashAction}" Style="{StaticResource DGCellTextBlockSty}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="240">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ltCtl:CustomNumericBox IsUseShortInt="True" ShortIntValue="{Binding WashTime,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" 
+                                                            Style="{StaticResource DGCellCustomNumericBoxBor0PaddR12Sty}" BorderBrush="Transparent" MinValue="0"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="240">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ltCtl:CustomNumericBox DoubleValue="{Binding WashPumpSpeed,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" 
+                                                            MinValue="-100" MaxValue="100" DecimalPrecision="1" MaxLength="6"
+                                                            Style="{StaticResource DGCellCustomNumericBoxBor0PaddR12Sty}" BorderBrush="Transparent"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn  Width="140">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ComboBox SelectedItem="{Binding WashLoc,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Style="{StaticResource DGCellComboBoxSty}"
+                                              ItemsSource="{Binding DataContext.AfterWashLocList,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock>
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource DGCellTextBlockMargin0Sty}">
+                                                            <Setter Property="Text" Value="{Binding}"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding}" Value="RinseLoc">
+                                                                    <Setter Property="Text" Value="{DynamicResource AutoSampler_I_RinseLoc}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding}" Value="SampleLoc">
+                                                                    <Setter Property="Text" Value="{DynamicResource AutoSampler_I_SampleLoc}"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </ltCtl:CustomDataGrid >
+            </StackPanel>
+        </ScrollViewer>
+
+        <Grid Grid.Row="8" IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"
+              Visibility="{Binding IsHimassConnState,Source={x:Static global:GlobalInfo.Instance},Converter={StaticResource CompareToCollapsedConverter},ConverterParameter=True}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="24"/>
+                <RowDefinition Height="48"/>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="32"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="75"/>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="1" Text="{DynamicResource AutoSampler_TriggerMode}" Style="{StaticResource UCtlChildTitleTextBlockSty}"/>
+            <ComboBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" SelectedIndex="{Binding SettingInfo.SignalType,Source={x:Static global:GlobalInfo.Instance}}"
+                      Style="{StaticResource ComboBoxSty}">
+                <ComboBoxItem Content="{DynamicResource AutoSampler_Lowlevel}"/>
+                <ComboBoxItem Content="{DynamicResource AutoSampler_Highlevel}"/>
+            </ComboBox>
+
+            <RadioButton Grid.Row="2" Grid.ColumnSpan="5" Content="{DynamicResource AutoSampler_GoToNewSamLocTrigger}" 
+                         IsChecked="{Binding SettingInfo.SignalMode,Source={x:Static global:GlobalInfo.Instance},Converter={StaticResource radioConverterRes},ConverterParameter=1,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                         Style="{StaticResource RadioButtonTextSty}"/>
+
+            <RadioButton Grid.Row="3" Grid.ColumnSpan="5" 
+                         IsChecked="{Binding SettingInfo.SignalMode,Source={x:Static global:GlobalInfo.Instance},Converter={StaticResource radioConverterRes},ConverterParameter=2,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                         Content="{DynamicResource AutoSampler_ArrivingToNewSamLocTrigger}" 
+                         Style="{StaticResource RadioButtonTextSty}"/>
+
+
+            <RadioButton Grid.Row="4" Grid.ColumnSpan="5" Content="{DynamicResource AutoSampler_DisableTrigger}"
+                         IsChecked="{Binding SettingInfo.SignalMode,Source={x:Static global:GlobalInfo.Instance},Converter={StaticResource radioConverterRes},ConverterParameter=3,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                         
+                         Style="{StaticResource RadioButtonTextSty}"/>
+
+            <RadioButton Grid.Row="5" Grid.ColumnSpan="5" Content="{DynamicResource AutoSampler_ExternalReadTrigger}"
+                         IsChecked="{Binding SettingInfo.SignalMode,Source={x:Static global:GlobalInfo.Instance},Converter={StaticResource radioConverterRes},ConverterParameter=4,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                         Style="{StaticResource RadioButtonTextSty}"/>
+        </Grid>
+        <!--Visibility="{Binding IsHimassConnState,Source={x:Static global:GlobalInfo.Instance},Converter={StaticResource CompareToCollapsedConverter},ConverterParameter=False}"-->
+        <Grid Grid.Row="8" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="24"/>
+                <RowDefinition Height="48"/>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="32"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="1" Text="{DynamicResource AutoSampler_ConstSet_SyncTimeOptionMass}" Style="{StaticResource UCtlChildTitleTextBlockSty}"/>
+            <RadioButton Grid.Row="2" Content="{DynamicResource AutoSampler_ConstSet_UseMinSamTime}"
+                         IsChecked="{Binding SettingInfo.AnalysMode,Source={x:Static global:GlobalInfo.Instance},Converter={StaticResource radioConverterRes},ConverterParameter=1,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                         Style="{StaticResource RadioButtonTextSty}">
+                <RadioButton.IsEnabled>
+                    <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                        <Binding Path="IsCanRunning" Source="{x:Static global:GlobalInfo.Instance}"/>
+                        <!--<Binding Path="IsUseAutoSampler" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>-->
+                    </MultiBinding>
+                </RadioButton.IsEnabled>
+            </RadioButton>
+
+            <RadioButton Grid.Row="3" Content="{DynamicResource AutoSampler_ConstSet_UseMaxSamTime}"
+                         IsChecked="{Binding SettingInfo.AnalysMode,Source={x:Static global:GlobalInfo.Instance},Converter={StaticResource radioConverterRes},ConverterParameter=2,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                         Style="{StaticResource RadioButtonTextSty}">
+                <RadioButton.IsEnabled>
+                    <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                        <Binding Path="IsCanRunning" Source="{x:Static global:GlobalInfo.Instance}"/>
+                        <!--<Binding Path="IsUseAutoSampler" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>-->
+                    </MultiBinding>
+                </RadioButton.IsEnabled>
+            </RadioButton>
+
+            <RadioButton Grid.Row="4" Content="{DynamicResource AutoSampler_ConstSet_DecidedByEachwOwnSet}"
+                         IsChecked="{Binding SettingInfo.AnalysMode,Source={x:Static global:GlobalInfo.Instance},Converter={StaticResource radioConverterRes},ConverterParameter=3, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                         Style="{StaticResource RadioButtonTextSty}">
+                <RadioButton.IsEnabled>
+                    <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                        <Binding Path="IsCanRunning" Source="{x:Static global:GlobalInfo.Instance}"/>
+                        <!--<Binding Path="IsUseAutoSampler" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>-->
+                    </MultiBinding>
+                </RadioButton.IsEnabled>
+            </RadioButton>
+        </Grid>
+    </Grid>
+</UserControl>

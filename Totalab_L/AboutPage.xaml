@@ -1,0 +1,91 @@
+﻿<ltCtl:CustomWindow  
+    x:Class="Totalab_L.AboutPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ltCtl="clr-namespace:LabTech.UITheme;assembly=LabTech.UITheme"
+    WindowStartupLocation="CenterOwner" 
+    Title="{DynamicResource AboutInfo_LabMonsterTitle}"
+    Style="{DynamicResource CustomWindowTitleBarCloseSty}" Height="456" Width="480">
+
+    <ltCtl:CustomWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/CircleAutoSampler;component/Themes/Generic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ltCtl:CustomWindow.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="72"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="6"/>
+        </Grid.RowDefinitions>
+        <!--Logo-->
+        <Viewbox Grid.Row="1" Width="72" Height="72" HorizontalAlignment="Center">
+            <Image Source="/Totalab_L;component/Images/Monster72.png" Stretch="None"/>
+        </Viewbox>
+
+        <TextBlock Grid.Row="3" Text="LabMonster" Style="{StaticResource UCtlTitleTextBlockSty}" HorizontalAlignment="Center"/>
+
+        <Grid Grid.Row="5" HorizontalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="130"/>
+                <ColumnDefinition Width="6"/>
+                <ColumnDefinition Width="60"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="32"/>
+            </Grid.RowDefinitions>
+            <!--软件版本-->
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="{DynamicResource AboutInfo_SoftVersion}" Style="{StaticResource TextBlockFore60Sty}"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SoftwareVersion,Mode=OneWay}" Style="{StaticResource TextBlockSty}"/>
+
+            <!--硬件版本-->
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="{DynamicResource AboutInfo_HardVersion}" Style="{StaticResource TextBlockFore60Sty}"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding HardwareVersion,Mode=OneWay}" Style="{StaticResource TextBlockSty}"/>
+
+            <!--序列号许可类型-->
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="{DynamicResource AboutInfo_LicenseType}" Style="{StaticResource TextBlockFore60Sty}"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding LicenseType,Mode=OneWay}" Style="{StaticResource TextBlockSty}"/>
+
+            <Button Grid.Row="2" Grid.Column="3" x:Name="Btn_ReplaceLicense" Content="{DynamicResource ButtonContent_Replace}" 
+                    Click="Btn_ReplaceLicense_Click" Style="{StaticResource ButtonAccentWidStretchSty}"/>
+
+            <!--有效期（天数）-->
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="{DynamicResource AboutInfo_ValidityPeriod}" Style="{StaticResource TextBlockFore60Sty}"/>
+            <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource TextBlockSty}">
+                <Run Text="{Binding ValidityPeriod,Mode=OneWay}"/> 
+                <Run Text="{DynamicResource AboutInfo_Day}"/>
+            </TextBlock>
+
+            <!--剩余有效期（天数）-->
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="{DynamicResource AboutInfo_RemainingValidity}" Style="{StaticResource TextBlockFore60Sty}"/>
+            <TextBlock Grid.Row="4" Grid.Column="1" Style="{StaticResource TextBlockSty}">
+                <Run Text="{Binding RemainingValidity,Mode=OneWay}"/>
+                <Run Text="{DynamicResource AboutInfo_Day}"/>
+            </TextBlock>
+
+            <!--技术支持-->
+            <TextBlock Grid.Row="5" Grid.Column="0" Text="{DynamicResource AboutInfo_TechSupport}" Style="{StaticResource TextBlockFore60Sty}"/>
+            <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding TechSupport,Mode=OneWay}" Style="{StaticResource TextBlockSty}"/>
+        </Grid>
+
+        <TextBlock Grid.Row="7" Text="{DynamicResource AboutInfo_CopyRightInfo}" Style="{StaticResource TextBlockFore60Sty}" 
+                   HorizontalAlignment="Center" FontSize="{StaticResource FontSizeSmall}"/>
+    </Grid>
+</ltCtl:CustomWindow>

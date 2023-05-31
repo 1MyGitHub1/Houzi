@@ -1,0 +1,47 @@
+﻿<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:uiCtl ="clr-namespace:Mass.UITheme;assembly=Mass.UITheme"
+    xmlns:sfdatagrid ="http://schemas.syncfusion.com/wpf">
+
+    <Style x:Key="SfDataGridSelectionRowSty" TargetType="{x:Type sfdatagrid:VirtualizingCellsControl}">
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Background" Value="{StaticResource DataGridRowBackBrush}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="RowSelectionBrush" Value="Transparent"/>
+        <Setter Property="RowHighlightBorderThickness" Value="0"/>
+        <Setter Property="GroupRowSelectionBrush" Value="Transparent"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="Validation.ErrorTemplate" Value="{x:Null}"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="Clip" Value="{x:Null}"/>
+        <Setter Property="RowBackgroundClip" Value="{x:Null}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type sfdatagrid:VirtualizingCellsControl}">
+                    <Grid>
+                        <Border x:Name="PART_RowBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"/>
+                        <Rectangle Clip="{TemplateBinding RowBackgroundClip}" Fill="{TemplateBinding Background}"/>
+                        <Border Background="{TemplateBinding RowSelectionBrush}" Clip="{TemplateBinding SelectionBorderClipRect}" Visibility="{TemplateBinding SelectionBorderVisiblity}"/>
+                        <Border BorderBrush="{TemplateBinding RowHoverBackgroundBrush}" BorderThickness="{TemplateBinding RowHighlightBorderThickness}" Background="{TemplateBinding RowHoverBackgroundBrush}" Clip="{TemplateBinding HighlightBorderClipRect}" SnapsToDevicePixels="True" Visibility="{TemplateBinding HighlightSelectionBorderVisiblity}"/>
+                        <Rectangle x:Name="PART_CurrentFocusRow" Margin="{TemplateBinding CurrentFocusBorderMargin}" Stroke="#FF666666" StrokeThickness="1" StrokeDashArray="2 2" Visibility="{TemplateBinding CurrentFocusRowVisibility}"/>
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}"/>
+                        </Border>
+                        <Border x:Name="PART_DragLineIndicator" BorderBrush="#FF2B579A" BorderThickness="0,0,0,2" Visibility="Collapsed"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SfDataGridAlternatingRowSty" TargetType="{x:Type sfdatagrid:VirtualizingCellsControl}" BasedOn="{StaticResource SfDataGridSelectionRowSty}">
+        <Setter Property="Background" Value="{StaticResource CommonWhiteBrush}"/>
+    </Style>
+</ResourceDictionary>

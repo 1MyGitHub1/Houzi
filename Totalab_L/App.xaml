@@ -1,0 +1,24 @@
+﻿<Application x:Class="CircleAutoSampler.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Totalab_L"
+             StartupUri="ShellPage.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Mass.Language;component/Chinese.xaml"/>
+                <ResourceDictionary Source="/LabTech.UITheme;component/Languages/UITheme_Chinese.xaml"/>
+                <ResourceDictionary Source="/LabTech.UITheme;component/DynamicHeight/HeightTheme_Mouse.xaml"/>
+                <ResourceDictionary Source="/LabTech.UITheme;component/Skins/GreenTheme.xaml"/>
+                <ResourceDictionary Source="/LabTech.UITheme;component/Themes/UICommonTheme.xaml"/>
+                <ResourceDictionary Source="/LabTech.UITheme;component/Themes/UIGenericTheme.xaml"/>
+                <ResourceDictionary Source="/Mass.UITheme;component/Themes/UIGenericTheme.xaml" />
+
+                <ResourceDictionary Source="/Totalab_L;component/Themes/Generic.xaml"/>
+                <!--<ResourceDictionary>
+                    <local:Bootstrapper x:Key="bootstrapper"/>
+                </ResourceDictionary>-->
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
