@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -62,7 +63,7 @@ namespace Totalab_L.Serials
         /// <summary>
         /// 消息的发送队列
         /// </summary>
-        private System.Collections.ArrayList SendQueue = new System.Collections.ArrayList();
+        private ConcurrentQueue<CmdMsg> SendQueue = new ConcurrentQueue<CmdMsg>();
         /// <summary>
         /// 信号量,用于等待前一帧收到应答
         /// </summary>
@@ -137,7 +138,7 @@ namespace Totalab_L.Serials
             MsgSendCome = new AutoResetEvent(false);
             MsgRcvCome = new AutoResetEvent(false);
             buffer.Clear();
-            SendQueue.Clear();
+            SendQueue = new ConcurrentQueue<CmdMsg>();
             SendFrameThread = new Thread(new ThreadStart(SendFrame));
             SendFrameThread.Start();
             RcvQueue.Clear();
@@ -194,7 +195,7 @@ namespace Totalab_L.Serials
                 //等待上一帧被应答消息到来,触发事件触发
                 MsgSendCome.WaitOne();
 
-                lock (SendQueue)
+                //lock (SendQueue)
                 {
                     while (SendQueue.Count > 0)
                     {
@@ -202,13 +203,13 @@ namespace Totalab_L.Serials
 
                         //取出下标为0的msg,暂存并发送,设置超时
 
-                        CmdMsg msg = (CmdMsg)SendQueue[0];
+                        SendQueue.TryDequeue(out CmdMsg msg);
                         if (msg == null)
                         {
                             //MessageBox.Show("发送队列为空");
                             continue;
                         }
-                        SendQueue.RemoveAt(0);
+                        //SendQueue.RemoveAt(0);
                         SendTempMsg = msg; //暂时保存这条发送的消息，以便于在下位机没有收到的情况下，重发这条信息
                         Send(msg.GetFrame());
                         respondTimer.Change(_TimeOutTime, Timeout.Infinite);
@@ -235,7 +236,7 @@ namespace Totalab_L.Serials
 
         public bool SendMsg(CmdMsg sMsg)
         {
-            SendQueue.Add(sMsg);
+            SendQueue.Enqueue(sMsg);
             MsgSendCome.Set();
             return true;
         }
@@ -244,6 +245,7 @@ namespace Totalab_L.Serials
         {
             try
             {
+                Thread.Sleep(300);
                 SPort.WriteLine(str);
             }
             catch

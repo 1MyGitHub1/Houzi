@@ -64,7 +64,7 @@ namespace Totalab_L.Models
         }
         private string _preSampleName;
 
-        public string SampleLoc
+        public int? SampleLoc
         {
             get => _sampleLoc;
             set
@@ -73,10 +73,10 @@ namespace Totalab_L.Models
                 Notify("SampleLoc");
             }
         }
-        private string _sampleLoc;
+        private int? _sampleLoc;
 
 
-        public string PreSampleLoc
+        public int? PreSampleLoc
         {
             get => _preSampleLoc;
             set
@@ -85,7 +85,7 @@ namespace Totalab_L.Models
                 Notify("PreSampleLoc");
             }
         }
-        private string _preSampleLoc;
+        private int? _preSampleLoc;
 
         public long? Overwash
         {

@@ -160,7 +160,7 @@ namespace Totalab_L
                 {
                     if (PreSampletcount == 0)
                     {
-                        sampleInfo.SampleLoc = "A1";
+                        sampleInfo.SampleLoc = 1;
                         sampleInfo.SampleName = "sample";
                         sampleInfo.Overwash = 0;
                     }
@@ -169,7 +169,7 @@ namespace Totalab_L
                         sampleInfo.SampleName = string.IsNullOrEmpty(GlobalInfo.Instance.SampleInfos[PreSampletcount - 1].SampleName) ?
                                "sample" : SampleHelper.GetNextSampleID(GlobalInfo.Instance.SampleInfos[PreSampletcount - 1].SampleName);
                         sampleInfo.SampleLoc = GlobalInfo.Instance.SampleInfos[PreSampletcount - 1].SampleLoc == null ?
-                            "A1" : SampleHelper.GetNextSampleLocation( GlobalInfo.Instance.SampleInfos[PreSampletcount - 1].SampleLoc);
+                           1 : SampleHelper.GetNextSampleLocation(GlobalInfo.Instance.SampleInfos[PreSampletcount - 1].SampleLoc);
                         sampleInfo.MethodType = GlobalInfo.Instance.SampleInfos[PreSampletcount - 1].MethodType;
                         sampleInfo.PreMethodType = GlobalInfo.Instance.SampleInfos[PreSampletcount - 1].PreMethodType;
                         sampleInfo.Overwash = GlobalInfo.Instance.SampleInfos[PreSampletcount - 1].Overwash;
@@ -206,7 +206,7 @@ namespace Totalab_L
                                 {
                                     SamID = GlobalInfo.Instance.SampleInfos[PreSampletcount + i].SampleGuid,
                                     SamName = GlobalInfo.Instance.SampleInfos[PreSampletcount + i].SampleName,
-                                    //Location = GlobalInfo.Instance.SampleInfos[PreSampletcount + i].SampleLoc.Value,
+                                    Location = GlobalInfo.Instance.SampleInfos[PreSampletcount + i].SampleLoc.Value,
                                     IsAnalyze = GlobalInfo.Instance.SampleInfos[PreSampletcount + i].IsChecked,
                                     AnalysisType = GlobalInfo.Instance.SampleInfos[PreSampletcount + i].MethodType.Value,
                                     OverWash = GlobalInfo.Instance.SampleInfos[PreSampletcount + i].Overwash == null ? 0 : GlobalInfo.Instance.SampleInfos[PreSampletcount + i].Overwash.Value,
@@ -235,7 +235,7 @@ namespace Totalab_L
                                 {
                                     SamID = GlobalInfo.Instance.SampleInfos[PreSampletcount + i].SampleGuid,
                                     SamName = GlobalInfo.Instance.SampleInfos[PreSampletcount + i].SampleName,
-                                    //Location = GlobalInfo.Instance.SampleInfos[PreSampletcount + i].SampleLoc.Value,
+                                    Location = GlobalInfo.Instance.SampleInfos[PreSampletcount + i].SampleLoc.Value,
                                     IsAnalyze = GlobalInfo.Instance.SampleInfos[PreSampletcount + i].IsChecked,
                                     AnalysisType = GlobalInfo.Instance.SampleInfos[PreSampletcount + i].MethodType.Value,
                                     OverWash = GlobalInfo.Instance.SampleInfos[PreSampletcount + i].Overwash == null ? 0 : GlobalInfo.Instance.SampleInfos[PreSampletcount + i].Overwash.Value,
@@ -305,7 +305,7 @@ namespace Totalab_L
                                 {
                                     SamID = sampling.SampleGuid,
                                     SamName = sampling.SampleName,
-                                    //Location = sampling.SampleLoc.Value,
+                                    Location = sampling.SampleLoc.Value,
                                     IsAnalyze = sampling.IsChecked,
                                     AnalysisType = sampling.MethodType.Value,
                                     OverWash = sampling.Overwash == null ? 0 : sampling.Overwash.Value,

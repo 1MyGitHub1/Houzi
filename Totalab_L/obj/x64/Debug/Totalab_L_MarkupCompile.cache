@@ -4,7 +4,7 @@
 library
 C#
 .cs
-F:\Totalab_L\Totalab-L\Totalab_L\obj\x64\Debug\
+F:\Totalab_L\Totalab-L230620\Totalab_L\obj\x64\Debug\
 Totalab_L
 none
 false
@@ -12,8 +12,8 @@ DEBUG;TRACE
 
 13-243242016
 
-43-285361068
-501090441295
+47-200699496
+1551813550690
 AboutPage.xaml;AddSamplePage.xaml;MessagePage.xaml;MethodSelectorPage.xaml;RegisterSNPage.xaml;SampleListModule.xaml;SamplerPosSetPage.xaml;SettingModule.xaml;ShellPage.xaml;Themes\RadioButtonTheme.xaml;Themes\SfDataGridRowSty.xaml;Themes\Generic.xaml;Themes\TrayControlTheme.xaml;
 
 False

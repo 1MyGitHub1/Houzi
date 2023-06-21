@@ -110,7 +110,7 @@ namespace Totalab_L.Themes
                         if (Children[childIndex] is ContentPresenter child && child != null)
                         {
                             Point childPosition = new Point(0, 0);
-                            childPosition = new Point(cellWidth * (childIndex % XCount) + (cellWidth / 2 - ItemsSize.Width / 2), rowHeight * (childIndex / XCount) + (cellHeight - ItemsSize.Height) / 2);
+                            childPosition = new Point(cellWidth * (childIndex % XCount) + (cellWidth / 2 - ItemsSize.Width / 2), finalSize.Height-( rowHeight * (childIndex / XCount + 1) - (cellHeight - ItemsSize.Height) / 2));
                             //if (childIndex / XCount % 2 == 0)///偶数行,从左到右
                             //{
                             //    childPosition = new Point(cellWidth * (childIndex % XCount) + (cellWidth / 2 - ItemsSize.Width / 2), rowHeight * (childIndex / XCount) + (cellHeight - ItemsSize.Height)/2);

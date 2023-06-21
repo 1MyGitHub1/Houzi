@@ -9,9 +9,9 @@ namespace Totalab_L.Enum
 {
     public  enum Enum_StdTrayType
     {
-        [Description("250mL * 5")]
+        [Description("250*5")]
         _250mL,
-        [Description("50mL * 36")]
+        [Description("15*22-50*12")]
         _50mL,
     }
 }

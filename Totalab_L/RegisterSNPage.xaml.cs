@@ -70,7 +70,7 @@ namespace Totalab_L
         {
             try
             {
-                string licenseFileExtension = RegistSN.GetInstance("LabMonsterTotalab-I").GetLicenseFileExtension();
+                string licenseFileExtension = RegistSN.GetInstance("LabMonsterTotalab-L").GetLicenseFileExtension();
 
                 //选择序列号的文件
                 RadOpenFileDialogHelper openDialog = new RadOpenFileDialogHelper()
@@ -90,7 +90,7 @@ namespace Totalab_L
             }
             catch (Exception ex)
             {
-                MainLogHelper.Instance.Error("Totalab-I RegisterSNPage [Btn_BrowseFiles_Click]", ex);
+                MainLogHelper.Instance.Error("Totalab-L RegisterSNPage [Btn_BrowseFiles_Click]", ex);
                 new MessagePage().ShowDialog("Message_Error1000".GetWord(), "MessageTitle_Error".GetWord(), false, Enum_MessageType.Error);
             }
         }
@@ -114,7 +114,7 @@ namespace Totalab_L
                     return;
                 }
                 //调用激活方法
-                RegistSN registSN = RegistSN.GetInstance("LabMonsterTotalab-I");
+                RegistSN registSN = RegistSN.GetInstance("LabMonsterTotalab-L");
                 ResultData resultData = registSN.ActiveByFilePath(LicenceFilePath, false);
                 if (resultData != null && resultData.IsSuccessful)
                 {
@@ -125,12 +125,12 @@ namespace Totalab_L
                 else
                 {
                     VerifyMessage = "Common_Content_LicenseFileError".GetWord();
-                    MainLogHelper.Instance.Error("Totalab-I RegisterSNPage [Btn_Register_Click]" + resultData != null ? resultData.Result : string.Empty);
+                    MainLogHelper.Instance.Error("Totalab-L RegisterSNPage [Btn_Register_Click]" + resultData != null ? resultData.Result : string.Empty);
                 }
             }
             catch (Exception ex)
             {
-                MainLogHelper.Instance.Error("Totalab-I RegisterSNPage [Btn_Register_Click]", ex);
+                MainLogHelper.Instance.Error("Totalab-L RegisterSNPage [Btn_Register_Click]", ex);
                 new MessagePage().ShowDialog("Message_Error1000".GetWord(), "MessageTitle_Error".GetWord(), false, Enum_MessageType.Error);
                 //this.DialogResult = false;
                 //this.Close();

@@ -65,24 +65,6 @@ namespace Totalab_L
         private bool _isHimassConnState = false;
 
 
-        //public AnalysInfo AnalysInfo
-        //{
-        //    get => _analysInfo;
-        //    set => Set(ref _analysInfo, value);
-        //}
-        //private AnalysInfo _analysInfo = new AnalysInfo();
-
-        public SamperPosInfo SamplerPos
-        {
-            get => _samplerPos;
-            set
-            {
-                this._samplerPos = value;
-                NotifyPropertyChanged("SamplerPos");
-            }
-        }
-        private SamperPosInfo _samplerPos = new SamperPosInfo();
-
         public MethodInfo CurrentMethod
         {
             get => _currentMethod;
@@ -115,39 +97,6 @@ namespace Totalab_L
         }
         private RunningStep_Status _runningStep;
 
-        public int XStep
-        {
-            get => _xStep;
-            set
-            {
-                this._xStep = value;
-                NotifyPropertyChanged("XStep");
-            }
-        }
-        private int _xStep;
-
-        public int YStep
-        {
-            get => _yStep;
-            set
-            {
-                this._yStep = value;
-                NotifyPropertyChanged("YStep");
-            }
-        }
-        private int _yStep;
-
-        public ObservableCollection<ItemData> CircleItemList
-        {
-            get => this._circleItemList;
-            set
-            {
-                this._circleItemList = value;
-                NotifyPropertyChanged("CircleItemList");
-            }
-        }
-        private ObservableCollection<ItemData> _circleItemList = new ObservableCollection<ItemData>();
-
         public ObservableCollection<string> LogInfo
         {
             get => _logInfo;
@@ -158,39 +107,6 @@ namespace Totalab_L
             }
         }
         private ObservableCollection<string> _logInfo = new ObservableCollection<string>();
-
-        public Item_Status Sample2ItemStatus
-        {
-            get => _sample2ItemStatus;
-            set
-            {
-                this._sample2ItemStatus = value;
-                NotifyPropertyChanged("Sample2ItemStatus");
-            }
-        }
-        private Item_Status _sample2ItemStatus = Item_Status.Free;
-
-        public Item_Status Sample1ItemStatus
-        {
-            get => _sample1ItemStatus;
-            set
-            {
-                this._sample1ItemStatus = value;
-                NotifyPropertyChanged("Sample1ItemStatus");
-            }
-        }
-        private Item_Status _sample1ItemStatus = Item_Status.Free;
-
-        public Item_Status Sample3ItemStatus
-        {
-            get => _sample3ItemStatus;
-            set
-            {
-                this._sample3ItemStatus = value;
-                NotifyPropertyChanged("Sample3ItemStatus");
-            }
-        }
-        private Item_Status _sample3ItemStatus = Item_Status.Free;
 
         public bool IsCanRunning
         {
@@ -354,7 +270,7 @@ namespace Totalab_L
 
 
         ///架子的数据信息列表
-        public ObservableCollection<TrayMechanicalData> TrayDataList
+        public List<TrayMechanicalData> TrayDataList
         {
             get => _trayDataList;
             set
@@ -363,19 +279,18 @@ namespace Totalab_L
                 NotifyPropertyChanged("TrayDataList");
             }
         }
-        private ObservableCollection<TrayMechanicalData> _trayDataList = new ObservableCollection<TrayMechanicalData>();
+        private List<TrayMechanicalData> _trayDataList = new List<TrayMechanicalData>();
 
-        ///架子中心坐标
-        public double TrayPanelCenter
+        public List<CustomTrayMechaincalData> StdTrayDataList
         {
-            get => _trayPanelCenter;
+            get => _stdTrayDataList;
             set
             {
-                _trayPanelCenter = value;
-                NotifyPropertyChanged("TrayPanelCenter");
+                _stdTrayDataList = value;
+                NotifyPropertyChanged("StdTrayDataList");
             }
         }
-        private double _trayPanelCenter;
+        private List<CustomTrayMechaincalData> _stdTrayDataList = new List<CustomTrayMechaincalData>();
 
 
         public int STD1TrayHeight
@@ -401,16 +316,16 @@ namespace Totalab_L
         private int _std2TrayHeight;
 
 
-        public int STD2TrayWidth
+        public int STD1TrayWidth
         {
-            get => _std2TrayWidth;
+            get => _std1TrayWidth;
             set
             {
-                _std2TrayWidth = value;
-                NotifyPropertyChanged("STD2TrayWidth");
+                _std1TrayWidth = value;
+                NotifyPropertyChanged("STD1TrayWidth");
             }
         }
-        private int _std2TrayWidth;
+        private int _std1TrayWidth;
 
         public Thickness CleanTrayMargin
         {
@@ -422,6 +337,264 @@ namespace Totalab_L
             }
         }
         private Thickness _cleanTrayMargin;
+
+        ///架子中心坐标
+        public double TrayPanelCenter
+        {
+            get => _trayPanelCenter;
+            set
+            {
+                _trayPanelCenter = value;
+                NotifyPropertyChanged("TrayPanelCenter");
+            }
+        }
+        private double _trayPanelCenter;
+
+        public double TrayPanelHomeX
+        {
+            get => _trayPanelHomeX;
+            set
+            {
+                _trayPanelHomeX = value;
+                NotifyPropertyChanged("TrayPanelHomeX");
+            }
+
+        }
+        private double _trayPanelHomeX;
+
+
+        public double TrayPanelHomeW
+        {
+            get => _trayPanelHomeW;
+            set
+            {
+                _trayPanelHomeW = value;
+                NotifyPropertyChanged("TrayPanelHomeW");
+            }
+
+        }
+        private double _trayPanelHomeW;
+
+
+        public double TrayPanelHomeZ
+        {
+            get => _trayPanelHomeZ;
+            set
+            {
+                _trayPanelHomeZ = value;
+                NotifyPropertyChanged("TrayPanelHomeZ");
+            }
+
+        }
+        private double _trayPanelHomeZ;
+
+        public Enum_MotorWorkType CurrentWorkType
+        {
+            get => _currentWorkType;
+            set
+            {
+                _currentWorkType = value;
+                NotifyPropertyChanged("CurrentWorkType");
+            }
+        }
+        private Enum_MotorWorkType _currentWorkType;
+
+        public bool IsMotorXSetWorkModeOk
+        {
+            get => _isMotorXSetWorkModeOk;
+            set
+            {
+                _isMotorXSetWorkModeOk = value;
+                NotifyPropertyChanged("IsMotorXSetWorkModeOk");
+            }
+        }
+        private bool _isMotorXSetWorkModeOk;
+
+        public bool IsMotorWSetWorkModeOk
+        {
+            get => _isMotorWSetWorkModeOk;
+            set
+            {
+                _isMotorWSetWorkModeOk = value;
+                NotifyPropertyChanged("IsMotorWSetWorkModeOk");
+            }
+        }
+        private bool _isMotorWSetWorkModeOk;
+        public bool IsMotorZSetWorkModeOk
+        {
+            get => _isMotorZSetWorkModeOk;
+            set
+            {
+                _isMotorZSetWorkModeOk = value;
+                NotifyPropertyChanged("IsMotorZSetWorkModeOk");
+            }
+        }
+        private bool _isMotorZSetWorkModeOk;
+
+        public bool IsMotorXMoveOk
+        {
+            get => _isMotorXMoveOk;
+            set
+            {
+                _isMotorXMoveOk = value;
+                NotifyPropertyChanged("IsMotorXMoveOk");
+            }
+        }
+        private bool _isMotorXMoveOk;
+
+
+        public bool IsMotorWMoveOk
+        {
+            get => _isMotorWMoveOk;
+            set
+            {
+                _isMotorWMoveOk = value;
+                NotifyPropertyChanged("IsMotorWMoveOk");
+            }
+        }
+        private bool _isMotorWMoveOk;
+
+        public bool IsMotorXSetTargetPositionOk
+        {
+            get => _isMotorXSetTargetPositionOk;
+            set
+            {
+                _isMotorXSetTargetPositionOk = value;
+                NotifyPropertyChanged("IsMotorXSetTargetPositionOk");
+            }
+        }
+        private bool _isMotorXSetTargetPositionOk;
+
+        public bool IsMotorWSetTargetPositionOk
+        {
+            get => _isMotorWSetTargetPositionOk;
+            set
+            {
+                _isMotorWSetTargetPositionOk = value;
+                NotifyPropertyChanged("IsMotorWSetTargetPositionOk");
+            }
+        }
+        private bool _isMotorWSetTargetPositionOk;
+
+        public bool IsMotorZSetTargetPositionOk
+        {
+            get => _isMotorZSetTargetPositionOk;
+            set
+            {
+                _isMotorZSetTargetPositionOk = value;
+                NotifyPropertyChanged("IsMotorZSetTargetPositionOk");
+            }
+        }
+        private bool _isMotorZSetTargetPositionOk;
+
+        public bool IsMotorXActionOk
+        {
+            get => _isMotorXActionOk;
+            set
+            {
+                _isMotorXActionOk = value;
+                NotifyPropertyChanged("IsMotorXActionOk");
+            }
+        }
+        private bool _isMotorXActionOk;
+
+        public bool IsMotorWActionOk
+        {
+            get => _isMotorWActionOk;
+            set
+            {
+                _isMotorWActionOk = value;
+                NotifyPropertyChanged("IsMotorWActionOk");
+            }
+        }
+        private bool _isMotorWActionOk;
+        public bool IsMotorZActionOk
+        {
+            get => _isMotorZActionOk;
+            set
+            {
+                _isMotorZActionOk = value;
+                NotifyPropertyChanged("IsMotorZActionOk");
+            }
+        }
+        private bool _isMotorZActionOk;
+
+        public bool IsMotorXError
+        {
+            get => _isMotorXError;
+            set
+            {
+                _isMotorXError = value;
+                NotifyPropertyChanged("IsMotorXError");
+            }
+        }
+        private bool _isMotorXError;
+
+        public bool IsMotorWError
+        {
+            get => _isMotorWError;
+            set
+            {
+                _isMotorWError = value;
+                NotifyPropertyChanged("IsMotorWError");
+            }
+        }
+        private bool _isMotorWError;
+
+        public bool IsMotorZError
+        {
+            get => _isMotorZError;
+            set
+            {
+                _isMotorZError = value;
+                NotifyPropertyChanged("IsMotorZError");
+            }
+        }
+        private bool _isMotorZError;
+
+        public bool IsMotorXStop
+        {
+            get => _isMotorXStop;
+            set
+            {
+                _isMotorXStop = value;
+                NotifyPropertyChanged("IsMotorXStop");
+            }
+        }
+        private bool _isMotorXStop;
+
+        public bool IsMotorWStop
+        {
+            get => _isMotorWStop;
+            set
+            {
+                _isMotorWStop = value;
+                NotifyPropertyChanged("IsMotorWStop");
+            }
+        }
+        private bool _isMotorWStop;
+
+        public bool IsMotorZStop
+        {
+            get => _isMotorZStop;
+            set
+            {
+                _isMotorZStop = value;
+                NotifyPropertyChanged("IsMotorZStop");
+            }
+        }
+        private bool _isMotorZStop;
+
+        public TrayPanelCalibrationInfo CalibrationInfo
+        {
+            get => _calibrationInfo;
+            set
+            {
+                _calibrationInfo = value;
+                NotifyPropertyChanged("CalibrationInfo");
+            }
+        }
+        private TrayPanelCalibrationInfo _calibrationInfo = new TrayPanelCalibrationInfo();
         #endregion
     }
 }

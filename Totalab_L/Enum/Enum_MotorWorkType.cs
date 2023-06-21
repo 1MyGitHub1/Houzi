@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Totalab_L.Enum
 {
-    public enum Enum_TrayType
+    public enum Enum_MotorWorkType
     {
-        [Description("60*21")]
-        _60mL,
-        [Description("15*60")]
-        _15mL,
+        [Description("Home模式")]
+        Home,
+        [Description("位置模式")]
+        Position
     }
 }

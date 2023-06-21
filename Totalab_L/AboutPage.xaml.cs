@@ -31,17 +31,17 @@ namespace Totalab_L
         {
             InitializeComponent();
             this.DataContext = this;
-            SoftwareVersion = "V1.1.0.3";
+            SoftwareVersion = "V1.0.0.0";
             try
             {
-                RegistSN registSN = RegistSN.GetInstance("LabMonsterTotalab-I");
+                RegistSN registSN = RegistSN.GetInstance("LabMonsterTotalab-L");
                 LicenseType = registSN.GetPower();
                 ValidityPeriod = registSN.GetValidPeriod();
                 RemainingValidity = registSN.GetCanUseDays();
             }
             catch (Exception ex)
             {
-                MainLogHelper.Instance.Error("Totalab-I AboutPage", ex);
+                MainLogHelper.Instance.Error("Totalab-L AboutPage", ex);
                 new MessagePage().ShowDialog("Message_Error1000".GetWord(), "MessageTitle_Error".GetWord(), false, Enum_MessageType.Error);
             }
             //Thread thread = new Thread(() =>
@@ -159,7 +159,7 @@ namespace Totalab_L
         {
             try
             {
-                string licenseFileExtension = RegistSN.GetInstance("LabMonsterTotalab-I").GetLicenseFileExtension();
+                string licenseFileExtension = RegistSN.GetInstance("LabMonsterTotalab-L").GetLicenseFileExtension();
 
                 //选择序列号的文件
                 RadOpenFileDialogHelper openDialog = new RadOpenFileDialogHelper()
@@ -175,7 +175,7 @@ namespace Totalab_L
                 if (openDialog.ShowDialog() == true && !string.IsNullOrWhiteSpace(openDialog.FileName))
                 {
                     //调用激活方法
-                    RegistSN registSN = RegistSN.GetInstance("LabMonsterTotalab-I");
+                    RegistSN registSN = RegistSN.GetInstance("LabMonsterTotalab-L");
                     //registSN = RegistSN.GetInstance("LabMonsterAutoSampler");
                     ResultData resultData = registSN.ActiveByFilePath(openDialog.FileName, true);
                     if (resultData != null && resultData.IsSuccessful)
@@ -189,14 +189,14 @@ namespace Totalab_L
                     }
                     else
                     {
-                        MainLogHelper.Instance.Error("Totalab-I AboutPage [ReplaceLicenseCommand]" + resultData != null ? resultData.Result : string.Empty);
+                        MainLogHelper.Instance.Error("Totalab-L AboutPage [ReplaceLicenseCommand]" + resultData != null ? resultData.Result : string.Empty);
                         new MessagePage().ShowDialog("AboutInfo_ReplaceLicFailed".GetWord(), "MessageTitle_Error".GetWord(), false, Enum_MessageType.Error);
                     }
                 }
             }
             catch (Exception ex)
             {
-                MainLogHelper.Instance.Error("Totalab-I AboutPage [ReplaceLicenseCommand]", ex);
+                MainLogHelper.Instance.Error("Totalab-L AboutPage [ReplaceLicenseCommand]", ex);
                 new MessagePage().ShowDialog("AboutInfo_ReplaceLicFailed".GetWord(), "MessageTitle_Error".GetWord(), false, Enum_MessageType.Error);
             }
         }

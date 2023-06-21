@@ -113,5 +113,38 @@ namespace Totalab_L.Models
         }
         private string _trayBckPath;
 
+        public int TrayStartNumber
+        {
+            get => _trayStartNumber;
+            set
+            {
+                _trayStartNumber = value;
+                Notify("TrayStartNumber");
+            }
+        }
+        private int _trayStartNumber;
+
+        public int TrayEndNumber
+        {
+            get => _trayEndNumber;
+            set
+            {
+                _trayEndNumber = value;
+                Notify("TrayEndNumber");
+            }
+        }
+        private int _trayEndNumber;
+
+        public int TrayItemCount
+        {
+            get => _trayItemCount;
+            set
+            {
+                _trayItemCount = value;
+                Notify("TrayItemCount");
+            }
+        }
+        private int _trayItemCount;
+
     }
 }

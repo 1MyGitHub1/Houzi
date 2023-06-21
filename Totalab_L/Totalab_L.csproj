@@ -208,9 +208,11 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="CircleAutoSamplerCommon.cs" />
+    <Compile Include="Common\MotorActionHelper.cs" />
     <Compile Include="Common\GetPositionInfoHelper.cs" />
     <Compile Include="Common\SampleHelper.cs" />
     <Compile Include="Common\TrayInfoHelper.cs" />
+    <Compile Include="Enum\Enum_MotorWorkType.cs" />
     <Compile Include="Enum\Enum_TrayName.cs" />
     <Compile Include="Enum\Enum_TrayType.cs" />
     <Compile Include="Enum\Enum_StdTrayType.cs" />
@@ -223,6 +225,7 @@
       <DependentUpon>MethodSelectorPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\AnalysInfo.cs" />
+    <Compile Include="Models\CustomTrayMechaincalData.cs" />
     <Compile Include="Models\ItemData.cs" />
     <Compile Include="Models\MethodInfo.cs" />
     <Compile Include="Models\MethodSelectorItem.cs" />
@@ -233,6 +236,7 @@
     <Compile Include="Models\SettingInfo.cs" />
     <Compile Include="Models\TrayInfo.cs" />
     <Compile Include="Models\TrayMechanicalData.cs" />
+    <Compile Include="Models\TrayPanelCalibrationInfo.cs" />
     <Compile Include="MultiVisibleConvert.cs" />
     <Compile Include="RadioButtonConvert.cs" />
     <Compile Include="RegisterSNPage.xaml.cs">
@@ -354,6 +358,12 @@
   <ItemGroup>
     <Resource Include="Images\row0.png" />
     <Resource Include="Images\row4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Monster.AutoSampler\Monster.AutoSampler.csproj">
+      <Project>{7B1832C2-C265-42B6-A3D7-A61C78CF203D}</Project>
+      <Name>Monster.AutoSampler</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

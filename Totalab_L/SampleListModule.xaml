@@ -15,7 +15,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CircleAutoSampler;component/Themes/Generic.xaml"/>
+                <ResourceDictionary Source="/Totalab_L;component/Themes/Generic.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -132,7 +132,7 @@
                     </sfdatagrid:SfDataGrid.AlternatingRowStyle>
                     <sfdatagrid:SfDataGrid.Style>
                         <Style TargetType="{x:Type sfdatagrid:SfDataGrid}" BasedOn="{StaticResource SfDataGridSty}">
-                            <Setter Property="Width" Value="984"/>
+                            <Setter Property="Width" Value="884"/>
                         </Style>
                     </sfdatagrid:SfDataGrid.Style>
                     <sfdatagrid:SfDataGrid.Columns>
@@ -261,7 +261,7 @@
                                 </DataTemplate>
                             </sfdatagrid:GridTemplateColumn.CellTemplate>
                         </sfdatagrid:GridTemplateColumn>
-                        <sfdatagrid:GridTemplateColumn>
+                        <sfdatagrid:GridTemplateColumn  MinimumWidth="100">
                             <sfdatagrid:GridTemplateColumn.HeaderTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{DynamicResource AutoSampler_Run_SampleLocation1}"/>
@@ -269,10 +269,11 @@
                             </sfdatagrid:GridTemplateColumn.HeaderTemplate>
                             <sfdatagrid:GridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox  Text="{Binding SampleLoc,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
-                                                   MaxLength="5" sfdatagrid:FocusManagerHelper.FocusedElement="True"
+                                    <ltCtl:CustomNumericBox  ShortIntValue="{Binding SampleLoc,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                                sfdatagrid:FocusManagerHelper.FocusedElement="True" IsUseShortInt="True" MinValue="1" 
+                                                MaxValue="{Binding TrayEInfos.TrayEndNumber,Source={x:Static global:GlobalInfo.Instance}}"
                                                             Tag="{Binding DataContext,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-                                                            LostFocus="SampleLocationLostFocus" Style="{StaticResource DGCellTextBoxBor0Sty}">
+                                                            LostFocus="SampleLocationLostFocus" Style="{StaticResource DGCellCustomNumericBoxBor0Sty}">
                                         <TextBox.IsEnabled>
                                             <MultiBinding Converter="{StaticResource MultiBoolOrToObjectConverter}">
                                                 <MultiBinding.ConverterParameter>
@@ -293,7 +294,7 @@
                                                 <MenuItem Header="{DynamicResource MenuItem_Header_FillIncrement}" Click="SampleLocationFillIncrementCommand" Style="{StaticResource ContextMenuItemSty}"/>
                                             </ContextMenu>
                                         </TextBox.ContextMenu>
-                                    </TextBox>
+                                    </ltCtl:CustomNumericBox>
                                 </DataTemplate>
                             </sfdatagrid:GridTemplateColumn.CellTemplate>
                         </sfdatagrid:GridTemplateColumn>

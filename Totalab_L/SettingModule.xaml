@@ -116,7 +116,8 @@
                         Content="{DynamicResource AutoSampler_Go}" Style="{StaticResource ButtonPrimaryWidStretchSty}"/>
 
                 <TextBlock Grid.Row="6" Text="{DynamicResource AutoSampler_SamplingDepth}" Style="{StaticResource TextBlockFore60Sty}"/>
-                <ltCtl:CustomNumericBox Grid.Row="6" Grid.Column="1" Text="{Binding SettingInfo.SamplingDepth,Source={x:Static global:GlobalInfo.Instance}}">
+                <ltCtl:CustomNumericBox Grid.Row="6" Grid.Column="1" Text="{Binding SettingInfo.SamplingDepth,Source={x:Static global:GlobalInfo.Instance}}"
+                                        MaxValue="160" MinValue="0">
                 </ltCtl:CustomNumericBox>
                 <Button Grid.Row="6"  Grid.Column="3" Style="{StaticResource ButtonPrimaryWidStretchSty}" Content="{DynamicResource ButtonContent_Set}"
                         Click="SetCommand" Visibility="{Binding IsSetDepth,Converter={StaticResource CompareToVisibilityConverter},ConverterParameter=True}"/>
@@ -168,7 +169,8 @@
 
                 <TextBlock Grid.Row="2"  Text="1号洗针位" Style="{StaticResource TextBlockFore60Sty}"/>
                 <ToggleButton Grid.Column="1" Grid.Row="2"  Style="{StaticResource ToggleButtonSwitchSty}" Grid.ColumnSpan="3" Width="80" HorizontalAlignment="Left"
-                              IsChecked="{Binding SettingInfo.IsWash1Open,Source={x:Static global:GlobalInfo.Instance},UpdateSourceTrigger=PropertyChanged}"/>
+                              IsChecked="{Binding SettingInfo.IsWash1Open,Source={x:Static global:GlobalInfo.Instance},UpdateSourceTrigger=PropertyChanged}"
+                              IsEnabled="False"/>
                 <TextBlock Grid.Row="4"  Text="{DynamicResource AutoSampler_ConstSet_PumpRate}" Style="{StaticResource TextBlockFore60Sty}"/>
                 <ltCtl:CustomNumericBox Grid.Row="4" Grid.Column="1" DecimalPrecision="1" 
                                         Text="{Binding SettingInfo.PumpSpeed1,Source={x:Static global:GlobalInfo.Instance}}"

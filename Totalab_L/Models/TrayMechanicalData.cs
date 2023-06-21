@@ -28,7 +28,7 @@ namespace Totalab_L.Models
                 Notify("TrayType");
             }
         }
-        private string _trayType;
+        private string _trayType = "111";
 
         public double XCenterDistance
         {

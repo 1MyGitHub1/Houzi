@@ -88,122 +88,52 @@ namespace Totalab_L.Common
                 int sampleCount = GlobalInfo.Instance.SampleInfos.Where(m => m.ExpStatus != Exp_Status.Free).Count();
                 if (status == Exp_Status.Free)
                 {
-                    int count = GlobalInfo.Instance.TrayAInfos.XCount * GlobalInfo.Instance.TrayAInfos.YCount;
-                    for (int i = 0; i< count;i++)
+                    for (int i = 0; i < GlobalInfo.Instance.TrayAInfos.TrayItemCount; i++)
                     {
                         Application.Current.Dispatcher.Invoke((Action)(() =>
                         {
                             GlobalInfo.Instance.TrayAInfos.TrayItemList[i].ItemStatus = Item_Status.Free;
                         }));
                     }
-                    count = GlobalInfo.Instance.TrayBInfos.XCount * GlobalInfo.Instance.TrayBInfos.YCount;
-                    for (int i = 0; i < count; i++)
+                    for (int i = 0; i < GlobalInfo.Instance.TrayBInfos.TrayItemCount; i++)
                     {
                         Application.Current.Dispatcher.Invoke((Action)(() =>
                         {
                             GlobalInfo.Instance.TrayBInfos.TrayItemList[i].ItemStatus = Item_Status.Free;
                         }));
                     }
-                    count = GlobalInfo.Instance.TraySTD1Infos.XCount * GlobalInfo.Instance.TraySTD1Infos.YCount;
-                    for (int i = 0; i < count; i++)
+                    for (int i = 0; i < GlobalInfo.Instance.TraySTD1Infos.TrayItemCount; i++)
                     {
                         Application.Current.Dispatcher.Invoke((Action)(() =>
                         {
                             GlobalInfo.Instance.TraySTD1Infos.TrayItemList[i].ItemStatus = Item_Status.Free;
                         }));
                     }
-                    count = GlobalInfo.Instance.TraySTD2Infos.XCount * GlobalInfo.Instance.TraySTD2Infos.YCount;
-                    for (int i = 0; i < count; i++)
+                    for (int i = 0; i < GlobalInfo.Instance.TraySTD2Infos.TrayItemCount; i++)
                     {
                         Application.Current.Dispatcher.Invoke((Action)(() =>
                         {
                             GlobalInfo.Instance.TraySTD2Infos.TrayItemList[i].ItemStatus = Item_Status.Free;
                         }));
                     }
-                    count = GlobalInfo.Instance.TrayDInfos.XCount * GlobalInfo.Instance.TrayDInfos.YCount;
-                    for (int i = 0; i < count; i++)
+                    for (int i = 0; i < GlobalInfo.Instance.TrayDInfos.TrayItemCount; i++)
                     {
                         Application.Current.Dispatcher.Invoke((Action)(() =>
                         {
                             GlobalInfo.Instance.TrayDInfos.TrayItemList[i].ItemStatus = Item_Status.Free;
                         }));
                     }
-                    count = GlobalInfo.Instance.TrayEInfos.XCount * GlobalInfo.Instance.TrayEInfos.YCount;
-                    for (int i = 0; i < count; i++)
+                    for (int i = 0; i < GlobalInfo.Instance.TrayEInfos.TrayItemCount; i++)
                     {
                         Application.Current.Dispatcher.Invoke((Action)(() =>
                         {
                             GlobalInfo.Instance.TrayEInfos.TrayItemList[i].ItemStatus = Item_Status.Free;
                         }));
                     }
-                    for (int i = 0; i < sampleCount; i++)
-                    {
-                        int index = int.Parse(GlobalInfo.Instance.SampleInfos[i].SampleLoc.Substring(1));
-                        string tray = GlobalInfo.Instance.SampleInfos[i].SampleLoc.Substring(0, 1);
-                        if (tray == "A")
-                        {
-                            if (index >= 1 && index <= GlobalInfo.Instance.TrayAInfos.XCount * GlobalInfo.Instance.TrayAInfos.YCount)
-                            {
-                                Application.Current.Dispatcher.Invoke((Action)(() =>
-                                {
-                                    GlobalInfo.Instance.TrayAInfos.TrayItemList[index - 1].ItemStatus = Item_Status.Ready;
-                                }));
-                            }
-                        }
-                        else if (tray == "B")
-                        {
-                            if (index >= 1 && index <= GlobalInfo.Instance.TrayBInfos.XCount * GlobalInfo.Instance.TrayBInfos.YCount)
-                            {
-                                Application.Current.Dispatcher.Invoke((Action)(() =>
-                                {
-                                   GlobalInfo.Instance.TrayBInfos.TrayItemList[index - 1].ItemStatus = Item_Status.Ready;
-                                }));
-                            }
-                        }
-                        else if (tray == "C")
-                        {
-                            if (index >= 1 && index <= GlobalInfo.Instance.TraySTD1Infos.XCount * GlobalInfo.Instance.TraySTD1Infos.YCount)
-                            {
-                                Application.Current.Dispatcher.Invoke((Action)(() =>
-                               {
-                                    GlobalInfo.Instance.TraySTD1Infos.TrayItemList[index - 1].ItemStatus = Item_Status.Ready;
-                                }));
-                            }
-                            else if(1>= index - GlobalInfo.Instance.TraySTD1Infos.XCount * GlobalInfo.Instance.TraySTD1Infos.YCount && index <= GlobalInfo.Instance.TraySTD1Infos.XCount * GlobalInfo.Instance.TraySTD1Infos.YCount
-                                + GlobalInfo.Instance.TraySTD2Infos.XCount * GlobalInfo.Instance.TraySTD2Infos.YCount)
-                            {
-                                Application.Current.Dispatcher.Invoke((Action)(() =>
-                                {
-                                    GlobalInfo.Instance.TraySTD2Infos.TrayItemList[index - GlobalInfo.Instance.TraySTD1Infos.XCount * GlobalInfo.Instance.TraySTD1Infos.YCount - 1].ItemStatus = Item_Status.Ready;
-                                }));
-                            }
-                        }
-                        else if (tray == "D")
-                        {
-                            if (index >= 1 && index <= GlobalInfo.Instance.TrayDInfos.XCount * GlobalInfo.Instance.TrayDInfos.YCount)
-                            {
-                                Application.Current.Dispatcher.Invoke((Action)(() =>
-                                {
-                                    GlobalInfo.Instance.TrayDInfos.TrayItemList[index - 1].ItemStatus = Item_Status.Ready;
-                                }));
-                            }
-                        }
-                        else if (tray == "E")
-                        {
-                            if (index >= 1 && index <= GlobalInfo.Instance.TrayEInfos.XCount * GlobalInfo.Instance.TrayEInfos.YCount)
-                            {
-                                Application.Current.Dispatcher.Invoke((Action)(() =>
-                                {
-                                   GlobalInfo.Instance.TrayEInfos.TrayItemList[index - 1].ItemStatus = Item_Status.Ready;
-                                }));
-                            }
-                        }
-                    }
                 }
                 else
                 {
-                    int count = GlobalInfo.Instance.TrayAInfos.XCount * GlobalInfo.Instance.TrayAInfos.YCount;
-                    for (int i = 0; i < count; i++)
+                    for (int i = 0; i < GlobalInfo.Instance.TrayAInfos.TrayItemCount; i++)
                     {
                         if (GlobalInfo.Instance.TrayAInfos.TrayItemList[i].ItemStatus == Item_Status.Ready)
                         {
@@ -212,10 +142,9 @@ namespace Totalab_L.Common
                                 GlobalInfo.Instance.TrayAInfos.TrayItemList[i].ItemStatus = Item_Status.Free;
                             }));
                         }
-                    
+
                     }
-                    count = GlobalInfo.Instance.TrayBInfos.XCount * GlobalInfo.Instance.TrayBInfos.YCount;
-                    for (int i = 0; i < count; i++)
+                    for (int i = 0; i < GlobalInfo.Instance.TrayBInfos.TrayItemCount; i++)
                     {
                         if (GlobalInfo.Instance.TrayBInfos.TrayItemList[i].ItemStatus == Item_Status.Ready)
                         {
@@ -225,8 +154,7 @@ namespace Totalab_L.Common
                             }));
                         }
                     }
-                    count = GlobalInfo.Instance.TraySTD1Infos.XCount * GlobalInfo.Instance.TraySTD1Infos.YCount;
-                    for (int i = 0; i < count; i++)
+                    for (int i = 0; i < GlobalInfo.Instance.TraySTD1Infos.TrayItemCount; i++)
                     {
                         if (GlobalInfo.Instance.TraySTD1Infos.TrayItemList[i].ItemStatus == Item_Status.Ready)
                         {
@@ -236,8 +164,7 @@ namespace Totalab_L.Common
                             }));
                         }
                     }
-                    count = GlobalInfo.Instance.TraySTD2Infos.XCount * GlobalInfo.Instance.TraySTD2Infos.YCount;
-                    for (int i = 0; i < count; i++)
+                    for (int i = 0; i < GlobalInfo.Instance.TraySTD2Infos.TrayItemCount; i++)
                     {
                         if (GlobalInfo.Instance.TraySTD2Infos.TrayItemList[i].ItemStatus == Item_Status.Ready)
                         {
@@ -247,8 +174,7 @@ namespace Totalab_L.Common
                             }));
                         }
                     }
-                    count = GlobalInfo.Instance.TrayDInfos.XCount * GlobalInfo.Instance.TrayDInfos.YCount;
-                    for (int i = 0; i < count; i++)
+                    for (int i = 0; i < GlobalInfo.Instance.TrayDInfos.TrayItemCount; i++)
                     {
                         if (GlobalInfo.Instance.TrayDInfos.TrayItemList[i].ItemStatus == Item_Status.Ready)
                         {
@@ -258,8 +184,7 @@ namespace Totalab_L.Common
                             }));
                         }
                     }
-                    count = GlobalInfo.Instance.TrayEInfos.XCount * GlobalInfo.Instance.TrayEInfos.YCount;
-                    for (int i = 0; i < count; i++)
+                    for (int i = 0; i < GlobalInfo.Instance.TrayEInfos.TrayItemCount; i++)
                     {
                         if (GlobalInfo.Instance.TrayEInfos.TrayItemList[i].ItemStatus == Item_Status.Ready)
                         {
@@ -269,74 +194,56 @@ namespace Totalab_L.Common
                             }));
                         }
                     }
-                    for (int i = 0; i < sampleCount; i++)
+                }
+                for (int i = 0; i < sampleCount; i++)
+                {
+                    int index = GlobalInfo.Instance.SampleInfos[i].SampleLoc.Value;
+                    if (index >= GlobalInfo.Instance.TrayAInfos.TrayStartNumber && index <= GlobalInfo.Instance.TrayAInfos.TrayEndNumber)
                     {
-                        if (GlobalInfo.Instance.SampleInfos[i].ExpStatus == Exp_Status.Ready || GlobalInfo.Instance.SampleInfos[i].ExpStatus == Exp_Status.Standby)
+                        Application.Current.Dispatcher.Invoke((Action)(() =>
                         {
-                            int index = int.Parse(GlobalInfo.Instance.SampleInfos[i].SampleLoc.Substring(1));
-                            string tray = GlobalInfo.Instance.SampleInfos[i].SampleLoc.Substring(0, 1);
-                            if (tray == "A")
-                            {
-                                if (index >= 1 && index <= GlobalInfo.Instance.TrayAInfos.XCount * GlobalInfo.Instance.TrayAInfos.YCount)
-                                {
-                                    Application.Current.Dispatcher.Invoke((Action)(() =>
-                                    {
-                                        GlobalInfo.Instance.TrayAInfos.TrayItemList[index - 1].ItemStatus = Item_Status.Ready;
-                                    }));
-                                }
-                            }
-                            else if (tray == "B")
-                            {
-                                if (index >= 1 && index <= GlobalInfo.Instance.TrayBInfos.XCount * GlobalInfo.Instance.TrayBInfos.YCount)
-                                {
-                                    Application.Current.Dispatcher.Invoke((Action)(() =>
-                                    {
-                                        GlobalInfo.Instance.TrayBInfos.TrayItemList[index - 1].ItemStatus = Item_Status.Ready;
-                                    }));
-                                }
-                            }
-                            else if (tray == "C")
-                            {
-                                if (index >= 1 && index <= GlobalInfo.Instance.TraySTD1Infos.XCount * GlobalInfo.Instance.TraySTD1Infos.YCount)
-                                {
-                                    Application.Current.Dispatcher.Invoke((Action)(() =>
-                                    {
-                                        GlobalInfo.Instance.TraySTD1Infos.TrayItemList[index - 1].ItemStatus = Item_Status.Ready;
-                                    }));
-                                }
-                                else if (1 >= index - GlobalInfo.Instance.TraySTD1Infos.XCount * GlobalInfo.Instance.TraySTD1Infos.YCount && index <= GlobalInfo.Instance.TraySTD1Infos.XCount * GlobalInfo.Instance.TraySTD1Infos.YCount
-                              + GlobalInfo.Instance.TraySTD2Infos.XCount * GlobalInfo.Instance.TraySTD2Infos.YCount)
-                                {
-                                    Application.Current.Dispatcher.Invoke((Action)(() =>
-                                    {
-                                        GlobalInfo.Instance.TraySTD2Infos.TrayItemList[index - GlobalInfo.Instance.TraySTD1Infos.XCount * GlobalInfo.Instance.TraySTD1Infos.YCount - 1].ItemStatus = Item_Status.Ready;
-                                    }));
-                                }
-                            }
-                            else if (tray == "D")
-                            {
-                                if (index >= 1 && index <= GlobalInfo.Instance.TrayDInfos.XCount * GlobalInfo.Instance.TrayDInfos.YCount)
-                                {
-                                    Application.Current.Dispatcher.Invoke((Action)(() =>
-                                    {
-                                        GlobalInfo.Instance.TrayDInfos.TrayItemList[index - 1].ItemStatus = Item_Status.Ready;
-                                    }));
-                                }
-                            }
-                            else if (tray == "E")
-                            {
-                                if (index >= 1 && index <= GlobalInfo.Instance.TrayEInfos.XCount * GlobalInfo.Instance.TrayEInfos.YCount)
-                                {
-                                    Application.Current.Dispatcher.Invoke((Action)(() =>
-                                    {
-                                        GlobalInfo.Instance.TrayEInfos.TrayItemList[index - 1].ItemStatus = Item_Status.Ready;
-                                    }));
-                                }
-                            }
-                        }
+                            GlobalInfo.Instance.TrayAInfos.TrayItemList[index - 1].ItemStatus = Item_Status.Ready;
+                        }));
+                    }
+                    else if (index >= GlobalInfo.Instance.TrayBInfos.TrayStartNumber && index <= GlobalInfo.Instance.TrayBInfos.TrayEndNumber)
+                    {
+                        Application.Current.Dispatcher.Invoke((Action)(() =>
+                        {
+                            GlobalInfo.Instance.TrayBInfos.TrayItemList[index - GlobalInfo.Instance.TrayBInfos.TrayStartNumber].ItemStatus = Item_Status.Ready;
+                        }));
+                    }
+                    else if (index >= GlobalInfo.Instance.TraySTD1Infos.TrayStartNumber && index <= GlobalInfo.Instance.TraySTD1Infos.TrayEndNumber)
+                    {
+                        Application.Current.Dispatcher.Invoke((Action)(() =>
+                        {
+                            GlobalInfo.Instance.TraySTD1Infos.TrayItemList[index - GlobalInfo.Instance.TraySTD1Infos.TrayStartNumber].ItemStatus = Item_Status.Ready;
+                        }));
+                    }
+                    else if (index >= GlobalInfo.Instance.TraySTD2Infos.TrayStartNumber && index <= GlobalInfo.Instance.TraySTD2Infos.TrayEndNumber)
+                    {
+                        Application.Current.Dispatcher.Invoke((Action)(() =>
+                        {
+                            GlobalInfo.Instance.TraySTD2Infos.TrayItemList[index - GlobalInfo.Instance.TraySTD2Infos.TrayStartNumber].ItemStatus = Item_Status.Ready;
+                        }));
+                    }
+                    else if (index >= GlobalInfo.Instance.TrayDInfos.TrayStartNumber && index <= GlobalInfo.Instance.TrayDInfos.TrayEndNumber)
+                    {
+                        Application.Current.Dispatcher.Invoke((Action)(() =>
+                        {
+                            GlobalInfo.Instance.TrayDInfos.TrayItemList[index - GlobalInfo.Instance.TrayDInfos.TrayStartNumber].ItemStatus = Item_Status.Ready;
+                        }));
+                    }
+
+                    else if (index >= GlobalInfo.Instance.TrayEInfos.TrayStartNumber && index <= GlobalInfo.Instance.TrayEInfos.TrayEndNumber)
+                    {
+                        Application.Current.Dispatcher.Invoke((Action)(() =>
+                        {
+                            GlobalInfo.Instance.TrayEInfos.TrayItemList[index - GlobalInfo.Instance.TrayEInfos.TrayStartNumber].ItemStatus = Item_Status.Ready;
+                        }));
                     }
                 }
             }
+
             catch (Exception ex)
             {
                 MainLogHelper.Instance.Error("SampleHelper [RefreshSamplerItemStatus]", ex);
@@ -382,71 +289,53 @@ namespace Totalab_L.Common
             return sampleID;
         }
 
-        public static void SetCircleStatus(string pos, Item_Status status)
+        public static void SetCircleStatus(int pos, Item_Status status)
         {
             try
             {
-                int index = int.Parse(pos.Substring(1));
-                string tray = pos.Substring(0, 1);
-                if (tray == "A")
+                if (pos >= GlobalInfo.Instance.TrayAInfos.TrayStartNumber && pos <= GlobalInfo.Instance.TrayAInfos.TrayEndNumber)
                 {
-                    if (index >= 1 && index <= GlobalInfo.Instance.TrayAInfos.XCount * GlobalInfo.Instance.TrayAInfos.YCount)
+                    Application.Current.Dispatcher.Invoke((Action)(() =>
                     {
-                        Application.Current.Dispatcher.Invoke((Action)(() =>
-                        {
-                            GlobalInfo.Instance.TrayAInfos.TrayItemList[index - 1].ItemStatus = status;
-                        }));
-                    }
+                        GlobalInfo.Instance.TrayAInfos.TrayItemList[pos - 1].ItemStatus = status;
+                    }));
                 }
-                else if (tray == "B")
+                else if (pos >= GlobalInfo.Instance.TrayBInfos.TrayStartNumber && pos <= GlobalInfo.Instance.TrayBInfos.TrayEndNumber)
                 {
-                    if (index >= 1 && index <= GlobalInfo.Instance.TrayBInfos.XCount * GlobalInfo.Instance.TrayBInfos.YCount)
+                    Application.Current.Dispatcher.Invoke((Action)(() =>
                     {
-                        Application.Current.Dispatcher.Invoke((Action)(() =>
-                        {
-                            GlobalInfo.Instance.TrayBInfos.TrayItemList[index - 1].ItemStatus = status;
-                        }));
-                    }
+                        GlobalInfo.Instance.TrayBInfos.TrayItemList[pos - GlobalInfo.Instance.TrayBInfos.TrayStartNumber].ItemStatus = status;
+                    }));
                 }
-                else if (tray == "C")
+                else if (pos >= GlobalInfo.Instance.TraySTD1Infos.TrayStartNumber && pos <= GlobalInfo.Instance.TraySTD1Infos.TrayEndNumber)
                 {
-                    if (index >= 1 && index <= GlobalInfo.Instance.TraySTD1Infos.XCount * GlobalInfo.Instance.TraySTD1Infos.YCount)
+                    Application.Current.Dispatcher.Invoke((Action)(() =>
                     {
-                        Application.Current.Dispatcher.Invoke((Action)(() =>
-                        {
-                            GlobalInfo.Instance.TraySTD2Infos.TrayItemList[index - 1].ItemStatus = status;
-                        }));
-                    }
-                    else if (1 >= index - GlobalInfo.Instance.TraySTD1Infos.XCount * GlobalInfo.Instance.TraySTD1Infos.YCount && index <= GlobalInfo.Instance.TraySTD1Infos.XCount * GlobalInfo.Instance.TraySTD1Infos.YCount
-                          + GlobalInfo.Instance.TraySTD2Infos.XCount * GlobalInfo.Instance.TraySTD2Infos.YCount)
-                    {
-                        Application.Current.Dispatcher.Invoke((Action)(() =>
-                        {
-                            GlobalInfo.Instance.TraySTD2Infos.TrayItemList[index - GlobalInfo.Instance.TraySTD1Infos.XCount * GlobalInfo.Instance.TraySTD1Infos.YCount - 1].ItemStatus = status;
-                        }));
-                    }
+                        GlobalInfo.Instance.TraySTD1Infos.TrayItemList[pos - GlobalInfo.Instance.TraySTD1Infos.TrayStartNumber].ItemStatus = status;
+                    }));
                 }
-                else if (tray == "D")
+                else if (pos >= GlobalInfo.Instance.TraySTD2Infos.TrayStartNumber && pos <= GlobalInfo.Instance.TraySTD2Infos.TrayEndNumber)
                 {
-                    if (index >= 1 && index <= GlobalInfo.Instance.TrayDInfos.XCount * GlobalInfo.Instance.TrayDInfos.YCount)
+                    Application.Current.Dispatcher.Invoke((Action)(() =>
                     {
-                        Application.Current.Dispatcher.Invoke((Action)(() =>
-                        {
-                            GlobalInfo.Instance.TrayDInfos.TrayItemList[index - 1].ItemStatus = status;
-                        }));
-                    }
+                        GlobalInfo.Instance.TraySTD2Infos.TrayItemList[pos - GlobalInfo.Instance.TraySTD2Infos.TrayStartNumber].ItemStatus = status;
+                    }));
                 }
-                else if (tray == "E")
+                else if (pos >= GlobalInfo.Instance.TrayDInfos.TrayStartNumber && pos <= GlobalInfo.Instance.TrayDInfos.TrayEndNumber)
                 {
-                    if (index >= 1 && index <= GlobalInfo.Instance.TrayEInfos.XCount * GlobalInfo.Instance.TrayEInfos.YCount)
+                    Application.Current.Dispatcher.Invoke((Action)(() =>
                     {
-                        Application.Current.Dispatcher.Invoke((Action)(() =>
-                        {
-                            GlobalInfo.Instance.TrayEInfos.TrayItemList[index - 1].ItemStatus = status;
-                        }));
-                    }
+                        GlobalInfo.Instance.TrayDInfos.TrayItemList[pos - GlobalInfo.Instance.TrayDInfos.TrayStartNumber].ItemStatus = status;
+                    }));
                 }
 
+                else if (pos >= GlobalInfo.Instance.TrayEInfos.TrayStartNumber && pos <= GlobalInfo.Instance.TrayEInfos.TrayEndNumber)
+                {
+                    Application.Current.Dispatcher.Invoke((Action)(() =>
+                    {
+                        GlobalInfo.Instance.TrayEInfos.TrayItemList[pos - GlobalInfo.Instance.TrayEInfos.TrayStartNumber].ItemStatus = status;
+                    }));
+                }
             }
             catch(Exception ex)
             {
@@ -454,75 +343,25 @@ namespace Totalab_L.Common
             }
         }
 
-        public static string GetNextSampleLocation(string pos)
+        public static int GetNextSampleLocation(int? pos)
         {
             try
             {
-                if(pos.IsNotNullOrEmpty())
+                if (pos != null)
                 {
-
-                    if (GetSampleLocationMatch(pos))
+                    if (pos < GlobalInfo.Instance.TrayEInfos.TrayEndNumber)
                     {
-                        string loc = null;
-                        int index = int.Parse(pos.Substring(1));
-                        string tray = pos.Substring(0, 1);
-                        if (tray == "A")
-                        {
-                            if (index >= 1 && index < GlobalInfo.Instance.TrayAInfos.XCount * GlobalInfo.Instance.TrayAInfos.YCount)
-                            {
-                                loc = "A" + (index + 1);
-                            }
-                            if (index == GlobalInfo.Instance.TrayAInfos.XCount * GlobalInfo.Instance.TrayAInfos.YCount)
-                                loc = "B1";
-                        }
-                        else if (tray == "B")
-                        {
-                            if (index >= 1 && index < GlobalInfo.Instance.TrayBInfos.XCount * GlobalInfo.Instance.TrayBInfos.YCount)
-                            {
-                                loc = "B" + (index + 1);
-                            }
-                            if (index == GlobalInfo.Instance.TrayBInfos.XCount * GlobalInfo.Instance.TrayBInfos.YCount)
-                                loc = "C1";
-                        }
-                        else if (tray == "C")
-                        {
-                            if (index >= 1 && index < GlobalInfo.Instance.TraySTD1Infos.XCount * GlobalInfo.Instance.TraySTD1Infos.YCount + GlobalInfo.Instance.TraySTD2Infos.XCount * GlobalInfo.Instance.TraySTD2Infos.YCount)
-                            {
-                                loc = "C" + (index + 1);
-                            }
-                            if (index == GlobalInfo.Instance.TraySTD1Infos.XCount * GlobalInfo.Instance.TraySTD1Infos.YCount + GlobalInfo.Instance.TraySTD2Infos.XCount * GlobalInfo.Instance.TraySTD2Infos.YCount)
-                                loc = "D1";
-                        }
-                        else if (tray == "D")
-                        {
-                            if (index >= 1 && index < GlobalInfo.Instance.TrayDInfos.XCount * GlobalInfo.Instance.TrayDInfos.YCount)
-                            {
-                                loc = "D" + (index + 1);
-                            }
-                            if (index == GlobalInfo.Instance.TrayDInfos.XCount * GlobalInfo.Instance.TrayDInfos.YCount)
-                                loc = "E1";
-                        }
-                        else if (tray == "E")
-                        {
-                            if (index >= 1 && index < GlobalInfo.Instance.TrayEInfos.XCount * GlobalInfo.Instance.TrayEInfos.YCount)
-                            {
-                                loc = "E" + (index + 1);
-                            }
-                            else
-                            {
-                                loc = null;
-                            }
-                        }
-                        return loc;
+                       pos++;
+                        return (int)pos;
                     }
                 }
-                return null;
+                return 1;
             }
             catch (Exception ex)
             {
                
                 MainLogHelper.Instance.Error("SampleHelper [GetNextSampleLocation]", ex);
-                return null;
+                return 1;
             }
         }
 

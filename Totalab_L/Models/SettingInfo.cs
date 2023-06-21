@@ -26,7 +26,7 @@ namespace Totalab_L.Models
                 Notify("SamplingDepth");
             }
         }
-        private int _samplingDepth = 1000;
+        private int _samplingDepth = 100;
 
         public int Wash1Time
         {
@@ -180,7 +180,7 @@ namespace Totalab_L.Models
                 Notify("SignalMode");
             }
         }
-        private int _signalMode = 2;
+        private int _signalMode = 3;
 
         public int AnalysMode
         {
@@ -202,7 +202,7 @@ namespace Totalab_L.Models
                 Notify("IsWash1Open");
             }
         }
-        private bool _isWash1Open;
+        private bool _isWash1Open = true;
 
 
 

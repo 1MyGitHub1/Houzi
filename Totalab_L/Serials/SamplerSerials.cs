@@ -270,7 +270,7 @@ namespace Totalab_L.Serials
             _TimeOutTime = Timeout.Infinite;
             byte[] frameArray = new byte[10];
             frameArray[0] = 0x5a;
-            frameArray[1] = 0x17;
+            frameArray[1] = 0x1A;
             frameArray[2] = 0x00;
             frameArray[3] = 0x01;
             frameArray[4] = 0x53;
@@ -288,7 +288,7 @@ namespace Totalab_L.Serials
             _TimeOutTime = Timeout.Infinite;
             byte[] frameArray = new byte[10];
             frameArray[0] = 0x5a;
-            frameArray[1] = 0x17;
+            frameArray[1] = 0x1A;
             frameArray[2] = 0x00;
             frameArray[3] = 0x01;
             frameArray[4] = 0x54;
@@ -306,7 +306,7 @@ namespace Totalab_L.Serials
             _TimeOutTime = Timeout.Infinite;
             byte[] frameArray = new byte[10];
             frameArray[0] = 0x5a;
-            frameArray[1] = 0x17;
+            frameArray[1] = 0x1A;
             frameArray[2] = 0x00;
             frameArray[3] = 0xAA;
             frameArray[4] = 0xA1;
@@ -325,7 +325,7 @@ namespace Totalab_L.Serials
             _TimeOutTime = Timeout.Infinite;
             byte[] frameArray = new byte[9+ buf.Length];
             frameArray[0] = 0x5a;
-            frameArray[1] = 0x17;
+            frameArray[1] = 0x1A;
             frameArray[2] = 0x00;
             frameArray[3] = 0xAA;
             frameArray[4] = 0xA2;
@@ -394,7 +394,7 @@ namespace Totalab_L.Serials
         }
 
 
-        public void SetTargetPosition(byte motorID,long step)
+        public void SetTargetPosition(byte motorID,int step)
         {
             _TimeOutTime = Timeout.Infinite;
             byte[] frameArray = new byte[17];
@@ -408,10 +408,20 @@ namespace Totalab_L.Serials
             frameArray[7] = 0x7a;
             frameArray[8] = 0x60;
             frameArray[9] = 0x00;
-            frameArray[10] = (byte)(step % 65536 % 256);
-            frameArray[11] = (byte)(step % 65536 / 256);
-            frameArray[12] = (byte)(step / 65536 % 256);
-            frameArray[13] = (byte)(step / 65536 / 256);
+            if (step < 0)
+            {
+                frameArray[13] = (byte)((step & 0xFF000000) >> 8 >> 8 >> 8);
+                frameArray[12] = (byte)((step & 0xFF0000) >> 8 >> 8);
+                frameArray[11] = (byte)((step & 0xFF00) >> 8);
+                frameArray[10] = (byte)(step & 0XFF);
+            }
+            else
+            {
+                frameArray[10] = (byte)(step % 65536 % 256);
+                frameArray[11] = (byte)(step % 65536 / 256);
+                frameArray[12] = (byte)(step / 65536 % 256);
+                frameArray[13] = (byte)(step / 65536 / 256);
+            }
             int crc = CRCVerify(frameArray);
             frameArray[14] = (byte)(crc / 256);
             frameArray[15] = (byte)(crc % 256);
@@ -420,7 +430,7 @@ namespace Totalab_L.Serials
         }
 
 
-        public void MotorAction(byte motorID,int actionType)
+        public void MotorMove(byte motorID,int actionType)
         {
             _TimeOutTime = Timeout.Infinite;
             byte[] frameArray = new byte[17];
@@ -445,6 +455,31 @@ namespace Totalab_L.Serials
             SendMsg(CmdMsg.GetMsg(frameArray));
         }
 
+        public void MotorAction(byte motorID, int actionType)
+        {
+            _TimeOutTime = Timeout.Infinite;
+            byte[] frameArray = new byte[17];
+            frameArray[0] = 0x5a;
+            frameArray[1] = 0x1A;
+            frameArray[2] = 0x00;
+            frameArray[3] = 0x00;
+            frameArray[4] = 0x22;
+            frameArray[5] = 0x08;
+            frameArray[6] = motorID;
+            frameArray[7] = 0x41;
+            frameArray[8] = 0x60;
+            frameArray[9] = 0x00;
+            frameArray[10] = (byte)(actionType % 65536 % 256);
+            frameArray[11] = (byte)(actionType % 65536 / 256);
+            frameArray[12] = (byte)(actionType / 65536 % 256);
+            frameArray[13] = (byte)(actionType / 65536 / 256);
+            int crc = CRCVerify(frameArray);
+            frameArray[14] = (byte)(crc / 256);
+            frameArray[15] = (byte)(crc % 256);
+            frameArray[16] = 0xa5;
+            SendMsg(CmdMsg.GetMsg(frameArray));
+        }
+
 
         public void ReadMotorPosition(byte motorID)
         {
@@ -454,7 +489,7 @@ namespace Totalab_L.Serials
             frameArray[1] = 0x1A;
             frameArray[2] = 0x00;
             frameArray[3] = 0x00;
-            frameArray[4] = 0x22;
+            frameArray[4] = 0x40;
             frameArray[5] = 0x08;
             frameArray[6] = motorID;
             frameArray[7] = 0x64;
@@ -468,6 +503,46 @@ namespace Totalab_L.Serials
             frameArray[14] = (byte)(crc / 256);
             frameArray[15] = (byte)(crc % 256);
             frameArray[16] = 0xa5;
+            SendMsg(CmdMsg.GetMsg(frameArray));
+        }
+
+        public void XWZHome()
+        {
+            _TimeOutTime = Timeout.Infinite;
+            byte[] frameArray = new byte[9];
+            frameArray[0] = 0x5a;
+            frameArray[1] = 0x1A;
+            frameArray[2] = 0x00;
+            frameArray[3] = 0x22;
+            frameArray[4] = 0x03;
+            frameArray[5] = 0x00;
+            int crc = CRCVerify(frameArray);
+            frameArray[6] = (byte)(crc / 256);
+            frameArray[7] = (byte)(crc % 256);
+            frameArray[8] = 0xa5;
+            SendMsg(CmdMsg.GetMsg(frameArray));
+        }
+
+        /// <summary>
+        /// 指示灯控制
+        /// </summary>
+        /// <param name="status">0灭，1常量，2闪烁</param>
+        /// <param name="color">bit0红色，bit1绿色，bit2蓝色</param>
+        public void SetLightStatus(byte status, byte color)
+        {
+            byte[] frameArray = new byte[11];
+            frameArray[0] = 0x5a;
+            frameArray[1] = 0x1A;
+            frameArray[2] = 0x00;
+            frameArray[3] = 0x22;
+            frameArray[4] = 0x11;
+            frameArray[5] = 0x02;
+            frameArray[6] = status;
+            frameArray[7] = color;
+            int crc = CRCVerify(frameArray);
+            frameArray[8] = (byte)(crc / 256);
+            frameArray[9] = (byte)(crc % 256);
+            frameArray[10] = 0xa5;
             SendMsg(CmdMsg.GetMsg(frameArray));
         }
     }

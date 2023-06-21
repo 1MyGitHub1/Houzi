@@ -316,10 +316,10 @@
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="70"/>
-                            <ColumnDefinition Width="8"/>
+                            <ColumnDefinition Width="6"/>
                             <ColumnDefinition Width="176"/>
                             <ColumnDefinition Width="24"/>
-                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="72"/>
                             <ColumnDefinition Width="16"/>
                             <ColumnDefinition Width="72"/>
                             <ColumnDefinition Width="4"/>
@@ -330,18 +330,23 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Text="{DynamicResource AutoSampler_Main_SampleTray}" Style="{StaticResource UCtlChildTitleTextBlockSty}"/>
                         <!--SelectedValuePath="Value" SelectedValue="{Binding RackType,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"-->
-                        <ComboBox Grid.Column="2" Height="32" Style="{StaticResource ComboBoxSty}"  SelectionChanged="RackTypeChangedCommand" ItemsSource="{Binding  TrayNameList}"
-                                  SelectedValue="{Binding SelectedTrayName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Value"/>
-                        <ltCtl:CustomNumericBox Grid.Column="4" IsUseShortInt="True" ShortIntValue="{Binding CurrentPosition,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                                                Style="{StaticResource CustomNumericBoxSty}" LostFocus="CurrentPositionLostFocusCommand"  MaxValue="{Binding TrayMaxValue}" MinValue="1"/>
-                        <Button Grid.Column="6" Style="{StaticResource ButtonPrimarySty}" Content="{DynamicResource AutoSampler_Main_Sampling}" Width="72" Click="MoveToZCommand"
+                        <!--SelectionChanged="RackTypeChangedCommand"-->
+                        <ComboBox Grid.Column="2" Height="32" Style="{StaticResource ComboBoxSty}"  ItemsSource="{Binding  TrayNameList}"
+                                  SelectedValue="{Binding SelectedTrayName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Value" Visibility="Collapsed"/>
+                        <!--<ltCtl:CustomNumericBox Grid.Column="4" IsUseShortInt="True" ShortIntValue="{Binding CurrentPosition,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                                Style="{StaticResource CustomNumericBoxSty}" LostFocus="CurrentPositionLostFocusCommand"  MinValue="1"/>-->
+                        <TextBox Grid.Column="2" Text="{Binding CurrentPosition,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                                Style="{StaticResource TextBoxSty}" LostFocus="CurrentPositionLostFocusCommand" />
+                        <Button Grid.Column="4" Style="{StaticResource ButtonPrimarySty}" Content="{DynamicResource AutoSampler_Main_Sampling}" Width="72" Click="MoveToZCommand"
                                 IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"/>
-                        <Button Grid.Column="8" Style="{StaticResource ButtonPrimarySty}" Content="{DynamicResource AutoSampler_Main_PositionMove}" Width="72"
+                        <Button Grid.Column="6" Style="{StaticResource ButtonPrimarySty}" Content="{DynamicResource AutoSampler_Main_PositionMove}" Width="72"
                                 IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Click ="MoveToPositionCommand"/>
+                        <Button Grid.Column="8" Style="{StaticResource ButtonPrimarySty}" Content="Z复位" Width="60" 
+                            IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Click="MoveToZHomeCommand"/>
                         <Button Grid.Column="10" Style="{StaticResource ButtonPrimarySty}" Content="{DynamicResource AutoSampler_Home}" Width="60" 
                             IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Click="MoveToHomeCommand"/>
                     </Grid>
-                    <Grid Grid.Row="3">
+                    <Grid Grid.Row="11">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="70"/>
                             <ColumnDefinition Width="8"/>
@@ -399,7 +404,7 @@
                                                 </Style>
                                             </RadioButton.Style>
                                             <RadioButton.Content>
-                                                <TextBlock Text="{Binding ItemContent}" Foreground="White"/>
+                                                <TextBlock Text="{Binding ItemContent}" Foreground="White" FontSize="12"/>
                                             </RadioButton.Content>
                                         </RadioButton>
                                     </DataTemplate>
@@ -407,7 +412,7 @@
                             </themes:TrayControl>
                         </Border>
                     </Grid>
-                    <Grid Grid.Row="5">
+                    <Grid Grid.Row="9">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="70"/>
                             <ColumnDefinition Width="8"/>
@@ -452,7 +457,7 @@
                                                 </Style>
                                             </RadioButton.Style>
                                             <RadioButton.Content>
-                                                <TextBlock Text="{Binding ItemContent}" Foreground="White"/>
+                                                <TextBlock Text="{Binding ItemContent}" Foreground="White" FontSize="12"/>
                                             </RadioButton.Content>
                                         </RadioButton>
                                     </DataTemplate>
@@ -470,7 +475,7 @@
                             <Button Content="Tray C"  Height="32" FontSize="14"  FontFamily="SegoeUI" FontWeight="SemiBold" HorizontalContentAlignment="Left" 
                                     Style="{StaticResource ButtonTextSty}" Background="Transparent" Width="70" HorizontalAlignment="Left"
                                     Click="StdTrayTypeBtn_ClickCommand"/>
-                            <TextBlock Style="{StaticResource TextBlockSty}" Text="STD"  Foreground="#3C000000"
+                            <TextBlock Style="{StaticResource TextBlockSty}" Text="{Binding TrayCleanInfos.TrayType,Source={x:Static global:GlobalInfo.Instance}}"  Foreground="#3C000000"
                                                FontSize="12"/>
                         </StackPanel>
 
@@ -479,10 +484,10 @@
                                 <ImageBrush ImageSource="{Binding TrayCleanInfos.TrayBckPath, Source={x:Static global:GlobalInfo.Instance}}" Stretch="None" TileMode="Tile" AlignmentX="Center" AlignmentY="Center"/>
                             </Border.Background>
                             <StackPanel>
-                                <themes:TrayControl Style="{StaticResource TrayControlSty}" Height="{Binding STD1TrayHeight,Source={x:Static global:GlobalInfo.Instance}}" 
-                                                    Width="504" ItemsSource="{Binding TraySTD1Infos.TrayItemList, Source={x:Static global:GlobalInfo.Instance}}" 
-                                               XCount="{Binding TraySTD1Infos.XCount, Source={x:Static global:GlobalInfo.Instance}}"  YCount="{Binding TraySTD1Infos.YCount, Source={x:Static global:GlobalInfo.Instance}}"
-                                                ItemsSize="{Binding TraySTD1Infos.ItemSize, Source={x:Static global:GlobalInfo.Instance}}">
+                                <themes:TrayControl Style="{StaticResource TrayControlSty}" Height="{Binding STD2TrayHeight,Source={x:Static global:GlobalInfo.Instance}}" 
+                                                    Width="504" ItemsSource="{Binding TraySTD2Infos.TrayItemList, Source={x:Static global:GlobalInfo.Instance}}" 
+                                               XCount="{Binding TraySTD2Infos.XCount, Source={x:Static global:GlobalInfo.Instance}}"  YCount="{Binding TraySTD2Infos.YCount, Source={x:Static global:GlobalInfo.Instance}}"
+                                                ItemsSize="{Binding TraySTD2Infos.ItemSize, Source={x:Static global:GlobalInfo.Instance}}">
                                     <themes:TrayControl.ItemTemplate>
                                         <DataTemplate>
                                             <RadioButton   GroupName="Tray" IsChecked="{Binding IsItemSelected,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -509,7 +514,7 @@
                                                     </Style>
                                                 </RadioButton.Style>
                                                 <RadioButton.Content>
-                                                    <TextBlock Text="{Binding ItemContent}" Foreground="White"/>
+                                                    <TextBlock Text="{Binding ItemContent}" Foreground="White" FontSize="12"/>
                                                 </RadioButton.Content>
                                             </RadioButton>
                                         </DataTemplate>
@@ -520,7 +525,8 @@
                                                 XCount="1"  YCount="2"  ItemsSize="{Binding TrayCleanInfos.ItemSize, Source={x:Static global:GlobalInfo.Instance}}" Margin="{Binding CleanTrayMargin, Source={x:Static global:GlobalInfo.Instance}}">
                                         <themes:TrayControl.ItemTemplate>
                                             <DataTemplate>
-                                                <RadioButton  Style="{StaticResource CircleRadioBtnCmdSty}" Background="#3C000000" GroupName="Tray" >
+                                                <RadioButton  Style="{StaticResource CircleRadioBtnCmdSty}" Background="#3C000000" GroupName="Tray"   Click="TrayCItemClickCommand" 
+                                                              IsChecked="{Binding IsItemSelected,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                                     <RadioButton.Content>
                                                         <TextBlock Text="{Binding ItemContent}" Foreground="White" FontSize="10"/>
                                                     </RadioButton.Content>
@@ -528,11 +534,11 @@
                                             </DataTemplate>
                                         </themes:TrayControl.ItemTemplate>
                                     </themes:TrayControl>
-                                    <themes:TrayControl Style="{StaticResource TrayControlSty}" Height="{Binding STD2TrayHeight,Source={x:Static global:GlobalInfo.Instance}}"  
-                                                        Width="{Binding STD2TrayWidth,Source={x:Static global:GlobalInfo.Instance}}" 
-                                                        ItemsSource="{Binding TraySTD2Infos.TrayItemList, Source={x:Static global:GlobalInfo.Instance}}" 
-                                               XCount="{Binding TraySTD2Infos.XCount, Source={x:Static global:GlobalInfo.Instance}}"  YCount="{Binding TraySTD2Infos.YCount, Source={x:Static global:GlobalInfo.Instance}}"
-                                                ItemsSize="{Binding TraySTD2Infos.ItemSize, Source={x:Static global:GlobalInfo.Instance}}">
+                                    <themes:TrayControl Style="{StaticResource TrayControlSty}" Height="{Binding STD1TrayHeight,Source={x:Static global:GlobalInfo.Instance}}"  
+                                                        Width="{Binding STD1TrayWidth,Source={x:Static global:GlobalInfo.Instance}}" 
+                                                        ItemsSource="{Binding TraySTD1Infos.TrayItemList, Source={x:Static global:GlobalInfo.Instance}}" 
+                                               XCount="{Binding TraySTD1Infos.XCount, Source={x:Static global:GlobalInfo.Instance}}"  YCount="{Binding TraySTD1Infos.YCount, Source={x:Static global:GlobalInfo.Instance}}"
+                                                ItemsSize="{Binding TraySTD1Infos.ItemSize, Source={x:Static global:GlobalInfo.Instance}}">
                                         <themes:TrayControl.ItemTemplate>
                                             <DataTemplate>
                                                 <RadioButton   GroupName="Tray" IsChecked="{Binding IsItemSelected,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -559,7 +565,7 @@
                                                         </Style>
                                                     </RadioButton.Style>
                                                     <RadioButton.Content>
-                                                        <TextBlock Text="{Binding ItemContent}" Foreground="White"/>
+                                                        <TextBlock Text="{Binding ItemContent}" Foreground="White" FontSize="12"/>
                                                     </RadioButton.Content>
                                                 </RadioButton>
                                             </DataTemplate>
@@ -569,7 +575,7 @@
                             </StackPanel>
                         </Border>
                     </Grid>
-                    <Grid Grid.Row="9">
+                    <Grid Grid.Row="5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="70"/>
                             <ColumnDefinition Width="8"/>
@@ -614,7 +620,7 @@
                                                 </Style>
                                             </RadioButton.Style>
                                             <RadioButton.Content>
-                                                <TextBlock Text="{Binding ItemContent}" Foreground="White"/>
+                                                <TextBlock Text="{Binding ItemContent}" Foreground="White" FontSize="12"/>
                                             </RadioButton.Content>
                                         </RadioButton>
                                     </DataTemplate>
@@ -622,7 +628,7 @@
                             </themes:TrayControl>
                         </Border>
                     </Grid>
-                    <Grid Grid.Row="11">
+                    <Grid Grid.Row="3">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="70"/>
                             <ColumnDefinition Width="8"/>
@@ -667,7 +673,7 @@
                                                 </Style>
                                             </RadioButton.Style>
                                             <RadioButton.Content>
-                                                <TextBlock Text="{Binding ItemContent}" Foreground="White"/>
+                                                <TextBlock Text="{Binding ItemContent}" Foreground="White" FontSize="12"/>
                                             </RadioButton.Content>
                                         </RadioButton>
                                     </DataTemplate>
@@ -685,12 +691,10 @@
                             <RowDefinition Height="48"/>
                             <RowDefinition Height="104"/>
                         </Grid.RowDefinitions>
-                        <TextBlock Text="Status" Style="{StaticResource UCtlChildTitleTextBlockSty}"
-                          Visibility="{Binding LogVisibi}"/>
-                        <TextBlock Grid.Column="2" Text="{DynamicResource AutoSampler_Main_Log}" Style="{StaticResource UCtlChildTitleTextBlockSty}"
-                          Visibility="{Binding LogVisibi}"/>
-                        <Border Grid.Row="1" Background="#EF5350" Width="64">
-                            <TextBlock Text="Error" Foreground="White" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Status" Style="{StaticResource UCtlChildTitleTextBlockSty}"/>
+                        <TextBlock Grid.Column="2" Text="{DynamicResource AutoSampler_Main_Log}" Style="{StaticResource UCtlChildTitleTextBlockSty}"/>
+                        <Border Grid.Row="1" Background="{Binding StatusColors}" Width="64">
+                            <TextBlock Text="{Binding StatusText,UpdateSourceTrigger=PropertyChanged }" Foreground="White" HorizontalAlignment="Center"/>
                         </Border>
                         <ListBox Style="{StaticResource ListBoxSty}"  BorderBrush="Black" BorderThickness="1" Grid.Row="1" Height="104" Grid.Column="2"
                              ItemsSource="{Binding LogInfo,Source={x:Static global:GlobalInfo.Instance},UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" />
