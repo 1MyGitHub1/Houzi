@@ -31,7 +31,7 @@ namespace Totalab_L
         {
             InitializeComponent();
             this.DataContext = this;
-            SoftwareVersion = "V1.0.0.0";
+            SoftwareVersion = "V1.0.0.5";
             try
             {
                 RegistSN registSN = RegistSN.GetInstance("LabMonsterTotalab-L");
@@ -186,6 +186,12 @@ namespace Totalab_L
                         ValidityPeriod = registSN.GetValidPeriod();
                         RemainingValidity = registSN.GetCanUseDays();
                         Control_ParentView.MainWindow_AutoSamplerSendObjectDataEvent(null, new ObjectEventArgs() { MessParamType = EnumMessParamType.AutoSamplerDeviceType, Parameter = registSN.GetProductSN() });
+                        if (Control_ParentView._IsFirst)
+                        {
+                            GlobalInfo.Instance.IsCanRunning = false;
+                            GlobalInfo.Instance.IsBusy = true;
+                            GlobalInfo.Instance.Totalab_LSerials.XWZHome();
+                        }
                     }
                     else
                     {

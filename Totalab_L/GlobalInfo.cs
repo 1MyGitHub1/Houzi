@@ -20,6 +20,8 @@ namespace Totalab_L
         }
         private static readonly GlobalInfo _instance = new GlobalInfo();
 
+        public const double XLengthPerCircle = 56.5487;///X齿轮转一圈的长度
+        public const double ZLengthPerCircle = 48;///Z齿轮转一圈的长度
         ///<summary>
         ///自动进样器通信接口
         ///</summary>
@@ -596,5 +598,8 @@ namespace Totalab_L
         }
         private TrayPanelCalibrationInfo _calibrationInfo = new TrayPanelCalibrationInfo();
         #endregion
+
+
+        
     }
 }

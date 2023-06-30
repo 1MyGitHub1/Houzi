@@ -139,7 +139,7 @@ namespace Totalab_L.Common
                 }
                 if (itemNum >= GlobalInfo.Instance.TrayAInfos.TrayStartNumber && itemNum <= GlobalInfo.Instance.TrayBInfos.TrayEndNumber)//旋转左
                 {
-                    xStep = (GlobalInfo.Instance.TrayPanelCenter - (trayFirstRowToCenter - xInterval * ((index-1) / xCount) - length) + GlobalInfo.Instance.TrayPanelHomeX) / 56.52 * 3600 ;
+                    xStep = (GlobalInfo.Instance.TrayPanelCenter - (trayFirstRowToCenter - xInterval * ((index-1) / xCount) - length) + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600 ;
                     angle = 180.0 *  Math.Atan(itemXToCenter/length)/Math.PI;
                     if (index % xCount <= xCount / 2 && index%xCount !=0)
                         angle = 90 + angle;
@@ -149,7 +149,7 @@ namespace Totalab_L.Common
                 }
                 else if (itemNum >= GlobalInfo.Instance.TrayDInfos.TrayStartNumber && itemNum <= GlobalInfo.Instance.TrayEInfos.TrayEndNumber)
                 {
-                    xStep = (GlobalInfo.Instance.TrayPanelCenter + (trayFirstRowToCenter + xInterval * ((index - 1) / xCount) - length) + GlobalInfo.Instance.TrayPanelHomeX) / 56.52 * 3600 ;
+                    xStep = (GlobalInfo.Instance.TrayPanelCenter + (trayFirstRowToCenter + xInterval * ((index - 1) / xCount) - length) + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600 ;
                     angle = 180 * Math.Atan(itemXToCenter / length) / Math.PI;
                     if (index % xCount <= xCount / 2 && index % xCount != 0)
                         angle = 90 + angle;
@@ -162,7 +162,7 @@ namespace Totalab_L.Common
                     double trayRowToCenter = customTrayData.RowToCenterXList[(index-1) / GlobalInfo.Instance.TraySTD1Infos.XCount];
                     itemXToCenter = Math.Abs((xCount - (index- (index - 1) / xCount * xCount) % (xCount+1)) * customTrayData.XCenterInterval - customTrayData.XCenterDistance);
                     length = Math.Sqrt(Math.Pow(ArmLength, 2) - Math.Pow(itemXToCenter, 2));
-                    xStep = (GlobalInfo.Instance.TrayPanelCenter - trayRowToCenter + length + GlobalInfo.Instance.TrayPanelHomeX) / 56.52 * 3600;
+                    xStep = (GlobalInfo.Instance.TrayPanelCenter - trayRowToCenter + length + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600;
                     angle = 180.0 * Math.Atan(itemXToCenter / length) / Math.PI;
                     if ((xCount - (index - (index - 1) / xCount * xCount) % (xCount + 1)) * customTrayData.XCenterInterval>customTrayData.XCenterDistance)
                         angle = 90 + angle;
@@ -176,7 +176,7 @@ namespace Totalab_L.Common
                     double trayRowToCenter = customTrayData.RowToCenterXList[(index-1) / GlobalInfo.Instance.TraySTD2Infos.XCount];
                     itemXToCenter = Math.Abs((xCount - (index - (index - 1) / xCount * xCount) % (xCount + 1)) * customTrayData.XCenterInterval - customTrayData.XCenterDistance);
                     length = Math.Sqrt(Math.Pow(ArmLength, 2) - Math.Pow(itemXToCenter, 2));
-                    xStep = (GlobalInfo.Instance.TrayPanelCenter - (length- trayRowToCenter) + GlobalInfo.Instance.TrayPanelHomeX) / 56.52 * 3600;
+                    xStep = (GlobalInfo.Instance.TrayPanelCenter - (length- trayRowToCenter) + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600;
                     angle = 180.0 * Math.Atan(itemXToCenter / length) / Math.PI;
                     if ((xCount - (index - (index - 1) / xCount * xCount) % (xCount + 1)) * customTrayData.XCenterInterval > customTrayData.XCenterDistance)
                         angle = 90 + angle;
@@ -192,7 +192,7 @@ namespace Totalab_L.Common
             catch(Exception ex)
             {
                 MainLogHelper.Instance.Error("GetPositionInfoHelper [GetTrayItemInfo]", ex);
-                return new Point(GlobalInfo.Instance.TrayPanelCenter / 56.52 * 3600, GlobalInfo.Instance.TrayPanelHomeW);
+                return new Point(GlobalInfo.Instance.TrayPanelCenter / GlobalInfo.XLengthPerCircle * 3600, GlobalInfo.Instance.TrayPanelHomeW);
             }
         }
 
@@ -209,7 +209,7 @@ namespace Totalab_L.Common
                 if (washPos == "W1")
                 {
                     length = Math.Sqrt(Math.Pow(ArmLength, 2) - Math.Pow(itemXToCenter, 2));
-                    xStep = (GlobalInfo.Instance.TrayPanelCenter - 27-20.5 + length + GlobalInfo.Instance.TrayPanelHomeX) / 56.52 * 3600;
+                    xStep = (GlobalInfo.Instance.TrayPanelCenter - 27-20.5 + length + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600;
                     angle = 180.0 * Math.Atan(itemXToCenter / length) / Math.PI;
                     angle = 90 + angle;
                     yStep = GlobalInfo.Instance.TrayPanelHomeW - angle * 10 * 3;
@@ -217,7 +217,7 @@ namespace Totalab_L.Common
                 else if (washPos == "W2")
                 {
                     length = Math.Sqrt(Math.Pow(ArmLength, 2) - Math.Pow(itemXToCenter, 2));
-                    xStep = (GlobalInfo.Instance.TrayPanelCenter  - 20.5 + length + GlobalInfo.Instance.TrayPanelHomeX) / 56.52 * 3600;
+                    xStep = (GlobalInfo.Instance.TrayPanelCenter  - 20.5 + length + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600;
                     angle = 180.0 * Math.Atan(itemXToCenter / length) / Math.PI;
                     angle = 90 + angle;
                     yStep = GlobalInfo.Instance.TrayPanelHomeW - angle * 10 * 3;
@@ -241,12 +241,12 @@ namespace Totalab_L.Common
             int isCollisionStatus = 0;
             if (itemNum >= GlobalInfo.Instance.TrayAInfos.TrayStartNumber && itemNum <= GlobalInfo.Instance.TrayBInfos.TrayEndNumber)//旋转左
             {
-                if (pt.X / 3600.0 * 56.52 - GlobalInfo.Instance.TrayPanelHomeX < 152.5-109.5)
+                if (pt.X / 3600.0 * GlobalInfo.XLengthPerCircle - GlobalInfo.Instance.TrayPanelHomeX < 152.5-109.5)
                     isCollisionStatus = 1;
             }
             else if (itemNum >= GlobalInfo.Instance.TrayDInfos.TrayStartNumber && itemNum <= GlobalInfo.Instance.TrayEInfos.TrayEndNumber)
             {
-                if (559 - pt.X / 3600.0 * 56.52 + GlobalInfo.Instance.TrayPanelHomeX - 109.5 < 152.5)
+                if (559 - pt.X / 3600.0 * GlobalInfo.XLengthPerCircle + GlobalInfo.Instance.TrayPanelHomeX - 109.5 < 152.5)
                     isCollisionStatus = 2;
             }
 

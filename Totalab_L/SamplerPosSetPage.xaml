@@ -398,7 +398,7 @@
                 <StackPanel Grid.Row="1" Orientation="Horizontal">
                     <TextBlock Text="平移中心点(mm)" Width="140" Style="{StaticResource TextBlockSty}"/>
                     <ltCtl:CustomNumericBox Style="{StaticResource CustomNumericBoxSty}" Width="74" MaxValue="340" MinValue="0"
-                     DoubleValue="{Binding  CalibrationInfo.WCalibrationPosition,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
+                     DoubleValue="{Binding  CalibrationInfo.XCalibrationPosition,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
                     <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Margin="10 0 0 0" Content="Go"
                             Click="MoveToXCommand">
                         <Button.IsEnabled>
@@ -433,7 +433,7 @@
                 <StackPanel Grid.Row="3" Orientation="Horizontal">
                     <TextBlock Text="转动中心点(rds)" Width="140" Style="{StaticResource TextBlockSty}"/>
                     <ltCtl:CustomNumericBox Style="{StaticResource CustomNumericBoxSty}" Width="74"
-                     DoubleValue="{Binding  CalibrationInfo.XCalibrationPosition,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
+                     DoubleValue="{Binding  CalibrationInfo.WCalibrationPosition,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
                     <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Margin="10 0 0 0" Content="Go"
                             Click="MoveToWCommand"  >
                         <Button.IsEnabled>
@@ -505,7 +505,7 @@
                             </MultiBinding>
                         </Button.IsEnabled>
                     </Button>
-                    <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="10 0 0 0" Content="{DynamicResource AutoSampler_Home}"
+                    <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="10 0 0 0" Content="限位"
                              Click="ResetZCommand"  >
                         <Button.IsEnabled>
                             <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">

@@ -341,7 +341,7 @@
                                 IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"/>
                         <Button Grid.Column="6" Style="{StaticResource ButtonPrimarySty}" Content="{DynamicResource AutoSampler_Main_PositionMove}" Width="72"
                                 IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Click ="MoveToPositionCommand"/>
-                        <Button Grid.Column="8" Style="{StaticResource ButtonPrimarySty}" Content="Z复位" Width="60" 
+                        <Button Grid.Column="8" Style="{StaticResource ButtonPrimarySty}" Content="限位" Width="60" 
                             IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Click="MoveToZHomeCommand"/>
                         <Button Grid.Column="10" Style="{StaticResource ButtonPrimarySty}" Content="{DynamicResource AutoSampler_Home}" Width="60" 
                             IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Click="MoveToHomeCommand"/>

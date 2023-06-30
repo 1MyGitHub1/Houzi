@@ -198,48 +198,51 @@ namespace Totalab_L.Common
                 for (int i = 0; i < sampleCount; i++)
                 {
                     int index = GlobalInfo.Instance.SampleInfos[i].SampleLoc.Value;
-                    if (index >= GlobalInfo.Instance.TrayAInfos.TrayStartNumber && index <= GlobalInfo.Instance.TrayAInfos.TrayEndNumber)
+                    if (GlobalInfo.Instance.SampleInfos[i].ExpStatus == Exp_Status.Ready || GlobalInfo.Instance.SampleInfos[i].ExpStatus == Exp_Status.Standby)
                     {
-                        Application.Current.Dispatcher.Invoke((Action)(() =>
+                        if (index >= GlobalInfo.Instance.TrayAInfos.TrayStartNumber && index <= GlobalInfo.Instance.TrayAInfos.TrayEndNumber)
                         {
-                            GlobalInfo.Instance.TrayAInfos.TrayItemList[index - 1].ItemStatus = Item_Status.Ready;
-                        }));
-                    }
-                    else if (index >= GlobalInfo.Instance.TrayBInfos.TrayStartNumber && index <= GlobalInfo.Instance.TrayBInfos.TrayEndNumber)
-                    {
-                        Application.Current.Dispatcher.Invoke((Action)(() =>
+                            Application.Current.Dispatcher.Invoke((Action)(() =>
+                            {
+                                GlobalInfo.Instance.TrayAInfos.TrayItemList[index - 1].ItemStatus = Item_Status.Ready;
+                            }));
+                        }
+                        else if (index >= GlobalInfo.Instance.TrayBInfos.TrayStartNumber && index <= GlobalInfo.Instance.TrayBInfos.TrayEndNumber)
                         {
-                            GlobalInfo.Instance.TrayBInfos.TrayItemList[index - GlobalInfo.Instance.TrayBInfos.TrayStartNumber].ItemStatus = Item_Status.Ready;
-                        }));
-                    }
-                    else if (index >= GlobalInfo.Instance.TraySTD1Infos.TrayStartNumber && index <= GlobalInfo.Instance.TraySTD1Infos.TrayEndNumber)
-                    {
-                        Application.Current.Dispatcher.Invoke((Action)(() =>
+                            Application.Current.Dispatcher.Invoke((Action)(() =>
+                            {
+                                GlobalInfo.Instance.TrayBInfos.TrayItemList[index - GlobalInfo.Instance.TrayBInfos.TrayStartNumber].ItemStatus = Item_Status.Ready;
+                            }));
+                        }
+                        else if (index >= GlobalInfo.Instance.TraySTD1Infos.TrayStartNumber && index <= GlobalInfo.Instance.TraySTD1Infos.TrayEndNumber)
                         {
-                            GlobalInfo.Instance.TraySTD1Infos.TrayItemList[index - GlobalInfo.Instance.TraySTD1Infos.TrayStartNumber].ItemStatus = Item_Status.Ready;
-                        }));
-                    }
-                    else if (index >= GlobalInfo.Instance.TraySTD2Infos.TrayStartNumber && index <= GlobalInfo.Instance.TraySTD2Infos.TrayEndNumber)
-                    {
-                        Application.Current.Dispatcher.Invoke((Action)(() =>
+                            Application.Current.Dispatcher.Invoke((Action)(() =>
+                            {
+                                GlobalInfo.Instance.TraySTD1Infos.TrayItemList[index - GlobalInfo.Instance.TraySTD1Infos.TrayStartNumber].ItemStatus = Item_Status.Ready;
+                            }));
+                        }
+                        else if (index >= GlobalInfo.Instance.TraySTD2Infos.TrayStartNumber && index <= GlobalInfo.Instance.TraySTD2Infos.TrayEndNumber)
                         {
-                            GlobalInfo.Instance.TraySTD2Infos.TrayItemList[index - GlobalInfo.Instance.TraySTD2Infos.TrayStartNumber].ItemStatus = Item_Status.Ready;
-                        }));
-                    }
-                    else if (index >= GlobalInfo.Instance.TrayDInfos.TrayStartNumber && index <= GlobalInfo.Instance.TrayDInfos.TrayEndNumber)
-                    {
-                        Application.Current.Dispatcher.Invoke((Action)(() =>
+                            Application.Current.Dispatcher.Invoke((Action)(() =>
+                            {
+                                GlobalInfo.Instance.TraySTD2Infos.TrayItemList[index - GlobalInfo.Instance.TraySTD2Infos.TrayStartNumber].ItemStatus = Item_Status.Ready;
+                            }));
+                        }
+                        else if (index >= GlobalInfo.Instance.TrayDInfos.TrayStartNumber && index <= GlobalInfo.Instance.TrayDInfos.TrayEndNumber)
                         {
-                            GlobalInfo.Instance.TrayDInfos.TrayItemList[index - GlobalInfo.Instance.TrayDInfos.TrayStartNumber].ItemStatus = Item_Status.Ready;
-                        }));
-                    }
+                            Application.Current.Dispatcher.Invoke((Action)(() =>
+                            {
+                                GlobalInfo.Instance.TrayDInfos.TrayItemList[index - GlobalInfo.Instance.TrayDInfos.TrayStartNumber].ItemStatus = Item_Status.Ready;
+                            }));
+                        }
 
-                    else if (index >= GlobalInfo.Instance.TrayEInfos.TrayStartNumber && index <= GlobalInfo.Instance.TrayEInfos.TrayEndNumber)
-                    {
-                        Application.Current.Dispatcher.Invoke((Action)(() =>
+                        else if (index >= GlobalInfo.Instance.TrayEInfos.TrayStartNumber && index <= GlobalInfo.Instance.TrayEInfos.TrayEndNumber)
                         {
-                            GlobalInfo.Instance.TrayEInfos.TrayItemList[index - GlobalInfo.Instance.TrayEInfos.TrayStartNumber].ItemStatus = Item_Status.Ready;
-                        }));
+                            Application.Current.Dispatcher.Invoke((Action)(() =>
+                            {
+                                GlobalInfo.Instance.TrayEInfos.TrayItemList[index - GlobalInfo.Instance.TrayEInfos.TrayStartNumber].ItemStatus = Item_Status.Ready;
+                            }));
+                        }
                     }
                 }
             }
