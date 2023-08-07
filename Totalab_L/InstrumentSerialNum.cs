@@ -24,6 +24,7 @@ namespace Totalab_L
             {
                 GlobalInfo.Instance.IsReadMCUOk = false;
                 GlobalInfo.Instance.Totalab_LSerials.ReadMcuSerials();
+                Thread.Sleep(1000);
                 int time = 0;
                 while (!GlobalInfo.Instance.IsReadMCUOk)
                 {
@@ -64,6 +65,7 @@ namespace Totalab_L
                 GlobalInfo.Instance.Totalab_LSerials.WriteMcuSerials(mcu);
                 string bitMCU = BitConverter.ToString(mcu);
                 MainLogHelper.Instance.Info($"[WriteToInstrument  bitMCU ={bitMCU}");
+                Thread.Sleep(1000);
                 int time = 0;
                 while (!GlobalInfo.Instance.IsWriteMCUOk)
                 {

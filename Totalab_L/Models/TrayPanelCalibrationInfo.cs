@@ -91,5 +91,49 @@ namespace Totalab_L.Models
             }
         }
         private double _w2PointY;
+
+        public double CalibrationLeftX
+        {
+            get => _calibrationLeftX;
+            set
+            {
+                _calibrationLeftX = value;
+                Notify("CalibrationLeftX");
+            }
+        }
+        private double _calibrationLeftX;
+
+        public double CalibrationLeftW
+        {
+            get => _calibrationLeftW;
+            set
+            {
+                _calibrationLeftW = value;
+                Notify("CalibrationLeftW");
+            }
+        }
+        private double _calibrationLeftW;
+
+        public double CalibrationRightX
+        {
+            get => _calibrationRightX;
+            set
+            {
+                _calibrationRightX = value;
+                Notify("CalibrationRightX");
+            }
+        }
+        private double _calibrationRightX;
+
+        public double CalibrationRightW
+        {
+            get => _calibrationRightW;
+            set
+            {
+                _calibrationRightW = value;
+                Notify("CalibrationRightW");
+            }
+        }
+        private double _calibrationRightW;
     }
 }

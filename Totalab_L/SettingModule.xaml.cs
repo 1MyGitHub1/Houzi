@@ -387,15 +387,15 @@ namespace Totalab_L
                                 {
                                     if (count < GlobalInfo.Instance.MaxConnectionTimes)
                                     {
-                                        GlobalInfo.Instance.Totalab_LSerials.EndWork();
+                                        //GlobalInfo.Instance.Totalab_LSerials.EndWork();
                                         try
                                         {
-                                            foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
+                                            //foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
                                             {
                                                 try
                                                 {
-                                                    GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
-                                                    GlobalInfo.Instance.Totalab_LSerials.StartWork();
+                                                    //GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
+                                                    //GlobalInfo.Instance.Totalab_LSerials.StartWork();
                                                     GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMortorWorkMode;
                                                     GlobalInfo.Instance.Totalab_LSerials.SetMotorWorkType(0x01, 0x01);
                                                     Thread.Sleep(300);
@@ -448,15 +448,15 @@ namespace Totalab_L
                             {
                                 if (count < GlobalInfo.Instance.MaxConnectionTimes)
                                 {
-                                    GlobalInfo.Instance.Totalab_LSerials.EndWork();
+                                    //GlobalInfo.Instance.Totalab_LSerials.EndWork();
                                     try
                                     {
-                                        foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
+                                        //foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
                                         {
                                             try
                                             {
-                                                GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
-                                                GlobalInfo.Instance.Totalab_LSerials.StartWork();
+                                                //GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
+                                                //GlobalInfo.Instance.Totalab_LSerials.StartWork();
                                                 GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
                                                 GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x03, (int)((GlobalInfo.Instance.TrayPanelHomeZ + GlobalInfo.Instance.SettingInfo.SamplingDepth) / GlobalInfo.ZLengthPerCircle * 3600));
                                             }
@@ -503,15 +503,15 @@ namespace Totalab_L
                             {
                                 if (count < GlobalInfo.Instance.MaxConnectionTimes)
                                 {
-                                    GlobalInfo.Instance.Totalab_LSerials.EndWork();
+                                    //GlobalInfo.Instance.Totalab_LSerials.EndWork();
                                     try
                                     {
-                                        foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
+                                        //foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
                                         {
                                             try
                                             {
-                                                GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
-                                                GlobalInfo.Instance.Totalab_LSerials.StartWork();
+                                                //GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
+                                                //GlobalInfo.Instance.Totalab_LSerials.StartWork();
                                                 GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMotorAction;
                                                 GlobalInfo.Instance.Totalab_LSerials.MotorAction(0x03, 0x0f);
                                             }
@@ -558,15 +558,15 @@ namespace Totalab_L
                             {
                                 if (count < GlobalInfo.Instance.MaxConnectionTimes)
                                 {
-                                    GlobalInfo.Instance.Totalab_LSerials.EndWork();
+                                    //GlobalInfo.Instance.Totalab_LSerials.EndWork();
                                     try
                                     {
-                                        foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
+                                        //foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
                                         {
                                             try
                                             {
-                                                GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
-                                                GlobalInfo.Instance.Totalab_LSerials.StartWork();
+                                                //GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
+                                                //GlobalInfo.Instance.Totalab_LSerials.StartWork();
                                                 GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMotorAction;
                                                 GlobalInfo.Instance.Totalab_LSerials.MotorMove(0x03, 0x3f);
                                             }
@@ -666,15 +666,15 @@ namespace Totalab_L
                                 {
                                     if (count < GlobalInfo.Instance.MaxConnectionTimes)
                                     {
-                                        GlobalInfo.Instance.Totalab_LSerials.EndWork();
+                                        //GlobalInfo.Instance.Totalab_LSerials.EndWork();
                                         try
                                         {
-                                            foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
+                                            //foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
                                             {
                                                 try
                                                 {
-                                                    GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
-                                                    GlobalInfo.Instance.Totalab_LSerials.StartWork();
+                                                    //GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
+                                                    //GlobalInfo.Instance.Totalab_LSerials.StartWork();
                                                     GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMortorWorkMode;
                                                     GlobalInfo.Instance.Totalab_LSerials.SetMotorWorkType(0x01, 0x01);
                                                     Thread.Sleep(300);
@@ -722,7 +722,7 @@ namespace Totalab_L
                             GlobalInfo.Instance.IsMotorXSetTargetPositionOk = false;
                             GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
                             GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x01, (int)((70 + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600));
-                            Thread.Sleep(50);
+                            Thread.Sleep(100);
                             GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x02, (int)pt.Y);
                             count = 0;
                             while (true)
@@ -736,18 +736,18 @@ namespace Totalab_L
                                 {
                                     if (count < GlobalInfo.Instance.MaxConnectionTimes)
                                     {
-                                        GlobalInfo.Instance.Totalab_LSerials.EndWork();
+                                        //GlobalInfo.Instance.Totalab_LSerials.EndWork();
                                         try
                                         {
-                                            foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
+                                            //foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
                                             {
                                                 try
                                                 {
-                                                    GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
-                                                    GlobalInfo.Instance.Totalab_LSerials.StartWork();
+                                                    //GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
+                                                    //GlobalInfo.Instance.Totalab_LSerials.StartWork();
                                                     GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
                                                     GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x01, (int)((70 + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600));
-                                                    Thread.Sleep(50);
+                                                    Thread.Sleep(100);
                                                     GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x02, (int)pt.Y);
                                                 }
                                                 catch (Exception ex)
@@ -782,7 +782,7 @@ namespace Totalab_L
                             GlobalInfo.Instance.IsMotorXActionOk = false;
                             GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMotorAction;
                             GlobalInfo.Instance.Totalab_LSerials.MotorAction(0x01, 0x0f);
-                            Thread.Sleep(50);
+                            Thread.Sleep(100);
                             GlobalInfo.Instance.Totalab_LSerials.MotorAction(0x02, 0x0f);
                             count = 0;
                             while (true)
@@ -796,18 +796,18 @@ namespace Totalab_L
                                 {
                                     if (count < GlobalInfo.Instance.MaxConnectionTimes)
                                     {
-                                        GlobalInfo.Instance.Totalab_LSerials.EndWork();
+                                        //GlobalInfo.Instance.Totalab_LSerials.EndWork();
                                         try
                                         {
-                                            foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
+                                            //foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
                                             {
                                                 try
                                                 {
-                                                    GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
-                                                    GlobalInfo.Instance.Totalab_LSerials.StartWork();
+                                                    //GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
+                                                    //GlobalInfo.Instance.Totalab_LSerials.StartWork();
                                                     GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMotorAction;
                                                     GlobalInfo.Instance.Totalab_LSerials.MotorAction(0x01, 0x0f);
-                                                    Thread.Sleep(50);
+                                                    Thread.Sleep(100);
                                                     GlobalInfo.Instance.Totalab_LSerials.MotorAction(0x02, 0x0f);
                                                 }
                                                 catch (Exception ex)
@@ -843,7 +843,7 @@ namespace Totalab_L
                             GlobalInfo.Instance.IsMotorXActionOk = false;
                             GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMotorAction;
                             GlobalInfo.Instance.Totalab_LSerials.MotorMove(0x01, 0x3f);
-                            Thread.Sleep(50);
+                            Thread.Sleep(100);
                             GlobalInfo.Instance.Totalab_LSerials.MotorMove(0x02, 0x3f);
                             count = 0;
                             while (true)
@@ -857,18 +857,18 @@ namespace Totalab_L
                                 {
                                     if (count < GlobalInfo.Instance.MaxConnectionTimes)
                                     {
-                                        GlobalInfo.Instance.Totalab_LSerials.EndWork();
+                                        //GlobalInfo.Instance.Totalab_LSerials.EndWork();
                                         try
                                         {
-                                            foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
+                                            //foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
                                             {
                                                 try
                                                 {
-                                                    GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
-                                                    GlobalInfo.Instance.Totalab_LSerials.StartWork();
+                                                    //GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
+                                                    //GlobalInfo.Instance.Totalab_LSerials.StartWork();
                                                     GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMotorAction;
                                                     GlobalInfo.Instance.Totalab_LSerials.MotorMove(0x01, 0x3f);
-                                                    Thread.Sleep(50);
+                                                    Thread.Sleep(100);
                                                     GlobalInfo.Instance.Totalab_LSerials.MotorMove(0x02, 0x3f);
                                                 }
                                                 catch (Exception ex)
@@ -907,7 +907,7 @@ namespace Totalab_L
                             GlobalInfo.Instance.IsMotorXSetTargetPositionOk = false;
                             GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
                             GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x01, (int)((265 + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600));
-                            Thread.Sleep(50);
+                            Thread.Sleep(100);
                             GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x02, (int)pt.Y);
                             count = 0;
                             while (true)
@@ -921,18 +921,18 @@ namespace Totalab_L
                                 {
                                     if (count < GlobalInfo.Instance.MaxConnectionTimes)
                                     {
-                                        GlobalInfo.Instance.Totalab_LSerials.EndWork();
+                                        //GlobalInfo.Instance.Totalab_LSerials.EndWork();
                                         try
                                         {
-                                            foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
+                                            //foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
                                             {
                                                 try
                                                 {
-                                                    GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
-                                                    GlobalInfo.Instance.Totalab_LSerials.StartWork();
+                                                    //GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
+                                                    //GlobalInfo.Instance.Totalab_LSerials.StartWork();
                                                     GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
                                                     GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x01, (int)((265 + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600));
-                                                    Thread.Sleep(50);
+                                                    Thread.Sleep(100);
                                                     GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x02, (int)pt.Y);
                                                 }
                                                 catch (Exception ex)
@@ -968,7 +968,7 @@ namespace Totalab_L
                             GlobalInfo.Instance.IsMotorXActionOk = false;
                             GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMotorAction;
                             GlobalInfo.Instance.Totalab_LSerials.MotorAction(0x01, 0x0f);
-                            Thread.Sleep(50);
+                            Thread.Sleep(100);
                             GlobalInfo.Instance.Totalab_LSerials.MotorAction(0x02, 0x0f);
                             count = 0;
                             while (true)
@@ -982,18 +982,18 @@ namespace Totalab_L
                                 {
                                     if (count < GlobalInfo.Instance.MaxConnectionTimes)
                                     {
-                                        GlobalInfo.Instance.Totalab_LSerials.EndWork();
+                                        //GlobalInfo.Instance.Totalab_LSerials.EndWork();
                                         try
                                         {
-                                            foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
+                                            //foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
                                             {
                                                 try
                                                 {
-                                                    GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
-                                                    GlobalInfo.Instance.Totalab_LSerials.StartWork();
+                                                    //GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
+                                                    //GlobalInfo.Instance.Totalab_LSerials.StartWork();
                                                     GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMotorAction;
                                                     GlobalInfo.Instance.Totalab_LSerials.MotorAction(0x01, 0x0f);
-                                                    Thread.Sleep(50);
+                                                    Thread.Sleep(100);
                                                     GlobalInfo.Instance.Totalab_LSerials.MotorAction(0x02, 0x0f);
                                                 }
                                                 catch (Exception ex)
@@ -1029,7 +1029,7 @@ namespace Totalab_L
                             GlobalInfo.Instance.IsMotorXActionOk = false;
                             GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMotorAction;
                             GlobalInfo.Instance.Totalab_LSerials.MotorMove(0x01, 0x3f);
-                            Thread.Sleep(50);
+                            Thread.Sleep(100);
                             GlobalInfo.Instance.Totalab_LSerials.MotorMove(0x02, 0x3f);
                             count = 0;
                             while (true)
@@ -1043,18 +1043,18 @@ namespace Totalab_L
                                 {
                                     if (count < GlobalInfo.Instance.MaxConnectionTimes)
                                     {
-                                        GlobalInfo.Instance.Totalab_LSerials.EndWork();
+                                        //GlobalInfo.Instance.Totalab_LSerials.EndWork();
                                         try
                                         {
                                             foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
                                             {
                                                 try
                                                 {
-                                                    GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
-                                                    GlobalInfo.Instance.Totalab_LSerials.StartWork();
+                                                    //GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
+                                                    //GlobalInfo.Instance.Totalab_LSerials.StartWork();
                                                     GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMotorAction;
                                                     GlobalInfo.Instance.Totalab_LSerials.MotorMove(0x01, 0x3f);
-                                                    Thread.Sleep(50);
+                                                    Thread.Sleep(100);
                                                     GlobalInfo.Instance.Totalab_LSerials.MotorMove(0x02, 0x3f);
                                                 }
                                                 catch (Exception ex)
@@ -1093,7 +1093,7 @@ namespace Totalab_L
                         if (isCollisionStatus == 0)
                         {
                             GlobalInfo.Instance.IsMotorWSetTargetPositionOk = false;
-                            Thread.Sleep(50);
+                            Thread.Sleep(100);
                             GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x02, (int)pt.Y);
                         }
                         else
@@ -1110,15 +1110,15 @@ namespace Totalab_L
                             {
                                 if (count < GlobalInfo.Instance.MaxConnectionTimes)
                                 {
-                                    GlobalInfo.Instance.Totalab_LSerials.EndWork();
+                                    //GlobalInfo.Instance.Totalab_LSerials.EndWork();
                                     try
                                     {
-                                        foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
+                                        //foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
                                         {
                                             try
                                             {
-                                                GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
-                                                GlobalInfo.Instance.Totalab_LSerials.StartWork();
+                                                //GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
+                                                //GlobalInfo.Instance.Totalab_LSerials.StartWork();
                                                 GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
                                                 GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x01, (int)pt.X);
                                                 if (isCollisionStatus == 0)
@@ -1166,7 +1166,7 @@ namespace Totalab_L
                         if(isCollisionStatus == 0)
                         {
                             GlobalInfo.Instance.IsMotorWActionOk = false;
-                            Thread.Sleep(50);
+                            Thread.Sleep(100);
                             GlobalInfo.Instance.Totalab_LSerials.MotorAction(0x02, 0x0f);
                         }
                         else
@@ -1183,20 +1183,20 @@ namespace Totalab_L
                             {
                                 if (count < GlobalInfo.Instance.MaxConnectionTimes)
                                 {
-                                    GlobalInfo.Instance.Totalab_LSerials.EndWork();
+                                    //GlobalInfo.Instance.Totalab_LSerials.EndWork();
                                     try
                                     {
-                                        foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
+                                        //foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
                                         {
                                             try
                                             {
-                                                GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
-                                                GlobalInfo.Instance.Totalab_LSerials.StartWork();
+                                                //GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
+                                                //GlobalInfo.Instance.Totalab_LSerials.StartWork();
                                                 GlobalInfo.Instance.Totalab_LSerials.MotorAction(0x01, 0x0f);
                                                 if (isCollisionStatus == 0)
                                                 {
                                                     GlobalInfo.Instance.IsMotorWActionOk = false;
-                                                    Thread.Sleep(50);
+                                                    Thread.Sleep(100);
                                                     GlobalInfo.Instance.Totalab_LSerials.MotorAction(0x02, 0x0f);
                                                 }
                                             }
@@ -1236,7 +1236,7 @@ namespace Totalab_L
                         if (isCollisionStatus == 0)
                         {
                             GlobalInfo.Instance.IsMotorWActionOk = false;
-                            Thread.Sleep(50);
+                            Thread.Sleep(100);
                             GlobalInfo.Instance.Totalab_LSerials.MotorMove(0x02, 0x3f);
                         }
                         else
@@ -1253,15 +1253,15 @@ namespace Totalab_L
                             {
                                 if (count < GlobalInfo.Instance.MaxConnectionTimes)
                                 {
-                                    GlobalInfo.Instance.Totalab_LSerials.EndWork();
+                                    //GlobalInfo.Instance.Totalab_LSerials.EndWork();
                                     try
                                     {
-                                        foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
+                                        //foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
                                         {
                                             try
                                             {
-                                                GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
-                                                GlobalInfo.Instance.Totalab_LSerials.StartWork();
+                                                //GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
+                                                //GlobalInfo.Instance.Totalab_LSerials.StartWork();
                                                 GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMotorAction;
                                                 //GlobalInfo.Instance.Totalab_LSerials.MotorMove(0x02, 0x3f);
                                                 //Thread.Sleep(500);
@@ -1269,7 +1269,7 @@ namespace Totalab_L
                                                 if (isCollisionStatus == 0)
                                                 {
                                                     GlobalInfo.Instance.IsMotorWActionOk = false;
-                                                    Thread.Sleep(50);
+                                                    Thread.Sleep(100);
                                                     GlobalInfo.Instance.Totalab_LSerials.MotorMove(0x02, 0x3f);
                                                 }
                                             }
@@ -1357,15 +1357,15 @@ namespace Totalab_L
                             {
                                 if (count < GlobalInfo.Instance.MaxConnectionTimes)
                                 {
-                                    GlobalInfo.Instance.Totalab_LSerials.EndWork();
+                                    //GlobalInfo.Instance.Totalab_LSerials.EndWork();
                                     try
                                     {
-                                        foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
+                                        //foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
                                         {
                                             try
                                             {
-                                                GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
-                                                GlobalInfo.Instance.Totalab_LSerials.StartWork();
+                                                //GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
+                                                //GlobalInfo.Instance.Totalab_LSerials.StartWork();
                                                 GlobalInfo.Instance.RunningStep = RunningStep_Status.XYZHome;
                                                 GlobalInfo.Instance.Totalab_LSerials.XWZHome();
                                             }
@@ -1497,15 +1497,15 @@ namespace Totalab_L
                     {
                         if (count < GlobalInfo.Instance.MaxConnectionTimes)
                         {
-                            GlobalInfo.Instance.Totalab_LSerials.EndWork();
+                            //GlobalInfo.Instance.Totalab_LSerials.EndWork();
                             try
                             {
-                                foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
+                                //foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
                                 {
                                     try
                                     {
-                                        GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
-                                        GlobalInfo.Instance.Totalab_LSerials.StartWork();
+                                        //GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
+                                        //GlobalInfo.Instance.Totalab_LSerials.StartWork();
                                         GlobalInfo.Instance.RunningStep = RunningStep_Status.SetPumpSpeed;
                                         GlobalInfo.Instance.Totalab_LSerials.PumpRunSpeed(GlobalInfo.Instance.SettingInfo.PumpSpeed1);
                                     }
@@ -1561,15 +1561,15 @@ namespace Totalab_L
                     {
                         if (count < GlobalInfo.Instance.MaxConnectionTimes)
                         {
-                            GlobalInfo.Instance.Totalab_LSerials.EndWork();
+                            //GlobalInfo.Instance.Totalab_LSerials.EndWork();
                             try
                             {
-                                foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
+                                //foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
                                 {
                                     try
                                     {
-                                        GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
-                                        GlobalInfo.Instance.Totalab_LSerials.StartWork();
+                                        //GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
+                                        //GlobalInfo.Instance.Totalab_LSerials.StartWork();
                                         GlobalInfo.Instance.RunningStep = RunningStep_Status.OpenPump;
                                         GlobalInfo.Instance.Totalab_LSerials.PumpRun();
                                     }
@@ -1619,15 +1619,15 @@ namespace Totalab_L
                     {
                         if (count < GlobalInfo.Instance.MaxConnectionTimes)
                         {
-                            GlobalInfo.Instance.Totalab_LSerials.EndWork();
+                            //GlobalInfo.Instance.Totalab_LSerials.EndWork();
                             try
                             {
-                                foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
+                                //foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
                                 {
                                     try
                                     {
-                                        GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
-                                        GlobalInfo.Instance.Totalab_LSerials.StartWork();
+                                        //GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
+                                        //GlobalInfo.Instance.Totalab_LSerials.StartWork();
                                         GlobalInfo.Instance.RunningStep = RunningStep_Status.ClosePump;
                                         GlobalInfo.Instance.Totalab_LSerials.PumpStop();
                                     }

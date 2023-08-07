@@ -16,7 +16,7 @@ namespace Totalab_L.Common
         public static int TrayLength;
         public static int XCenter;
         public static double ArmLength = 152.5;/// 机械臂的长度
-        public static double TrayCenterOffset=3.5;
+        public static double TrayCenterOffset=0;
         public static double TrayACenterToCenter = 223.5;
         public static double TrayBCenterToCenter = 114.5;
         public static double TrayDCenterToCenter = 114.5;

@@ -151,7 +151,7 @@ namespace Totalab_L.Serials
                                 }
                                 else
                                 {
-                                    RcvQueue.Add(_RcvTempMsg);
+                                    RcvQueue.Enqueue(_RcvTempMsg);
                                     _RcvTempMsg = new CmdMsg();
                                     //Thread.Sleep(100);
                                     MsgRcvCome.Set();

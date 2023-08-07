@@ -78,7 +78,7 @@ namespace Totalab_L.Serials
         /// 接收信息到达的自动重置事件
         /// </summary>
         public AutoResetEvent MsgRcvCome = new AutoResetEvent(false);
-        public System.Collections.ArrayList RcvQueue = new System.Collections.ArrayList();
+        public ConcurrentQueue<CmdMsg> RcvQueue = new ConcurrentQueue<CmdMsg>();
         /// <summary>
         /// 发送队列的发送线程
         /// </summary>
@@ -141,7 +141,7 @@ namespace Totalab_L.Serials
             SendQueue = new ConcurrentQueue<CmdMsg>();
             SendFrameThread = new Thread(new ThreadStart(SendFrame));
             SendFrameThread.Start();
-            RcvQueue.Clear();
+            RcvQueue = new ConcurrentQueue<CmdMsg>();
             RcvByteList.Clear();
             RcvMsgThread = new Thread(new ThreadStart(RcvMsg));
             RcvMsgThread.Start();
@@ -260,12 +260,11 @@ namespace Totalab_L.Serials
             while (IsWorking)
             {
                 MsgRcvCome.WaitOne();
-                lock (RcvQueue)
+                //lock (RcvQueue)
                 {
                     while (RcvQueue.Count > 0)
                     {
-                        CmdMsg msg = (CmdMsg)RcvQueue[0];
-                        RcvQueue.RemoveAt(0);
+                        RcvQueue.TryDequeue(out CmdMsg msg);
 
                         MsgComeEventArgs e = new MsgComeEventArgs(msg);
                         OnMsgCome(e);
