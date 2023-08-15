@@ -2359,6 +2359,11 @@ namespace Totalab_L
                         new MessagePage().ShowDialog("Message_Error2013".GetWord(), "MessageTitle_Error".GetWord(), false, Enum_MessageType.Error);
                     }));
                 }
+                Application.Current.Dispatcher.Invoke((Action)(() =>
+                {
+                    Control_ParentView.StatusColors = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFBDBDBD"));
+                    Control_ParentView.StatusText = "D/C";
+                }));
                 ExpStatus = Exp_Status.Complete;
                 IsRunningFlow = false;
                 GlobalInfo.Instance.IsCanRunning = true;
@@ -4242,6 +4247,11 @@ namespace Totalab_L
                     if (GlobalInfo.Instance.IsHimassConnState)
                         Control_ParentView.MainWindow_AutoSamplerSendObjectDataEvent(null,
                                new ObjectEventArgs() { MessParamType = EnumMessParamType.ASSerialPortConnOpen, Parameter = Control_ParentView.IsConnect });
+                    this.Dispatcher.Invoke(new Action(delegate
+                    {
+                        Control_ParentView.StatusColors = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFBDBDBD"));
+                        Control_ParentView.StatusText = "D/C";
+                    }));
                 }
 
                 if (GlobalInfo.Instance.IsHimassConnState)

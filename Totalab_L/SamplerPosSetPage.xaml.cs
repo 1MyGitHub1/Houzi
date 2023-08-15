@@ -2235,14 +2235,15 @@ namespace Totalab_L
                 GlobalInfo.Instance.IsCanRunning = false;
                 CancellationTokenSource source = new CancellationTokenSource();
                 Button btn = sender as Button;
+                string str = btn.Tag.ToString();
                 bool result = false;
                 Task.Factory.StartNew(() =>
                 {
-                    if (btn.Tag.ToString() == "right")
+                    if (str == "right")
                     {
                        result= MotorActionHelper.MotorMoveToTargetPosition(CalibrationInfo.CalibrationRightX, CalibrationInfo.CalibrationRightW);
                     }
-                    if (btn.Tag.ToString() == "left")
+                    if (str == "left")
                     {
                         result = MotorActionHelper.MotorMoveToTargetPosition(CalibrationInfo.CalibrationLeftX, CalibrationInfo.CalibrationLeftW);
                     }
@@ -2336,6 +2337,11 @@ namespace Totalab_L
                     Control_Shell.MainWindow_AutoSamplerSendObjectDataEvent(null,
                                   new ObjectEventArgs() { MessParamType = EnumMessParamType.ASSerialPortConnOpen, Parameter = Control_Shell.IsConnect });
                 }
+                Application.Current.Dispatcher.Invoke((Action)(() =>
+                {
+                    Control_Shell.StatusColors = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFBDBDBD"));
+                    Control_Shell.StatusText = "D/C";
+                }));
             }
             catch (Exception ex)
             {

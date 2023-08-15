@@ -139,7 +139,7 @@ namespace Totalab_L.Common
                 }
                 if (itemNum >= GlobalInfo.Instance.TrayAInfos.TrayStartNumber && itemNum <= GlobalInfo.Instance.TrayBInfos.TrayEndNumber)//旋转左
                 {
-                    xStep = (GlobalInfo.Instance.TrayPanelCenter - (trayFirstRowToCenter - xInterval * ((index-1) / xCount) - length) + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600 ;
+                    xStep = (GlobalInfo.Instance.TrayPanelCenter - (trayFirstRowToCenter - yInterval * ((index-1) / xCount) - length) + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600 ;
                     angle = 180.0 *  Math.Atan(itemXToCenter/length)/Math.PI;
                     if (index % xCount <= xCount / 2 && index%xCount !=0)
                         angle = 90 + angle;
@@ -149,7 +149,7 @@ namespace Totalab_L.Common
                 }
                 else if (itemNum >= GlobalInfo.Instance.TrayDInfos.TrayStartNumber && itemNum <= GlobalInfo.Instance.TrayEInfos.TrayEndNumber)
                 {
-                    xStep = (GlobalInfo.Instance.TrayPanelCenter + (trayFirstRowToCenter + xInterval * ((index - 1) / xCount) - length) + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600 ;
+                    xStep = (GlobalInfo.Instance.TrayPanelCenter + (trayFirstRowToCenter + yInterval * ((index - 1) / xCount) - length) + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600 ;
                     angle = 180 * Math.Atan(itemXToCenter / length) / Math.PI;
                     if (index % xCount <= xCount / 2 && index % xCount != 0)
                         angle = 90 + angle;

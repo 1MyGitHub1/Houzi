@@ -83,7 +83,7 @@ namespace Totalab_L
                 Notify("IsSNRegistered");
             }
         }
-        private bool _isSNRegistered = true;
+        private bool _isSNRegistered = false;
 
         /// <summary>
         /// 软件脱机使用中
@@ -133,7 +133,7 @@ namespace Totalab_L
                 Notify("IsConnect");
             }
         }
-        private bool _isConnect = true;
+        private bool _isConnect = false;
 
         public bool IsLoad
         {
@@ -347,7 +347,7 @@ namespace Totalab_L
                 Notify("StatusColors");
             }
         }
-        private SolidColorBrush _statusColors = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF64DD17"));
+        private SolidColorBrush _statusColors = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFBDBDBD"));
 
         public string StatusText
         {
@@ -359,7 +359,7 @@ namespace Totalab_L
             }
 
         }
-        private string _statusText = "Normal";
+        private string _statusText = "D/C";
         #endregion
 
         #region 事件
@@ -2726,6 +2726,11 @@ namespace Totalab_L
                                         new MessagePage().ShowDialog("Message_Error2013".GetWord(), "MessageTitle_Error".GetWord(), false, Enum_MessageType.Error);
                                     }));
                                 }
+                                this.Dispatcher.Invoke(new Action(delegate
+                                {
+                                    StatusColors = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFBDBDBD"));
+                                    StatusText = "D/C";
+                                }));
                             }
                             catch (Exception ex)
                             {
@@ -2785,6 +2790,11 @@ namespace Totalab_L
                             //this.Dispatcher.Invoke((Action)(() =>
                             //{
                             IsConnect = true;
+                            this.Dispatcher.Invoke((Action)(() =>
+                            {
+                                StatusColors = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF64DD17"));
+                                StatusText = "Normal";
+                            }));
                             //if (_IsFirst)
                             //{
                             //    GlobalInfo.Instance.IsCanRunning = false;
@@ -3132,6 +3142,11 @@ namespace Totalab_L
                     MainWindow_AutoSamplerSendObjectDataEvent(null,
                                   new ObjectEventArgs() { MessParamType = EnumMessParamType.ASSerialPortConnOpen, Parameter = IsConnect });
                 }
+                Application.Current.Dispatcher.Invoke((Action)(() =>
+                {
+                    StatusColors = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFBDBDBD"));
+                    StatusText = "D/C";
+                }));
             }
             catch (Exception ex)
             {
