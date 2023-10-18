@@ -1,6 +1,7 @@
 ﻿using LabTech.Common;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,15 +12,31 @@ namespace Totalab_L.Themes
 {
     public class TrayPanel:Panel
     {
+        private static bool IsInDesignMode
+        {
+            get
+            {
+                return (bool)DesignerProperties.GetIsInDesignMode(new DependencyObject());
+            }
+        }
+
+        static TrayPanel()
+        {
+            if (!IsInDesignMode)
+            {
+                DefaultStyleKeyProperty.OverrideMetadata(typeof(TrayPanel), new FrameworkPropertyMetadata(typeof(TrayPanel)));
+            }
+        }
+
         /// <summary>
         /// 数据模板中元素个数
         /// </summary>
         public int ItemsCount
         {
-            get { return (int)GetValue(ItemCountProperty); }
-            set { SetValue(ItemCountProperty, value); }
+            get { return (int)GetValue(ItemsCountProperty); }
+            set { SetValue(ItemsCountProperty, value); }
         }
-        public static readonly DependencyProperty ItemCountProperty = DependencyProperty.Register(
+        public static readonly DependencyProperty ItemsCountProperty = DependencyProperty.Register(
             nameof(ItemsCount), typeof(int), typeof(TrayPanel), new PropertyMetadata(20, OnItemCountChanged));
 
         private static void OnItemCountChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -34,11 +51,11 @@ namespace Totalab_L.Themes
         /// </summary>
         public Size ItemsSize
         {
-            get { return (Size)GetValue(ItemSizeProperty); }
-            set { SetValue(ItemSizeProperty, value); }
+            get { return (Size)GetValue(ItemsSizeProperty); }
+            set { SetValue(ItemsSizeProperty, value); }
 
         }
-        public static readonly DependencyProperty ItemSizeProperty = DependencyProperty.Register(
+        public static readonly DependencyProperty ItemsSizeProperty = DependencyProperty.Register(
          nameof(ItemsSize), typeof(Size), typeof(TrayPanel), new PropertyMetadata(new Size(32, 32), OnItemSizeChanged));
 
         private static void OnItemSizeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

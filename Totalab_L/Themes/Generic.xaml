@@ -3,16 +3,17 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <ResourceDictionary.MergedDictionaries>
-        <!--<ResourceDictionary Source="/LabTech.UITheme;component/Languages/UITheme_Chinese.xaml"/>
+        <!--临时使用  连接MASS的时候需要注释掉-->
+        <ResourceDictionary Source="/LabTech.UITheme;component/Languages/UITheme_Chinese.xaml"/>
         <ResourceDictionary Source="/LabTech.UITheme;component/DynamicHeight/HeightTheme_Mouse.xaml"/>
         <ResourceDictionary Source="/LabTech.UITheme;component/Skins/GreenTheme.xaml"/>
         <ResourceDictionary Source="/LabTech.UITheme;component/Themes/UICommonTheme.xaml"/>
-        <ResourceDictionary Source="/LabTech.UITheme;component/Themes/UIGenericTheme.xaml"/>-->
+        <ResourceDictionary Source="/LabTech.UITheme;component/Themes/UIGenericTheme.xaml"/>
         
-        <!--<ResourceDictionary Source="/Mass.Language;component/Chinese.xaml"/>
-        <ResourceDictionary Source="/Mass.UITheme;component/Themes/UIGenericTheme.xaml" />-->
-
-
+        <ResourceDictionary Source="/Mass.Language;component/Chinese.xaml"/>
+        <ResourceDictionary Source="/Mass.UITheme;component/Themes/UIGenericTheme.xaml" />
+         <!--!-->
+        
         <ResourceDictionary Source="/Totalab_L;component/Themes/SfDataGridRowSty.xaml"/>
         <ResourceDictionary Source="/Totalab_L;component/Themes/RadioButtonTheme.xaml"/>
         <ResourceDictionary Source="/Totalab_L;component/Themes/TrayControlTheme.xaml"/>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,9 +11,19 @@ namespace Totalab_L.Themes
 {
     public class TrayControl : ItemsControl
     {
+        private static bool IsInDesignMode
+        {
+            get
+            {
+                return (bool)DesignerProperties.GetIsInDesignMode(new DependencyObject());
+            }
+        }
         static TrayControl()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(TrayControl), new FrameworkPropertyMetadata(typeof(TrayControl)));
+            if (!IsInDesignMode)
+            {
+                DefaultStyleKeyProperty.OverrideMetadata(typeof(TrayControl), new FrameworkPropertyMetadata(typeof(TrayControl)));
+            }
         }
 
         /// <summary>
@@ -24,7 +35,12 @@ namespace Totalab_L.Themes
             set { SetValue(ItemsCountProperty, value); }
         }
         public static readonly DependencyProperty ItemsCountProperty = DependencyProperty.Register(
-            nameof(ItemsCount), typeof(int), typeof(TrayControl), new PropertyMetadata(20));
+            nameof(ItemsCount), typeof(int), typeof(TrayControl), new PropertyMetadata(20, OnItemsPropertyChanged));
+        private static void OnItemsPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            // AutocompleteTextBox source = d as AutocompleteTextBox;
+            // Do something...
+        }
 
         ///<summary>
         ///模板中行的Item个数
@@ -54,5 +70,6 @@ namespace Totalab_L.Themes
         }
         public static readonly DependencyProperty ItemsSizeProperty = DependencyProperty.Register(
          nameof(ItemsSize), typeof(Size), typeof(TrayControl), new PropertyMetadata(new Size(18, 18)));
+
     }
 }

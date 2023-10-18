@@ -377,7 +377,7 @@
        
                             <themes:TrayControl Style="{StaticResource TrayControlSty}" Height="118" Width="502" ItemsSource="{Binding TrayAInfos.TrayItemList, Source={x:Static global:GlobalInfo.Instance}}" 
                                                 XCount="{Binding TrayAInfos.XCount, Source={x:Static global:GlobalInfo.Instance}}"  YCount="{Binding TrayAInfos.YCount, Source={x:Static global:GlobalInfo.Instance}}"
-                                                ItemsSize="{Binding TrayAInfos.ItemSize, Source={x:Static global:GlobalInfo.Instance}}">
+                                                ItemsSize="{Binding TrayAInfos.ItemsSize, Source={x:Static global:GlobalInfo.Instance}}">
                                 <themes:TrayControl.ItemTemplate>
                                     <DataTemplate>
                                         <RadioButton  GroupName="Tray"  IsChecked="{Binding IsItemSelected,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -430,7 +430,7 @@
                             </Border.Background>
                             <themes:TrayControl Style="{StaticResource TrayControlSty}" Height="118" Width="502" ItemsSource="{Binding TrayBInfos.TrayItemList, Source={x:Static global:GlobalInfo.Instance}}"  
                                                 XCount="{Binding TrayBInfos.XCount, Source={x:Static global:GlobalInfo.Instance}}"  YCount="{Binding TrayBInfos.YCount, Source={x:Static global:GlobalInfo.Instance}}"
-                                                ItemsSize="{Binding TrayBInfos.ItemSize, Source={x:Static global:GlobalInfo.Instance}}">
+                                                ItemsSize="{Binding TrayBInfos.ItemsSize, Source={x:Static global:GlobalInfo.Instance}}">
                                 <themes:TrayControl.ItemTemplate>
                                     <DataTemplate>
                                         <RadioButton GroupName="Tray" IsChecked="{Binding IsItemSelected,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -487,7 +487,7 @@
                                 <themes:TrayControl Style="{StaticResource TrayControlSty}" Height="{Binding STD2TrayHeight,Source={x:Static global:GlobalInfo.Instance}}" 
                                                     Width="504" ItemsSource="{Binding TraySTD2Infos.TrayItemList, Source={x:Static global:GlobalInfo.Instance}}" 
                                                XCount="{Binding TraySTD2Infos.XCount, Source={x:Static global:GlobalInfo.Instance}}"  YCount="{Binding TraySTD2Infos.YCount, Source={x:Static global:GlobalInfo.Instance}}"
-                                                ItemsSize="{Binding TraySTD2Infos.ItemSize, Source={x:Static global:GlobalInfo.Instance}}">
+                                                ItemsSize="{Binding TraySTD2Infos.ItemsSize, Source={x:Static global:GlobalInfo.Instance}}">
                                     <themes:TrayControl.ItemTemplate>
                                         <DataTemplate>
                                             <RadioButton   GroupName="Tray" IsChecked="{Binding IsItemSelected,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -522,7 +522,7 @@
                                 </themes:TrayControl>
                                 <StackPanel Orientation="Horizontal">
                                     <themes:TrayControl Style="{StaticResource TrayControlSty}" Height="48" Width="100" ItemsSource="{Binding TrayCleanInfos.TrayItemList, Source={x:Static global:GlobalInfo.Instance}}" 
-                                                XCount="1"  YCount="2"  ItemsSize="{Binding TrayCleanInfos.ItemSize, Source={x:Static global:GlobalInfo.Instance}}" Margin="{Binding CleanTrayMargin, Source={x:Static global:GlobalInfo.Instance}}">
+                                                XCount="1"  YCount="2"  ItemsSize="{Binding TrayCleanInfos.ItemsSize, Source={x:Static global:GlobalInfo.Instance}}" Margin="{Binding CleanTrayMargin, Source={x:Static global:GlobalInfo.Instance}}">
                                         <themes:TrayControl.ItemTemplate>
                                             <DataTemplate>
                                                 <RadioButton  Style="{StaticResource CircleRadioBtnCmdSty}" Background="#3C000000" GroupName="Tray"   Click="TrayCItemClickCommand" 
@@ -538,7 +538,7 @@
                                                         Width="{Binding STD1TrayWidth,Source={x:Static global:GlobalInfo.Instance}}" 
                                                         ItemsSource="{Binding TraySTD1Infos.TrayItemList, Source={x:Static global:GlobalInfo.Instance}}" 
                                                XCount="{Binding TraySTD1Infos.XCount, Source={x:Static global:GlobalInfo.Instance}}"  YCount="{Binding TraySTD1Infos.YCount, Source={x:Static global:GlobalInfo.Instance}}"
-                                                ItemsSize="{Binding TraySTD1Infos.ItemSize, Source={x:Static global:GlobalInfo.Instance}}">
+                                                ItemsSize="{Binding TraySTD1Infos.ItemsSize, Source={x:Static global:GlobalInfo.Instance}}">
                                         <themes:TrayControl.ItemTemplate>
                                             <DataTemplate>
                                                 <RadioButton   GroupName="Tray" IsChecked="{Binding IsItemSelected,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -593,7 +593,7 @@
                             </Border.Background>
                             <themes:TrayControl Style="{StaticResource TrayControlSty}" Height="118" Width="502" ItemsSource="{Binding TrayDInfos.TrayItemList, Source={x:Static global:GlobalInfo.Instance}}" 
                                                 XCount="{Binding TrayDInfos.XCount, Source={x:Static global:GlobalInfo.Instance}}"  YCount="{Binding TrayDInfos.YCount, Source={x:Static global:GlobalInfo.Instance}}"
-                                                ItemsSize="{Binding TrayDInfos.ItemSize, Source={x:Static global:GlobalInfo.Instance}}">
+                                                ItemsSize="{Binding TrayDInfos.ItemsSize, Source={x:Static global:GlobalInfo.Instance}}">
                                 <themes:TrayControl.ItemTemplate>
                                     <DataTemplate>
                                         <RadioButton  GroupName="Tray" IsChecked="{Binding IsItemSelected,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -646,7 +646,7 @@
                             </Border.Background>
                             <themes:TrayControl Style="{StaticResource TrayControlSty}" Height="118" Width="502" ItemsSource="{Binding TrayEInfos.TrayItemList, Source={x:Static global:GlobalInfo.Instance}}" 
                                               XCount="{Binding TrayEInfos.XCount, Source={x:Static global:GlobalInfo.Instance}}"  YCount="{Binding TrayEInfos.YCount, Source={x:Static global:GlobalInfo.Instance}}"
-                                                ItemsSize="{Binding TrayEInfos.ItemSize, Source={x:Static global:GlobalInfo.Instance}}">
+                                                ItemsSize="{Binding TrayEInfos.ItemsSize, Source={x:Static global:GlobalInfo.Instance}}">
                                 <themes:TrayControl.ItemTemplate>
                                     <DataTemplate>
                                         <RadioButton  GroupName="Tray" IsChecked="{Binding IsItemSelected,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"

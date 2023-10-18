@@ -69,16 +69,29 @@ namespace Totalab_L.Models
         ///<summary>
         ///TrayItemSize
         ///</summary>
-        public Size  ItemSize
+        public Size  ItemsSize
         {
-            get => _itemSize;
+            get => _itemsSize;
             set
             {
-                _itemSize = value;
-                Notify("ItemSize");
+                _itemsSize = value;
+                Notify("ItemsSize");
             }
         }
-        private Size _itemSize;
+        private Size _itemsSize;
+        ///<summary>
+        ///TrayItemsCount
+        ///</summary>
+        public Size ItemsCount
+        {
+            get => _itemsCount;
+            set
+            {
+                _itemsCount = value;
+                Notify("ItemsCount");
+            }
+        }
+        private Size _itemsCount;
 
         public ObservableCollection<ItemData> TrayItemList
         {

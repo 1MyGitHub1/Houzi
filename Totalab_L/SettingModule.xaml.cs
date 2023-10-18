@@ -339,7 +339,7 @@ namespace Totalab_L
         {
             IsSetDepth = !IsSetDepth;
         }
-
+        //设置---进样针下降
         public void GoToCommand(object sender, RoutedEventArgs e)
         {
             try
@@ -618,7 +618,7 @@ namespace Totalab_L
             catch (Exception ex) { MainLogHelper.Instance.Error("SettingModule[GoToCommand]", ex); }
             IsSetDepth = !IsSetDepth;
         }
-
+        //设置----进样针位置
         public void GoToXYCommand(object sender, RoutedEventArgs e)
         {
             try
@@ -1322,6 +1322,7 @@ namespace Totalab_L
             catch (Exception ex) { MainLogHelper.Instance.Error("SettingModule [GoToXYCommand]", ex); }
             IsCanZ = true;
         }
+        //设置---复位
         public void GoToHomeCommand(object sender, RoutedEventArgs e)
         {
             try
@@ -1417,7 +1418,7 @@ namespace Totalab_L
             catch (Exception ex) { MainLogHelper.Instance.Error("SettingModule[GoToHomeCommand]", ex); }
             IsCanZ = false;
         }
-
+        //设置---清洗
         public void RinseCommand(object sender, RoutedEventArgs e)
         {
             try

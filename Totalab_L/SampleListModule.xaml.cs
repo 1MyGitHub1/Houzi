@@ -1613,7 +1613,7 @@ namespace Totalab_L
                             }
                         }
                         longseconds = DateTime.Now.Ticks / 10000;
-                        int count = 0;
+                        //int count = 0;
                         if (GlobalInfo.Instance.SettingInfo.PreWashInfos[0].IsOpenAction)
                         {
                             this.Dispatcher.Invoke(new Action(delegate

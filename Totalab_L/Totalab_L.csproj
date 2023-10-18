@@ -189,6 +189,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\Telerik\Telerik.Windows.Data.dll</HintPath>
     </Reference>
+    <Reference Include="Telerik.Windows.Themes.Windows11, Version=2023.1.315.45, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\Telerik\Telerik.Windows.Themes.Windows11.dll</HintPath>
+    </Reference>
     <Reference Include="UtilityLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\SerialNumber\UtilityLibrary.dll</HintPath>

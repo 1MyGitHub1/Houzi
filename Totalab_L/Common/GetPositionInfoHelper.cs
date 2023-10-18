@@ -15,12 +15,12 @@ namespace Totalab_L.Common
         public static int TrayWidth;
         public static int TrayLength;
         public static int XCenter;
-        public static double ArmLength = 152.5;/// 机械臂的长度
-        public static double TrayCenterOffset=0;
-        public static double TrayACenterToCenter = 223.5;
-        public static double TrayBCenterToCenter = 114.5;
-        public static double TrayDCenterToCenter = 114.5;
-        public static double TrayECenterToCenter = 223.5;
+        public static double ArmLength = 120.75;                            //152.5;             /// 机械臂的旋转半径
+        public static double TrayCenterOffset=0;            //原间隔3.5
+        public static double TrayACenterToCenter = 221.5;                   //223.5;
+        public static double TrayBCenterToCenter = 113.5;                   //114.5;
+        public static double TrayDCenterToCenter = 113.5;                   //114.5;
+        public static double TrayECenterToCenter = 221.5;                   //223.5;
         public static  int GetPositionX(string pos)
         {
             int length = 0;
@@ -40,10 +40,10 @@ namespace Totalab_L.Common
             try
             {
                 double length = 0;
-                int xCount = 0;
-                int yCount = 0;
-                double trayFirstRowToCenter = 0;
-                int index = 1;
+                int xCount = 0;             //长的一排孔数
+                int yCount = 0;             //短的一排孔数
+                double trayFirstRowToCenter = 0;        //试管架左边第一排的孔到模拟原点的距离
+                int index = 1;              //孔号
                 Point xwMovePoint = new Point();
                 TrayMechanicalData trayData = new TrayMechanicalData();
                 CustomTrayMechaincalData customTrayData = new CustomTrayMechaincalData();
@@ -53,7 +53,7 @@ namespace Totalab_L.Common
                     index = itemNum;
                     xCount = GlobalInfo.Instance.TrayAInfos.XCount;
                     yCount = GlobalInfo.Instance.TrayAInfos.YCount;
-                    trayData = TrayInfoHelper.GetTrayData(GlobalInfo.Instance.TrayAInfos.TrayType);
+                    trayData = TrayInfoHelper.GetTrayData(GlobalInfo.Instance.TrayAInfos.TrayType);     //架子类型
                     trayFirstRowToCenter = TrayACenterToCenter + trayData.YCenterDistance / 2;
                 }
                 else if (itemNum >= GlobalInfo.Instance.TrayBInfos.TrayStartNumber && itemNum <= GlobalInfo.Instance.TrayBInfos.TrayEndNumber)
@@ -122,53 +122,60 @@ namespace Totalab_L.Common
                     trayFirstRowToCenter = TrayECenterToCenter - trayData.YCenterDistance / 2;
                 }
              
-                double xInterval =0;
+                double xInterval =0;            //长的一排一个孔加一个缝的距离
                 double yInterval =0;
-                int itemRow = 0;
+                int itemRow = 0;                //横排索引
                 double itemXToCenter = 0;
                 double xStep = 0;
                 double yStep = 0;
-                double angle = 0;
-                if(!isCustomtray)
+                double angle = 0;               //机械臂要转的角度
+                double distance = 0;            //点位距中心
+                if (!isCustomtray)
                 {
                     xInterval = trayData.XCenterDistance / (xCount - 1);
                     yInterval = trayData.YCenterDistance / (yCount - 1);
                     itemRow = (index - 1) / xCount;
-                    itemXToCenter = Math.Abs((trayData.XCenterDistance / 2 - TrayCenterOffset) - xInterval * ((index - 1) % xCount));
-                    length = Math.Sqrt(Math.Pow(ArmLength, 2) - Math.Pow(itemXToCenter, 2));
+                    itemXToCenter = Math.Round( Math.Abs((trayData.XCenterDistance / 2 - TrayCenterOffset) - xInterval * ((index - 1) % xCount)),2);//X直角边1
+                    length = Math.Sqrt(Math.Pow(ArmLength, 2) - Math.Pow(itemXToCenter, 2));                                        //Y直角边2
+
                 }
                 if (itemNum >= GlobalInfo.Instance.TrayAInfos.TrayStartNumber && itemNum <= GlobalInfo.Instance.TrayBInfos.TrayEndNumber)//旋转左
                 {
-                    xStep = (GlobalInfo.Instance.TrayPanelCenter - (trayFirstRowToCenter - yInterval * ((index-1) / xCount) - length) + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600 ;
-                    angle = 180.0 *  Math.Atan(itemXToCenter/length)/Math.PI;
+                    distance = trayFirstRowToCenter - yInterval * ((index - 1) / xCount);           //点位距中心
+                    xStep = ( 227 - distance + length + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600;
+                    //xStep = (GlobalInfo.Instance.TrayPanelCenter_left - distance + length + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600 ;
+                    //angle = 180.0 *  Math.Atan(itemXToCenter/length) /Math.PI;
+                    angle = 180.0 * Math.Asin(itemXToCenter / ArmLength) / Math.Round(Math.PI, 2);
                     if (index % xCount <= xCount / 2 && index%xCount !=0)
-                        angle = 90 + angle;
+                        angle = 90 - angle;                     //左边小角度
                     else
-                        angle = 90 - angle;
-                    yStep = GlobalInfo.Instance.TrayPanelHomeW - angle*10*3;
+                        angle = 90 + angle;                 //左边大角度
+                    yStep = GlobalInfo.Instance.TrayPanelHomeW + angle * 10 * 6;
                 }
                 else if (itemNum >= GlobalInfo.Instance.TrayDInfos.TrayStartNumber && itemNum <= GlobalInfo.Instance.TrayEInfos.TrayEndNumber)
                 {
-                    xStep = (GlobalInfo.Instance.TrayPanelCenter + (trayFirstRowToCenter + yInterval * ((index - 1) / xCount) - length) + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600 ;
-                    angle = 180 * Math.Atan(itemXToCenter / length) / Math.PI;
+                    distance = trayFirstRowToCenter  - yInterval * ((index - 1) / xCount);           //点位距中心
+                    //xStep = (GlobalInfo.Instance.TrayPanelCenter + (trayFirstRowToCenter - yInterval * ((index - 1) / xCount) - length) + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600;
+                    xStep = (227 + distance - length + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600;
+                    angle = 180 * Math.Asin(itemXToCenter / ArmLength) / Math.Round(Math.PI, 2);
                     if (index % xCount <= xCount / 2 && index % xCount != 0)
-                        angle = 90 + angle;
+                        angle = 270 + angle;                   //右边小角度
                     else
-                        angle = 90 - angle;
-                    yStep = GlobalInfo.Instance.TrayPanelHomeW + angle * 10 * 3;
+                        angle = 270 - angle;
+                    yStep = GlobalInfo.Instance.TrayPanelHomeW + angle * 10 * 6;
                 }
                 else if (itemNum >= GlobalInfo.Instance.TraySTD1Infos.TrayStartNumber && itemNum <= GlobalInfo.Instance.TraySTD1Infos.TrayEndNumber)
                 {
                     double trayRowToCenter = customTrayData.RowToCenterXList[(index-1) / GlobalInfo.Instance.TraySTD1Infos.XCount];
                     itemXToCenter = Math.Abs((xCount - (index- (index - 1) / xCount * xCount) % (xCount+1)) * customTrayData.XCenterInterval - customTrayData.XCenterDistance);
                     length = Math.Sqrt(Math.Pow(ArmLength, 2) - Math.Pow(itemXToCenter, 2));
-                    xStep = (GlobalInfo.Instance.TrayPanelCenter - trayRowToCenter + length + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600;
-                    angle = 180.0 * Math.Atan(itemXToCenter / length) / Math.PI;
+                    xStep = (GlobalInfo.Instance.TrayPanelCenter_left - trayRowToCenter + length + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600;
+                    angle = 180.0 * Math.Asin(itemXToCenter / ArmLength) / Math.PI;
                     if ((xCount - (index - (index - 1) / xCount * xCount) % (xCount + 1)) * customTrayData.XCenterInterval>customTrayData.XCenterDistance)
                         angle = 90 + angle;
                     else
                         angle = 90 - angle;
-                    yStep = GlobalInfo.Instance.TrayPanelHomeW - angle * 10 * 3;
+                    yStep = GlobalInfo.Instance.TrayPanelHomeW - angle * 10 * 6;
 
                 }
                 else if (itemNum >= GlobalInfo.Instance.TraySTD2Infos.TrayStartNumber && itemNum <= GlobalInfo.Instance.TraySTD2Infos.TrayEndNumber)
@@ -176,13 +183,13 @@ namespace Totalab_L.Common
                     double trayRowToCenter = customTrayData.RowToCenterXList[(index-1) / GlobalInfo.Instance.TraySTD2Infos.XCount];
                     itemXToCenter = Math.Abs((xCount - (index - (index - 1) / xCount * xCount) % (xCount + 1)) * customTrayData.XCenterInterval - customTrayData.XCenterDistance);
                     length = Math.Sqrt(Math.Pow(ArmLength, 2) - Math.Pow(itemXToCenter, 2));
-                    xStep = (GlobalInfo.Instance.TrayPanelCenter - (length- trayRowToCenter) + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600;
-                    angle = 180.0 * Math.Atan(itemXToCenter / length) / Math.PI;
+                    xStep = (GlobalInfo.Instance.TrayPanelCenter_right + 2 - (length- trayRowToCenter) + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600;
+                    angle = 180.0 * Math.Asin(itemXToCenter / ArmLength) / Math.PI;
                     if ((xCount - (index - (index - 1) / xCount * xCount) % (xCount + 1)) * customTrayData.XCenterInterval > customTrayData.XCenterDistance)
                         angle = 90 + angle;
                     else
                         angle = 90 - angle;
-                    yStep = GlobalInfo.Instance.TrayPanelHomeW + angle * 10 * 3;
+                    yStep = GlobalInfo.Instance.TrayPanelHomeW + angle * 10 * 6;
                 }
 
                 xwMovePoint.X = xStep;
@@ -195,32 +202,34 @@ namespace Totalab_L.Common
                 return new Point(GlobalInfo.Instance.TrayPanelCenter / GlobalInfo.XLengthPerCircle * 3600, GlobalInfo.Instance.TrayPanelHomeW);
             }
         }
-
+        //获取清洗位置坐标
         public static Point GetWashPosition(string washPos)
         {
             try
             {
                 double length = 0;
                 Point xwMovePoint = new Point();
-                double itemXToCenter = 93;
+                double itemXToCenter = 107;              //93;
                 double xStep = 0;
                 double yStep = 0;
                 double angle = 0;
                 if (washPos == "W1")
                 {
                     length = Math.Sqrt(Math.Pow(ArmLength, 2) - Math.Pow(itemXToCenter, 2));
-                    xStep = (GlobalInfo.Instance.TrayPanelCenter - 27-20.5 + length + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600;
-                    angle = 180.0 * Math.Atan(itemXToCenter / length) / Math.PI;
+                    //xStep = (GlobalInfo.Instance.TrayPanelCenter - 27-20.5 + length + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600;
+                    xStep = (GlobalInfo.Instance.TrayPanelCenter - 27 - 22 + length + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600;
+                    //angle = 180.0 * Math.Atan(itemXToCenter / length) / Math.PI;
+                    angle = 180.0 * Math.Asin(itemXToCenter / ArmLength) / Math.PI;
                     angle = 90 + angle;
-                    yStep = GlobalInfo.Instance.TrayPanelHomeW - angle * 10 * 3;
+                    yStep = GlobalInfo.Instance.TrayPanelHomeW - angle * 10 * 6;
                 }
                 else if (washPos == "W2")
                 {
                     length = Math.Sqrt(Math.Pow(ArmLength, 2) - Math.Pow(itemXToCenter, 2));
-                    xStep = (GlobalInfo.Instance.TrayPanelCenter  - 20.5 + length + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600;
-                    angle = 180.0 * Math.Atan(itemXToCenter / length) / Math.PI;
+                    xStep = (GlobalInfo.Instance.TrayPanelCenter  - 22 + length + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600;
+                    angle = 180.0 * Math.Asin(itemXToCenter / ArmLength) / Math.PI;
                     angle = 90 + angle;
-                    yStep = GlobalInfo.Instance.TrayPanelHomeW - angle * 10 * 3;
+                    yStep = GlobalInfo.Instance.TrayPanelHomeW - angle * 10 * 6;
                 }
                 xwMovePoint.X = xStep;
                 xwMovePoint.Y = yStep;
@@ -241,13 +250,19 @@ namespace Totalab_L.Common
             int isCollisionStatus = 0;
             if (itemNum >= GlobalInfo.Instance.TrayAInfos.TrayStartNumber && itemNum <= GlobalInfo.Instance.TrayBInfos.TrayEndNumber)//旋转左
             {
-                if (pt.X / 3600.0 * GlobalInfo.XLengthPerCircle - GlobalInfo.Instance.TrayPanelHomeX < 152.5-109.5)
+                //if (pt.X / 3600.0 * GlobalInfo.XLengthPerCircle - GlobalInfo.Instance.TrayPanelHomeX < 152.5 - 109.5)
+                //    isCollisionStatus = 1;
+                if (pt.X / 3600.0 * GlobalInfo.XLengthPerCircle - GlobalInfo.Instance.TrayPanelHomeX < 152.5 - 109.5)
                     isCollisionStatus = 1;
+                MainLogHelper.Instance.Info("左边当前会碰撞点的位置：" + pt.X.ToString());
             }
             else if (itemNum >= GlobalInfo.Instance.TrayDInfos.TrayStartNumber && itemNum <= GlobalInfo.Instance.TrayEInfos.TrayEndNumber)
             {
                 if (559 - pt.X / 3600.0 * GlobalInfo.XLengthPerCircle + GlobalInfo.Instance.TrayPanelHomeX - 109.5 < 152.5)
                     isCollisionStatus = 2;
+                //if (583.5 - pt.X / 3600.0 * GlobalInfo.XLengthPerCircle + GlobalInfo.Instance.TrayPanelHomeX < 120.75)
+                //    isCollisionStatus = 2;
+                MainLogHelper.Instance.Info("右边当前会碰撞点的位置：" + pt.X.ToString());
             }
 
             return isCollisionStatus;

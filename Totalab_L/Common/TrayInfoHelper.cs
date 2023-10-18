@@ -21,7 +21,7 @@ namespace Totalab_L.Common
                     case Enum_TrayType._15mL:
                         info.XCount = 12;
                         info.YCount = 5;
-                        info.ItemSize = new System.Windows.Size(20, 20);
+                        info.ItemsSize = new System.Windows.Size(20, 20);
                         info.TrayBckPath = "/Totalab_L;component/Images/Tray_5Rows.png";
                         info.TrayType = EnumHelper.GetDescription(Enum_TrayType._15mL);
                         info.TrayItemCount = 60;
@@ -29,7 +29,7 @@ namespace Totalab_L.Common
                     case Enum_TrayType._60mL:
                         info.XCount = 7;
                         info.YCount = 3;
-                        info.ItemSize = new System.Windows.Size(32, 32);
+                        info.ItemsSize = new System.Windows.Size(32, 32);
                         info.TrayBckPath = "/Totalab_L;component/Images/Tray_3Rows.png";
                         info.TrayType = EnumHelper.GetDescription(Enum_TrayType._60mL);
                         info.TrayItemCount = 21;
@@ -38,10 +38,10 @@ namespace Totalab_L.Common
                         info.TrayBckPath = "/Totalab_L;component/Images/row4.png";
                         GlobalInfo.Instance.TraySTD1Infos.XCount = 12;
                         GlobalInfo.Instance.TraySTD1Infos.YCount = 2;
-                        GlobalInfo.Instance.TraySTD1Infos.ItemSize = new System.Windows.Size(20, 20);
+                        GlobalInfo.Instance.TraySTD1Infos.ItemsSize = new System.Windows.Size(20, 20);
                         GlobalInfo.Instance.TraySTD2Infos.XCount = 6;
                         GlobalInfo.Instance.TraySTD2Infos.YCount = 2;
-                        GlobalInfo.Instance.TraySTD2Infos.ItemSize = new System.Windows.Size(32, 32);
+                        GlobalInfo.Instance.TraySTD2Infos.ItemsSize = new System.Windows.Size(32, 32);
 
                         break;
                 }
@@ -67,11 +67,11 @@ namespace Totalab_L.Common
                         GlobalInfo.Instance.TrayCleanInfos.TrayBckPath = "/Totalab_L;component/Images/row0.png";
                         GlobalInfo.Instance.TraySTD2Infos.XCount = 3;
                         GlobalInfo.Instance.TraySTD2Infos.YCount = 1;
-                        GlobalInfo.Instance.TraySTD2Infos.ItemSize = new System.Windows.Size(50, 50);
+                        GlobalInfo.Instance.TraySTD2Infos.ItemsSize = new System.Windows.Size(50, 50);
                         GlobalInfo.Instance.TraySTD2Infos.TrayItemCount = 3;
                         GlobalInfo.Instance.TraySTD1Infos.XCount = 2;
                         GlobalInfo.Instance.TraySTD1Infos.YCount = 1;
-                        GlobalInfo.Instance.TraySTD1Infos.ItemSize = new System.Windows.Size(50, 50);
+                        GlobalInfo.Instance.TraySTD1Infos.ItemsSize = new System.Windows.Size(50, 50);
                         GlobalInfo.Instance.TraySTD1Infos.TrayItemCount = 2;
                         GlobalInfo.Instance.STD2TrayHeight = 60;
                         GlobalInfo.Instance.STD1TrayHeight = 60;
@@ -84,10 +84,10 @@ namespace Totalab_L.Common
                         GlobalInfo.Instance.TraySTD2Infos.XCount = 11;
                         GlobalInfo.Instance.TraySTD2Infos.YCount = 2;
                         GlobalInfo.Instance.TraySTD2Infos.TrayItemCount = 22;
-                        GlobalInfo.Instance.TraySTD2Infos.ItemSize = new System.Windows.Size(20, 20);
+                        GlobalInfo.Instance.TraySTD2Infos.ItemsSize = new System.Windows.Size(20, 20);
                         GlobalInfo.Instance.TraySTD1Infos.XCount = 6;
                         GlobalInfo.Instance.TraySTD1Infos.YCount = 2;
-                        GlobalInfo.Instance.TraySTD1Infos.ItemSize = new System.Windows.Size(32, 32);
+                        GlobalInfo.Instance.TraySTD1Infos.ItemsSize = new System.Windows.Size(32, 32);
                         GlobalInfo.Instance.TraySTD1Infos.TrayItemCount = 12;
                         GlobalInfo.Instance.STD2TrayHeight = 48;
                         GlobalInfo.Instance.STD1TrayHeight = 72;
@@ -179,7 +179,11 @@ namespace Totalab_L.Common
                 MainLogHelper.Instance.Error("TrayInfoHelper [GetTrayNumber]", ex);
             }
         }
-
+        /// <summary>
+        /// 判断架子类型
+        /// </summary>
+        /// <param name="trayType"></param>
+        /// <returns></returns>
         public static TrayMechanicalData GetTrayData(string trayType)
         {
             TrayMechanicalData info = new TrayMechanicalData();

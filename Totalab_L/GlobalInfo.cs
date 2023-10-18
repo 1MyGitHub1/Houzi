@@ -20,10 +20,12 @@ namespace Totalab_L
         }
         private static readonly GlobalInfo _instance = new GlobalInfo();
 
-        public const double XLengthPerCircle = 56.5487;///X齿轮转一圈的长度
-        public const double ZLengthPerCircle = 48;///Z齿轮转一圈的长度
+        public const double XLengthPerCircle = 31.9966;                 //56.5487;///X齿轮转一圈的长度
+        public const double ZLengthPerCircle = 32;                 //48;///Z齿轮转一圈的长度
 
         public static bool IsAutoTuning = false;
+
+        public static double Zlength = 0;
         ///<summary>
         ///自动进样器通信接口
         ///</summary>
@@ -353,7 +355,29 @@ namespace Totalab_L
             }
         }
         private double _trayPanelCenter;
-
+        ///架子中心坐标左hyx
+        public double TrayPanelCenter_left
+        {
+            get => _trayPanelCenter_left;
+            set
+            {
+                _trayPanelCenter_left = value;
+                NotifyPropertyChanged("TrayPanelCenter_left");
+            }
+        }
+        private double _trayPanelCenter_left;
+        ///架子中心坐标右hyx
+        public double TrayPanelCenter_right
+        {
+            get => _trayPanelCenter_right;
+            set
+            {
+                _trayPanelCenter_right = value;
+                NotifyPropertyChanged("TrayPanelCenter_right");
+            }
+        }
+        private double _trayPanelCenter_right;
+        //X轴的实际初始位置(0位置前需要走的距离)
         public double TrayPanelHomeX
         {
             get => _trayPanelHomeX;
@@ -366,7 +390,7 @@ namespace Totalab_L
         }
         private double _trayPanelHomeX;
 
-
+        //角度的实际初始位置
         public double TrayPanelHomeW
         {
             get => _trayPanelHomeW;
@@ -379,7 +403,7 @@ namespace Totalab_L
         }
         private double _trayPanelHomeW;
 
-
+        //针的实际初始位置
         public double TrayPanelHomeZ
         {
             get => _trayPanelHomeZ;

@@ -62,7 +62,7 @@
                     </Border.Background>
                     <themes:TrayControl Style="{StaticResource TrayControlSty}" Height="118" Width="502" ItemsSource="{Binding TrayAInfos.TrayItemList, Source={x:Static global:GlobalInfo.Instance}}" 
                                                 XCount="{Binding TrayAInfos.XCount, Source={x:Static global:GlobalInfo.Instance}}"  YCount="{Binding TrayAInfos.YCount, Source={x:Static global:GlobalInfo.Instance}}"
-                                                ItemsSize="{Binding TrayAInfos.ItemSize, Source={x:Static global:GlobalInfo.Instance}}">
+                                                ItemsSize="{Binding TrayAInfos.ItemsSize, Source={x:Static global:GlobalInfo.Instance}}">
                         <themes:TrayControl.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -87,7 +87,7 @@
                     </Border.Background>
                     <themes:TrayControl Style="{StaticResource TrayControlSty}" Height="118" Width="502" ItemsSource="{Binding TrayBInfos.TrayItemList, Source={x:Static global:GlobalInfo.Instance}}"  
                                                 XCount="{Binding TrayBInfos.XCount, Source={x:Static global:GlobalInfo.Instance}}"  YCount="{Binding TrayBInfos.YCount, Source={x:Static global:GlobalInfo.Instance}}"
-                                                ItemsSize="{Binding TrayBInfos.ItemSize, Source={x:Static global:GlobalInfo.Instance}}">
+                                                ItemsSize="{Binding TrayBInfos.ItemsSize, Source={x:Static global:GlobalInfo.Instance}}">
                         <themes:TrayControl.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -114,7 +114,7 @@
                         <themes:TrayControl Style="{StaticResource TrayControlSty}" Height="{Binding STD2TrayHeight,Source={x:Static global:GlobalInfo.Instance}}" 
                                                     Width="502" ItemsSource="{Binding TraySTD2Infos.TrayItemList, Source={x:Static global:GlobalInfo.Instance}}" 
                                                XCount="{Binding TraySTD2Infos.XCount, Source={x:Static global:GlobalInfo.Instance}}"  YCount="{Binding TraySTD2Infos.YCount, Source={x:Static global:GlobalInfo.Instance}}"
-                                                ItemsSize="{Binding TraySTD2Infos.ItemSize, Source={x:Static global:GlobalInfo.Instance}}">
+                                                ItemsSize="{Binding TraySTD2Infos.ItemsSize, Source={x:Static global:GlobalInfo.Instance}}">
                             <themes:TrayControl.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>
@@ -126,7 +126,7 @@
                         </themes:TrayControl>
                         <StackPanel Orientation="Horizontal">
                             <themes:TrayControl Style="{StaticResource TrayControlSty}" Height="48" Width="100" ItemsSource="{Binding TrayCleanInfos.TrayItemList, Source={x:Static global:GlobalInfo.Instance}}" 
-                                                XCount="1"  YCount="2"  ItemsSize="{Binding TrayCleanInfos.ItemSize, Source={x:Static global:GlobalInfo.Instance}}" Margin="{Binding CleanTrayMargin, Source={x:Static global:GlobalInfo.Instance}}">
+                                                XCount="1"  YCount="2"  ItemsSize="{Binding TrayCleanInfos.ItemsSize, Source={x:Static global:GlobalInfo.Instance}}" Margin="{Binding CleanTrayMargin, Source={x:Static global:GlobalInfo.Instance}}">
                                 <themes:TrayControl.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>
@@ -140,7 +140,7 @@
                                                         Width="{Binding STD1TrayWidth,Source={x:Static global:GlobalInfo.Instance}}" 
                                                         ItemsSource="{Binding TraySTD1Infos.TrayItemList, Source={x:Static global:GlobalInfo.Instance}}" 
                                                XCount="{Binding TraySTD1Infos.XCount, Source={x:Static global:GlobalInfo.Instance}}"  YCount="{Binding TraySTD1Infos.YCount, Source={x:Static global:GlobalInfo.Instance}}"
-                                                ItemsSize="{Binding TraySTD1Infos.ItemSize, Source={x:Static global:GlobalInfo.Instance}}">
+                                                ItemsSize="{Binding TraySTD1Infos.ItemsSize, Source={x:Static global:GlobalInfo.Instance}}">
                                 <themes:TrayControl.ItemTemplate>
                                     <DataTemplate>
                                         <Grid>
@@ -167,7 +167,7 @@
                     </Border.Background>
                     <themes:TrayControl Style="{StaticResource TrayControlSty}" Height="118" Width="502" ItemsSource="{Binding TrayDInfos.TrayItemList, Source={x:Static global:GlobalInfo.Instance}}" 
                                                 XCount="{Binding TrayDInfos.XCount, Source={x:Static global:GlobalInfo.Instance}}"  YCount="{Binding TrayDInfos.YCount, Source={x:Static global:GlobalInfo.Instance}}"
-                                                ItemsSize="{Binding TrayDInfos.ItemSize, Source={x:Static global:GlobalInfo.Instance}}">
+                                                ItemsSize="{Binding TrayDInfos.ItemsSize, Source={x:Static global:GlobalInfo.Instance}}">
                         <themes:TrayControl.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -192,7 +192,7 @@
                     </Border.Background>
                     <themes:TrayControl Style="{StaticResource TrayControlSty}" Height="118" Width="502" ItemsSource="{Binding TrayEInfos.TrayItemList, Source={x:Static global:GlobalInfo.Instance}}" 
                                               XCount="{Binding TrayEInfos.XCount, Source={x:Static global:GlobalInfo.Instance}}"  YCount="{Binding TrayEInfos.YCount, Source={x:Static global:GlobalInfo.Instance}}"
-                                                ItemsSize="{Binding TrayEInfos.ItemSize, Source={x:Static global:GlobalInfo.Instance}}">
+                                                ItemsSize="{Binding TrayEInfos.ItemsSize, Source={x:Static global:GlobalInfo.Instance}}">
                         <themes:TrayControl.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -340,6 +340,7 @@
             </Grid>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="位置校准" Style="{StaticResource UCtlTitleTextBlockSty}" FontSize="16"/>
+                <!--复位-->
                 <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Content="{DynamicResource AutoSampler_Home}"  Margin="20 0 0 0"
                             Click="HomeCommand">
                     <Button.IsEnabled>
@@ -355,6 +356,7 @@
                         </MultiBinding>
                     </Button.IsEnabled>
                 </Button>
+                <!--清错-->
                 <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Content="清错"  Margin="20 0 0 0"
                             Click="ClearErrorCommand">
                     <Button.IsEnabled>
@@ -398,11 +400,20 @@
                     <RowDefinition Height="32"/>
                     <RowDefinition Height="4"/>
                     <RowDefinition Height="32"/>
+                    <RowDefinition Height="4"/>
+                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="4"/>
+                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="4"/>
+                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="4"/>
+                    <RowDefinition Height="32"/>
+
                 </Grid.RowDefinitions>
-                <TextBlock Text="中心点校准位1(左)" Width="140" Style="{StaticResource TextBlockSty}" Grid.Row="1"/>
+                <TextBlock Text="中心点校准位1(左)" Width="140" Style="{StaticResource TextBlockSty}" Grid.Row="1" FontWeight="Bold"/>
                 <StackPanel Grid.Row="3" Orientation="Horizontal">
                     <TextBlock  Text="平移距离(mm)" Style="{StaticResource TextBlockSty}"  Width="140"/>
-                        <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" MaxValue="340" MinValue="0"
+                        <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" MinValue="0"
                       DoubleValue="{Binding  CalibrationInfo.CalibrationLeftX,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
                         <TextBlock  Text="转动中心点(rds)" Style="{StaticResource TextBlockSty}"  Width="100" Margin="10 0 0 0"/>
                         <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Margin="10 0 0 0"
@@ -455,10 +466,19 @@
                         </Button.IsEnabled>
                     </Button>-->
                 </StackPanel>
-                <TextBlock Text="中心点校准位2(右)" Width="140" Style="{StaticResource TextBlockSty}" Grid.Row="5"/>
-                <StackPanel Grid.Row="7" Orientation="Horizontal">
+                <!--偏移量-->
+                <StackPanel Grid.Row="5" Orientation="Horizontal">
+                    <TextBlock  Text="平移偏移量(mm)" Style="{StaticResource TextBlockSty}"  Width="140"/>
+                    <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" MaxValue="20" MinValue="-20"
+                      DoubleValue="{Binding CalibrationInfo.OffsetValueLeftX,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
+                    <!--<TextBlock  Text="角度偏移量(rds)" Style="{StaticResource TextBlockSty}"  Width="100" Margin="10 0 0 0"/>
+                    <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Margin="10 0 0 0" MaxValue="20" MinValue="-20"
+                      DoubleValue="{Binding CalibrationInfo.OffsetCalibrationLeftW,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>-->
+                </StackPanel>
+                <TextBlock Text="中心点校准位2(右)" Width="140" Style="{StaticResource TextBlockSty}" Grid.Row="7" FontWeight="Bold"/>
+                <StackPanel Grid.Row="9" Orientation="Horizontal">
                     <TextBlock  Text="平移距离(mm)" Style="{StaticResource TextBlockSty}"  Width="140"/>
-                    <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" MaxValue="340" MinValue="0"
+                    <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" MaxValue="500" MinValue="0"
                       DoubleValue="{Binding  CalibrationInfo.CalibrationRightX,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
                     <TextBlock  Text="转动中心点(rds)" Style="{StaticResource TextBlockSty}"  Width="100" Margin="10 0 0 0"/>
                     <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Margin="10 0 0 0"
@@ -511,9 +531,38 @@
                         </Button.IsEnabled>
                     </Button>-->
                 </StackPanel>
-                <!--<TextBlock Text="进样针"  Style="{StaticResource TextBlockSty}" Grid.Row="5"/>-->
-                <StackPanel Grid.Row="9" Orientation="Horizontal">
-                    <TextBlock  Text="进样针复位高度(mm)" Style="{StaticResource TextBlockSty}"  Width="140"/>
+                <!--偏移量-->
+                <StackPanel Grid.Row="11" Orientation="Horizontal">
+                    <TextBlock  Text="平移偏移量(mm)" Style="{StaticResource TextBlockSty}"  Width="140"/>
+                    <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" MaxValue="20" MinValue="-20"
+                      DoubleValue="{Binding CalibrationInfo.OffsetValueRightX,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
+                    <!--<TextBlock  Text="角度偏移量(rds)" Style="{StaticResource TextBlockSty}"  Width="100" Margin="10 0 0 0"/>
+                    <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Margin="10 0 0 0" MaxValue="20" MinValue="-20"
+                      DoubleValue="{Binding CalibrationInfo.OffsetCalibrationRightW,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>-->
+                </StackPanel>
+                <!--"进样针"-->
+                <TextBlock Text="进样针位置和高度"  Style="{StaticResource TextBlockSty}" Grid.Row="13" FontWeight="Bold"/>
+                <StackPanel Grid.Row="15" Orientation="Horizontal">
+                    <TextBlock  Text="移动位置（号）" Style="{StaticResource TextBlockSty}"  Width="140"/>
+                    <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" MaxValue="274" MinValue="1"
+                      DoubleValue="{Binding  CalibrationInfo.PosNumber,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
+                    <Button Width="74" Margin="10 0 0 0" Click="GoToXYCommand" Content="{DynamicResource AutoSampler_Go}" Style="{StaticResource ButtonAccentSty}">
+                        <Button.IsEnabled>
+                            <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                                <MultiBinding.ConverterParameter>
+                                    <x:Array Type="{x:Type System:Boolean}">
+                                        <System:Boolean>True</System:Boolean>
+                                        <System:Boolean>True</System:Boolean>
+                                    </x:Array>
+                                </MultiBinding.ConverterParameter>
+                                <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
+                                <Binding Path="IsConnect" Mode="OneWay"/>
+                            </MultiBinding>
+                        </Button.IsEnabled>
+                    </Button>
+                </StackPanel>
+                <StackPanel Grid.Row="17" Orientation="Horizontal">
+                    <TextBlock  Text="复位高度(mm)" Style="{StaticResource TextBlockSty}"  Width="140"/>
                     <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" MaxValue="160" MinValue="0"
                       DoubleValue="{Binding  CalibrationInfo.ZResetPosition,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
                     <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Margin="10 0 0 0" Content="Go"
@@ -532,8 +581,8 @@
                         </Button.IsEnabled>
                     </Button>
                 </StackPanel>
-                <StackPanel Grid.Row="11" Orientation="Horizontal">
-                    <TextBlock  Text="进样针下降高度(mm)" Style="{StaticResource TextBlockSty}"  Width="140"/>
+                <StackPanel Grid.Row="19" Orientation="Horizontal">
+                    <TextBlock  Text="下降高度(mm)" Style="{StaticResource TextBlockSty}"  Width="140"/>
                     <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" MaxValue="160" MinValue="0"
                       DoubleValue="{Binding  ZCurrentPosition,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
                     <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Margin="10 0 0 0" Content="Go"
@@ -566,9 +615,11 @@
                             </MultiBinding>
                         </Button.IsEnabled>
                     </Button>
+                    <!--<Button Content="打开漏液槽" Width="74" Margin="10 0 0 0" Click="LouYeCao_Click"/>-->
                 </StackPanel>
-                <TextBlock Text="W1位置"  Style="{StaticResource TextBlockSty}" Grid.Row="13"/>
-                <StackPanel Grid.Row="15" Orientation="Horizontal">
+                <!--W位置-->
+                <TextBlock Text="W1位置"  Style="{StaticResource TextBlockSty}" Grid.Row="21" FontWeight="Bold"/>
+                <StackPanel Grid.Row="23" Orientation="Horizontal">
                     <TextBlock  Text="平移距离(mm)" Style="{StaticResource TextBlockSty}"  Width="140"/>
                     <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74"  MaxValue="340" MinValue="0"
                       DoubleValue="{Binding  CalibrationInfo.W1PointX,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
@@ -591,8 +642,8 @@
                         </Button.IsEnabled>
                     </Button>
                 </StackPanel>
-                <TextBlock Text="W2位置"  Style="{StaticResource TextBlockSty}" Grid.Row="17"/>
-                <StackPanel Grid.Row="19" Orientation="Horizontal">
+                <TextBlock Text="W2位置"  Style="{StaticResource TextBlockSty}" Grid.Row="25" FontWeight="Bold"/>
+                <StackPanel Grid.Row="27" Orientation="Horizontal">
                     <TextBlock  Text="平移距离(mm)" Style="{StaticResource TextBlockSty}"  Width="140"/>
                     <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" MaxValue="340" MinValue="0"
                       DoubleValue="{Binding  CalibrationInfo.W2PointX,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
@@ -616,6 +667,7 @@
                     </Button>
                 </StackPanel>
             </Grid>
+            <!--取消/保存-->
             <StackPanel Grid.Row="4">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button Style="{StaticResource  ButtonPrimarySty}"  Width="76"  Content="{DynamicResource ButtonContent_Cancel}"  IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"
@@ -655,6 +707,7 @@
                     <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Margin="10 0 0 0"/>
                 </StackPanel>
             </Grid>
+            <!--保存按钮-->
             <StackPanel Grid.Row="10" Visibility="Collapsed">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button Style="{StaticResource  ButtonPrimarySty}"  Width="76"  Content="取消"/>

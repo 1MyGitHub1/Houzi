@@ -28,7 +28,7 @@ namespace Totalab_L.Serials
         }
         private CmdMsg _RcvTempMsg = new CmdMsg();
         private RcvStatus _RcvStatus;
-        byte datalength = 0;
+        //byte datalength = 0;
         public SamplerSerials()
         {
             SPort.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(SerialPort_DataReceived);
@@ -228,7 +228,7 @@ namespace Totalab_L.Serials
             frameArray[10] = 0xa5;
             SendMsg(CmdMsg.GetMsg(frameArray));
         }
-
+        //蠕动泵
         public void PumpRun(byte dir = 0x01)
         {
             _TimeOutTime = Timeout.Infinite;
@@ -247,7 +247,7 @@ namespace Totalab_L.Serials
             SendMsg(CmdMsg.GetMsg(frameArray));
         }
 
-
+        //蠕动泵停止
         public void PumpStop()
         {
             _TimeOutTime = Timeout.Infinite;
@@ -301,6 +301,7 @@ namespace Totalab_L.Serials
             SendMsg(CmdMsg.GetMsg(frameArray));
         }
 
+        //读取单片机串口
         public void ReadMcuSerials(byte length = 30)
         {
             _TimeOutTime = Timeout.Infinite;
@@ -341,7 +342,7 @@ namespace Totalab_L.Serials
             SendMsg(CmdMsg.GetMsg(frameArray));
         }
 
-
+        //设置电机工作类型
         public void SetMotorWorkType(byte motorID,byte workType)
         {
             _TimeOutTime = Timeout.Infinite;
@@ -393,7 +394,7 @@ namespace Totalab_L.Serials
             SendMsg(CmdMsg.GetMsg(frameArray));
         }
 
-
+        //设置目标位置
         public void SetTargetPosition(byte motorID,int step)
         {
             _TimeOutTime = Timeout.Infinite;
@@ -428,7 +429,6 @@ namespace Totalab_L.Serials
             frameArray[16] = 0xa5;
             SendMsg(CmdMsg.GetMsg(frameArray));
         }
-
 
         public void MotorMove(byte motorID,int actionType)
         {
@@ -480,7 +480,7 @@ namespace Totalab_L.Serials
             SendMsg(CmdMsg.GetMsg(frameArray));
         }
 
-
+        //重新读取实际位置
         public void ReadMotorPosition(byte motorID)
         {
             _TimeOutTime = Timeout.Infinite;
@@ -539,6 +539,26 @@ namespace Totalab_L.Serials
             frameArray[5] = 0x02;
             frameArray[6] = status;
             frameArray[7] = color;
+            int crc = CRCVerify(frameArray);
+            frameArray[8] = (byte)(crc / 256);
+            frameArray[9] = (byte)(crc % 256);
+            frameArray[10] = 0xa5;
+            SendMsg(CmdMsg.GetMsg(frameArray));
+        }
+        /// <summary>
+        /// 漏液槽开关
+        /// </summary>
+        public void SetLeakage_tank(byte status)
+        {
+            byte[] frameArray = new byte[11];
+            frameArray[0] = 0x5a;
+            frameArray[1] = 0x00;
+            frameArray[2] = 0x00;
+            frameArray[3] = 0x23;
+            frameArray[4] = 0x01;
+            frameArray[5] = 0x02;
+            frameArray[6] = 0x00;
+            frameArray[7] = status;
             int crc = CRCVerify(frameArray);
             frameArray[8] = (byte)(crc / 256);
             frameArray[9] = (byte)(crc % 256);

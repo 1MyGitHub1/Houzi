@@ -17,6 +17,36 @@ namespace Totalab_L.Models
             if (PropertyChanged != null)
                 PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        /// <summary>
+        /// 配置文件保存的值hyx
+        /// </summary>
+        /// 
+
+
+
+        //进样针向左时的中心位置
+        public double XCalibrationPosition_left
+        {
+            get => _xCalibrationPosition_left;
+            set
+            {
+                _xCalibrationPosition_left = value;
+                Notify("XCalibrationPosition_left");
+            }
+        }
+        private double _xCalibrationPosition_left;
+        //进样针向左时的中心位置
+        public double XCalibrationPosition_right
+        {
+            get => _xCalibrationPosition_right;
+            set
+            {
+                _xCalibrationPosition_right = value;
+                Notify("XCalibrationPosition_right");
+            }
+        }
+        private double _xCalibrationPosition_right;
+        //X轴中心位置
         public double XCalibrationPosition
         {
             get => _xCalibrationPosition;
@@ -28,6 +58,7 @@ namespace Totalab_L.Models
         }
         private double _xCalibrationPosition;
 
+        //角度中心值
         public double WCalibrationPosition
         {
             get => _wCalibrationPosition;
@@ -48,7 +79,7 @@ namespace Totalab_L.Models
                 Notify("ZResetPosition");
             }
         }
-        private double _zResetPosition = 20;
+        private double _zResetPosition = 0;
 
         public double W1PointX
         {
@@ -92,6 +123,20 @@ namespace Totalab_L.Models
         }
         private double _w2PointY;
 
+        public int PosNumber
+        {
+            get => _posNumber;
+            set
+            {
+                _posNumber = value;
+                Notify("PosNumber");
+            }
+        }
+        private int _posNumber = 60;
+
+
+        //平移距离
+        //左初始位置
         public double CalibrationLeftX
         {
             get => _calibrationLeftX;
@@ -103,6 +148,7 @@ namespace Totalab_L.Models
         }
         private double _calibrationLeftX;
 
+        //左角度
         public double CalibrationLeftW
         {
             get => _calibrationLeftW;
@@ -113,7 +159,7 @@ namespace Totalab_L.Models
             }
         }
         private double _calibrationLeftW;
-
+        //右最大角度
         public double CalibrationRightX
         {
             get => _calibrationRightX;
@@ -124,7 +170,7 @@ namespace Totalab_L.Models
             }
         }
         private double _calibrationRightX;
-
+        //右边最大角度
         public double CalibrationRightW
         {
             get => _calibrationRightW;
@@ -135,5 +181,51 @@ namespace Totalab_L.Models
             }
         }
         private double _calibrationRightW;
+
+
+        //平移偏移量左边
+        public double OffsetValueLeftX
+        {
+            get => _offsetValueLeftX;
+            set
+            {
+                _offsetValueLeftX = value;
+                Notify("OffsetValueLeftX");
+            }
+        }
+        private double _offsetValueLeftX;
+        //偏移角度左边
+        public double OffsetCalibrationLeftW
+        {
+            get => _offsetCalibrationLeftW;
+            set
+            {
+                _offsetCalibrationLeftW = value;
+                Notify("OffsetCalibrationLeftW");
+            }
+        }
+        private double _offsetCalibrationLeftW;
+        //平移偏移量右边
+        public double OffsetValueRightX
+        {
+            get => _offsetValueRightX;
+            set
+            {
+                _offsetValueRightX = value;
+                Notify("OffsetValueRightX");
+            }
+        }
+        private double _offsetValueRightX;
+        //偏移角度右边
+        public double OffsetCalibrationRightW
+        {
+            get => _offsetCalibrationRightW;
+            set
+            {
+                _offsetCalibrationRightW = value;
+                Notify("OffsetCalibrationRightW");
+            }
+        }
+        private double _offsetCalibrationRightW;
     }
 }

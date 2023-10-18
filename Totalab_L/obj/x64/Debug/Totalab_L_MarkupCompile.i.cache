@@ -4,7 +4,7 @@
 library
 C#
 .cs
-E:\自动进样器新版\Totalab-L230615\Totalab_L\obj\x64\Debug\
+C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\obj\x64\Debug\
 Totalab_L
 none
 false
@@ -13,7 +13,7 @@ DEBUG;TRACE
 13-243242016
 
 481121040123
-51-1940535484
+52-815456814
 AboutPage.xaml;AddSamplePage.xaml;MessagePage.xaml;MethodSelectorPage.xaml;RegisterSNPage.xaml;SampleListModule.xaml;SamplerPosSetPage.xaml;SettingModule.xaml;ShellPage.xaml;Themes\RadioButtonTheme.xaml;Themes\SfDataGridRowSty.xaml;Themes\Generic.xaml;Themes\TrayControlTheme.xaml;
 
 True
