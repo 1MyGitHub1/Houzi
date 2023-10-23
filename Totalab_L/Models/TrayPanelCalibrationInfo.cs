@@ -17,12 +17,96 @@ namespace Totalab_L.Models
             if (PropertyChanged != null)
                 PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        /// <summary>
-        /// 配置文件保存的值hyx
-        /// </summary>
-        /// 
 
 
+        #region 校准点位
+        public double TrayPanelCenterX
+        {
+            get => _trayPanelCenterX;
+            set
+            {
+                _trayPanelCenterX = value;
+                Notify("TrayPanelCenterX");
+            }
+        }
+        private double _trayPanelCenterX;
+
+        public double CalibrationLeftX
+        {
+            get => _calibrationLeftX;
+            set
+            {
+                _calibrationLeftX = value;
+                Notify("CalibrationLeftX");
+            }
+        }
+        private double _calibrationLeftX;
+        public double CalibrationLeftW
+        {
+            get => _calibrationLeftW;
+            set
+            {
+                _calibrationLeftW = value;
+                Notify("CalibrationLeftW");
+            }
+        }
+        private double _calibrationLeftW;
+        public double CalibrationRightX
+        {
+            get => _calibrationRightX;
+            set
+            {
+                _calibrationRightX = value;
+                Notify("CalibrationRightX");
+            }
+        }
+        private double _calibrationRightX;
+        public double CalibrationRightW
+        {
+            get => _calibrationRightW;
+            set
+            {
+                _calibrationRightW = value;
+                Notify("CalibrationRightW");
+            }
+        }
+        private double _calibrationRightW;
+        //左校准点实际位置到中心点距离
+        public double TrayCenterToLeftW
+        {
+            get => _trayCenterToLeftW;
+            set
+            {
+                _trayCenterToLeftW = value;
+                Notify("TrayCenterToLeftW");
+            }
+        }
+        private double _trayCenterToLeftW;
+        #endregion
+
+        #region 复位返回的中心点位置及Zero
+        public double Return_TrayPanelCenterX
+        {
+            get => _return_TrayPanelCenterX;
+            set
+            {
+                _return_TrayPanelCenterX = value;
+                Notify("Return_TrayPanelCenterX");
+            }
+        }
+        private double _return_TrayPanelCenterX;
+        public double Return_TrayPanelCenterW
+        {
+            get => _return_TrayPanelCenterW;
+            set
+            {
+                _return_TrayPanelCenterW = value;
+                Notify("Return_TrayPanelCenterW");
+            }
+        }
+        private double _return_TrayPanelCenterW;
+
+        #endregion
 
         //进样针向左时的中心位置
         public double XCalibrationPosition_left
@@ -69,7 +153,23 @@ namespace Totalab_L.Models
             }
         }
         private double _wCalibrationPosition;
+        /// <summary>
+        /// 移动位置
+        /// </summary>
+        public int PosNumber
+        {
+            get => _posNumber;
+            set
+            {
+                _posNumber = value;
+                Notify("PosNumber");
+            }
+        }
+        private int _posNumber = 60;
 
+        /// <summary>
+        /// 进样针复位位置
+        /// </summary>
         public double ZResetPosition
         {
             get => _zResetPosition;
@@ -81,6 +181,7 @@ namespace Totalab_L.Models
         }
         private double _zResetPosition = 0;
 
+        #region 校准清洗位置
         public double W1PointX
         {
             get => _w1PointX;
@@ -122,67 +223,11 @@ namespace Totalab_L.Models
             }
         }
         private double _w2PointY;
-
-        public int PosNumber
-        {
-            get => _posNumber;
-            set
-            {
-                _posNumber = value;
-                Notify("PosNumber");
-            }
-        }
-        private int _posNumber = 60;
+        #endregion
 
 
-        //平移距离
-        //左初始位置
-        public double CalibrationLeftX
-        {
-            get => _calibrationLeftX;
-            set
-            {
-                _calibrationLeftX = value;
-                Notify("CalibrationLeftX");
-            }
-        }
-        private double _calibrationLeftX;
 
-        //左角度
-        public double CalibrationLeftW
-        {
-            get => _calibrationLeftW;
-            set
-            {
-                _calibrationLeftW = value;
-                Notify("CalibrationLeftW");
-            }
-        }
-        private double _calibrationLeftW;
-        //右最大角度
-        public double CalibrationRightX
-        {
-            get => _calibrationRightX;
-            set
-            {
-                _calibrationRightX = value;
-                Notify("CalibrationRightX");
-            }
-        }
-        private double _calibrationRightX;
-        //右边最大角度
-        public double CalibrationRightW
-        {
-            get => _calibrationRightW;
-            set
-            {
-                _calibrationRightW = value;
-                Notify("CalibrationRightW");
-            }
-        }
-        private double _calibrationRightW;
-
-
+        #region 偏移量
         //平移偏移量左边
         public double OffsetValueLeftX
         {
@@ -227,5 +272,6 @@ namespace Totalab_L.Models
             }
         }
         private double _offsetCalibrationRightW;
+        #endregion
     }
 }

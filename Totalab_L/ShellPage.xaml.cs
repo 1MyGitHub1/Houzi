@@ -684,8 +684,10 @@ namespace Totalab_L
                 MainLogHelper.Instance.Error("ShellPage [ TrayAItemClickCommand]", ex);
             }
         }
+
+
         /// <summary>
-        /// 位移
+        /// 位移指定位置
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -782,14 +784,24 @@ namespace Totalab_L
                                     break;
                             }
                         }
+
+                        //#region  防止撞针
+                        //GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x03, (int)(GlobalInfo.Instance.TrayPanelHomeZ / GlobalInfo.ZLengthPerCircle * 3600));
+                        //Thread.Sleep(300);
+                        //#endregion
+
                         Point pt = new Point();
                         int isCollisionStatus = 0;
                         if (CurrentPosition == "W1")
                         {
-                            pt = new Point((GlobalInfo.Instance.CalibrationInfo.W1PointX + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600.0, GlobalInfo.Instance.CalibrationInfo.W1PointY * 3.0 * 10.0);
+                            pt = GetPositionInfoHelper.GetWashPosition(CurrentPosition);
+                            //pt = new Point((GlobalInfo.Instance.TrayPanelCenter + GlobalInfo.Instance.TrayPanelHomeX + W1_valueX ) / GlobalInfo.XLengthPerCircle * 3600.0, GlobalInfo.Instance.CalibrationInfo.W1PointY * 3.0 * 10.0);
                         }
                         else if (CurrentPosition == "W2")
-                            pt = new Point((GlobalInfo.Instance.CalibrationInfo.W2PointX + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600.0, GlobalInfo.Instance.CalibrationInfo.W2PointY * 3.0 * 10.0);
+                        {
+                             pt = GetPositionInfoHelper.GetWashPosition(CurrentPosition);
+                            //pt = new Point((GlobalInfo.Instance.TrayPanelCenter + GlobalInfo.Instance.TrayPanelHomeX + W2_valueX) / GlobalInfo.XLengthPerCircle * 3600.0, GlobalInfo.Instance.CalibrationInfo.W2PointY * 3.0 * 10.0);
+                        }
                         else
                         {
                             pt = GetPositionInfoHelper.GetItemPosition(int.Parse(CurrentPosition));                     //要去的位置
@@ -800,7 +812,7 @@ namespace Totalab_L
                             GlobalInfo.Instance.IsMotorWSetTargetPositionOk = false;
                             GlobalInfo.Instance.IsMotorXSetTargetPositionOk = false;
                             GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
-                            GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x01, (int)((70 + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600));
+                            GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x01, (int)((100 + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600));
                             Thread.Sleep(100);
                             GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x02, (int)pt.Y);
                             count = 0;
@@ -825,7 +837,7 @@ namespace Totalab_L
                                                     //GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
                                                     //GlobalInfo.Instance.Totalab_LSerials.StartWork();
                                                     GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
-                                                    GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x01, (int)((70 + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600));
+                                                    GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x01, (int)((100 + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600));
                                                     Thread.Sleep(100);
                                                     GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x02, (int)pt.Y);
                                                 }
@@ -985,7 +997,7 @@ namespace Totalab_L
                             GlobalInfo.Instance.IsMotorWSetTargetPositionOk = false;
                             GlobalInfo.Instance.IsMotorXSetTargetPositionOk = false;
                             GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
-                            GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x01, (int)((265 + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600));
+                            GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x01, (int)((354 + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600));
                             Thread.Sleep(100);
                             GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x02, (int)pt.Y);
                             count = 0;
@@ -1010,7 +1022,7 @@ namespace Totalab_L
                                                     //GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
                                                     //GlobalInfo.Instance.Totalab_LSerials.StartWork();
                                                     GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
-                                                    GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x01, (int)((265 + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600));
+                                                    GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x01, (int)((354 + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600));
                                                     Thread.Sleep(100);
                                                     GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x02, (int)pt.Y);
                                                 }
@@ -1425,6 +1437,9 @@ namespace Totalab_L
                                 return;
                             }
                         }
+                        GlobalInfo.Instance.Totalab_LSerials.SetLeakage_tank(0x14);     //打开
+                        Thread.Sleep(100);
+
                         if (GlobalInfo.Instance.CurrentWorkType != Enum_MotorWorkType.Position)
                         {
                             GlobalInfo.Instance.IsMotorWSetWorkModeOk = false;
@@ -1781,6 +1796,7 @@ namespace Totalab_L
             }
             catch (Exception ex) { MainLogHelper.Instance.Error("ShellPage[MoveToHomeCommand]]", ex); }
         }
+        //Z的位置
         public void MoveToZCommand(object sender, RoutedEventArgs e)
         {
             try
@@ -1804,6 +1820,9 @@ namespace Totalab_L
                                 return;
                             }
                         }
+                        GlobalInfo.Instance.Totalab_LSerials.SetLeakage_tank(0x14);     //打开
+                        Thread.Sleep(100);
+
                         if (GlobalInfo.Instance.CurrentWorkType != Enum_MotorWorkType.Position)
                         {
                             GlobalInfo.Instance.IsMotorWSetWorkModeOk = false;
@@ -2058,6 +2077,8 @@ namespace Totalab_L
             }
             catch (Exception ex) { MainLogHelper.Instance.Error("ShellPage [MoveToZCommand]", ex); }
         }
+
+
 
         public void UseAutoSamplerCommand(object sender, RoutedEventArgs e)
         {
@@ -2807,7 +2828,11 @@ namespace Totalab_L
                 }
             }
         }
-        //返回
+        /// <summary>
+        /// 返回
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Sampler_MsgCome(object sender, Serials.SamplerSerials.MsgComeEventArgs e)
         {
             try
@@ -3037,7 +3062,7 @@ namespace Totalab_L
                         else if (e.Msg.Data[1] == 0x03)
                         {
                             GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMotorActionOk;
-                            if (GlobalInfo.Zlength == 0)
+                            if (GlobalInfo.Zlength == 0 || GlobalInfo.Instance.TrayPanelHomeZ + GlobalInfo.Instance.CalibrationInfo.ZResetPosition > GlobalInfo.Instance.TrayPanelHomeZ)
                             {
                                 //MainLogHelper.Instance.Info("进样针返回---------------" + "e.Msg.Data[0]" + e.Msg.Data[0] + "e.Msg.Data[1]" + e.Msg.Data[1] + "e.Msg.Data[2]" + e.Msg.Data[2]+ "e.Msg.Data[3]" + e.Msg.Data[3] + "e.Msg.Data[4]" + e.Msg.Data[4] + "e.Msg.Data[5]" + e.Msg.Data[5]);
                                 GlobalInfo.Instance.Totalab_LSerials.SetLeakage_tank(0x00);     //关闭漏液槽
@@ -3097,17 +3122,6 @@ namespace Totalab_L
                             GlobalInfo.Instance.TrayPanelCenter = (e.Msg.Data[5] * 16777216 + e.Msg.Data[4] * 65536 + e.Msg.Data[3] * 256 + e.Msg.Data[2]) / 3600.0 * GlobalInfo.XLengthPerCircle - GlobalInfo.Instance.TrayPanelHomeX;
                             GlobalInfo.Instance.IsCanRunning = true;
                             GlobalInfo.Instance.IsBusy = false;
-                            //#region  先存进去读取的值
-                            //GlobalInfo.Instance.CalibrationInfo.XCalibrationPosition = GlobalInfo.Instance.TrayPanelCenter;
-                            //GlobalInfo.Instance.CalibrationInfo.XCalibrationPosition_left = GlobalInfo.Instance.TrayPanelCenter;
-                            //GlobalInfo.Instance.CalibrationInfo.XCalibrationPosition_right = GlobalInfo.Instance.TrayPanelCenter;
-                            //GlobalInfo.Instance.CalibrationInfo.WCalibrationPosition = GlobalInfo.Instance.TrayPanelHomeW / 10.0 / 6.0;
-                            //#region 校准页数据获取
-                            //GlobalInfo.Instance.CalibrationInfo.CalibrationLeftX = GlobalInfo.Instance.TrayPanelCenter;
-                            //GlobalInfo.Instance.CalibrationInfo.CalibrationLeftW = 8;
-                            //GlobalInfo.Instance.CalibrationInfo.CalibrationRightX = GlobalInfo.Instance.TrayPanelCenter;
-                            //GlobalInfo.Instance.CalibrationInfo.CalibrationRightW = 188;
-                            //#endregion
 
                             //string SavePath = "";
                             //SavePath = System.IO.Path.Combine(SampleHelper.AssemblyDirectory, "Parameters", "SamplerPos.ini");
@@ -3118,33 +3132,22 @@ namespace Totalab_L
                             ////else
                             ////    new MessagePage().ShowDialog("Message_Error1002".GetWord(), "MessageTitle_Error".GetWord(), false, Enum_MessageType.Error);
 
-                            //#endregion
 
                             byte[] content = FileHelper.ReadDecrypt(System.IO.Path.Combine(SampleHelper.AssemblyDirectory, "Parameters", "SamplerPos.ini"));
                             if (content != null)
                             {
                                 GlobalInfo.Instance.CalibrationInfo = XmlObjSerializer.Deserialize<TrayPanelCalibrationInfo>(content);
-                                //GlobalInfo.Instance.TrayPanelCenter = GlobalInfo.Instance.CalibrationInfo.XCalibrationPosition;
-                                GlobalInfo.Instance.TrayPanelCenter_left = GlobalInfo.Instance.CalibrationInfo.XCalibrationPosition_left;
-                                GlobalInfo.Instance.TrayPanelCenter_right = GlobalInfo.Instance.CalibrationInfo.XCalibrationPosition_right;
-                                //GlobalInfo.Instance.TrayPanelHomeW = GlobalInfo.Instance.CalibrationInfo.WCalibrationPosition * 10.0 * 3.0;//取液针位置的实际角度长
-                                //GlobalInfo.Instance.TrayPanelHomeW = GlobalInfo.Instance.CalibrationInfo.WCalibrationPosition;//取液针位置的实际角度长
+                                GlobalInfo.Instance.TrayPanelCenter = GlobalInfo.Instance.CalibrationInfo.TrayPanelCenterX;
+                                GlobalInfo.Instance.TrayPanel_leftW = GlobalInfo.Instance.CalibrationInfo.TrayCenterToLeftW;
+                                GlobalInfo.Instance.TrayPanel_rightW = GlobalInfo.Instance.CalibrationInfo.TrayCenterToLeftW + 180;
 
                                 //GoToXYCommand_linshi();
                             }
                             else
                             {
-                                GlobalInfo.Instance.CalibrationInfo.XCalibrationPosition = GlobalInfo.Instance.TrayPanelCenter;
-                                GlobalInfo.Instance.CalibrationInfo.XCalibrationPosition_left = GlobalInfo.Instance.TrayPanelCenter;
-                                GlobalInfo.Instance.CalibrationInfo.XCalibrationPosition_right = GlobalInfo.Instance.TrayPanelCenter;
-                                GlobalInfo.Instance.CalibrationInfo.WCalibrationPosition = GlobalInfo.Instance.TrayPanelHomeW / 10.0 / 6.0;
-                                Point pt = new Point();
-                                pt = GetPositionInfoHelper.GetWashPosition("W1");
-                                GlobalInfo.Instance.CalibrationInfo.W1PointX = pt.X / 3600.0 * GlobalInfo.XLengthPerCircle - GlobalInfo.Instance.TrayPanelHomeX;
-                                GlobalInfo.Instance.CalibrationInfo.W1PointY = pt.Y / 10.0 / 6.0;
-                                pt = GetPositionInfoHelper.GetWashPosition("W2");
-                                GlobalInfo.Instance.CalibrationInfo.W2PointX = pt.X / 3600.0 * GlobalInfo.XLengthPerCircle - GlobalInfo.Instance.TrayPanelHomeX;
-                                GlobalInfo.Instance.CalibrationInfo.W2PointY = pt.Y / 10.0 / 6.0;
+                                GlobalInfo.Instance.TrayPanelCenter = GlobalInfo.Instance.CalibrationInfo.TrayPanelCenterX;
+                                GlobalInfo.Instance.TrayPanel_leftW = GlobalInfo.Instance.CalibrationInfo.TrayCenterToLeftW;
+                                GlobalInfo.Instance.TrayPanel_rightW = GlobalInfo.Instance.CalibrationInfo.TrayCenterToLeftW + 180;
                             }
                         }
                         if (!_IsFirst && e.Msg.Data[1] == 0x01)
@@ -3154,8 +3157,8 @@ namespace Totalab_L
                             bytes[1] = e.Msg.Data[3];
                             bytes[2] = e.Msg.Data[4];
                             bytes[3] = e.Msg.Data[5];
-                            int positionX = BitConverter.ToInt32(bytes, 0);
-                            MainLogHelper.Instance.Info("重新读取当前实际X位置：" + positionX);
+                            GlobalInfo.Instance.PositionX = BitConverter.ToInt32(bytes, 0);
+                            MainLogHelper.Instance.Info("重新读取当前实际X位置：" + GlobalInfo.Instance.PositionX);
 
                         }
                         if (e.Msg.Data[1] == 0x02)
@@ -3165,8 +3168,8 @@ namespace Totalab_L
                             bytes[1] = e.Msg.Data[3];
                             bytes[2] = e.Msg.Data[4];
                             bytes[3] = e.Msg.Data[5];
-                            int positionW = BitConverter.ToInt32(bytes, 0);
-                            MainLogHelper.Instance.Info("重新读取当前实际W位置：" + positionW);
+                            GlobalInfo.Instance.PositionW = BitConverter.ToInt32(bytes, 0);
+                            MainLogHelper.Instance.Info("重新读取当前实际W位置：" + GlobalInfo.Instance.PositionW);
 
                         }
                         break;
@@ -3179,7 +3182,14 @@ namespace Totalab_L
                             GlobalInfo.Instance.TrayPanelHomeW = e.Msg.Data[7] * 16777216 + e.Msg.Data[6] * 65536 + e.Msg.Data[5] * 256 + e.Msg.Data[4];
                             GlobalInfo.Instance.TrayPanelHomeZ = (e.Msg.Data[11] * 16777216 + e.Msg.Data[10] * 65536 + e.Msg.Data[9] * 256 + e.Msg.Data[8]) / 3600.0 * GlobalInfo.ZLengthPerCircle;
                             MainLogHelper.Instance.Info("--X：" + GlobalInfo.Instance.TrayPanelHomeX + "--W：" + GlobalInfo.Instance.TrayPanelHomeW + "--Z：" + GlobalInfo.Instance.TrayPanelHomeZ);
-                            GlobalInfo.Instance.Totalab_LSerials.ReadMotorPosition((byte)0x01);
+                        //GlobalInfo.Instance.Totalab_LSerials.SetMotorWorkType(0x01, 0x01);
+                        //Thread.Sleep(300);
+                        //GlobalInfo.Instance.Totalab_LSerials.SetMotorWorkType(0x02, 0x01);
+                        //Thread.Sleep(300);
+                        GlobalInfo.Instance.Totalab_LSerials.SetMotorWorkType(0x03, 0x01);
+                        Thread.Sleep(300);
+                        GlobalInfo.Instance.Totalab_LSerials.ReadMotorPosition((byte)0x01);
+
                         //}
                         break;
                     case 0xee:
@@ -4043,7 +4053,7 @@ namespace Totalab_L
         #endregion
 
 
-        #region 临时
+        #region 临时测试
         private void GoToXYCommand_linshi()
         {
             try

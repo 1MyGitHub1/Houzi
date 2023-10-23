@@ -228,7 +228,7 @@ namespace Totalab_L.Serials
             frameArray[10] = 0xa5;
             SendMsg(CmdMsg.GetMsg(frameArray));
         }
-        //蠕动泵
+        //蠕动泵打液
         public void PumpRun(byte dir = 0x01)
         {
             _TimeOutTime = Timeout.Infinite;

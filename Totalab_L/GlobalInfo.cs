@@ -25,7 +25,7 @@ namespace Totalab_L
 
         public static bool IsAutoTuning = false;
 
-        public static double Zlength = 0;
+        public static double Zlength = 1;                   //进样针下降深度
         ///<summary>
         ///自动进样器通信接口
         ///</summary>
@@ -190,6 +190,8 @@ namespace Totalab_L
         private int _maxConnectionTimes;
 
         #region 样品架信息
+
+        #region 五个区域
         public TrayInfo TrayAInfos
         {
             get => _trayAInfos;
@@ -274,6 +276,7 @@ namespace Totalab_L
         }
         private TrayInfo _trayEInfos = new TrayInfo();
 
+        #endregion
 
         ///架子的数据信息列表
         public List<TrayMechanicalData> TrayDataList
@@ -343,78 +346,6 @@ namespace Totalab_L
             }
         }
         private Thickness _cleanTrayMargin;
-
-        ///架子中心坐标
-        public double TrayPanelCenter
-        {
-            get => _trayPanelCenter;
-            set
-            {
-                _trayPanelCenter = value;
-                NotifyPropertyChanged("TrayPanelCenter");
-            }
-        }
-        private double _trayPanelCenter;
-        ///架子中心坐标左hyx
-        public double TrayPanelCenter_left
-        {
-            get => _trayPanelCenter_left;
-            set
-            {
-                _trayPanelCenter_left = value;
-                NotifyPropertyChanged("TrayPanelCenter_left");
-            }
-        }
-        private double _trayPanelCenter_left;
-        ///架子中心坐标右hyx
-        public double TrayPanelCenter_right
-        {
-            get => _trayPanelCenter_right;
-            set
-            {
-                _trayPanelCenter_right = value;
-                NotifyPropertyChanged("TrayPanelCenter_right");
-            }
-        }
-        private double _trayPanelCenter_right;
-        //X轴的实际初始位置(0位置前需要走的距离)
-        public double TrayPanelHomeX
-        {
-            get => _trayPanelHomeX;
-            set
-            {
-                _trayPanelHomeX = value;
-                NotifyPropertyChanged("TrayPanelHomeX");
-            }
-
-        }
-        private double _trayPanelHomeX;
-
-        //角度的实际初始位置
-        public double TrayPanelHomeW
-        {
-            get => _trayPanelHomeW;
-            set
-            {
-                _trayPanelHomeW = value;
-                NotifyPropertyChanged("TrayPanelHomeW");
-            }
-
-        }
-        private double _trayPanelHomeW;
-
-        //针的实际初始位置
-        public double TrayPanelHomeZ
-        {
-            get => _trayPanelHomeZ;
-            set
-            {
-                _trayPanelHomeZ = value;
-                NotifyPropertyChanged("TrayPanelHomeZ");
-            }
-
-        }
-        private double _trayPanelHomeZ;
 
         public Enum_MotorWorkType CurrentWorkType
         {
@@ -625,7 +556,124 @@ namespace Totalab_L
         private TrayPanelCalibrationInfo _calibrationInfo = new TrayPanelCalibrationInfo();
         #endregion
 
+        ///架子中心坐标
+        public double TrayPanelCenter
+        {
+            get => _trayPanelCenter;
+            set
+            {
+                _trayPanelCenter = value;
+                NotifyPropertyChanged("TrayPanelCenter");
+            }
+        }
+        private double _trayPanelCenter;
+        ///架子中心坐标左hyx
+        public double TrayPanelCenter_left
+        {
+            get => _trayPanelCenter_left;
+            set
+            {
+                _trayPanelCenter_left = value;
+                NotifyPropertyChanged("TrayPanelCenter_left");
+            }
+        }
+        private double _trayPanelCenter_left;
+        ///架子中心坐标右hyx
+        public double TrayPanelCenter_right
+        {
+            get => _trayPanelCenter_right;
+            set
+            {
+                _trayPanelCenter_right = value;
+                NotifyPropertyChanged("TrayPanelCenter_right");
+            }
+        }
+        private double _trayPanelCenter_right;
 
-        
+        ///角度左hyx
+        public double TrayPanel_leftW
+        {
+            get => _trayPanel_leftW;
+            set
+            {
+                _trayPanel_leftW = value;
+                NotifyPropertyChanged("TrayPanel_leftW");
+            }
+        }
+        private double _trayPanel_leftW;
+        ///角度右hyx
+        public double TrayPanel_rightW
+        {
+            get => _trayPanel_rightW;
+            set
+            {
+                _trayPanel_rightW = value;
+                NotifyPropertyChanged("TrayPanel_rightW");
+            }
+        }
+        private double _trayPanel_rightW;
+
+
+        //X轴的实际初始位置(0位置前需要走的距离)
+        public double TrayPanelHomeX
+        {
+            get => _trayPanelHomeX;
+            set
+            {
+                _trayPanelHomeX = value;
+                NotifyPropertyChanged("TrayPanelHomeX");
+            }
+
+        }
+        private double _trayPanelHomeX;
+
+        //角度的实际初始位置
+        public double TrayPanelHomeW
+        {
+            get => _trayPanelHomeW;
+            set
+            {
+                _trayPanelHomeW = value;
+                NotifyPropertyChanged("TrayPanelHomeW");
+            }
+
+        }
+        private double _trayPanelHomeW;
+
+        //针的实际初始位置
+        public double TrayPanelHomeZ
+        {
+            get => _trayPanelHomeZ;
+            set
+            {
+                _trayPanelHomeZ = value;
+                NotifyPropertyChanged("TrayPanelHomeZ");
+            }
+
+        }
+        private double _trayPanelHomeZ;
+
+        public double PositionX
+        {
+            get => _positionX;
+            set
+            {
+                _positionX = value;
+                NotifyPropertyChanged("PositionX");
+            }
+
+        }
+        private double _positionX;
+        public double PositionW
+        {
+            get => _positionW;
+            set
+            {
+                _positionW = value;
+                NotifyPropertyChanged("PositionW");
+            }
+
+        }
+        private double _positionW;
     }
 }
