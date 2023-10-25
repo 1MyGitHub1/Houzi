@@ -1273,10 +1273,12 @@ namespace Totalab_L
                 //double Zlength = 0;
                 if (btn.Tag.ToString() == "ResetZ")
                 {
-                   GlobalInfo.Zlength = CalibrationInfo.ZResetPosition;
+                    GlobalInfo.status = true;       //关
+                    GlobalInfo.Zlength = CalibrationInfo.ZResetPosition;
                 }
                 else
                 {
+                    GlobalInfo.status = false;
                     GlobalInfo.Zlength = ZCurrentPosition;
                 }
                 CancellationTokenSource source = new CancellationTokenSource();
@@ -1651,6 +1653,7 @@ namespace Totalab_L
                             }
                         }
                         GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
+                        GlobalInfo.status = true;
                         GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x03, (int)((GlobalInfo.Instance.TrayPanelHomeZ + CalibrationInfo.ZResetPosition) / GlobalInfo.ZLengthPerCircle * 3600));
                         count = 0;
                         while (true)
@@ -1674,6 +1677,7 @@ namespace Totalab_L
                                                 //GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
                                                 //GlobalInfo.Instance.Totalab_LSerials.StartWork();
                                                 GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
+                                                GlobalInfo.status = true;
                                                 GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x03, (int)((GlobalInfo.Instance.TrayPanelHomeZ + CalibrationInfo.ZResetPosition) / GlobalInfo.ZLengthPerCircle * 3600));
                                             }
                                             catch (Exception ex)
@@ -1847,24 +1851,22 @@ namespace Totalab_L
                 //GlobalInfo.Instance.CalibrationInfo.ZResetPosition = CalibrationInfo.ZResetPosition;
 
                 #endregion
-
+                //Zero不能存
                 GlobalInfo.Instance.CalibrationInfo.CalibrationLeftX = CalibrationInfo.CalibrationLeftX;
                 GlobalInfo.Instance.CalibrationInfo.CalibrationRightX = CalibrationInfo.CalibrationLeftX + 167.5 * 2;
                 GlobalInfo.Instance.CalibrationInfo.CalibrationLeftW = CalibrationInfo.CalibrationLeftW;
                 GlobalInfo.Instance.CalibrationInfo.CalibrationRightW = CalibrationInfo.CalibrationLeftW + 180;
-                //实际距离角度
-                GlobalInfo.Instance.CalibrationInfo.TrayPanelCenterX = CalibrationLeftShowX * GlobalInfo.XLengthPerCircle / 3600 + (167.5 - 120.75) - GlobalInfo.Instance.TrayPanelHomeX;
-                GlobalInfo.Instance.CalibrationInfo.TrayCenterToLeftW = (CalibrationLeftShowW - GlobalInfo.Instance.TrayPanelHomeW) / 60;
-                GlobalInfo.Instance.TrayPanelCenter = GlobalInfo.Instance.CalibrationInfo.TrayPanelCenterX;
-                GlobalInfo.Instance.TrayPanel_leftW = GlobalInfo.Instance.CalibrationInfo.TrayCenterToLeftW;
-                GlobalInfo.Instance.TrayPanel_rightW = GlobalInfo.Instance.CalibrationInfo.TrayCenterToLeftW + 180;
+                //X中心和左边角度
+                GlobalInfo.Instance.CalibrationInfo.TrayPanelCenterX = CalibrationInfo.CalibrationLeftX + 167.5;
+                GlobalInfo.Instance.CalibrationInfo.TrayCenterToLeftW = CalibrationInfo.CalibrationLeftW;
+
+                //GlobalInfo.Instance.CalibrationInfo.TrayPanelCenterX = GlobalInfo.returnPositionW * GlobalInfo.XLengthPerCircle / 3600 + (167.5 - 120.75) - GlobalInfo.Instance.TrayPanelHomeX;
+                //GlobalInfo.Instance.CalibrationInfo.TrayCenterToLeftW = (CalibrationLeftShowW - GlobalInfo.Instance.TrayPanelHomeW) / 60;
+                GlobalInfo.Instance.TrayPanelCenter = CalibrationInfo.CalibrationLeftX + 167.5;
+                GlobalInfo.Instance.TrayPanel_leftW = CalibrationInfo.CalibrationLeftW;
+                GlobalInfo.Instance.TrayPanel_rightW = CalibrationInfo.CalibrationLeftW + 180;
 
                 //GlobalInfo.Instance.CalibrationInfo.TrayCenterToLeftPoint = 167.5 - 120.75;
-
-                //GlobalInfo.Instance.CalibrationInfo.W1PointX = CalibrationInfo.W1PointX;
-                //GlobalInfo.Instance.CalibrationInfo.W1PointY = CalibrationInfo.W1PointY;
-                //GlobalInfo.Instance.CalibrationInfo.W2PointX = CalibrationInfo.W2PointX;
-                //GlobalInfo.Instance.CalibrationInfo.W2PointY = CalibrationInfo.W2PointY;
 
                 string SavePath = "";
                 SavePath = System.IO.Path.Combine(SampleHelper.AssemblyDirectory, "Parameters", "SamplerPos.ini");
@@ -2319,7 +2321,7 @@ namespace Totalab_L
                     if (str == "right")
                     {
                         MainLogHelper.Instance.Info("右边校准点位置信息：" + "(" + CalibrationInfo.CalibrationRightX + "," + CalibrationInfo.CalibrationRightW + ")");
-                        result = MotorActionHelper.MotorMoveToTargetPosition(CalibrationInfo.CalibrationRightX + GlobalInfo.Instance.TrayPanelHomeX - 120.75, CalibrationInfo.CalibrationRightW + GlobalInfo.Instance.TrayPanelHomeW);
+                        result = MotorActionHelper.MotorMoveToTargetPosition(CalibrationInfo.CalibrationLeftX + 167.5 * 2 - 120.75, CalibrationInfo.CalibrationLeftW + 180);
                     }
                     if (str == "left")
                     {
@@ -2333,8 +2335,8 @@ namespace Totalab_L
                             ConntectWaring();
                         }
                     }
-                    CalibrationLeftShowX = GlobalInfo.Instance.PositionX;
-                    CalibrationLeftShowW = GlobalInfo.Instance.PositionW;
+                    CalibrationLeftShowX = GlobalInfo.returnPositionX * GlobalInfo.XLengthPerCircle / 3600.0 - GlobalInfo.Instance.TrayPanelHomeX;
+                    CalibrationLeftShowW = (GlobalInfo.returnPositionW - GlobalInfo.Instance.TrayPanelHomeW) / 60;
                     GlobalInfo.Instance.IsBusy = false;
                     GlobalInfo.Instance.IsCanRunning = true;
                     source?.Cancel();
@@ -2369,6 +2371,7 @@ namespace Totalab_L
                 {
                     CalibrationInfo = XmlObjSerializer.Deserialize<TrayPanelCalibrationInfo>(content);
                     GlobalInfo.Instance.TrayPanelCenter = CalibrationInfo.TrayPanelCenterX;
+                    CalibrationInfo.ZResetPosition = 0;
                     //InitSettingInfo();
                 }
                 else
@@ -3259,8 +3262,8 @@ namespace Totalab_L
                     }
                     finally
                     {
-                        CalibrationLeftShowX = GlobalInfo.Instance.PositionX;
-                        CalibrationLeftShowW = GlobalInfo.Instance.PositionW;
+                        CalibrationLeftShowX = GlobalInfo.returnPositionX * GlobalInfo.XLengthPerCircle / 3600.0 - GlobalInfo.Instance.TrayPanelHomeX;
+                        CalibrationLeftShowW = (GlobalInfo.returnPositionW - GlobalInfo.Instance.TrayPanelHomeW) / 60;
 
                         //Control_ParentView.IsSamplerManual = false;
                         GlobalInfo.Instance.IsBusy = false;
@@ -3295,25 +3298,155 @@ namespace Totalab_L
             }
 
         }
-
-        private void MoveToTargetLocationCommand_Left(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void MoveToTargetLocationCommand_Right(object sender, RoutedEventArgs e)
-        {
-
-        }
-
+        /// <summary>
+        /// 校准角度
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TurnToTargetLocationCommand_0(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                GlobalInfo.Instance.IsBusy = true;
+                GlobalInfo.Instance.IsCanRunning = false;
+                CancellationTokenSource source = new CancellationTokenSource();
+                Button btn = sender as Button;
+                string str = btn.Tag.ToString();
+                bool result = false;
+                Task.Factory.StartNew(() =>
+                {
+                    if (str == "right_Turn")
+                    {
+                        CalibrationInfo.CalibrationLeftW = CalibrationInfo.CalibrationLeftW + 0.2;
+                        result = MotorActionHelper.MotorMoveToTargetPosition(CalibrationInfo.CalibrationLeftX + 120.75, CalibrationInfo.CalibrationLeftW);
+                    }
+                    if (str == "left_Turn")
+                    {
+                        CalibrationInfo.CalibrationLeftW = CalibrationInfo.CalibrationLeftW - 0.2;
+                        result = MotorActionHelper.MotorMoveToTargetPosition(CalibrationInfo.CalibrationLeftX + 120.75, CalibrationInfo.CalibrationLeftW);
+                    }
+                    if (result == false)
+                    {
+                        if (GlobalInfo.Instance.RunningStep != RunningStep_Status.Error)
+                        {
+                            ConntectWaring();
+                        }
+                    }
+                    CalibrationLeftShowX = GlobalInfo.returnPositionX * GlobalInfo.XLengthPerCircle / 3600.0 - GlobalInfo.Instance.TrayPanelHomeX;
+                    CalibrationLeftShowW = (GlobalInfo.returnPositionW - GlobalInfo.Instance.TrayPanelHomeW) / 60;
+                    GlobalInfo.Instance.IsBusy = false;
+                    GlobalInfo.Instance.IsCanRunning = true;
+                    source?.Cancel();
+                    source?.Dispose();
+
+                }, source.Token);
+
+            }
+            catch (Exception ex) { MainLogHelper.Instance.Error("SamplerPosSetPage [HomeCommand]", ex); }
 
         }
-
-        private void TurnToTargetLocationCommand_1(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// 校准距离
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MoveToTargetLocationCommand_calibration(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                GlobalInfo.Instance.IsBusy = true;
+                GlobalInfo.Instance.IsCanRunning = false;
+                CancellationTokenSource source = new CancellationTokenSource();
+                Button btn = sender as Button;
+                string str = btn.Tag.ToString();
+                bool result = false;
+                Task.Factory.StartNew(() =>
+                {
+                    if (str == "right_Move")
+                    {
+                        CalibrationInfo.CalibrationLeftX = CalibrationInfo.CalibrationLeftX + 0.2;
+                        result = MotorActionHelper.MotorMoveToTargetPosition(CalibrationInfo.CalibrationLeftX + 120.75, CalibrationInfo.CalibrationLeftW);
+                    }
+                    if (str == "left_Move")
+                    {
+                        CalibrationInfo.CalibrationLeftX = CalibrationInfo.CalibrationLeftX - 0.2;
+                        result = MotorActionHelper.MotorMoveToTargetPosition(CalibrationInfo.CalibrationLeftX + 120.75, CalibrationInfo.CalibrationLeftW);
+                    }
+                    if (result == false)
+                    {
+                        if (GlobalInfo.Instance.RunningStep != RunningStep_Status.Error)
+                        {
+                            ConntectWaring();
+                        }
+                    }
+                    CalibrationLeftShowX = GlobalInfo.returnPositionX * GlobalInfo.XLengthPerCircle / 3600.0 - GlobalInfo.Instance.TrayPanelHomeX;
+                    CalibrationLeftShowW = (GlobalInfo.returnPositionW - GlobalInfo.Instance.TrayPanelHomeW )/ 60;
+                    GlobalInfo.Instance.IsBusy = false;
+                    GlobalInfo.Instance.IsCanRunning = true;
+                    source?.Cancel();
+                    source?.Dispose();
 
+                }, source.Token);
+
+            }
+            catch (Exception ex) { MainLogHelper.Instance.Error("SamplerPosSetPage [HomeCommand]", ex); }
+
+        }
+        /// <summary>
+        /// 更换进样针
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ChangeSyringeCommand(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                GlobalInfo.Instance.IsBusy = true;
+                GlobalInfo.Instance.IsCanRunning = false;
+                CancellationTokenSource source = new CancellationTokenSource();
+
+                bool result = false;
+                Task.Factory.StartNew(() =>
+                {
+                    result = MotorActionHelper.MotorMoveToTargetPosition(CalibrationInfo.CalibrationLeftX + 167.5, CalibrationInfo.CalibrationLeftW + 90);
+
+                    if (result == false)
+                    {
+                        if (GlobalInfo.Instance.RunningStep != RunningStep_Status.Error)
+                        {
+                            ConntectWaring();
+                        }
+                    }
+                    else
+                    {
+                        this.Dispatcher.Invoke((Action)(() =>
+                        {
+                           bool? result1 = new MessagePage().ShowDialog("确定要更换进样针吗！", "警告", true, Enum_MessageType.Warning, yesContent: "确定", cancelContent: "取消");
+                            if (result1 == true)
+                            {
+                                new MessagePage().ShowDialog("请先移动C号试管底座！", "温馨提示", true, Enum_MessageType.Warning, yesContent: "确定", cancelContent: "取消");
+                            }
+                        }));
+
+                        //MessageBoxResult result1 = MessageBox.Show("确定要更换进样针吗！" ,"警告", MessageBoxButton.OKCancel,MessageBoxImage.Warning);
+                        // if (result1 == System.Windows.MessageBoxResult.OK)
+                        // {
+                        //     MessageBox.Show("请先移动C号试管底座！", "温馨提示", MessageBoxButton.OKCancel, MessageBoxImage.Information);
+                        // } 
+                    }
+
+                    GlobalInfo.Instance.IsBusy = false;
+                    GlobalInfo.Instance.IsCanRunning = true;
+                    source?.Cancel();
+                    source?.Dispose();
+
+                }, source.Token);
+
+            }
+            catch (Exception)
+            {
+
+            }
         }
     }
 }

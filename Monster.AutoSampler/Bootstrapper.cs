@@ -120,7 +120,7 @@ namespace Monster.AutoSampler
             }
             bool rlt = true;
             Enum_Languages currentLangName = Enum_Languages.English;
-            Enum_ThemeColor currentSkinThemeName = Enum_ThemeColor.Green;
+            Enum_ThemeColor currentSkinThemeName = Enum_ThemeColor.Red;
             List<string> languageList = new List<string>
             {
                 "/Mass.Language;component/"
@@ -156,7 +156,7 @@ namespace Monster.AutoSampler
                     ConfigurationHelper.UpdateAppSettings("LanguageName", currentLangName.ToString());
 
                     //主题色
-                    currentSkinThemeName = Enum_ThemeColor.Green;
+                    currentSkinThemeName = Enum_ThemeColor.Red;
                     ResourceDictionaryHelper.SwitchSkinTheme(currentSkinThemeName);
                     ConfigurationHelper.UpdateAppSettings("SkinThemeName", currentSkinThemeName.ToString());
                 }

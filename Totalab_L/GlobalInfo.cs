@@ -26,6 +26,11 @@ namespace Totalab_L
         public static bool IsAutoTuning = false;
 
         public static double Zlength = 1;                   //进样针下降深度
+
+        public static bool status = false;                  //漏液槽状态
+
+        public static int returnPositionX = 0;              //移动后返回的值
+        public static int returnPositionW = 0;
         ///<summary>
         ///自动进样器通信接口
         ///</summary>

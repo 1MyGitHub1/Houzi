@@ -279,8 +279,8 @@ namespace Totalab_L.Common
                 long longseconds = 0;
                 int count = 0;
                 Point pt = new Point();
-                pt = new Point((xMoveDistance + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600.0, wMoveAngle * 6.0 * 10.0);
-                MainLogHelper.Instance.Info("校准位计算电机步数得出的位置信息："+"("+ pt.X +","+ pt.Y+")");
+                pt = new Point((xMoveDistance + GlobalInfo.Instance.TrayPanelHomeX )/ GlobalInfo.XLengthPerCircle * 3600.0, wMoveAngle * 6.0 * 10.0 + GlobalInfo.Instance.TrayPanelHomeW);
+                //MainLogHelper.Instance.Info("校准位计算电机步数得出的位置信息："+"("+ pt.X +","+ pt.Y+")");
                 try
                 {
                     if (GlobalInfo.Instance.IsMotorXError || GlobalInfo.Instance.IsMotorWError || GlobalInfo.Instance.IsMotorZError)

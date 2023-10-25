@@ -410,15 +410,12 @@
                     <RowDefinition Height="32"/>
 
                 </Grid.RowDefinitions>
-                <TextBlock Text="中心点校验位(左)"  Style="{StaticResource TextBlockSty}" Grid.Row="1" FontWeight="Bold" VerticalAlignment="Center"/>
+                <TextBlock Text="中心点校验位"  Style="{StaticResource TextBlockSty}" Grid.Row="1" FontWeight="Bold" VerticalAlignment="Center"/>
                 <StackPanel Grid.Row="3" Orientation="Horizontal">
                     <TextBlock  Text="平移距离(mm)" Style="{StaticResource TextBlockSty}"  Width="140" VerticalAlignment="Center"/>
                         <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" MinValue="0"
                       DoubleValue="{Binding  CalibrationInfo.CalibrationLeftX,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
-                        <TextBlock  Text="转动角度(rds)" Style="{StaticResource TextBlockSty}"  Width="100" Margin="10 0 0 0" VerticalAlignment="Center"/>
-                        <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Margin="10 0 0 0"
-                      DoubleValue="{Binding  CalibrationInfo.CalibrationLeftW,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
-                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Margin="10 0 0 0" Content="校验" Tag="left"
+                    <!--<Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Margin="10 0 0 0" Content="校验" Tag="left"
                             Click="MoveToTargetLocationCommand">
                         <Button.IsEnabled>
                             <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
@@ -432,7 +429,7 @@
                                 <Binding Path="IsConnect" Mode="OneWay"/>
                             </MultiBinding>
                         </Button.IsEnabled>
-                    </Button>
+                    </Button>-->
                     <!--<ltCtl:CustomNumericBox Style="{StaticResource CustomNumericBoxSty}" Width="74" MaxValue="340" MinValue="0"
                      DoubleValue="{Binding  CalibrationInfo.XCalibrationPosition,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
                     <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Margin="10 0 0 0" Content="Go"
@@ -466,12 +463,12 @@
                         </Button.IsEnabled>
                     </Button>-->
                 </StackPanel>
-
-                <TextBlock Text="校准区"  Style="{StaticResource TextBlockSty}" Grid.Row="5" FontWeight="Bold" VerticalAlignment="Center"/>
-                <StackPanel Grid.Row="7" Orientation="Horizontal">
-                    <TextBlock  Text="平移距离(mm)" Style="{StaticResource TextBlockSty}"  Width="140" VerticalAlignment="Center"/>
-                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="74"  Content="左移" Tag="left_Move"
-                            Click="MoveToTargetLocationCommand_Left">
+                <StackPanel Grid.Row="5" Orientation="Horizontal">
+                    <TextBlock  Text="转动角度(rds)" Style="{StaticResource TextBlockSty}"  Width="140" Margin="0 0 0 0" VerticalAlignment="Center"/>
+                    <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Margin="0 0 0 0"
+                      DoubleValue="{Binding  CalibrationInfo.CalibrationLeftW,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
+                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Margin="20 0 0 0" Content="校验(左)" Tag="left"
+                            Click="MoveToTargetLocationCommand">
                         <Button.IsEnabled>
                             <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
                                 <MultiBinding.ConverterParameter>
@@ -485,11 +482,8 @@
                             </MultiBinding>
                         </Button.IsEnabled>
                     </Button>
-                    <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Margin="20,0,0,0"
-                      DoubleValue="{Binding CalibrationLeftShowX,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
-
-                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Margin="20 0 0 0" Content="右移" Tag="right_Move"
-                            Click="MoveToTargetLocationCommand_Right">
+                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Margin="20 0 0 0" Content="校验(右)" Tag="right"
+                            Click="MoveToTargetLocationCommand">
                         <Button.IsEnabled>
                             <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
                                 <MultiBinding.ConverterParameter>
@@ -504,7 +498,44 @@
                         </Button.IsEnabled>
                     </Button>
                 </StackPanel>
+                <TextBlock Text="校准区"  Style="{StaticResource TextBlockSty}" Grid.Row="7" FontWeight="Bold" VerticalAlignment="Center"/>
                 <StackPanel Grid.Row="9" Orientation="Horizontal">
+                    <TextBlock  Text="平移距离(mm)" Style="{StaticResource TextBlockSty}"  Width="140" VerticalAlignment="Center"/>
+                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="74"  Content="左移" Tag="left_Move"
+                            Click="MoveToTargetLocationCommand_calibration">
+                        <Button.IsEnabled>
+                            <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                                <MultiBinding.ConverterParameter>
+                                    <x:Array Type="{x:Type System:Boolean}">
+                                        <System:Boolean>True</System:Boolean>
+                                        <System:Boolean>True</System:Boolean>
+                                    </x:Array>
+                                </MultiBinding.ConverterParameter>
+                                <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
+                                <Binding Path="IsConnect" Mode="OneWay"/>
+                            </MultiBinding>
+                        </Button.IsEnabled>
+                    </Button>
+                    <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Margin="20,0,0,0"
+                      DoubleValue="{Binding CalibrationLeftShowX,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2" IsReadOnly="True" Background="#FFDDDDDD"/>
+
+                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Margin="20 0 0 0" Content="右移" Tag="right_Move"
+                            Click="MoveToTargetLocationCommand_calibration">
+                        <Button.IsEnabled>
+                            <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                                <MultiBinding.ConverterParameter>
+                                    <x:Array Type="{x:Type System:Boolean}">
+                                        <System:Boolean>True</System:Boolean>
+                                        <System:Boolean>True</System:Boolean>
+                                    </x:Array>
+                                </MultiBinding.ConverterParameter>
+                                <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
+                                <Binding Path="IsConnect" Mode="OneWay"/>
+                            </MultiBinding>
+                        </Button.IsEnabled>
+                    </Button>
+                </StackPanel>
+                <StackPanel Grid.Row="11" Orientation="Horizontal">
                     <TextBlock  Text="转动角度(rds)" Style="{StaticResource TextBlockSty}"  Width="140" VerticalAlignment="Center"/>
                     <Button Style="{StaticResource  ButtonAccentSty}"  Width="74"  Content="顺" Tag="left_Turn"
                             Click="TurnToTargetLocationCommand_0">
@@ -522,10 +553,10 @@
                         </Button.IsEnabled>
                     </Button>
                     <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Margin="20,0,0,0"
-                      DoubleValue="{Binding CalibrationLeftShowW,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
+                      DoubleValue="{Binding CalibrationLeftShowW,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2" IsReadOnly="True" Background="#FFDDDDDD"/>
 
                     <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Margin="20 0 0 0" Content="逆" Tag="right_Turn"
-                            Click="TurnToTargetLocationCommand_1">
+                            Click="TurnToTargetLocationCommand_0">
                         <Button.IsEnabled>
                             <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
                                 <MultiBinding.ConverterParameter>
@@ -592,7 +623,7 @@
                     <TextBlock  Text="移动位置（号）" Style="{StaticResource TextBlockSty}"  Width="140"/>
                     <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" MaxValue="274" MinValue="1"
                       DoubleValue="{Binding  CalibrationInfo.PosNumber,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
-                    <Button Width="74" Margin="10 0 0 0" Click="GoToXYCommand" Content="{DynamicResource AutoSampler_Go}" Style="{StaticResource ButtonAccentSty}">
+                    <Button Width="74" Margin="20 0 0 0" Click="GoToXYCommand" Content="{DynamicResource AutoSampler_Go}" Style="{StaticResource ButtonAccentSty}">
                         <Button.IsEnabled>
                             <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
                                 <MultiBinding.ConverterParameter>
@@ -609,9 +640,9 @@
                 </StackPanel>
                 <StackPanel Grid.Row="17" Orientation="Horizontal">
                     <TextBlock  Text="复位高度(mm)" Style="{StaticResource TextBlockSty}"  Width="140"/>
-                    <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" MaxValue="160" MinValue="0"
+                    <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" MaxValue="160" MinValue="0" 
                       DoubleValue="{Binding  CalibrationInfo.ZResetPosition,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
-                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Margin="10 0 0 0" Content="Go"
+                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Margin="20 0 0 0" Content="Go"
                             Click="MoveToZCommand"  Tag="ResetZ">
                         <Button.IsEnabled>
                             <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
@@ -631,7 +662,7 @@
                     <TextBlock  Text="下降高度(mm)" Style="{StaticResource TextBlockSty}"  Width="140"/>
                     <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" MaxValue="160" MinValue="0"
                       DoubleValue="{Binding  ZCurrentPosition,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
-                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Margin="10 0 0 0" Content="Go"
+                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Margin="20 0 0 0" Content="Go"
                             Click="MoveToZCommand"  Tag="CurrentZ">
                         <Button.IsEnabled>
                             <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
@@ -646,7 +677,7 @@
                             </MultiBinding>
                         </Button.IsEnabled>
                     </Button>
-                    <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="10 0 0 0" Content="限位"
+                    <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="20 0 0 0" Content="限位"
                              Click="ResetZCommand"  >
                         <Button.IsEnabled>
                             <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
@@ -663,6 +694,28 @@
                     </Button>
                     <!--<Button Content="打开漏液槽" Width="74" Margin="10 0 0 0" Click="LouYeCao_Click"/>-->
                 </StackPanel>
+                
+                <!--更换进样针-->
+                <TextBlock Text="更换进样针"  Style="{StaticResource TextBlockSty}" Grid.Row="21" FontWeight="Bold"/>
+                <StackPanel Grid.Row="23" Orientation="Horizontal">
+                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Margin="20 0 0 0" Content="更换进样针"
+                            Click="ChangeSyringeCommand">
+                        <Button.IsEnabled>
+                            <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                                <MultiBinding.ConverterParameter>
+                                    <x:Array Type="{x:Type System:Boolean}">
+                                        <System:Boolean>True</System:Boolean>
+                                        <System:Boolean>True</System:Boolean>
+                                    </x:Array>
+                                </MultiBinding.ConverterParameter>
+                                <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
+                                <Binding Path="IsConnect" Mode="OneWay"/>
+                            </MultiBinding>
+                        </Button.IsEnabled>
+                    </Button>
+
+                </StackPanel>
+                
                 <!--W位置-->
                 <!--<TextBlock Text="W1位置"  Style="{StaticResource TextBlockSty}" Grid.Row="21" FontWeight="Bold"/>
                 <StackPanel Grid.Row="23" Orientation="Horizontal">

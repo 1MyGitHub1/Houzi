@@ -339,7 +339,7 @@ namespace Totalab_L
         {
             IsSetDepth = !IsSetDepth;
         }
-        //设置---进样针下降
+        //设置---进样针下降Go
         public void GoToCommand(object sender, RoutedEventArgs e)
         {
             try

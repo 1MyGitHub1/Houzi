@@ -9,7 +9,7 @@
                 <ResourceDictionary Source="/Mass.Language;component/Chinese.xaml"/>
                 <ResourceDictionary Source="/LabTech.UITheme;component/Languages/UITheme_Chinese.xaml"/>
                 <ResourceDictionary Source="/LabTech.UITheme;component/DynamicHeight/HeightTheme_Mouse.xaml"/>
-                <ResourceDictionary Source="/LabTech.UITheme;component/Skins/GreenTheme.xaml"/>
+                <ResourceDictionary Source="/LabTech.UITheme;component/Skins/RedTheme.xaml"/>
                 <ResourceDictionary Source="/LabTech.UITheme;component/Themes/UICommonTheme.xaml"/>
                 <ResourceDictionary Source="/LabTech.UITheme;component/Themes/UIGenericTheme.xaml"/>
                 <ResourceDictionary Source="/Mass.UITheme;component/Themes/UIGenericTheme.xaml" />

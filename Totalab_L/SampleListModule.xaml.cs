@@ -2158,6 +2158,7 @@ namespace Totalab_L
                         //}
                         GlobalInfo.Instance.Totalab_LSerials.SetLeakage_tank(0x14);     //打开
                         Thread.Sleep(100);
+                        GlobalInfo.status = true;
 
                         GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x03, (int)((GlobalInfo.Instance.TrayPanelHomeZ + GlobalInfo.Instance.CalibrationInfo.ZResetPosition) / GlobalInfo.ZLengthPerCircle * 3600));
                         count = 0;
@@ -2184,6 +2185,8 @@ namespace Totalab_L
                                                 //GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
                                                 //GlobalInfo.Instance.Totalab_LSerials.StartWork();
                                                 GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
+
+                                                GlobalInfo.status = true;
                                                 GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x03, (int)(GlobalInfo.Instance.TrayPanelHomeZ + GlobalInfo.Instance.CalibrationInfo.ZResetPosition / GlobalInfo.ZLengthPerCircle * 3600));
                                             }
                                             catch (Exception ex)
@@ -2522,6 +2525,7 @@ namespace Totalab_L
                         }
                     }
                     GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
+                    GlobalInfo.status = true;
                     GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x03, (int)((GlobalInfo.Instance.TrayPanelHomeZ + GlobalInfo.Instance.CalibrationInfo.ZResetPosition) / GlobalInfo.ZLengthPerCircle * 3600));
                     count = 0;
                     while (true)
@@ -2547,6 +2551,7 @@ namespace Totalab_L
                                             //GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
                                             //GlobalInfo.Instance.Totalab_LSerials.StartWork();
                                             GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
+                                            GlobalInfo.status = true;
                                             GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x03, (int)(GlobalInfo.Instance.TrayPanelHomeZ + GlobalInfo.Instance.CalibrationInfo.ZResetPosition / GlobalInfo.ZLengthPerCircle * 3600));
                                         }
                                         catch (Exception ex)
@@ -4044,6 +4049,7 @@ namespace Totalab_L
                 Thread.Sleep(100);
 
                 GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
+                GlobalInfo.status = true;
                 GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x03, (int)((GlobalInfo.Instance.TrayPanelHomeZ + GlobalInfo.Instance.CalibrationInfo.ZResetPosition) / GlobalInfo.ZLengthPerCircle * 3600));
                 count = 0;
                 while (true)
@@ -4067,6 +4073,7 @@ namespace Totalab_L
                                         //GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
                                         //GlobalInfo.Instance.Totalab_LSerials.StartWork();
                                         GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
+                                        GlobalInfo.status = true;
                                         GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x03, (int)(GlobalInfo.Instance.TrayPanelHomeZ + GlobalInfo.Instance.CalibrationInfo.ZResetPosition / GlobalInfo.ZLengthPerCircle * 3600));
                                     }
                                     catch (Exception ex)
@@ -4384,6 +4391,7 @@ namespace Totalab_L
                     Thread.Sleep(100);
 
                     GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
+                    GlobalInfo.status = true;
                     GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x03, (int)((GlobalInfo.Instance.TrayPanelHomeZ + GlobalInfo.Instance.CalibrationInfo.ZResetPosition) / GlobalInfo.ZLengthPerCircle * 3600));
                     count = 0;
                     while (true)
@@ -4668,6 +4676,7 @@ namespace Totalab_L
                             GlobalInfo.Instance.Totalab_LSerials.SetLeakage_tank(0x14);     //打开
                             Thread.Sleep(100);
 
+                            GlobalInfo.status = true;
                             GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x03, (int)((GlobalInfo.Instance.TrayPanelHomeZ + GlobalInfo.Instance.CalibrationInfo.ZResetPosition) / GlobalInfo.ZLengthPerCircle * 3600));
                             IsFinishWash = true;
                             if (stopType != 2 && IsStopWash == false)

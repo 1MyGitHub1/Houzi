@@ -120,12 +120,12 @@
                                         MaxValue="160" MinValue="0">
                 </ltCtl:CustomNumericBox>
                 <!--进样针设置-->
-                <!--<Button Grid.Row="6"  Grid.Column="3" Style="{StaticResource ButtonPrimaryWidStretchSty}" Content="{DynamicResource ButtonContent_Set}"
-                        Click="SetCommand" Visibility="{Binding IsSetDepth,Converter={StaticResource CompareToVisibilityConverter},ConverterParameter=True}"/>-->
+                <Button Grid.Row="6"  Grid.Column="3" Style="{StaticResource ButtonPrimaryWidStretchSty}" Content="{DynamicResource ButtonContent_Set}"
+                        Click="SetCommand" Visibility="{Binding IsSetDepth,Converter={StaticResource CompareToVisibilityConverter},ConverterParameter=True}"/>
 
                 <Button Grid.Row="6"  Grid.Column="3" Style="{StaticResource ButtonAccentWidStretchSty}" Content="{DynamicResource AutoSampler_Go}"
                         Click ="GoToCommand" IsEnabled="{Binding IsCanZ}"
-                Visibility="{Binding IsSetDepth,Converter={StaticResource CompareToVisibilityConverter},ConverterParameter=False}"/>
+                        Visibility="{Binding IsSetDepth,Converter={StaticResource CompareToVisibilityConverter},ConverterParameter=False}"/>
 
             </Grid>
             <Grid Grid.Column="2">
