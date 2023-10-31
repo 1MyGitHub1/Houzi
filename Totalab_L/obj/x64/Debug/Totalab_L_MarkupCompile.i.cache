@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 
-141405512842
+151348900331
 
-481121040123
+49388956124
 52-815456814
-AboutPage.xaml;AddSamplePage.xaml;Dictionary_Chinese.xaml;MessagePage.xaml;MethodSelectorPage.xaml;RegisterSNPage.xaml;SampleListModule.xaml;SamplerPosSetPage.xaml;SettingModule.xaml;ShellPage.xaml;Themes\RadioButtonTheme.xaml;Themes\SfDataGridRowSty.xaml;Themes\Generic.xaml;Themes\TrayControlTheme.xaml;
+AboutPage.xaml;AddSamplePage.xaml;CalibrationView\TestRightPointPage.xaml;MessagePage.xaml;MethodSelectorPage.xaml;RegisterSNPage.xaml;SampleListModule.xaml;SamplerPosSetPage.xaml;SettingModule.xaml;ShellPage.xaml;Themes\Dictionary_Chinese.xaml;Themes\RadioButtonTheme.xaml;Themes\SfDataGridRowSty.xaml;Themes\Generic.xaml;Themes\TrayControlTheme.xaml;
 
 True
 

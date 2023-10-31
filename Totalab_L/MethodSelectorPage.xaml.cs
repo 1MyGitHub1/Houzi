@@ -181,6 +181,7 @@ namespace Totalab_L
                     byte[] content = FileHelper.ReadDecrypt(MethodFolderPath + "\\" + MethodSelectorList[SelectionMethodIndex].MethodName + ".para");
                     if (content != null)
                     {
+                        GlobalInfo.MethodName = MethodSelectorList[SelectionMethodIndex].MethodName + ".para";
                         GlobalInfo.Instance.SettingInfo = XmlObjSerializer.Deserialize<SettingInfo>(content);
                         //InitSettingInfo();
                     }

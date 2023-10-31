@@ -68,6 +68,9 @@ namespace Totalab_L
         string ButtonContent;
         public bool _IsFirst = true;//刚打开软件
         //private int ConnectMaxTimes = 10;
+
+        SamplerPosSetPage samplerPosSetPage = new SamplerPosSetPage();                      //点位移之前先Z轴复位
+
         #endregion
 
         #region 属性      
@@ -379,7 +382,7 @@ namespace Totalab_L
                     {
                         IsSNRegistered = true;
                         MainWindow_AutoSamplerSendObjectDataEvent(null, new ObjectEventArgs() { MessParamType = EnumMessParamType.AutoSamplerDeviceType, Parameter = registSN.GetProductSN() });
-                        
+
                         //if (_IsFirst)
                         //{
                         //    GlobalInfo.Instance.IsCanRunning = false;
@@ -425,12 +428,11 @@ namespace Totalab_L
                             _IsSNWindowShow = true;
                             //bool? rlt = registerSNPage.ShowDialog();
                             _IsSNWindowShow = false;
-                            if (true)
-                                //if (rlt == true)
-                                {
+                            //if (rlt == true)
+                            {
                                 IsSNRegistered = true;
                                 MainWindow_AutoSamplerSendObjectDataEvent(null, new ObjectEventArgs() { MessParamType = EnumMessParamType.AutoSamplerDeviceType, Parameter = registSN.GetProductSN() });
-                                //if (_IsFirst)         
+                                //if (_IsFirst)
                                 //{
                                 //    GlobalInfo.Instance.IsCanRunning = false;
                                 //    GlobalInfo.Instance.IsBusy = true;
@@ -538,6 +540,64 @@ namespace Totalab_L
             };
             Control_SamplerPosSetView.InitData(this);
             Control_SamplerPosSetView.ShowDialog();
+        }
+        //更换进样针
+        private void Btn_Change_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                GlobalInfo.Instance.IsBusy = true;
+                GlobalInfo.Instance.IsCanRunning = false;
+                CancellationTokenSource source = new CancellationTokenSource();
+
+                bool result = false;
+                Task.Factory.StartNew(() =>
+                {
+                    this.Dispatcher.Invoke((Action)(() =>
+                    {
+                        bool? result1 = new MessagePage().ShowDialog("确定要更换进样针吗！", "警告", true, Enum_MessageType.Warning, yesContent: "确定", cancelContent: "取消");
+                        if (result1 == true)
+                        {
+                            samplerPosSetPage.MoveToZ_0Command();
+                            Thread.Sleep(1000);
+                            result = MotorActionHelper.MotorMoveToTargetPosition(GlobalInfo.Instance.TrayPanelCenter + GlobalInfo.Instance.TrayPanelHomeX, GlobalInfo.Instance.TrayPanel_leftW + 90);
+                            if (result == false)
+                            {
+                                if (GlobalInfo.Instance.RunningStep != RunningStep_Status.Error)
+                                {
+                                    ConntectWaring();
+                                }
+                            }
+                            else
+                            {
+                                bool? result2 = new MessagePage().ShowDialog("请先取走C号位试管架！并更换针，" + "\n" + "注：更换完成后请点击确定按钮", "温馨提示", true, Enum_MessageType.Warning, yesContent: "确定");
+                                if (result2 == true)
+                                {
+                                    GlobalInfo.Instance.IsCanRunning = false;
+                                    GlobalInfo.Instance.IsBusy = true;
+                                    GlobalInfo.Instance.Totalab_LSerials.XWZHome();           //系统复位初始化
+                                }
+                            }
+                        //MessageBoxResult result1 = MessageBox.Show("确定要更换进样针吗！" ,"警告", MessageBoxButton.OKCancel,MessageBoxImage.Warning);
+                        // if (result1 == System.Windows.MessageBoxResult.OK)
+                        // {
+                        //     MessageBox.Show("请先移动C号试管底座！", "温馨提示", MessageBoxButton.OKCancel, MessageBoxImage.Information);
+                        // } 
+                        }
+                    }));
+                    GlobalInfo.Instance.IsBusy = false;
+                    GlobalInfo.Instance.IsCanRunning = true;
+                    source?.Cancel();
+                    source?.Dispose();
+
+                }, source.Token);
+
+            }
+            catch (Exception)
+            {
+
+            }
+
         }
         /// <summary>
         /// 关于
@@ -787,9 +847,8 @@ namespace Totalab_L
                         }
 
                         //#region  防止撞针
-                        //GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x03, (int)(GlobalInfo.Instance.TrayPanelHomeZ / GlobalInfo.ZLengthPerCircle * 3600));
-                        //Thread.Sleep(300);
-                        //#endregion
+                        samplerPosSetPage.MoveToZ_0Command();
+                        Thread.Sleep(1000);
 
                         Point pt = new Point();
                         int isCollisionStatus = 0;
@@ -1414,7 +1473,11 @@ namespace Totalab_L
             }
             catch (Exception ex) { MainLogHelper.Instance.Error("ShellPage [MoveToPositionCommand]", ex); }
         }
-
+        /// <summary>
+        /// Z针抬起
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void MoveToZHomeCommand(object sender, RoutedEventArgs e)
         {
             try
@@ -1440,6 +1503,8 @@ namespace Totalab_L
                         }
                         GlobalInfo.Instance.Totalab_LSerials.SetLeakage_tank(0x14);     //打开
                         Thread.Sleep(100);
+                        //samplerPosSetPage.MoveToZ_0Command();
+                        //Thread.Sleep(1000);
 
                         if (GlobalInfo.Instance.CurrentWorkType != Enum_MotorWorkType.Position)
                         {
@@ -2082,13 +2147,17 @@ namespace Totalab_L
         }
 
 
-
+        //使用自动进样器
         public void UseAutoSamplerCommand(object sender, RoutedEventArgs e)
         {
             if (GlobalInfo.Instance.IsHimassConnState && IsUseAutoSampler)
             {
                 GlobalInfo.Instance.SampleInfos = new ObservableCollection<SampleItemInfo>();
                 SampleHelper.CreateSampleInfos(25);
+
+                ////勾选进样器后复位初始化
+                //GlobalInfo.Instance.IsBusy = true;
+                //GlobalInfo.Instance.Totalab_LSerials.XWZHome();           //系统复位初始化
             }
             MainWindow_AutoSamplerSendObjectDataEvent(null,
                           new ObjectEventArgs() { MessParamType = EnumMessParamType.UseAutoSampler, Parameter = IsUseAutoSampler });
@@ -2249,6 +2318,7 @@ namespace Totalab_L
             Control_MethodSelectorView = new MethodSelectorPage();
             Control_MethodSelectorView.IsSettingsOpen = false;
             Control_MethodSelectorView.ShowDialog(this);
+             //GlobalInfo.Instance.MethodName;
         }
         private void SaveAsMethodCommand(object sender, RoutedEventArgs e)
         {
@@ -3044,7 +3114,7 @@ namespace Totalab_L
                             returnBytesX[1] = e.Msg.Data[3];
                             returnBytesX[2] = e.Msg.Data[4];
                             returnBytesX[3] = e.Msg.Data[5];
-                           GlobalInfo.returnPositionX = BitConverter.ToInt32(returnBytesX, 0);
+                            GlobalInfo.returnPositionX = BitConverter.ToInt32(returnBytesX, 0);
                             MainLogHelper.Instance.Info("移动完成后返回的位置：" + "X---" + GlobalInfo.returnPositionX);
 
                             GlobalInfo.Instance.Totalab_LSerials.ReadMotorPosition((byte)0x01);
@@ -3065,7 +3135,7 @@ namespace Totalab_L
                         else if (e.Msg.Data[1] == 0x03)
                         {
                             GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMotorActionOk;
-                            if (GlobalInfo.status)
+                            if (GlobalInfo.status && !GlobalInfo.calibration_status)
                             {
                                 GlobalInfo.status = false;
                                 GlobalInfo.Instance.Totalab_LSerials.SetLeakage_tank(0x00);     //关闭漏液槽
@@ -3122,7 +3192,7 @@ namespace Totalab_L
                         if (_IsFirst)
                         {
                             _IsFirst = false;
-                            GlobalInfo.Instance.TrayPanelCenter = (e.Msg.Data[5] * 16777216 + e.Msg.Data[4] * 65536 + e.Msg.Data[3] * 256 + e.Msg.Data[2]) / 3600.0 * GlobalInfo.XLengthPerCircle - GlobalInfo.Instance.TrayPanelHomeX;
+                            //GlobalInfo.Instance.TrayPanelCenter = (e.Msg.Data[5] * 16777216 + e.Msg.Data[4] * 65536 + e.Msg.Data[3] * 256 + e.Msg.Data[2]) / 3600.0 * GlobalInfo.XLengthPerCircle - GlobalInfo.Instance.TrayPanelHomeX;
                             GlobalInfo.Instance.IsCanRunning = true;
                             GlobalInfo.Instance.IsBusy = false;
 
@@ -3185,10 +3255,11 @@ namespace Totalab_L
                             GlobalInfo.Instance.TrayPanelHomeW = e.Msg.Data[7] * 16777216 + e.Msg.Data[6] * 65536 + e.Msg.Data[5] * 256 + e.Msg.Data[4];
                             GlobalInfo.Instance.TrayPanelHomeZ = (e.Msg.Data[11] * 16777216 + e.Msg.Data[10] * 65536 + e.Msg.Data[9] * 256 + e.Msg.Data[8]) / 3600.0 * GlobalInfo.ZLengthPerCircle;
                             MainLogHelper.Instance.Info("--X：" + GlobalInfo.Instance.TrayPanelHomeX + "--W：" + GlobalInfo.Instance.TrayPanelHomeW + "--Z：" + GlobalInfo.Instance.TrayPanelHomeZ);
-                        //GlobalInfo.Instance.Totalab_LSerials.SetMotorWorkType(0x01, 0x01);
-                        //Thread.Sleep(300);
-                        //GlobalInfo.Instance.Totalab_LSerials.SetMotorWorkType(0x02, 0x01);
-                        //Thread.Sleep(300);
+                            //GlobalInfo.Instance.Totalab_LSerials.SetMotorWorkType(0x01, 0x01);
+                            //Thread.Sleep(300);
+                            //GlobalInfo.Instance.Totalab_LSerials.SetMotorWorkType(0x02, 0x01);
+                            //Thread.Sleep(300);
+                        //}
                         GlobalInfo.Instance.Totalab_LSerials.SetMotorWorkType(0x03, 0x01);
                         Thread.Sleep(300);
                         GlobalInfo.Instance.Totalab_LSerials.ReadMotorPosition((byte)0x01);
@@ -4426,5 +4497,11 @@ namespace Totalab_L
         }
 
         #endregion
+        //移动去清洗位
+        private void MoveToWashW1Command(object sender, RoutedEventArgs e)
+        {
+            CurrentPosition = "W1";
+            MoveToPositionCommand(null,null);
+        }
     }
 }

@@ -34,6 +34,7 @@ namespace Totalab_L
         {
             InitializeComponent();
             this.DataContext = this;
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -44,6 +45,7 @@ namespace Totalab_L
                 PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        #region 属性
         public ShellPage Control_ParentView
         {
             get => _control_ParentView;
@@ -97,6 +99,17 @@ namespace Totalab_L
             }
         }
         private bool _isRinse;
+        public string Method_Name
+        {
+            get { return _method_Name; }
+            set
+            {
+                _method_Name = value;
+                Notify("Method_Name");
+            }
+
+        }
+        private string _method_Name;
 
         public ObservableCollection<string> PreWashLocList
         {
@@ -129,6 +142,11 @@ namespace Totalab_L
             }
         }
         private MethodSelectorPage _control_MethodSelectorView;
+
+        #endregion
+
+        SamplerPosSetPage samplerPosSetPage = new SamplerPosSetPage();
+
         CancellationTokenSource methodCancelSource;
         Thread methodTask;
         //private int ConnectMaxTimes = 10;
@@ -717,10 +735,8 @@ namespace Totalab_L
                             }
                         }
 
-                        #region  防止撞针
-                        GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x03, (int)(GlobalInfo.Instance.TrayPanelHomeZ / GlobalInfo.ZLengthPerCircle * 3600));
-                        Thread.Sleep(300);
-                        #endregion
+                        samplerPosSetPage.MoveToZ_0Command();
+                        Thread.Sleep(1000);
 
                         Point pt = new Point();
                         int isCollisionStatus = 0;
@@ -1710,6 +1726,7 @@ namespace Totalab_L
             Control_MethodSelectorView = new MethodSelectorPage();
             Control_MethodSelectorView.IsSettingsOpen = true;
             Control_MethodSelectorView.ShowDialog(Control_ParentView);
+            Method_Name = GlobalInfo.MethodName;
         }
 
         private void SaveParaCommand(object sender, RoutedEventArgs e)

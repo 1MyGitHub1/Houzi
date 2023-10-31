@@ -26,11 +26,16 @@ namespace Totalab_L
         public static bool IsAutoTuning = false;
 
         public static double Zlength = 1;                   //进样针下降深度
+        public static double ZPut_up = 0;                   //进样针抬起高度
 
         public static bool status = false;                  //漏液槽状态
+        public static bool calibration_status=false;            //校准页漏液槽状态
 
         public static int returnPositionX = 0;              //移动后返回的值
         public static int returnPositionW = 0;
+
+        public static string MethodName;
+
         ///<summary>
         ///自动进样器通信接口
         ///</summary>
@@ -97,6 +102,8 @@ namespace Totalab_L
             }
         }
         private SettingInfo _settingInfo = new SettingInfo();
+
+
         public RunningStep_Status RunningStep
         {
             get => _runningStep;

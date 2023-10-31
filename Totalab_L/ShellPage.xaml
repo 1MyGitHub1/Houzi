@@ -45,7 +45,7 @@
                     <CheckBox  IsChecked="{Binding IsUseAutoSampler}" 
                           Visibility="{Binding IsHimassConnState, Converter={StaticResource BoolToVisibilityConverter},ConverterParameter=True,Source={x:Static global:GlobalInfo.Instance}}"
                           Content="{DynamicResource AutoSampler_Main_UseAutoSampler}" Margin="24 0 0 0"
-                          Click= "UseAutoSamplerCommand">
+                          Click= "UseAutoSamplerCommand" Height="48" VerticalAlignment="Bottom">
                         <!--<CheckBox.IsEnabled>
                             <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
                                 <MultiBinding.ConverterParameter>
@@ -236,10 +236,11 @@
                             </Button>
                             <Button Content="{DynamicResource AutoSampler_Main_AdvancedSet}"  Style="{StaticResource ButtonPopupBoxSty}"
                                 Click ="AdvancedSetCommand">
-                                <Button.IsEnabled>
+                                <!--<Button.IsEnabled>
                                     <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
                                         <MultiBinding.ConverterParameter>
                                             <x:Array Type="{x:Type System:Boolean}">
+                                                <System:Boolean>True</System:Boolean>
                                                 <System:Boolean>True</System:Boolean>
                                                 <System:Boolean>True</System:Boolean>
                                                 <System:Boolean>True</System:Boolean>
@@ -247,9 +248,29 @@
                                         </MultiBinding.ConverterParameter>
                                         <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
                                         <Binding Path="IsConnect" Mode="OneWay"/>
+                                        <Binding Path="IsUseAutoSampler" Mode="OneWay"/>
+                                        <Binding Path="IsSNRegistered" Mode="OneWay"/>
+                                    </MultiBinding>
+                                </Button.IsEnabled>-->
+                            </Button>
+                            <Button x:Name="Btn_Change" Content="更换进样针" Click="Btn_Change_Click" Style="{StaticResource ButtonPopupBoxSty}">
+                                <Button.IsEnabled>
+                                    <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                                        <MultiBinding.ConverterParameter>
+                                            <x:Array Type="{x:Type System:Boolean}">
+                                                <System:Boolean>True</System:Boolean>
+                                                <System:Boolean>True</System:Boolean>
+                                                <System:Boolean>True</System:Boolean>
+                                                <System:Boolean>True</System:Boolean>
+                                            </x:Array>
+                                        </MultiBinding.ConverterParameter>
+                                        <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
+                                        <Binding Path="IsConnect" Mode="OneWay"/>
+                                        <Binding Path="IsUseAutoSampler" Mode="OneWay"/>
                                         <Binding Path="IsSNRegistered" Mode="OneWay"/>
                                     </MultiBinding>
                                 </Button.IsEnabled>
+
                             </Button>
                             <Button x:Name="Btn_About" Content="{DynamicResource ButtonContent_About}" Click="Btn_About_Click" Style="{StaticResource ButtonPopupBoxSty}"/>
                         </StackPanel>
@@ -290,12 +311,13 @@
                     </MultiBinding>
                 </Grid.IsEnabled>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="64"/>
+                    <ColumnDefinition Width="36"/>
+                    <ColumnDefinition Width="28"/>
                     <ColumnDefinition Width="582"/>
                     <ColumnDefinition Width="52"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Grid Grid.Column="1">
+                <Grid Grid.Column="2">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="12"/>
                         <RowDefinition Height="Auto"/>
@@ -341,11 +363,12 @@
                                 IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"/>
                         <Button Grid.Column="6" Style="{StaticResource ButtonPrimarySty}" Content="{DynamicResource AutoSampler_Main_PositionMove}" Width="72"
                                 IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Click ="MoveToPositionCommand"/>
-                        <Button Grid.Column="8" Style="{StaticResource ButtonPrimarySty}" Content="限位" Width="60" 
+                        <Button Grid.Column="8" Style="{StaticResource ButtonPrimarySty}" Content="抬起" Width="60" 
                             IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Click="MoveToZHomeCommand"/>
-                        <Button Grid.Column="10" Style="{StaticResource ButtonPrimarySty}" Content="{DynamicResource AutoSampler_Home}" Width="60" 
-                            IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Click="MoveToHomeCommand"/>
+                        <Button Grid.Column="10" Style="{StaticResource ButtonPrimarySty}" Content="清洗位" Width="60" 
+                            IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Click="MoveToWashW1Command"/>
                     </Grid>
+                    
                     <Grid Grid.Row="11">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="70"/>
@@ -374,7 +397,7 @@
                             <Border.Background>
                                 <ImageBrush ImageSource="{Binding TrayAInfos.TrayBckPath, Source={x:Static global:GlobalInfo.Instance}}" Stretch="None" TileMode="Tile" AlignmentX="Center" AlignmentY="Center"/>
                             </Border.Background>
-       
+
                             <themes:TrayControl Style="{StaticResource TrayControlSty}" Height="118" Width="502" ItemsSource="{Binding TrayAInfos.TrayItemList, Source={x:Static global:GlobalInfo.Instance}}" 
                                                 XCount="{Binding TrayAInfos.XCount, Source={x:Static global:GlobalInfo.Instance}}"  YCount="{Binding TrayAInfos.YCount, Source={x:Static global:GlobalInfo.Instance}}"
                                                 ItemsSize="{Binding TrayAInfos.ItemsSize, Source={x:Static global:GlobalInfo.Instance}}">
@@ -404,7 +427,7 @@
                                                 </Style>
                                             </RadioButton.Style>
                                             <RadioButton.Content>
-                                                <TextBlock Text="{Binding ItemContent}" Foreground="White" FontSize="12"/>
+                                                <TextBlock Text="{Binding ItemContent}" Foreground="White" FontSize="11"/>
                                             </RadioButton.Content>
                                         </RadioButton>
                                     </DataTemplate>
@@ -457,7 +480,7 @@
                                                 </Style>
                                             </RadioButton.Style>
                                             <RadioButton.Content>
-                                                <TextBlock Text="{Binding ItemContent}" Foreground="White" FontSize="12"/>
+                                                <TextBlock Text="{Binding ItemContent}" Foreground="White" FontSize="11"/>
                                             </RadioButton.Content>
                                         </RadioButton>
                                     </DataTemplate>
@@ -514,7 +537,7 @@
                                                     </Style>
                                                 </RadioButton.Style>
                                                 <RadioButton.Content>
-                                                    <TextBlock Text="{Binding ItemContent}" Foreground="White" FontSize="12"/>
+                                                    <TextBlock Text="{Binding ItemContent}" Foreground="White" FontSize="11"/>
                                                 </RadioButton.Content>
                                             </RadioButton>
                                         </DataTemplate>
@@ -620,7 +643,7 @@
                                                 </Style>
                                             </RadioButton.Style>
                                             <RadioButton.Content>
-                                                <TextBlock Text="{Binding ItemContent}" Foreground="White" FontSize="12"/>
+                                                <TextBlock Text="{Binding ItemContent}" Foreground="White" FontSize="11"/>
                                             </RadioButton.Content>
                                         </RadioButton>
                                     </DataTemplate>
@@ -673,7 +696,7 @@
                                                 </Style>
                                             </RadioButton.Style>
                                             <RadioButton.Content>
-                                                <TextBlock Text="{Binding ItemContent}" Foreground="White" FontSize="12"/>
+                                                <TextBlock Text="{Binding ItemContent}" HorizontalAlignment="Center" Foreground="White" FontSize="11"/>
                                             </RadioButton.Content>
                                         </RadioButton>
                                     </DataTemplate>
@@ -681,6 +704,7 @@
                             </themes:TrayControl>
                         </Border>
                     </Grid>
+                    
                     <Grid Grid.Row="13">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="70"/>
@@ -700,7 +724,7 @@
                              ItemsSource="{Binding LogInfo,Source={x:Static global:GlobalInfo.Instance},UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" />
                     </Grid>
                 </Grid>
-                <ScrollViewer Grid.Column="3" Background="Transparent">
+                <ScrollViewer Grid.Column="4" Background="Transparent">
                     <ScrollViewer.Content>
                         <ContentControl x:Name="Content_ActiveItem"/>
                     </ScrollViewer.Content>

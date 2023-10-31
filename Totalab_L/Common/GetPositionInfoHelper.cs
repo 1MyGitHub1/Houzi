@@ -160,7 +160,7 @@ namespace Totalab_L.Common
                     xStep = (GlobalInfo.Instance.TrayPanelCenter - distance + length + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600;
                     angle = 180.0 * Math.Asin(itemXToCenter / ArmLength) / Math.Round(Math.PI, 2);
                     if (index % xCount <= xCount / 2 && index % xCount != 0)
-                        angle = GlobalInfo.Instance.TrayPanel_leftW - angle;                     
+                        angle = GlobalInfo.Instance.TrayPanel_leftW - angle;              
                     else
                         angle = GlobalInfo.Instance.TrayPanel_leftW + angle;                 
                     yStep = angle * 10 * 6 + GlobalInfo.Instance.TrayPanelHomeW;
@@ -223,7 +223,7 @@ namespace Totalab_L.Common
                         angle = GlobalInfo.Instance.TrayPanel_leftW - angle;
                     else
                         angle = GlobalInfo.Instance.TrayPanel_leftW + angle;
-                    yStep = angle * 10 * 6;
+                    yStep = angle * 10 * 6 + GlobalInfo.Instance.TrayPanelHomeW;
                     #endregion
 
                 }
@@ -252,7 +252,7 @@ namespace Totalab_L.Common
                         angle = GlobalInfo.Instance.TrayPanel_rightW + angle;
                     else
                         angle = GlobalInfo.Instance.TrayPanel_rightW - angle;
-                    yStep = angle * 10 * 6;
+                    yStep = angle * 10 * 6 + GlobalInfo.Instance.TrayPanelHomeW;
                     #endregion
 
                 }

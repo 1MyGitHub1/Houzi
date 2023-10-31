@@ -211,6 +211,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CalibrationView\TestRightPointPage.xaml.cs">
+      <DependentUpon>TestRightPointPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CircleAutoSamplerCommon.cs" />
     <Compile Include="Common\MotorActionHelper.cs" />
     <Compile Include="Common\GetPositionInfoHelper.cs" />
@@ -298,7 +301,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </None>
-    <Page Include="Dictionary_Chinese.xaml">
+    <Page Include="CalibrationView\TestRightPointPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -327,6 +330,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ShellPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Dictionary_Chinese.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -372,6 +379,19 @@
       <Project>{7B1832C2-C265-42B6-A3D7-A61C78CF203D}</Project>
       <Name>Monster.AutoSampler</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\left_point%401x.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\right_point%401x.png" />
+    <Resource Include="Images\zhen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\aleft_%402x.png" />
+    <Resource Include="Images\aright_%402x.png" />
+    <Resource Include="Images\turn_left%402x.png" />
+    <Resource Include="Images\turn_right%402x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
