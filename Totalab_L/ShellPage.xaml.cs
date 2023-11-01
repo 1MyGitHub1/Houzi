@@ -555,7 +555,7 @@ namespace Totalab_L
                 {
                     this.Dispatcher.Invoke((Action)(() =>
                     {
-                        bool? result1 = new MessagePage().ShowDialog("确定要更换进样针吗！", "警告", true, Enum_MessageType.Warning, yesContent: "确定", cancelContent: "取消");
+                        bool? result1 = new MessagePage().ShowDialog("更换进样针钱，请先移除C位试管架，然后单击更换按钮，等待机械臂移动到适宜操作位置。", "更换进样针", true, yesContent: "更换", cancelContent: "取消");
                         if (result1 == true)
                         {
                             samplerPosSetPage.MoveToZ_0Command();
@@ -570,7 +570,7 @@ namespace Totalab_L
                             }
                             else
                             {
-                                bool? result2 = new MessagePage().ShowDialog("请先取走C号位试管架！并更换针，" + "\n" + "注：更换完成后请点击确定按钮", "温馨提示", true, Enum_MessageType.Warning, yesContent: "确定");
+                                bool? result2 = new MessagePage().ShowDialog("进样针更换完毕后点击确定，机械臂复位", "更换进样针", true, yesContent: "确定");
                                 if (result2 == true)
                                 {
                                     GlobalInfo.Instance.IsCanRunning = false;

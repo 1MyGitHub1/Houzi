@@ -46,7 +46,7 @@
                           Visibility="{Binding IsHimassConnState, Converter={StaticResource BoolToVisibilityConverter},ConverterParameter=True,Source={x:Static global:GlobalInfo.Instance}}"
                           Content="{DynamicResource AutoSampler_Main_UseAutoSampler}" Margin="24 0 0 0"
                           Click= "UseAutoSamplerCommand" Height="48" VerticalAlignment="Bottom">
-                        <!--<CheckBox.IsEnabled>
+                        <CheckBox.IsEnabled>
                             <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
                                 <MultiBinding.ConverterParameter>
                                     <x:Array Type="{x:Type System:Boolean}">
@@ -59,7 +59,7 @@
                                 <Binding Path="IsConnect" Mode="OneWay"/>
                                 <Binding Path="IsAutoSamplerEnable" Mode="OneWay"/>
                             </MultiBinding>
-                        </CheckBox.IsEnabled>-->
+                        </CheckBox.IsEnabled>
                         <CheckBox.Style>
                             <Style TargetType="CheckBox" BasedOn="{StaticResource CheckBoxTextSty}">
                                 <Setter Property="IsEnabled" Value="False"/>
