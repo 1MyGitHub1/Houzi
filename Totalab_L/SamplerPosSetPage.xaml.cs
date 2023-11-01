@@ -3129,15 +3129,15 @@ namespace Totalab_L
                     //GlobalInfo.Instance.TrayCleanInfos = TrayInfoHelper.GetTrayInfo(null);
                     GlobalInfo.Instance.TrayDInfos = TrayInfoHelper.GetTrayInfo(EnumHelper.GetEnumValue<Enum_TrayType>(CurrentTrayTypeList[3]));
                     GlobalInfo.Instance.TrayEInfos = TrayInfoHelper.GetTrayInfo(EnumHelper.GetEnumValue<Enum_TrayType>(CurrentTrayTypeList[4]));
-                    GlobalInfo.Instance.TrayCleanInfos.ItemsSize = new Size(20, 20);
-                    for (int i = 1; i < 3; i++)
-                    {
-                        ItemData item = new ItemData
-                        {
-                            ItemContent = "W" + i.ToString()
-                        };
-                        GlobalInfo.Instance.TrayCleanInfos.TrayItemList.Add(item);
-                    }
+                    //GlobalInfo.Instance.TrayCleanInfos.ItemsSize = new Size(20, 20);
+                    //for (int i = 1; i < 3; i++)
+                    //{
+                    //    ItemData item = new ItemData
+                    //    {
+                    //        ItemContent = "W" + i.ToString()
+                    //    };
+                    //    GlobalInfo.Instance.TrayCleanInfos.TrayItemList.Add(item);
+                    //}
                     TrayInfoHelper.GetStdTrayInfo(EnumHelper.GetEnumValue<Enum_StdTrayType>(CurrentTrayTypeList[2]));
                     TrayInfoHelper.GetTrayNumber();
                     GlobalInfo.Instance.TrayAInfos.TrayItemList[0].IsItemSelected = true;

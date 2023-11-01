@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--<String x:Key="AutoSampler_Main_UseAutoSampler">使用自动进样器</String>
+    <String x:Key="AutoSampler_Main_SampleList">样品列表</String>
+    <String x:Key="AutoSampler_Main_Settings">设置</String>
+    <String x:Key="AutoSampler_Main_SamplerType">进样类型</String>
+    <String x:Key="AutoSampler_Main_ConstantInjection">常量</String>-->
+</ResourceDictionary>

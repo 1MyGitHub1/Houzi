@@ -518,13 +518,13 @@
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal" Margin="40,0,0,5" Height="30">
                             <TextBlock  Text="当前移动距离(mm)：" Style="{StaticResource TextBlockSty}"  Width="108" Height="20" VerticalAlignment="Center"/>
-                            <TextBlock Width="76" Height="20" Text="{Binding CalibrationLeftShowX,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalAlignment="Center" Margin="12,0,0,0"/>
+                            <TextBlock Width="76" Height="20" Text="{Binding CalibrationLeftShowX,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalAlignment="Center" Margin="20,0,0,0"/>
                             <!--<ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Margin="10,0,0,0"
                           DoubleValue="{Binding CalibrationLeftShowX,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2" IsReadOnly="True" Background="#FFDDDDDD"/>-->
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="40,5,0,10" Height="30">
                             <TextBlock  Text="当前转动角度(rds)：" Style="{StaticResource TextBlockSty}"  Width="108"  Height="20" VerticalAlignment="Center"/>
-                            <TextBlock Width="76" Height="20" Text="{Binding CalibrationLeftShowW,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalAlignment="Center" Margin="12,0,0,0" />
+                            <TextBlock Width="76" Height="20" Text="{Binding CalibrationLeftShowW,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalAlignment="Center" Margin="20,0,0,0" />
                             <!--<ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Margin="10,0,0,0"
                           DoubleValue="{Binding CalibrationLeftShowW,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2" IsReadOnly="True" Background="#FFDDDDDD"/>-->
                         </StackPanel>
