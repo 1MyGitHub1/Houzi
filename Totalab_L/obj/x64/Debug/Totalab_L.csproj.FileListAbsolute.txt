@@ -1296,7 +1296,6 @@ C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\obj\x64\Debug\Themes\SfDa
 C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\obj\x64\Debug\Themes\Generic.baml
 C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\obj\x64\Debug\AboutPage.g.cs
 C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\obj\x64\Debug\AddSamplePage.g.cs
-C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\obj\x64\Debug\CalibrationView\TestRightPointPage.g.cs
 C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\obj\x64\Debug\MessagePage.g.cs
 C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\obj\x64\Debug\MethodSelectorPage.g.cs
 C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\obj\x64\Debug\RegisterSNPage.g.cs
@@ -1358,7 +1357,6 @@ C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\bin\x64\Debug\Syncfusion.
 C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\bin\x64\Debug\Caliburn.Micro.Platform.xml
 C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\bin\x64\Debug\Caliburn.Micro.xml
 C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\bin\x64\Debug\Caliburn.Micro.Platform.Core.xml
-C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\obj\x64\Debug\CalibrationView\TestRightPointPage.baml
 C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\obj\x64\Debug\SampleListModule.baml
 C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\obj\x64\Debug\SamplerPosSetPage.baml
 C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\obj\x64\Debug\SettingModule.baml

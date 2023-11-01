@@ -211,9 +211,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CalibrationView\TestRightPointPage.xaml.cs">
-      <DependentUpon>TestRightPointPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="CircleAutoSamplerCommon.cs" />
     <Compile Include="Common\MotorActionHelper.cs" />
     <Compile Include="Common\GetPositionInfoHelper.cs" />
@@ -301,10 +298,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </None>
-    <Page Include="CalibrationView\TestRightPointPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MessagePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
