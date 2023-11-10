@@ -81,7 +81,7 @@
         </StackPanel>
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="380"/>
+                <ColumnDefinition Width="320"/>
                 <ColumnDefinition Width="12"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
@@ -215,22 +215,22 @@
                         <TextBlock  Text="{DynamicResource AutoSampler_I_Step}" Style="{StaticResource DGHeaderTextBlockSty}"/>
                     </DataGridTemplateColumn.Header>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Width="240">
+                <DataGridTemplateColumn Width="200">
                     <DataGridTemplateColumn.Header>
                         <TextBlock Text="{DynamicResource DataGrid_Header_Action}" Style="{StaticResource DGHeaderTextBlockSty}"/>
                     </DataGridTemplateColumn.Header>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Width="240">
+                <DataGridTemplateColumn Width="200">
                     <DataGridTemplateColumn.Header>
                         <TextBlock  Text="{DynamicResource AutoSampler_I_Time}" Style="{StaticResource DGHeaderTextBlockSty}"/>
                     </DataGridTemplateColumn.Header>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Width="240">
+                <DataGridTemplateColumn Width="200">
                     <DataGridTemplateColumn.Header>
                         <TextBlock  Text="{DynamicResource AutoSampler_I_PumpSpeed}" Style="{StaticResource DGHeaderTextBlockSty}"/>
                     </DataGridTemplateColumn.Header>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Width="140">
+                <DataGridTemplateColumn Width="120">
                     <DataGridTemplateColumn.Header>
                         <TextBlock  Text="{DynamicResource AutoSampler_Location}" Style="{StaticResource DGHeaderTextBlockSty}"/>
                     </DataGridTemplateColumn.Header>
@@ -267,7 +267,7 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Action" Width="240">
+                        <DataGridTemplateColumn Header="Action" Width="200">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <ToggleButton IsChecked="{Binding IsOpenAction,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
@@ -275,7 +275,7 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Time (s)" Width="240">
+                        <DataGridTemplateColumn Header="Time (s)" Width="200">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <ltCtl:CustomNumericBox  MinValue="0" IsUseShortInt="True" ShortIntValue="{Binding WashTime,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
@@ -283,7 +283,7 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Rpm (r/min)" Width="240">
+                        <DataGridTemplateColumn Header="Rpm (r/min)" Width="200">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <ltCtl:CustomNumericBox MinValue="-100" MaxValue="100" DecimalPrecision="1" MaxLength="6"
@@ -292,7 +292,7 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Loc" Width="140">
+                        <DataGridTemplateColumn Header="Loc" Width="120">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <ComboBox SelectedItem="{Binding WashLoc,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DGCellComboBoxSty}"
@@ -330,11 +330,11 @@
                     <Grid Background="#FFF5F5F5" IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="240"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="200"/>
                             <ColumnDefinition Width="120"/>
-                            <ColumnDefinition Width="120"/>
-                            <ColumnDefinition Width="240"/>
-                            <ColumnDefinition Width="140"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="{DynamicResource AutoSampler_Main_PreRun}" Style="{StaticResource DGCellTextBlockSty}"/>
                         <TextBlock Text="{DynamicResource AutoSampler_Main_Flush}" Style="{StaticResource DGCellTextBlockSty}" Grid.Column="1"/>
@@ -394,11 +394,11 @@
                     <Grid Grid.Row="1" IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="240"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="200"/>
                             <ColumnDefinition Width="120"/>
-                            <ColumnDefinition Width="120"/>
-                            <ColumnDefinition Width="240"/>
-                            <ColumnDefinition Width="140"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="{DynamicResource AutoSampler_Main_Delay}" Style="{StaticResource DGCellTextBlockSty}" Grid.Column="1"/>
                         <TextBlock Grid.Column="2" Style="{StaticResource DGCellTextBlockSty}"
@@ -518,11 +518,11 @@
                 <Grid Height="32" IsEnabled="{Binding IsCanRunning, Source={x:Static global:GlobalInfo.Instance}}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="100"/>
-                        <ColumnDefinition Width="240"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="200"/>
                         <ColumnDefinition Width="120"/>
-                        <ColumnDefinition Width="120"/>
-                        <ColumnDefinition Width="240"/>
-                        <ColumnDefinition Width="140"/>
                     </Grid.ColumnDefinitions>
                     <!--IsEnabled="{Binding IsHimassConnState,Source={x:Static global:GlobalInfo.Instance}}"-->
                     <TextBlock Text="{DynamicResource AutoSampler_Main_Analysis}" Style="{StaticResource DGCellTextBlockSty}"/>
@@ -607,14 +607,14 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Width="240">
+                        <DataGridTemplateColumn Width="200">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding WashAction}" Style="{StaticResource DGCellTextBlockSty}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Width="240">
+                        <DataGridTemplateColumn Width="200">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <ltCtl:CustomNumericBox IsUseShortInt="True" ShortIntValue="{Binding WashTime,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" 
@@ -622,7 +622,7 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Width="240">
+                        <DataGridTemplateColumn Width="200">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <ltCtl:CustomNumericBox DoubleValue="{Binding WashPumpSpeed,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" 
@@ -631,7 +631,7 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn  Width="140">
+                        <DataGridTemplateColumn  Width="120">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <ComboBox SelectedItem="{Binding WashLoc,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Style="{StaticResource DGCellComboBoxSty}"

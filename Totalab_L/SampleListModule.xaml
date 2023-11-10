@@ -49,7 +49,7 @@
                                        IsEnabled="{Binding Control_ParentView.IsUseAutoSampler}"
                                        KeyUp="PreviewKeyUpCommand">
                     <sfdatagrid:SfDataGrid.Resources>
-                        <ContextMenu x:Key="DataGridRowContextMenuRadyTemplate" Style="{StaticResource ContextMenuSty}" MinWidth="180" >
+                        <ContextMenu x:Key="DataGridRowContextMenuRadyTemplate" Style="{StaticResource ContextMenuSty}" MinWidth="120" >
                             <MenuItem Header="{DynamicResource MenuItem_Header_InsertRowBelow}" Click ="InsertRowCommand" Style="{StaticResource ContextMenuItemSty}"/>
                             <MenuItem Header="{DynamicResource AutoSampler_Run_AddSample}" Click ="AddSampleCommand" Style="{StaticResource ContextMenuItemSty}"/>
                             <MenuItem Header="{DynamicResource MenuItem_Header_Copy}" Click ="CopyCommand" Style="{StaticResource ContextMenuItemSty}"/>
@@ -61,19 +61,19 @@
                                       Style="{StaticResource ContextMenuItemSty}"/>
                             <MenuItem Header="{DynamicResource AutoSampler_Run_BringToTop}" Click ="BringToTopCommand" Style="{StaticResource ContextMenuItemSty}"/>
                         </ContextMenu>
-                        <ContextMenu x:Key="DataGridRowContextMenuCompleteTemplate" Style="{StaticResource ContextMenuSty}" MinWidth="180">
+                        <ContextMenu x:Key="DataGridRowContextMenuCompleteTemplate" Style="{StaticResource ContextMenuSty}" MinWidth="120">
                             <MenuItem Header="{DynamicResource MenuItem_Header_Copy}" Click="CopyCommand" Style="{StaticResource ContextMenuItemSty}"/>
                             <MenuItem Header="{DynamicResource MenuItem_Header_InsertRowBelow}" Click="InsertRowCommand" Style="{StaticResource ContextMenuItemSty}"/>
                             <MenuItem Header="{DynamicResource AutoSampler_Run_AddSample}" Click="AddSampleCommand" Style="{StaticResource ContextMenuItemSty}"/>
                         </ContextMenu>
-                        <ContextMenu x:Key="DataGridRowContextMenuRunningTemplate" Style="{StaticResource ContextMenuSty}" MinWidth="180">
+                        <ContextMenu x:Key="DataGridRowContextMenuRunningTemplate" Style="{StaticResource ContextMenuSty}" MinWidth="120">
                             <MenuItem Header="{DynamicResource AutoSampler_Run_AddSample}" Click="AddSampleCommand" Style="{StaticResource ContextMenuItemSty}"/>
                             <MenuItem Header="{DynamicResource MenuItem_Header_Copy}" Click="CopyCommand" Style="{StaticResource ContextMenuItemSty}"/>
                         </ContextMenu>
-                        <ContextMenu x:Key="DataGridRowContextMenuErrorTemplate" Style="{StaticResource ContextMenuSty}" MinWidth="180">
+                        <ContextMenu x:Key="DataGridRowContextMenuErrorTemplate" Style="{StaticResource ContextMenuSty}" MinWidth="120">
                             <MenuItem Header="{DynamicResource AutoSampler_Run_AddSample}" Click="AddSampleCommand" Style="{StaticResource ContextMenuItemSty}"/>
                         </ContextMenu>
-                        <ContextMenu x:Key="DataGridRowContextMenuFreeTemplate" Style="{StaticResource ContextMenuSty}" MinWidth="180">
+                        <ContextMenu x:Key="DataGridRowContextMenuFreeTemplate" Style="{StaticResource ContextMenuSty}" MinWidth="120">
                             <MenuItem Header="{DynamicResource AutoSampler_Run_AddSample}" Click="AddSampleCommand" Style="{StaticResource ContextMenuItemSty}"/>
                             <MenuItem Header="{DynamicResource MenuItem_Header_PasteHere}" Click="PasteHereCommand" Style="{StaticResource ContextMenuItemSty}"/>
                         </ContextMenu>

@@ -38,9 +38,9 @@
         </Grid.RowDefinitions>
         <!--pack://application:,,,/Images/left_point@1x.png-->
 
-        <Image x:Name="left_point"  Margin="10,0,0,30" Grid.Row="1" Grid.Column="1" Source="/Totalab_L;component/Images/left_point@1x.png" Visibility="Collapsed" />
+        <Image x:Name="left_point"  Margin="10,0,0,30" Grid.Row="1" Grid.Column="1" Source="/Totalab_L;component/Images/left_point@1x.png" Visibility="Visible" />
         <Image x:Name="right_point"  Margin="10,0,0,30" Grid.Row="1" Grid.Column="1" Source="/Totalab_L;component/Images/right_point@1x.png" Visibility="Collapsed"/>
-        <Grid x:Name="position_move" Grid.Row="1" Grid.Column="1" Visibility="Visible">
+        <Grid x:Name="position_move" Grid.Row="1" Grid.Column="1" Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition Height="120"/>
                 <RowDefinition Height="8"/>
@@ -90,7 +90,7 @@
                                         </Style>
                                     </RadioButton.Style>
                                     <RadioButton.Content>
-                                        <TextBlock Text="{Binding ItemContent}" HorizontalAlignment="Center" Foreground="White" FontSize="11"/>
+                                        <TextBlock Text="{Binding ItemContent}" HorizontalAlignment="Center" Foreground="White" FontSize="11" LineHeight="11"/>
                                     </RadioButton.Content>
                                 </RadioButton>
                             </DataTemplate>
@@ -135,7 +135,7 @@
                                         </Style>
                                     </RadioButton.Style>
                                     <RadioButton.Content>
-                                        <TextBlock Text="{Binding ItemContent}" HorizontalAlignment="Center" Foreground="White" FontSize="11"/>
+                                        <TextBlock Text="{Binding ItemContent}" HorizontalAlignment="Center" Foreground="White" FontSize="11" LineHeight="11"/>
                                     </RadioButton.Content>
                                 </RadioButton>
 
@@ -188,7 +188,7 @@
                                             </Style>
                                         </RadioButton.Style>
                                         <RadioButton.Content>
-                                            <TextBlock Text="{Binding ItemContent}" HorizontalAlignment="Center" Foreground="White" FontSize="11"/>
+                                            <TextBlock Text="{Binding ItemContent}" HorizontalAlignment="Center" Foreground="White" FontSize="11" LineHeight="11"/>
                                         </RadioButton.Content>
                                     </RadioButton>
 
@@ -219,7 +219,7 @@
                                                 </Style>
                                             </RadioButton.Style>
                                             <RadioButton.Content>
-                                                <TextBlock Text="{Binding ItemContent}" HorizontalAlignment="Center" Foreground="White" FontSize="11"/>
+                                                <TextBlock Text="{Binding ItemContent}" HorizontalAlignment="Center" Foreground="White" FontSize="11" LineHeight="11"/>
                                             </RadioButton.Content>
                                         </RadioButton>
 
@@ -252,7 +252,7 @@
                                                 </Style>
                                             </RadioButton.Style>
                                             <RadioButton.Content>
-                                                <TextBlock Text="{Binding ItemContent}" HorizontalAlignment="Center" Foreground="White" FontSize="11"/>
+                                                <TextBlock Text="{Binding ItemContent}" HorizontalAlignment="Center" Foreground="White" FontSize="11" LineHeight="11"/>
                                             </RadioButton.Content>
                                         </RadioButton>
 
@@ -305,7 +305,7 @@
                                         </Style>
                                     </RadioButton.Style>
                                     <RadioButton.Content>
-                                        <TextBlock Text="{Binding ItemContent}" HorizontalAlignment="Center" Foreground="White" FontSize="11"/>
+                                        <TextBlock Text="{Binding ItemContent}" HorizontalAlignment="Center" Foreground="White" FontSize="11" LineHeight="11"/>
                                     </RadioButton.Content>
                                 </RadioButton>
 
@@ -356,7 +356,7 @@
                                         </Style>
                                     </RadioButton.Style>
                                     <RadioButton.Content>
-                                        <TextBlock Text="{Binding ItemContent}" HorizontalAlignment="Center" Foreground="White" FontSize="11"/>
+                                        <TextBlock Text="{Binding ItemContent}" HorizontalAlignment="Center" Foreground="White" FontSize="11" LineHeight="11"/>
                                     </RadioButton.Content>
                                 </RadioButton>
 
@@ -517,14 +517,14 @@
                     <Image Source="/Totalab_L;component/Images/zhen.png" Width="64" Height="74" Margin="10,0,0,0" Stretch="Fill"/>
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal" Margin="40,0,0,5" Height="30">
-                            <TextBlock  Text="当前移动距离(mm)：" Style="{StaticResource TextBlockSty}"  Width="108" Height="20" VerticalAlignment="Center"/>
-                            <TextBlock Width="76" Height="20" Text="{Binding CalibrationLeftShowX,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalAlignment="Center" Margin="20,0,0,0"/>
+                            <TextBlock  Text="当前移动距离(mm)：" Style="{StaticResource TextBlockSty}"  Width="130" Height="20" VerticalAlignment="Center"/>
+                            <TextBlock Width="76" Height="20" Text="{Binding CalibrationLeftShowX,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalAlignment="Center" Margin="10,0,0,0"/>
                             <!--<ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Margin="10,0,0,0"
                           DoubleValue="{Binding CalibrationLeftShowX,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2" IsReadOnly="True" Background="#FFDDDDDD"/>-->
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="40,5,0,10" Height="30">
-                            <TextBlock  Text="当前转动角度(rds)：" Style="{StaticResource TextBlockSty}"  Width="108"  Height="20" VerticalAlignment="Center"/>
-                            <TextBlock Width="76" Height="20" Text="{Binding CalibrationLeftShowW,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalAlignment="Center" Margin="20,0,0,0" />
+                            <TextBlock  Text="当前转动角度(rds)：" Style="{StaticResource TextBlockSty}"  Width="130"  Height="20" VerticalAlignment="Center"/>
+                            <TextBlock Width="76" Height="20" Text="{Binding CalibrationLeftShowW,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalAlignment="Center" Margin="10,0,0,0" />
                             <!--<ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Margin="10,0,0,0"
                           DoubleValue="{Binding CalibrationLeftShowW,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2" IsReadOnly="True" Background="#FFDDDDDD"/>-->
                         </StackPanel>
@@ -798,7 +798,7 @@
                     <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Height="32" MaxValue="170" MinValue="0" 
                           DoubleValue="{Binding  CalibrationInfo.ZResetPosition,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
                     <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="12 0 0 0" Content="设置" Background="#FFDDDDDD" Foreground="Black"
-                                 Click="SavePosCommand" >
+                                 Click="SavePosCommand" Tag="save2">
                         <Button.IsEnabled>
                             <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
                                 <MultiBinding.ConverterParameter>
@@ -814,6 +814,13 @@
                     </Button>
 
                 </StackPanel>
+                <!--<StackPanel Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Style="{StaticResource  ButtonPrimarySty}"  Width="76" Margin="0,0,10,0"  Content="槽打开"  IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"
+                             Click="open_click"/>
+                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="76"  Margin="0 0 60 0" Content="槽关闭"
+                              IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Click="close_click"/>
+                </StackPanel>-->
+
                 <!--<StackPanel Grid.Row="12" Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button Style="{StaticResource  ButtonPrimarySty}"  Width="76" Margin="0,0,5,0"  Content="{DynamicResource ButtonContent_Cancel}"  IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"
                             Click="CancelCommand"/>

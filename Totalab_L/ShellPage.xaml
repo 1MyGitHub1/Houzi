@@ -234,9 +234,8 @@
                                     </MultiBinding>
                                 </Button.IsEnabled>
                             </Button>
-                            <Button Content="{DynamicResource AutoSampler_Main_AdvancedSet}"  Style="{StaticResource ButtonPopupBoxSty}"
-                                Click ="AdvancedSetCommand">
-                                <!--<Button.IsEnabled>
+                            <Button Content="初始化" Click="MoveToHomeCommand" Style="{StaticResource ButtonPopupBoxSty}">
+                                <Button.IsEnabled>
                                     <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
                                         <MultiBinding.ConverterParameter>
                                             <x:Array Type="{x:Type System:Boolean}">
@@ -251,7 +250,27 @@
                                         <Binding Path="IsUseAutoSampler" Mode="OneWay"/>
                                         <Binding Path="IsSNRegistered" Mode="OneWay"/>
                                     </MultiBinding>
-                                </Button.IsEnabled>-->
+                                </Button.IsEnabled>
+
+                            </Button>
+                            <Button Content="{DynamicResource AutoSampler_Main_AdvancedSet}"  Style="{StaticResource ButtonPopupBoxSty}"
+                                Click ="AdvancedSetCommand">
+                                <Button.IsEnabled>
+                                    <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                                        <MultiBinding.ConverterParameter>
+                                            <x:Array Type="{x:Type System:Boolean}">
+                                                <System:Boolean>True</System:Boolean>
+                                                <System:Boolean>True</System:Boolean>
+                                                <System:Boolean>True</System:Boolean>
+                                                <System:Boolean>True</System:Boolean>
+                                            </x:Array>
+                                        </MultiBinding.ConverterParameter>
+                                        <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
+                                        <Binding Path="IsConnect" Mode="OneWay"/>
+                                        <Binding Path="IsUseAutoSampler" Mode="OneWay"/>
+                                        <Binding Path="IsSNRegistered" Mode="OneWay"/>
+                                    </MultiBinding>
+                                </Button.IsEnabled>
                             </Button>
                             <Button x:Name="Btn_Change" Content="更换进样针" Click="Btn_Change_Click" Style="{StaticResource ButtonPopupBoxSty}">
                                 <Button.IsEnabled>
@@ -340,13 +359,13 @@
                             <ColumnDefinition Width="70"/>
                             <ColumnDefinition Width="6"/>
                             <ColumnDefinition Width="176"/>
-                            <ColumnDefinition Width="24"/>
+                            <ColumnDefinition Width="18"/>
                             <ColumnDefinition Width="72"/>
-                            <ColumnDefinition Width="16"/>
+                            <ColumnDefinition Width="8"/>
                             <ColumnDefinition Width="72"/>
-                            <ColumnDefinition Width="4"/>
+                            <ColumnDefinition Width="8"/>
                             <ColumnDefinition Width="72"/>
-                            <ColumnDefinition Width="4"/>
+                            <ColumnDefinition Width="8"/>
                             <ColumnDefinition Width="72"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
@@ -359,13 +378,13 @@
                                                 Style="{StaticResource CustomNumericBoxSty}" LostFocus="CurrentPositionLostFocusCommand"  MinValue="1"/>-->
                         <TextBox Grid.Column="2" Text="{Binding CurrentPosition,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                                 Style="{StaticResource TextBoxSty}" LostFocus="CurrentPositionLostFocusCommand" />
-                        <Button Grid.Column="4" Style="{StaticResource ButtonPrimarySty}" Content="{DynamicResource AutoSampler_Main_Sampling}" Width="72" Click="MoveToZCommand"
+                        <Button Grid.Column="6" Style="{StaticResource ButtonPrimarySty}" Content="{DynamicResource AutoSampler_Main_Sampling}" Width="72" Click="MoveToZCommand"
                                 IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"/>
-                        <Button Grid.Column="6" Style="{StaticResource ButtonPrimarySty}" Content="{DynamicResource AutoSampler_Main_PositionMove}" Width="72"
+                        <Button Grid.Column="4" Style="{StaticResource ButtonPrimarySty}" Content="{DynamicResource AutoSampler_Main_PositionMove}" Width="72"
                                 IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Click ="MoveToPositionCommand"/>
-                        <Button Grid.Column="8" Style="{StaticResource ButtonPrimarySty}" Content="抬起" Width="60" 
+                        <Button Grid.Column="8" Style="{StaticResource ButtonPrimarySty}" Content="抬起" Width="72" 
                             IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Click="MoveToZHomeCommand"/>
-                        <Button Grid.Column="10" Style="{StaticResource ButtonPrimarySty}" Content="清洗位" Width="60" 
+                        <Button Grid.Column="10" Style="{StaticResource ButtonPrimarySty}" Content="清洗位" Width="72" 
                             IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Click="MoveToWashW1Command"/>
                     </Grid>
                     
@@ -376,7 +395,7 @@
                             <ColumnDefinition Width="504"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel>
-                            <Button Content="Tray A"  Click="TrayTypeBtn_ClickCommand" Height="32" FontSize="14"  FontFamily="SegoeUI" FontWeight="SemiBold" HorizontalContentAlignment="Left" 
+                            <Button Content="Tray A" IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Click="TrayTypeBtn_ClickCommand" Height="32" FontSize="14"  FontFamily="SegoeUI" FontWeight="SemiBold" HorizontalContentAlignment="Left" 
                                     Style="{StaticResource ButtonTextSty}" Background="Transparent" Width="70" HorizontalAlignment="Left"/>
                             <TextBlock Style="{StaticResource TextBlockSty}" Text="{Binding TrayAInfos.TrayType,Source={x:Static global:GlobalInfo.Instance}}"  Foreground="#3C000000"
                                                FontSize="12"/>
@@ -427,7 +446,7 @@
                                                 </Style>
                                             </RadioButton.Style>
                                             <RadioButton.Content>
-                                                <TextBlock Text="{Binding ItemContent}" Foreground="White" FontSize="11"/>
+                                                <TextBlock Text="{Binding ItemContent}" Foreground="White" FontSize="11" LineHeight="11"/>
                                             </RadioButton.Content>
                                         </RadioButton>
                                     </DataTemplate>
@@ -442,7 +461,7 @@
                             <ColumnDefinition Width="504"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel>
-                            <Button Content="Tray B" Click="TrayTypeBtn_ClickCommand" Height="32" FontSize="14"  FontFamily="SegoeUI" FontWeight="SemiBold" HorizontalContentAlignment="Left" 
+                            <Button Content="Tray B" IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Click="TrayTypeBtn_ClickCommand" Height="32" FontSize="14"  FontFamily="SegoeUI" FontWeight="SemiBold" HorizontalContentAlignment="Left" 
                                     Style="{StaticResource ButtonTextSty}" Background="Transparent" Width="70" HorizontalAlignment="Left"/>
                             <TextBlock Style="{StaticResource TextBlockSty}" Text="{Binding TrayBInfos.TrayType,Source={x:Static global:GlobalInfo.Instance}}"  Foreground="#3C000000"
                                                FontSize="12"/>
@@ -480,7 +499,7 @@
                                                 </Style>
                                             </RadioButton.Style>
                                             <RadioButton.Content>
-                                                <TextBlock Text="{Binding ItemContent}" Foreground="White" FontSize="11"/>
+                                                <TextBlock Text="{Binding ItemContent}" Foreground="White" FontSize="11" LineHeight="11"/>
                                             </RadioButton.Content>
                                         </RadioButton>
                                     </DataTemplate>
@@ -495,7 +514,7 @@
                             <ColumnDefinition Width="504"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel>
-                            <Button Content="Tray C"  Height="32" FontSize="14"  FontFamily="SegoeUI" FontWeight="SemiBold" HorizontalContentAlignment="Left" 
+                            <Button Content="Tray C" IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"  Height="32" FontSize="14"  FontFamily="SegoeUI" FontWeight="SemiBold" HorizontalContentAlignment="Left" 
                                     Style="{StaticResource ButtonTextSty}" Background="Transparent" Width="70" HorizontalAlignment="Left"
                                     Click="StdTrayTypeBtn_ClickCommand"/>
                             <TextBlock Style="{StaticResource TextBlockSty}" Text="{Binding TrayCleanInfos.TrayType,Source={x:Static global:GlobalInfo.Instance}}"  Foreground="#3C000000"
@@ -537,7 +556,7 @@
                                                     </Style>
                                                 </RadioButton.Style>
                                                 <RadioButton.Content>
-                                                    <TextBlock Text="{Binding ItemContent}" Foreground="White" FontSize="11"/>
+                                                    <TextBlock Text="{Binding ItemContent}" Foreground="White" FontSize="11" LineHeight="11"/>
                                                 </RadioButton.Content>
                                             </RadioButton>
                                         </DataTemplate>
@@ -551,7 +570,7 @@
                                                 <RadioButton  Style="{StaticResource CircleRadioBtnCmdSty}" Background="#3C000000" GroupName="Tray"   Click="TrayCItemClickCommand" 
                                                               IsChecked="{Binding IsItemSelected,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                                     <RadioButton.Content>
-                                                        <TextBlock Text="{Binding ItemContent}" Foreground="White" FontSize="10"/>
+                                                        <TextBlock Text="{Binding ItemContent}" Foreground="White" FontSize="10" LineHeight="11"/>
                                                     </RadioButton.Content>
                                                 </RadioButton>
                                             </DataTemplate>
@@ -588,7 +607,7 @@
                                                         </Style>
                                                     </RadioButton.Style>
                                                     <RadioButton.Content>
-                                                        <TextBlock Text="{Binding ItemContent}" Foreground="White" FontSize="12"/>
+                                                        <TextBlock Text="{Binding ItemContent}" Foreground="White" FontSize="12" LineHeight="11"/>
                                                     </RadioButton.Content>
                                                 </RadioButton>
                                             </DataTemplate>
@@ -605,7 +624,7 @@
                             <ColumnDefinition Width="504"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel>
-                            <Button Content="Tray D" Click="TrayTypeBtn_ClickCommand" Height="32" FontSize="14"  FontFamily="SegoeUI" FontWeight="SemiBold" HorizontalContentAlignment="Left" 
+                            <Button Content="Tray D" IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Click="TrayTypeBtn_ClickCommand" Height="32" FontSize="14"  FontFamily="SegoeUI" FontWeight="SemiBold" HorizontalContentAlignment="Left" 
                                     Style="{StaticResource ButtonTextSty}" Background="Transparent" Width="70" HorizontalAlignment="Left"/>
                             <TextBlock Style="{StaticResource TextBlockSty}" Text="{Binding TrayDInfos.TrayType,Source={x:Static global:GlobalInfo.Instance}}"  Foreground="#3C000000"
                                                FontSize="12"/>
@@ -643,7 +662,7 @@
                                                 </Style>
                                             </RadioButton.Style>
                                             <RadioButton.Content>
-                                                <TextBlock Text="{Binding ItemContent}" Foreground="White" FontSize="11"/>
+                                                <TextBlock Text="{Binding ItemContent}" Foreground="White" FontSize="11" LineHeight="11"/>
                                             </RadioButton.Content>
                                         </RadioButton>
                                     </DataTemplate>
@@ -658,7 +677,7 @@
                             <ColumnDefinition Width="504"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel>
-                            <Button Content="Tray E" Click="TrayTypeBtn_ClickCommand" Height="32" FontSize="14"  FontFamily="SegoeUI" FontWeight="SemiBold" HorizontalContentAlignment="Left" 
+                            <Button Content="Tray E" IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Click="TrayTypeBtn_ClickCommand" Height="32" FontSize="14"  FontFamily="SegoeUI" FontWeight="SemiBold" HorizontalContentAlignment="Left" 
                                     Style="{StaticResource ButtonTextSty}" Background="Transparent" Width="70" HorizontalAlignment="Left"/>
                             <TextBlock Style="{StaticResource TextBlockSty}" Text="{Binding TrayEInfos.TrayType,Source={x:Static global:GlobalInfo.Instance}}"  Foreground="#3C000000"
                                                FontSize="12"/>
@@ -696,7 +715,7 @@
                                                 </Style>
                                             </RadioButton.Style>
                                             <RadioButton.Content>
-                                                <TextBlock Text="{Binding ItemContent}" HorizontalAlignment="Center" Foreground="White" FontSize="11"/>
+                                                <TextBlock Text="{Binding ItemContent}" HorizontalAlignment="Center" Foreground="White" FontSize="11" LineHeight="11"/>
                                             </RadioButton.Content>
                                         </RadioButton>
                                     </DataTemplate>

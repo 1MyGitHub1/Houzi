@@ -279,7 +279,7 @@ namespace Totalab_L.Common
                 long longseconds = 0;
                 int count = 0;
                 Point pt = new Point();
-                pt = new Point((xMoveDistance + GlobalInfo.Instance.TrayPanelHomeX )/ GlobalInfo.XLengthPerCircle * 3600.0, wMoveAngle * 6.0 * 10.0 + GlobalInfo.Instance.TrayPanelHomeW);
+                pt = new Point(xMoveDistance/ GlobalInfo.XLengthPerCircle * 3600.0 + GlobalInfo.Instance.TrayPanelHomeX, wMoveAngle * 6.0 * 10.0 + GlobalInfo.Instance.TrayPanelHomeW);
                 //MainLogHelper.Instance.Info("校准位计算电机步数得出的位置信息："+"("+ pt.X +","+ pt.Y+")");
                 try
                 {
@@ -298,15 +298,15 @@ namespace Totalab_L.Common
                         GlobalInfo.Instance.IsMotorZSetWorkModeOk = false;
                         GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMortorWorkMode;
                         GlobalInfo.Instance.Totalab_LSerials.SetMotorWorkType(0x01, 0x01);
-                        Thread.Sleep(300);
+                        Thread.Sleep(200);
                         GlobalInfo.Instance.Totalab_LSerials.SetMotorWorkType(0x02, 0x01);
-                        Thread.Sleep(300);
+                        Thread.Sleep(200);
                         GlobalInfo.Instance.Totalab_LSerials.SetMotorWorkType(0x03, 0x01);
                         longseconds = DateTime.Now.Ticks / 10000;
                         count = 0;
                         while (true)
                         {
-                            Thread.Sleep(300);
+                            Thread.Sleep(200);
                             if (GlobalInfo.Instance.RunningStep == RunningStep_Status.SetMortorWorkModeOk)
                             {
                                 break;
@@ -333,9 +333,9 @@ namespace Totalab_L.Common
                                             //GlobalInfo.Instance.Totalab_LSerials.StartWork();
                                             GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMortorWorkMode;
                                             GlobalInfo.Instance.Totalab_LSerials.SetMotorWorkType(0x01, 0x01);
-                                            Thread.Sleep(300);
+                                            Thread.Sleep(100);
                                             GlobalInfo.Instance.Totalab_LSerials.SetMotorWorkType(0x02, 0x01);
-                                            Thread.Sleep(300);
+                                            Thread.Sleep(100);
                                             GlobalInfo.Instance.Totalab_LSerials.SetMotorWorkType(0x03, 0x01);
                                         }
                                         catch (Exception ex)
@@ -374,12 +374,12 @@ namespace Totalab_L.Common
                     GlobalInfo.Instance.IsMotorXSetTargetPositionOk = false;
                     GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
                     GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x01, (int)pt.X);
-                    Thread.Sleep(300);
+                    Thread.Sleep(200);
                     GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x02, (int)pt.Y);
                     count = 0;
                     while (true)
                     {
-                        Thread.Sleep(300);
+                        Thread.Sleep(200);
                         if (GlobalInfo.Instance.RunningStep == RunningStep_Status.SetTargetPositionOk)
                         {
                             break;
@@ -396,30 +396,30 @@ namespace Totalab_L.Common
                                 if (count < GlobalInfo.Instance.MaxConnectionTimes)
                                 {
                                     //GlobalInfo.Instance.Totalab_LSerials.EndWork();
-                                    try
-                                    {
+                                    //try
+                                    //{
                                         //foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
-                                        {
+                                        //{
                                             try
                                             {
                                                 //GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
                                                 //GlobalInfo.Instance.Totalab_LSerials.StartWork();
                                                 GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
                                                 GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x01, (int)pt.X);
-                                                Thread.Sleep(300);
+                                                Thread.Sleep(200);
                                                 GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x02, (int)pt.Y);
                                             }
                                             catch (Exception ex)
                                             {
                                                 MainLogHelper.Instance.Error("MotorActionHelper [MotorMoveToTargetPosition]：", ex);
                                             }
-                                        }
+                                        //}
 
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        MainLogHelper.Instance.Error("MotorActionHelper [MotorMoveToTargetPosition]：", ex);
-                                    }
+                                    //}
+                                    //catch (Exception ex)
+                                    //{
+                                    //    MainLogHelper.Instance.Error("MotorActionHelper [MotorMoveToTargetPosition]：", ex);
+                                    //}
 
                                     count++;
                                     continue;
@@ -444,12 +444,12 @@ namespace Totalab_L.Common
                     GlobalInfo.Instance.IsMotorXActionOk = false;
                     GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMotorAction;
                     GlobalInfo.Instance.Totalab_LSerials.MotorAction(0x01, 0x0f);
-                    Thread.Sleep(300);
+                    Thread.Sleep(200);
                     GlobalInfo.Instance.Totalab_LSerials.MotorAction(0x02, 0x0f);
                     count = 0;
                     while (true)
                     {
-                        Thread.Sleep(300);
+                        Thread.Sleep(200);
                         if (GlobalInfo.Instance.RunningStep == RunningStep_Status.SetMotorActionOk)
                         {
                             break;
@@ -466,30 +466,30 @@ namespace Totalab_L.Common
                                 if (count < GlobalInfo.Instance.MaxConnectionTimes)
                                 {
                                     //GlobalInfo.Instance.Totalab_LSerials.EndWork();
-                                    try
-                                    {
-                                        //foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
-                                        {
+                                    //try
+                                    //{
+                                    //    //foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
+                                    //    {
                                             try
                                             {
                                                 //GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
                                                 //GlobalInfo.Instance.Totalab_LSerials.StartWork();
                                                 GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMotorAction;
                                                 GlobalInfo.Instance.Totalab_LSerials.MotorAction(0x01, 0x0f);
-                                                Thread.Sleep(300);
+                                                Thread.Sleep(200);
                                                 GlobalInfo.Instance.Totalab_LSerials.MotorAction(0x02, 0x0f);
                                             }
                                             catch (Exception ex)
                                             {
                                                 MainLogHelper.Instance.Error("MotorActionHelper [MotorMoveToTargetPosition]：", ex);
                                             }
-                                        }
+                                    //    }
 
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        MainLogHelper.Instance.Error("MotorActionHelper [MotorMoveToTargetPosition]：", ex);
-                                    }
+                                    //}
+                                    //catch (Exception ex)
+                                    //{
+                                    //    MainLogHelper.Instance.Error("MotorActionHelper [MotorMoveToTargetPosition]：", ex);
+                                    //}
 
                                     count++;
                                     continue;
@@ -514,12 +514,12 @@ namespace Totalab_L.Common
                     GlobalInfo.Instance.IsMotorXActionOk = false;
                     GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMotorAction;
                     GlobalInfo.Instance.Totalab_LSerials.MotorMove(0x02, 0x3f);
-                    Thread.Sleep(500);
+                    Thread.Sleep(200);
                     GlobalInfo.Instance.Totalab_LSerials.MotorMove(0x01, 0x3f);
                     count = 0;
                     while (true)
                     {
-                        Thread.Sleep(300);
+                        Thread.Sleep(200);
                         if (GlobalInfo.Instance.RunningStep == RunningStep_Status.SetMotorActionOk)
                         {
                             break;
@@ -536,30 +536,30 @@ namespace Totalab_L.Common
                                 if (count < GlobalInfo.Instance.MaxConnectionTimes)
                                 {
                                     //GlobalInfo.Instance.Totalab_LSerials.EndWork();
-                                    try
-                                    {
-                                        //foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
-                                        {
+                                    //try
+                                    //{
+                                    //    //foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
+                                    //    {
                                             try
                                             {
                                                 //GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
                                                 //GlobalInfo.Instance.Totalab_LSerials.StartWork();
                                                 GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMotorAction;
                                                 GlobalInfo.Instance.Totalab_LSerials.MotorMove(0x02, 0x3f);
-                                                Thread.Sleep(500);
+                                                Thread.Sleep(200);
                                                 GlobalInfo.Instance.Totalab_LSerials.MotorMove(0x01, 0x3f);
                                             }
                                             catch (Exception ex)
                                             {
                                                 MainLogHelper.Instance.Error("MotorActionHelper [MotorMoveToTargetPosition]：", ex);
                                             }
-                                        }
+                                    //    }
 
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        MainLogHelper.Instance.Error("MotorActionHelper [MotorMoveToTargetPosition]：", ex);
-                                    }
+                                    //}
+                                    //catch (Exception ex)
+                                    //{
+                                    //    MainLogHelper.Instance.Error("MotorActionHelper [MotorMoveToTargetPosition]：", ex);
+                                    //}
 
                                     count++;
                                     continue;
