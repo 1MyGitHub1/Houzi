@@ -39,9 +39,9 @@ namespace Totalab_L.Common
         {
             try
             {
-                double length = 0;
+                double length = 0;          //孔位、旋转中心与X轴，构成的直角三角形在X轴上的距离
                 int xCount = 0;             //长的一排孔数
-                int yCount = 0;             //短的一排孔数
+                int yCount = 0;             //宽一排孔数
                 double trayFirstRowToCenter = 0;        //试管架左边第一排的孔到模拟原点的距离
                 int index = 1;              //孔号
                 Point xwMovePoint = new Point();
@@ -124,12 +124,12 @@ namespace Totalab_L.Common
              
                 double xInterval =0;            //长的一排一个孔加一个缝的距离
                 double yInterval =0;
-                int itemRow = 0;                //几个孔加间隔的距离
-                double itemXToCenter = 0;
-                double xStep = 0;
-                double yStep = 0;
-                double angle = 0;               //机械臂要转的角度
-                double distance = 0;            //点位距中心
+                int itemRow = 0;                //有几个孔加缝的距离
+                double itemXToCenter = 0;           //孔位距离X轴的距离
+                double xStep = 0;               //X的绝对距离（不含Zero）
+                double yStep = 0;               //角度的绝对距离（不含Zero）
+                double angle = 0;               //机械臂要转的角度（不含Zero）
+                double distance = 0;            //点位距中心点的位置X
                 if (!isCustomtray)
                 {
                     xInterval = trayData.XCenterDistance / (xCount - 1);
@@ -139,6 +139,7 @@ namespace Totalab_L.Common
                     length = Math.Sqrt(Math.Pow(ArmLength, 2) - Math.Pow(itemXToCenter, 2));                                        //Y直角边2
 
                 }
+                //判断这个孔位在机械的左边/右边
                 if (itemNum >= GlobalInfo.Instance.TrayAInfos.TrayStartNumber && itemNum <= GlobalInfo.Instance.TrayBInfos.TrayEndNumber)//旋转左
                 {
                     #region 以中心方式
@@ -256,7 +257,9 @@ namespace Totalab_L.Common
                     #endregion
 
                 }
+                //下发的X要走的距离（含Zero）
                 xwMovePoint.X = xStep / GlobalInfo.XLengthPerCircle * 3600.0 + GlobalInfo.Instance.TrayPanelHomeX;
+                //下发的W要旋转的角度（含Zero）
                 xwMovePoint.Y = yStep * 60.0 + GlobalInfo.Instance.TrayPanelHomeW;
                 MainLogHelper.Instance.Info( itemNum + "号下发时的绝对距离(含Zero)：" +"["+ (xStep+ GlobalInfo.Instance.TrayPanelHomeX * GlobalInfo.XLengthPerCircle / 3600.0) + "," + (yStep + GlobalInfo.Instance.TrayPanelHomeW / 60.0) + "]" +"\n" +"(不含Zero)："+"["+xStep+","+yStep+"]");
                 return xwMovePoint;
