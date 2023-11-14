@@ -110,7 +110,7 @@
                         Click="GoToHomeCommand"/>-->
                 <TextBlock Text="{DynamicResource AutoSampler_SamplingTube}" Grid.Row="2"/>
                 <TextBlock Grid.Row="4" Text="{DynamicResource AutoSampler_Location}" Style="{StaticResource TextBlockFore60Sty}"/>
-                <ltCtl:CustomNumericBox Grid.Row="4" Grid.Column="1" Text="{Binding PosNumber}"
+                <ltCtl:CustomNumericBox Grid.Row="4" Grid.Column="1" Text="{Binding PosNumber}" IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"
                                         IsUseShortInt="True"  Style="{StaticResource CustomNumericBoxSty}"/>
 
                 <Button Grid.Row="4" Grid.Column="3" Click="GoToXYCommand"
@@ -119,15 +119,18 @@
 
                 <TextBlock Grid.Row="6" Text="{DynamicResource AutoSampler_SamplingDepth}" Style="{StaticResource TextBlockFore60Sty}"/>
                 <ltCtl:CustomNumericBox Grid.Row="6" Grid.Column="1" Text="{Binding SettingInfo.SamplingDepth,Source={x:Static global:GlobalInfo.Instance}}"
-                                        MaxValue="160" MinValue="0">
+                                        MaxValue="160" MinValue="0" IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}">
                 </ltCtl:CustomNumericBox>
                 <!--进样针设置-->
                 <Button Grid.Row="6"  Grid.Column="3" Style="{StaticResource ButtonPrimaryWidStretchSty}" Content="{DynamicResource ButtonContent_Set}"
-                        Click="SetCommand" Visibility="{Binding IsSetDepth,Converter={StaticResource CompareToVisibilityConverter},ConverterParameter=True}"/>
+                        Click="SetCommand" IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"/>
 
-                <Button Grid.Row="6"  Grid.Column="3" Style="{StaticResource ButtonAccentWidStretchSty}" Content="{DynamicResource AutoSampler_Go}"
+                <!--<Button Grid.Row="6"  Grid.Column="3" Style="{StaticResource ButtonPrimaryWidStretchSty}" Content="{DynamicResource ButtonContent_Set}"
+                        Click="SetCommand" IsEnabled="{Binding IsCanZ}" Visibility="{Binding IsSetDepth,Converter={StaticResource CompareToVisibilityConverter},ConverterParameter= true}"/>-->
+
+                <!--<Button Grid.Row="6"  Grid.Column="3" Style="{StaticResource ButtonAccentWidStretchSty}" Content="{DynamicResource AutoSampler_Go}"
                         Click ="GoToCommand" IsEnabled="{Binding IsCanZ}"
-                        Visibility="{Binding IsSetDepth,Converter={StaticResource CompareToVisibilityConverter},ConverterParameter=False}"/>
+                        Visibility="{Binding IsSetDepth,Converter={StaticResource CompareToVisibilityConverter},ConverterParameter=False}"/>-->
 
             </Grid>
             <Grid Grid.Column="2">

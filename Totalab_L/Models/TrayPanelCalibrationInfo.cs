@@ -156,7 +156,7 @@ namespace Totalab_L.Models
         /// <summary>
         /// 移动位置
         /// </summary>
-        public int PosNumber
+        public string PosNumber
         {
             get => _posNumber;
             set
@@ -165,7 +165,7 @@ namespace Totalab_L.Models
                 Notify("PosNumber");
             }
         }
-        private int _posNumber = 60;
+        private string _posNumber = "60";
 
         /// <summary>
         /// 进样针复位位置

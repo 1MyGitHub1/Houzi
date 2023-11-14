@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LabTech.Common;
+using System;
 using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
@@ -60,6 +61,7 @@ namespace Totalab_L.Serials
                 {
 
                     byte curByte = (byte)SPort.ReadByte();     //输入缓冲区中同步读取一个字节
+                    //MainLogHelper.Instance.Info(Convert.ToString(curByte, 16).ToUpper().PadLeft(2, '0')); 
                     switch (_RcvStatus)
                     {
                         case RcvStatus.FrameStart:

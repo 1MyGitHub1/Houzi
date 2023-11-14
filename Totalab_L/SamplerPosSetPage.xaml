@@ -725,8 +725,8 @@
                 <!--Content="{DynamicResource AutoSampler_Go}"-->
                 <StackPanel Grid.Row="4" Orientation="Horizontal">
                     <TextBlock  Text="样品管（号）" Style="{StaticResource TextBlockSty}"  Width="108"/>
-                    <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Height="32" MaxValue="274" MinValue="1"
-                          DoubleValue="{Binding  CalibrationInfo.PosNumber,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
+                    <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Height="32"
+                          Text="{Binding CalibrationInfo.PosNumber,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"/>
                     <Button Width="74" Margin="12 0 0 0" Click="GoToXYCommand" Content="走位" Style="{StaticResource ButtonAccentSty}" Background="#FFDDDDDD" Foreground="Black">
                         <Button.IsEnabled>
                             <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">

@@ -21,7 +21,7 @@ namespace Totalab_L
         private static readonly GlobalInfo _instance = new GlobalInfo();
 
         public const double XLengthPerCircle = 31.9966;                 //56.5487;///X齿轮转一圈的长度
-        public const double ZLengthPerCircle = 32;                 //48;///Z齿轮转一圈的长度
+        public const double ZLengthPerCircle = 31.9966;                 //48;///Z齿轮转一圈的长度
 
         public static bool IsAutoTuning = false;
 

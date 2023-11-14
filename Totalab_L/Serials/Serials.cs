@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LabTech.Common;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -225,6 +226,14 @@ namespace Totalab_L.Serials
         {
             try
             {
+                //string srt = null;
+                //for (int i = 0; i < frame.Length; i++)
+                //{
+                    
+                //    srt += Convert.ToString(frame[i], 16).ToUpper().PadLeft(2, '0') + " ";
+                   
+                //}
+                //MainLogHelper.Instance.Info(srt);
                 SPort.Write(frame, 0, frame.Length);
                 // respondTimer.Change(_TimeOutTime, Timeout.Infinite);
             }

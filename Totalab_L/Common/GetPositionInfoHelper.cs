@@ -15,8 +15,8 @@ namespace Totalab_L.Common
         public static int TrayWidth;
         public static int TrayLength;
         public static int XCenter;
-        public static double ArmLength = 120.55;                            //152.5;             /// 机械臂的旋转半径
-        public static double TrayCenterOffset=0;            //原间隔3.5
+        public static double ArmLength = 120.8;                            //152.5;             /// 机械臂的旋转半径
+        //public static double TrayCenterOffset=0;            //原间隔3.5
         public static double TrayACenterToCenter = 221.5;                   //223.5;
         public static double TrayBCenterToCenter = 113.5;                   //114.5;
         public static double TrayDCenterToCenter = 113.5;                   //114.5;
@@ -135,7 +135,7 @@ namespace Totalab_L.Common
                     xInterval = trayData.XCenterDistance / (xCount - 1);
                     yInterval = trayData.YCenterDistance / (yCount - 1);
                     itemRow = (index - 1) / xCount;
-                    itemXToCenter = Math.Round( Math.Abs((trayData.XCenterDistance / 2 - TrayCenterOffset) - xInterval * ((index - 1) % xCount)),2);//X直角边1
+                    itemXToCenter = Math.Round( Math.Abs(trayData.XCenterDistance / 2  - xInterval * ((index - 1) % xCount)),2);//X直角边1
                     length = Math.Sqrt(Math.Pow(ArmLength, 2) - Math.Pow(itemXToCenter, 2));                                        //Y直角边2
 
                 }

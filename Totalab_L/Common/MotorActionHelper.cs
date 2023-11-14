@@ -314,7 +314,7 @@ namespace Totalab_L.Common
                             else
                             {
                                 longseconds = DateTime.Now.Ticks / 10000;
-                                while (GlobalInfo.Instance.RunningStep != RunningStep_Status.SetMortorWorkModeOk && (DateTime.Now.Ticks / 10000 - longseconds) / 1000 < 20 && GlobalInfo.Instance.RunningStep != RunningStep_Status.Error)
+                                while (GlobalInfo.Instance.RunningStep != RunningStep_Status.SetMortorWorkModeOk && (DateTime.Now.Ticks / 10000 - longseconds) / 1000 < 5 && GlobalInfo.Instance.RunningStep != RunningStep_Status.Error)
                                 {
                                     Thread.Sleep(100);
                                 }
@@ -387,7 +387,7 @@ namespace Totalab_L.Common
                         else
                         {
                             longseconds = DateTime.Now.Ticks / 10000;
-                            while (GlobalInfo.Instance.RunningStep != RunningStep_Status.SetTargetPositionOk && (DateTime.Now.Ticks / 10000 - longseconds) / 1000 < 20 && GlobalInfo.Instance.RunningStep != RunningStep_Status.Error)
+                            while (GlobalInfo.Instance.RunningStep != RunningStep_Status.SetTargetPositionOk && (DateTime.Now.Ticks / 10000 - longseconds) / 1000 < 2 && GlobalInfo.Instance.RunningStep != RunningStep_Status.Error)
                             {
                                 Thread.Sleep(100);
                             }
@@ -457,7 +457,7 @@ namespace Totalab_L.Common
                         else
                         {
                             longseconds = DateTime.Now.Ticks / 10000;
-                            while (GlobalInfo.Instance.RunningStep != RunningStep_Status.SetMotorActionOk && (DateTime.Now.Ticks / 10000 - longseconds) / 1000 < 20 && GlobalInfo.Instance.RunningStep != RunningStep_Status.Error)
+                            while (GlobalInfo.Instance.RunningStep != RunningStep_Status.SetMotorActionOk && (DateTime.Now.Ticks / 10000 - longseconds) / 1000 < 5 && GlobalInfo.Instance.RunningStep != RunningStep_Status.Error)
                             {
                                 Thread.Sleep(100);
                             }
@@ -527,7 +527,7 @@ namespace Totalab_L.Common
                         else
                         {
                             longseconds = DateTime.Now.Ticks / 10000;
-                            while (GlobalInfo.Instance.RunningStep != RunningStep_Status.SetMotorActionOk && (DateTime.Now.Ticks / 10000 - longseconds) / 1000 < 20 && GlobalInfo.Instance.RunningStep != RunningStep_Status.Error)
+                            while (GlobalInfo.Instance.RunningStep != RunningStep_Status.SetMotorActionOk && (DateTime.Now.Ticks / 10000 - longseconds) / 1000 < 5 && GlobalInfo.Instance.RunningStep != RunningStep_Status.Error)
                             {
                                 Thread.Sleep(100);
                             }
