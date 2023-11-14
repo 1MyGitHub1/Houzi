@@ -660,6 +660,7 @@ namespace Totalab_L
 
         }
 
+        #region   样品列表内位置按钮
         private void TrayEItemClickCommand(object sender, RoutedEventArgs e)
         {
             try
@@ -727,11 +728,7 @@ namespace Totalab_L
                 MainLogHelper.Instance.Error("ShellPage [ TrayBItemClickCommand]", ex);
             }
         }
-        /// <summary>
-        /// 样品列表内位置按钮
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+
         private void TrayAItemClickCommand(object sender, RoutedEventArgs e)
         {
             try
@@ -749,6 +746,7 @@ namespace Totalab_L
             }
         }
 
+        #endregion
 
         /// <summary>
         /// 位移指定位置
@@ -3105,13 +3103,13 @@ namespace Totalab_L
                         }
                         if (GlobalInfo.Instance.IsMotorWSetTargetPositionOk && GlobalInfo.Instance.IsMotorXSetTargetPositionOk && GlobalInfo.Instance.RunningStep != RunningStep_Status.SetTargetPositionOk)
                         {
-                            GlobalInfo.Instance.IsMotorXActionOk = false;
-                            GlobalInfo.Instance.IsMotorWActionOk = false;
+                            GlobalInfo.Instance.IsMotorXSetTargetPositionOk = false;
+                            GlobalInfo.Instance.IsMotorWSetTargetPositionOk = false;
                             GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPositionOk;
 
                         }
                         break;
-                    case 0x40:///执行                             ==下位机返回
+                    case 0x40:///执行   3f                            ==下位机返回
                         //int returnPositionX = 0;
                         //int returnPositionW = 0;
                         if (e.Msg.Data[1] == 0x01)
@@ -3142,6 +3140,7 @@ namespace Totalab_L
                         }
                         else if (e.Msg.Data[1] == 0x03)
                         {
+                            GlobalInfo.Uplift = true;
                             GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMotorActionOk;
                             if (GlobalInfo.status && !GlobalInfo.calibration_status)
                             {
@@ -3157,7 +3156,7 @@ namespace Totalab_L
 
                         }
                         break;
-                    case 0x41:///使能，急停，清除错误
+                    case 0x41:///使能，急停，清除错误    0f
                         if (e.Msg.Data[2] == 0x80)
                         {
                             if (e.Msg.Data[1] == 0x01)

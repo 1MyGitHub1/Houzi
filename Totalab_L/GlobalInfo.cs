@@ -28,6 +28,8 @@ namespace Totalab_L
         public static double Zlength = 1;                   //进样针下降深度
         public static double ZPut_up = 0;                   //进样针抬起高度
 
+        public static bool Uplift = false;
+
         public static bool status = false;                  //漏液槽状态
         public static bool calibration_status=false;            //校准页漏液槽状态
 

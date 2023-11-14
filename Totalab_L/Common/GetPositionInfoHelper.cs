@@ -16,7 +16,6 @@ namespace Totalab_L.Common
         public static int TrayLength;
         public static int XCenter;
         public static double ArmLength = 120.8;                            //152.5;             /// 机械臂的旋转半径
-        //public static double TrayCenterOffset=0;            //原间隔3.5
         public static double TrayACenterToCenter = 221.5;                   //223.5;
         public static double TrayBCenterToCenter = 113.5;                   //114.5;
         public static double TrayDCenterToCenter = 113.5;                   //114.5;
@@ -132,11 +131,21 @@ namespace Totalab_L.Common
                 double distance = 0;            //点位距中心点的位置X
                 if (!isCustomtray)
                 {
+                    double TrayWOffset = Math.Sin(1.95 / 2 * Math.PI/180) * 120.8;            //角度补偿
                     xInterval = trayData.XCenterDistance / (xCount - 1);
                     yInterval = trayData.YCenterDistance / (yCount - 1);
                     itemRow = (index - 1) / xCount;
-                    itemXToCenter = Math.Round( Math.Abs(trayData.XCenterDistance / 2  - xInterval * ((index - 1) % xCount)),2);//X直角边1
-                    length = Math.Sqrt(Math.Pow(ArmLength, 2) - Math.Pow(itemXToCenter, 2));                                        //Y直角边2
+                    if (index % xCount <= xCount / 2 && index % xCount != 0)
+                    {
+                        itemXToCenter = Math.Abs(trayData.XCenterDistance / 2 - xInterval * ((index - 1) % xCount)) + TrayWOffset;    //孔位距离X轴（直角边）的距离
+                        length = Math.Sqrt(Math.Pow(ArmLength, 2) - Math.Pow(itemXToCenter, 2));                                        //X轴上直角边距离
+                    }
+                    else
+                    {
+                        itemXToCenter = Math.Abs(trayData.XCenterDistance / 2 - xInterval * ((index - 1) % xCount)) - TrayWOffset;    //孔位距离X轴（直角边）的距离
+                        length = Math.Sqrt(Math.Pow(ArmLength, 2) - Math.Pow(itemXToCenter, 2));                                        //X轴上直角边距离
+
+                    }
 
                 }
                 //判断这个孔位在机械的左边/右边
@@ -159,12 +168,12 @@ namespace Totalab_L.Common
                     distance = trayFirstRowToCenter - yInterval * itemRow;           //点位距中心
                     //xStep = (GlobalInfo.Instance.TrayPanelCenter - (trayFirstRowToCenter - yInterval * ((index - 1) / xCount) - length) + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600;
                     xStep = GlobalInfo.Instance.TrayPanelCenter - distance + length;
-                    angle = 180.0 * Math.Asin(itemXToCenter / ArmLength) / Math.PI;
+                    angle = 180.0 * Math.Asin(itemXToCenter / ArmLength) / Math.PI;                 //与X轴得夹角
                     if (index % xCount <= xCount / 2 && index % xCount != 0)
-                        angle = GlobalInfo.Instance.TrayPanel_leftW - angle;              
+                        angle = GlobalInfo.Instance.TrayPanel_leftW - angle + 1.95 / 2;              
                     else
-                        angle = GlobalInfo.Instance.TrayPanel_leftW + angle;                 
-                    yStep = angle ;
+                        angle = GlobalInfo.Instance.TrayPanel_leftW + angle + 1.95 / 2;                 
+                    yStep = angle ;                                                             //转动角度
                     #endregion
 
                 }
@@ -188,9 +197,9 @@ namespace Totalab_L.Common
                     xStep = GlobalInfo.Instance.TrayPanelCenter + distance - length ;
                     angle = 180 * Math.Asin(itemXToCenter / ArmLength) / Math.PI;
                     if (index % xCount <= xCount / 2 && index % xCount != 0)
-                        angle = GlobalInfo.Instance.TrayPanel_rightW + angle;                   
+                        angle = GlobalInfo.Instance.TrayPanel_rightW + angle + 1.95 / 2;                   
                     else
-                        angle = GlobalInfo.Instance.TrayPanel_rightW - angle;
+                        angle = GlobalInfo.Instance.TrayPanel_rightW - angle + 1.95 / 2;
                     yStep = angle;
                     #endregion
 
@@ -221,9 +230,9 @@ namespace Totalab_L.Common
                     //xStep = (GlobalInfo.Instance.TrayPanelCenter_left - trayRowToCenter + length + GlobalInfo.Instance.TrayPanelHomeX) / GlobalInfo.XLengthPerCircle * 3600;
                     angle = 180.0 * Math.Asin(itemXToCenter / ArmLength) / Math.PI;
                     if ((xCount - (index - (index - 1) / xCount * xCount) % (xCount + 1)) * customTrayData.XCenterInterval > customTrayData.XCenterDistance)
-                        angle = GlobalInfo.Instance.TrayPanel_leftW - angle;
+                        angle = GlobalInfo.Instance.TrayPanel_leftW - angle + 1.95 / 2;
                     else
-                        angle = GlobalInfo.Instance.TrayPanel_leftW + angle;
+                        angle = GlobalInfo.Instance.TrayPanel_leftW + angle + 1.95 / 2;
                     yStep = angle;
                     #endregion
 
@@ -250,9 +259,9 @@ namespace Totalab_L.Common
                     xStep = GlobalInfo.Instance.TrayPanelCenter - (length - trayRowToCenter);
                     angle = 180.0 * Math.Asin(itemXToCenter / ArmLength) / Math.PI;
                     if ((xCount - (index - (index - 1) / xCount * xCount) % (xCount + 1)) * customTrayData.XCenterInterval > customTrayData.XCenterDistance)
-                        angle = GlobalInfo.Instance.TrayPanel_rightW + angle;
+                        angle = GlobalInfo.Instance.TrayPanel_rightW + angle + 1.95 / 2;
                     else
-                        angle = GlobalInfo.Instance.TrayPanel_rightW - angle;
+                        angle = GlobalInfo.Instance.TrayPanel_rightW - angle + 1.95 / 2;
                     yStep = angle;
                     #endregion
 
