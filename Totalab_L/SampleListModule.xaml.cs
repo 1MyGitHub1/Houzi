@@ -152,7 +152,7 @@ namespace Totalab_L
         #endregion
 
         #region 变量
-        
+        bool isFirstRun=false;
         SampleItemInfo CopySamplingInfo;
         Thread methodTask;
         //public int pauseType;/// 0,没有暂停，1.立即暂停 2.结束当前样暂停
@@ -1278,6 +1278,7 @@ namespace Totalab_L
         //运行
         public void TaskRunningCommand(object sender, RoutedEventArgs e)
         {
+            isFirstRun = true;          //第一次不需要慢速抬针
             try
             {
                 if (GlobalInfo.Instance.SampleInfos == null)
@@ -2143,8 +2144,27 @@ namespace Totalab_L
                         GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
 
                         GlobalInfo.Instance.Totalab_LSerials.SetLeakage_tank(0x14);     //打开
-                        Thread.Sleep(100);
+                        Thread.Sleep(500);
                         GlobalInfo.status = true;
+                        //设置Z轴速度
+                        GlobalInfo.Instance.RunningStep = RunningStep_Status.SetZSpeed;
+                        GlobalInfo.Instance.Totalab_LSerials.SetZSpeed(0x03, (int)(Math.Round(GlobalInfo.Instance.CalibrationInfo.Speed2_value / 100, 2) * 700));
+                        while (true)
+                        {
+                            longseconds = DateTime.Now.Ticks / 10000;
+                            if (GlobalInfo.Instance.RunningStep == RunningStep_Status.SetZSpeedOK)
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                while (GlobalInfo.Instance.RunningStep != RunningStep_Status.SetZSpeedOK && (DateTime.Now.Ticks / 10000 - longseconds) / 1000 < 5 && GlobalInfo.Instance.RunningStep != RunningStep_Status.Error)
+                                {
+                                    Thread.Sleep(100);
+                                }
+
+                            }
+                        }
 
                         GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x03, (int)(GlobalInfo.Instance.CalibrationInfo.ZResetPosition / GlobalInfo.ZLengthPerCircle * 3600.0 + GlobalInfo.Instance.TrayPanelHomeZ));
                         count = 0;
@@ -2433,9 +2453,6 @@ namespace Totalab_L
                     long longseconds = DateTime.Now.Ticks / 10000;
                     int count = 0;
 
-                    GlobalInfo.Instance.Totalab_LSerials.SetLeakage_tank(0x14);     //打开
-                    Thread.Sleep(100);
-
                     if (GlobalInfo.Instance.CurrentWorkType != Enum_MotorWorkType.Position)
                     {
                         GlobalInfo.Instance.IsMotorWSetWorkModeOk = false;
@@ -2510,8 +2527,249 @@ namespace Totalab_L
                             
                         }
                     }
+
+                    GlobalInfo.Instance.Totalab_LSerials.SetLeakage_tank(0x14);     //打开
+                    Thread.Sleep(500);
+
+                    #region 第一段针复位
+                    if (isFirstRun==false)
+                    {
+                        //设置Z轴速度
+                        GlobalInfo.Instance.RunningStep = RunningStep_Status.SetZSpeed;
+                        GlobalInfo.Instance.Totalab_LSerials.SetZSpeed(0x03, (int)(Math.Round(GlobalInfo.Instance.CalibrationInfo.Speed1_value / 100, 2) * 700));
+                        while (true)
+                        {
+                            longseconds = DateTime.Now.Ticks / 10000;
+                            if (GlobalInfo.Instance.RunningStep == RunningStep_Status.SetZSpeedOK)
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                while (GlobalInfo.Instance.RunningStep != RunningStep_Status.SetZSpeedOK && (DateTime.Now.Ticks / 10000 - longseconds) / 1000 < 5 && GlobalInfo.Instance.RunningStep != RunningStep_Status.Error)
+                                {
+                                    Thread.Sleep(100);
+                                }
+
+                            }
+                        }
+                        //针复位
+                        GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
+                        GlobalInfo.Instance.IsMotorXSetTargetPositionOk = false;
+                        GlobalInfo.Instance.IsMotorWSetTargetPositionOk = false;
+                        GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x03, (int)(50 / GlobalInfo.ZLengthPerCircle * 3600.0 + GlobalInfo.Instance.TrayPanelHomeZ));
+                        count = 0;
+                        while (true)
+                        {
+                            longseconds = DateTime.Now.Ticks / 10000;
+                            while (GlobalInfo.Instance.RunningStep != RunningStep_Status.SetTargetPositionOk && (DateTime.Now.Ticks / 10000 - longseconds) / 1000 < 10)
+                            {
+                                Thread.Sleep(100);
+                                if (stopType == 2 && IsStopWash == false)
+                                    return;
+                            }
+                            if (GlobalInfo.Instance.RunningStep != RunningStep_Status.SetTargetPositionOk)
+                            {
+                                if (count < GlobalInfo.Instance.MaxConnectionTimes)
+                                {
+                                    //GlobalInfo.Instance.Totalab_LSerials.EndWork();
+                                    try
+                                    {
+                                        //foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
+                                        {
+                                            try
+                                            {
+                                                //GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
+                                                //GlobalInfo.Instance.Totalab_LSerials.StartWork();
+                                                GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
+                                                GlobalInfo.status = true;
+                                                GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x03, (int)(50 / GlobalInfo.ZLengthPerCircle * 3600.0 + GlobalInfo.Instance.TrayPanelHomeZ));
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                MainLogHelper.Instance.Error("[GoToTargetPosition]：", ex);
+                                            }
+                                        }
+
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        MainLogHelper.Instance.Error("[GoToTargetPosition]：", ex);
+                                    }
+
+                                    count++;
+                                }
+                                else
+                                {
+                                    ConntectWaring();
+                                    return;
+                                }
+                            }
+                            else
+                            {
+                                while (ExpStatus == Exp_Status.Pause)
+                                {
+                                    Thread.Sleep(20);
+                                }
+                                if (stopType == 2 && IsStopWash == false)
+                                    return;
+                                break;
+                            }
+                        }
+                        GlobalInfo.Instance.IsMotorXActionOk = false;
+                        GlobalInfo.Instance.IsMotorWActionOk = false;
+                        GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMotorAction;
+                        GlobalInfo.Instance.Totalab_LSerials.MotorAction(0x03, 0x0f);
+                        count = 0;
+                        while (true)
+                        {
+                            longseconds = DateTime.Now.Ticks / 10000;
+
+                            while (GlobalInfo.Instance.RunningStep != RunningStep_Status.SetMotorActionOk && (DateTime.Now.Ticks / 10000 - longseconds) / 1000 < 10)
+                            {
+                                Thread.Sleep(100);
+                                if (stopType == 2 && IsStopWash == false)
+                                    return;
+                            }
+                            if (GlobalInfo.Instance.RunningStep != RunningStep_Status.SetMotorActionOk)
+                            {
+                                if (count < GlobalInfo.Instance.MaxConnectionTimes)
+                                {
+                                    //GlobalInfo.Instance.Totalab_LSerials.EndWork();
+                                    try
+                                    {
+                                        //foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
+                                        {
+                                            try
+                                            {
+                                                //GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
+                                                //GlobalInfo.Instance.Totalab_LSerials.StartWork();
+                                                GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMotorAction;
+                                                GlobalInfo.Instance.Totalab_LSerials.MotorAction(0x03, 0x0f);
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                MainLogHelper.Instance.Error("[GoToTargetPosition]：", ex);
+                                            }
+                                        }
+
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        MainLogHelper.Instance.Error("[GoToTargetPosition]：", ex);
+                                    }
+
+                                    count++;
+                                }
+                                else
+                                {
+                                    ConntectWaring();
+                                    return;
+                                }
+                            }
+                            else
+                            {
+                                while (ExpStatus == Exp_Status.Pause)
+                                {
+                                    Thread.Sleep(20);
+                                }
+                                if (stopType == 2 && IsStopWash == false)
+                                    return;
+                                break;
+                            }
+                        }
+                        GlobalInfo.Instance.IsMotorXActionOk = false;
+                        GlobalInfo.Instance.IsMotorWActionOk = false;
+                        GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMotorAction;
+                        GlobalInfo.Instance.Totalab_LSerials.MotorMove(0x03, 0x3f);
+                        count = 0;
+                        while (true)
+                        {
+                            longseconds = DateTime.Now.Ticks / 10000;
+
+                            while (GlobalInfo.Instance.RunningStep != RunningStep_Status.SetMotorActionOk && (DateTime.Now.Ticks / 10000 - longseconds) / 1000 < 10)
+                            {
+                                Thread.Sleep(100);
+                                if (stopType == 2 && IsStopWash == false)
+                                    return;
+                            }
+                            if (GlobalInfo.Instance.RunningStep != RunningStep_Status.SetMotorActionOk)
+                            {
+                                if (count < GlobalInfo.Instance.MaxConnectionTimes)
+                                {
+                                    //GlobalInfo.Instance.Totalab_LSerials.EndWork();
+                                    try
+                                    {
+                                        //foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
+                                        {
+                                            try
+                                            {
+                                                //GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
+                                                //GlobalInfo.Instance.Totalab_LSerials.StartWork();
+                                                GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMotorAction;
+                                                GlobalInfo.Instance.Totalab_LSerials.MotorMove(0x03, 0x3f);
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                MainLogHelper.Instance.Error("[GoToTargetPosition]：", ex);
+                                            }
+                                        }
+
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        MainLogHelper.Instance.Error("[GoToTargetPosition]：", ex);
+                                    }
+
+                                    count++;
+                                }
+                                else
+                                {
+                                    ConntectWaring();
+                                    return;
+                                }
+                            }
+                            else
+                            {
+                                while (ExpStatus == Exp_Status.Pause)
+                                {
+                                    Thread.Sleep(20);
+                                }
+                                if (stopType == 2 && IsStopWash == false)
+                                    return;
+                                break;
+                            }
+                        }
+
+                    }
+                    isFirstRun = false;
+                    #endregion
+
+                    #region  第二段针复位
+                    //设置Z轴速度
+                    GlobalInfo.Instance.RunningStep = RunningStep_Status.SetZSpeed;
+                    GlobalInfo.Instance.Totalab_LSerials.SetZSpeed(0x03, (int)(Math.Round(GlobalInfo.Instance.CalibrationInfo.Speed2_value / 100, 2) * 700));
+                    while (true)
+                    {
+                        longseconds = DateTime.Now.Ticks / 10000;
+                        if (GlobalInfo.Instance.RunningStep == RunningStep_Status.SetZSpeedOK)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            while (GlobalInfo.Instance.RunningStep != RunningStep_Status.SetZSpeedOK && (DateTime.Now.Ticks / 10000 - longseconds) / 1000 < 5 && GlobalInfo.Instance.RunningStep != RunningStep_Status.Error)
+                            {
+                                Thread.Sleep(100);
+                            }
+
+                        }
+                    }
+                    //针复位
                     GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
                     GlobalInfo.status = true;
+                    GlobalInfo.Instance.IsMotorXSetTargetPositionOk = false;
+                    GlobalInfo.Instance.IsMotorWSetTargetPositionOk = false;
                     GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x03, (int)(GlobalInfo.Instance.CalibrationInfo.ZResetPosition / GlobalInfo.ZLengthPerCircle * 3600.0 + GlobalInfo.Instance.TrayPanelHomeZ));
                     count = 0;
                     while (true)
@@ -2571,6 +2829,8 @@ namespace Totalab_L
                             break;
                         }
                     }
+                    GlobalInfo.Instance.IsMotorXActionOk = false;
+                    GlobalInfo.Instance.IsMotorWActionOk = false;
                     GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMotorAction;
                     GlobalInfo.Instance.Totalab_LSerials.MotorAction(0x03, 0x0f);
                     count = 0;
@@ -2631,6 +2891,8 @@ namespace Totalab_L
                             break;
                         }
                     }
+                    GlobalInfo.Instance.IsMotorXActionOk = false;
+                    GlobalInfo.Instance.IsMotorWActionOk = false;
                     GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMotorAction;
                     GlobalInfo.Instance.Totalab_LSerials.MotorMove(0x03, 0x3f);
                     count = 0;
@@ -2691,6 +2953,8 @@ namespace Totalab_L
                             break;
                         }
                     }
+                    #endregion
+
                     Point pt = new Point();
                     int isCollisionStatus = 0;
                     if (loc == "W1")
@@ -3339,8 +3603,8 @@ namespace Totalab_L
                     }
 
                     GlobalInfo.Instance.Totalab_LSerials.SetLeakage_tank(0x14);     //打开
-                    Thread.Sleep(100);
-
+                    Thread.Sleep(500);
+                    //取样深度
                     GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
                     GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x03, (int)(GlobalInfo.Instance.SettingInfo.SamplingDepth / GlobalInfo.ZLengthPerCircle * 3600.0 + GlobalInfo.Instance.TrayPanelHomeZ));
                     count = 0;
@@ -4032,7 +4296,7 @@ namespace Totalab_L
                     Thread.Sleep(1);
                 }
                 GlobalInfo.Instance.Totalab_LSerials.SetLeakage_tank(0x14);     //打开
-                Thread.Sleep(100);
+                Thread.Sleep(500);
 
                 GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
                 GlobalInfo.status = true;
@@ -4374,7 +4638,7 @@ namespace Totalab_L
                         return;
                     }
                     GlobalInfo.Instance.Totalab_LSerials.SetLeakage_tank(0x14);     //打开
-                    Thread.Sleep(100);
+                    Thread.Sleep(500);
 
                     GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
                     GlobalInfo.status = true;
@@ -4660,7 +4924,7 @@ namespace Totalab_L
                         if (GlobalInfo.Instance.RunningStep == RunningStep_Status.PumpRunOk)
                         {
                             GlobalInfo.Instance.Totalab_LSerials.SetLeakage_tank(0x14);     //打开
-                            Thread.Sleep(100);
+                            Thread.Sleep(500);
 
                             GlobalInfo.status = true;
                             GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x03, (int)(GlobalInfo.Instance.CalibrationInfo.ZResetPosition / GlobalInfo.ZLengthPerCircle * 3600.0 + GlobalInfo.Instance.TrayPanelHomeZ));

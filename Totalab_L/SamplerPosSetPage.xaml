@@ -27,14 +27,14 @@
             <ColumnDefinition Width="52"/>
             <ColumnDefinition Width="578"/>
             <ColumnDefinition Width="56"/>
-            <ColumnDefinition Width="500"/>
-            <ColumnDefinition Width="6"/>
-            <ColumnDefinition Width="80"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="525"/>
+            <!--<ColumnDefinition Width="6"/>-->
+            <ColumnDefinition Width="52"/>
+            <!--<ColumnDefinition/>-->
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="24"/>
-            <RowDefinition/>
+            <RowDefinition Height="680"/>
         </Grid.RowDefinitions>
         <!--pack://application:,,,/Images/left_point@1x.png-->
 
@@ -375,7 +375,9 @@
         <Grid Grid.Column="3" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="48"/>
-                <RowDefinition Height="740"/>
+                <RowDefinition Height="662"/>
+                <!--<RowDefinition Height="22"/>-->
+                <!--<RowDefinition Height="56"/>-->
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="-11,0,0,0" VerticalAlignment="Center">
                 <!--<RadioButton GroupName="AutoSamplerHeadMenu" Content="{DynamicResource AutoSampler_Main_SampleList}" IsChecked="True"
@@ -387,7 +389,7 @@
                 <RadioButton GroupName="AutoSamplerHeadMenu" Content="样品管参数" FontSize="16"
                              Style="{StaticResource RadioBtnNavHorMinWid120Sty}" Click = "SetSampleCommand"/>
             </StackPanel>
-            <Grid x:Name="SetData1_Visibility" Grid.Row="1" Visibility="Visible" Margin="0,0,0,103">
+            <Grid x:Name="SetData1_Visibility" Grid.Row="1" Visibility="Visible" Margin="0,0,0,25">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0"/>
                     <RowDefinition Height="24"/>
@@ -479,10 +481,10 @@
                 </StackPanel>
                 <StackPanel Grid.Row="11" Orientation="Horizontal">
                     <TextBlock  Text="下降高度(mm)" Style="{StaticResource TextBlockSty}"  Width="108" VerticalAlignment="Center"/>
-                    <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="76" MaxValue="170" MinValue="0"
+                    <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="76" MaxValue="169" MinValue="0"
                           DoubleValue="{Binding  ZCurrentPosition,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
                     <Button Style="{StaticResource  ButtonAccentSty}"  Width="76" Height="32" Margin="12 0 0 0" Content="下降" Background="#FFDDDDDD" Foreground="Black"
-                                Click="MoveToZCommand"  Tag="CurrentZ">
+                                Click="MoveToZCommand"  Tag="imbibition_level">
                         <Button.IsEnabled>
                             <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
                                 <MultiBinding.ConverterParameter>
@@ -550,7 +552,7 @@
                             </MultiBinding>
                         </Button.IsEnabled>
                         <Button.Content>
-                             <Image Source="/Totalab_L;component/Images/aleft_@2x.png" Width="24" Height="24"  Stretch="Fill"/>
+                            <Image Source="/Totalab_L;component/Images/aleft_@2x.png" Width="24" Height="24"  Stretch="Fill"/>
                         </Button.Content>
                     </Button>
                     <Button Style="{StaticResource  ButtonAccentSty}"  Width="76" Height="32" Margin="12 0 0 0" Tag="right_Move" Background="#FFDDDDDD"
@@ -616,19 +618,21 @@
                     </Button>
                 </StackPanel>
                 <StackPanel Grid.Row="21">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,132,0">
+                    <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,132,0">
                         <Button Style="{StaticResource  ButtonPrimarySty}"  Width="76" Height="32"  Content="{DynamicResource ButtonContent_Cancel}"  IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"
                                 Click="CancelCommand"/>
                         <Button Style="{StaticResource  ButtonAccentSty}"  Width="76" Height="32" Margin="12 0 7 0" Content="{DynamicResource ButtonContent_Save}"
                                 Click="SavePosCommand"  IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Tag="save1"/>
-                    </StackPanel>
+                    </StackPanel>-->
                 </StackPanel>
             </Grid>
 
-            <Grid x:Name="SetData2_Visibility" Grid.Row="1" Visibility="Collapsed">
+            <Grid x:Name="SetData2_Visibility" Grid.Row="1" Visibility="Collapsed" Grid.RowSpan="3">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="24"/>
                     <RowDefinition Height="48"/>
+                    <RowDefinition Height="12"/>
+                    <RowDefinition Height="32"/>
                     <RowDefinition Height="12"/>
                     <RowDefinition Height="32"/>
                     <RowDefinition Height="12"/>
@@ -641,12 +645,12 @@
                 </StackPanel>
                 <StackPanel Grid.Row="3" Orientation="Horizontal">
                     <TextBlock  Text="平移距离(mm)" Style="{StaticResource TextBlockSty}"  Width="108" VerticalAlignment="Center"/>
-                    <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="76" Height="32" MinValue="0" IsReadOnly="True"
+                    <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="76" Height="32" MinValue="0"
                         DoubleValue="{Binding  CalibrationInfo.CalibrationRightX,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
                 </StackPanel>
                 <StackPanel Grid.Row="5" Orientation="Horizontal">
                     <TextBlock  Text="转动角度(rds)" Style="{StaticResource TextBlockSty}"  Width="108" Margin="0 0 0 0" VerticalAlignment="Center"/>
-                    <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="76" Height="32" IsReadOnly="True"
+                    <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="76" Height="32"
                           DoubleValue="{Binding  CalibrationInfo.CalibrationRightW,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
                     <Button Style="{StaticResource  ButtonAccentSty}"  Width="76" Margin="12 0 0 0" Content="走位" Tag="right" Background="#FFDDDDDD" Foreground="Black"
                                 Click="MoveToTargetLocationCommand">
@@ -666,10 +670,10 @@
                 </StackPanel>
                 <StackPanel Grid.Row="7" Orientation="Horizontal">
                     <TextBlock  Text="下降高度(mm)" Style="{StaticResource TextBlockSty}"  Width="108" VerticalAlignment="Center"/>
-                    <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="76" Height="32" MaxValue="170" MinValue="0" IsReadOnly="True"
+                    <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="76" Height="32" MaxValue="169" MinValue="0"
                           DoubleValue="{Binding  ZCurrentPosition,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
                     <Button Style="{StaticResource  ButtonAccentSty}"  Width="76" Margin="12 0 0 0" Content="下降" Background="#FFDDDDDD" Foreground="Black"
-                                Click="MoveToZCommand"  Tag="CurrentZ">
+                                Click="MoveToZCommand"  Tag="imbibition_level">
                         <Button.IsEnabled>
                             <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
                                 <MultiBinding.ConverterParameter>
@@ -699,142 +703,315 @@
                         </Button.IsEnabled>
                     </Button>
                 </StackPanel>
+                <StackPanel Grid.Row="9" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,132,0">-->
+                    <Button Style="{StaticResource  ButtonPrimarySty}"  Width="76" Height="32" Margin="0,0,12,0"  Content="{DynamicResource ButtonContent_Cancel}"  IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"
+                                Click="CancelCommand"/>
+                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="76" Height="32" Margin="0,0,165,0" Content="{DynamicResource ButtonContent_Save}"
+                                Click="SavePosCommand"  IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Tag="save1"/>
+                </StackPanel>
 
             </Grid>
 
-            <Grid x:Name="SetData3_Visibility" Grid.Row="1" Visibility="Collapsed">
+            <Grid x:Name="SetData3_Visibility" Grid.Row="1" Visibility="Collapsed" Margin="0,5,0,25">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="24"/>
-                    <RowDefinition Height="48"/>
-                    <RowDefinition Height="14"/>
-                    <RowDefinition Height="12"/>
+                    <RowDefinition Height="16"/>
                     <RowDefinition Height="32"/>
-                    <RowDefinition Height="12"/>
-                    <RowDefinition Height="32"/>
-                    <RowDefinition Height="12"/>
-                    <RowDefinition Height="32"/>
-                    <RowDefinition Height="12"/>
-                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="314"/>
+                    <RowDefinition Height="200"/>
                 </Grid.RowDefinitions>
-                <StackPanel Grid.Row="1" Orientation="Horizontal">
-                    <TextBlock Text="样品管参数" Style="{StaticResource UCtlTitleTextBlockSty}" Width="140" FontSize="16" VerticalAlignment="Center"/>
-                </StackPanel>
-                <StackPanel Grid.Row="2" Orientation="Horizontal">
-                    <TextBlock Text="请先放置样品架，并再左侧设置相应的样品架信息" Style="{StaticResource TextBlockSty}" Foreground="Red" FontSize="11"  VerticalAlignment="Top"/>
-                </StackPanel>
-                <!--Content="{DynamicResource AutoSampler_Go}"-->
-                <StackPanel Grid.Row="4" Orientation="Horizontal">
-                    <TextBlock  Text="样品管（号）" Style="{StaticResource TextBlockSty}"  Width="108"/>
-                    <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Height="32"
+                <Grid Grid.Row="1">
+                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                        <TextBlock Text="机械臂控制" Style="{StaticResource UCtlTitleTextBlockSty}" Width="140" FontSize="16" VerticalAlignment="Center"/>
+                        <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="55 0 0 0" Content="初始化" Background="#FFDDDDDD" Foreground="Black"
+                                 Click="HomeCommand">
+                            <Button.IsEnabled>
+                                <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                                    <MultiBinding.ConverterParameter>
+                                        <x:Array Type="{x:Type System:Boolean}">
+                                            <System:Boolean>True</System:Boolean>
+                                            <System:Boolean>True</System:Boolean>
+                                        </x:Array>
+                                    </MultiBinding.ConverterParameter>
+                                    <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
+                                    <Binding Path="IsConnect" Mode="OneWay"/>
+                                </MultiBinding>
+                            </Button.IsEnabled>
+                        </Button>
+                        <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="12 0 0 0" Content="样品针复位" Background="#FFDDDDDD" Foreground="Black"
+                                 Click="MoveToZCommand" Tag="ResetZ_0">
+                            <Button.IsEnabled>
+                                <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                                    <MultiBinding.ConverterParameter>
+                                        <x:Array Type="{x:Type System:Boolean}">
+                                            <System:Boolean>True</System:Boolean>
+                                            <System:Boolean>True</System:Boolean>
+                                        </x:Array>
+                                    </MultiBinding.ConverterParameter>
+                                    <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
+                                    <Binding Path="IsConnect" Mode="OneWay"/>
+                                </MultiBinding>
+                            </Button.IsEnabled>
+                        </Button>
+
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="355"/>
+                        <ColumnDefinition Width="170"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0"/>
+                            <RowDefinition Height="48"/>
+                            <RowDefinition Height="14"/>
+                            <RowDefinition Height="12"/>
+                            <RowDefinition Height="32"/>
+                            <RowDefinition Height="12"/>
+                            <RowDefinition Height="32"/>
+                            <RowDefinition Height="12"/>
+                            <RowDefinition Height="32"/>
+                            <RowDefinition Height="12"/>
+                            <RowDefinition Height="32"/>
+                            <RowDefinition Height="12"/>
+                            <RowDefinition Height="32"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
+                            <TextBlock Text="样品管参数" Style="{StaticResource UCtlTitleTextBlockSty}" Width="140" FontSize="16" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
+                            <TextBlock Text="请先放置样品架，并再左侧设置相应的样品架信息" Style="{StaticResource TextBlockSty}" Foreground="Red" FontSize="11"  VerticalAlignment="Top"/>
+                        </StackPanel>
+                        <!--Content="{DynamicResource AutoSampler_Go}"-->
+                        <StackPanel Grid.Row="4" Grid.Column="0" Orientation="Horizontal">
+                            <TextBlock  Text="样品管（号）" Style="{StaticResource TextBlockSty}"  Width="108"/>
+                            <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Height="32"
                           Text="{Binding CalibrationInfo.PosNumber,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"/>
-                    <Button Width="74" Margin="12 0 0 0" Click="GoToXYCommand" Content="走位" Style="{StaticResource ButtonAccentSty}" Background="#FFDDDDDD" Foreground="Black">
-                        <Button.IsEnabled>
-                            <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
-                                <MultiBinding.ConverterParameter>
-                                    <x:Array Type="{x:Type System:Boolean}">
-                                        <System:Boolean>True</System:Boolean>
-                                        <System:Boolean>True</System:Boolean>
-                                    </x:Array>
-                                </MultiBinding.ConverterParameter>
-                                <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
-                                <Binding Path="IsConnect" Mode="OneWay"/>
-                            </MultiBinding>
-                        </Button.IsEnabled>
-                    </Button>
-                </StackPanel>
-                <StackPanel Grid.Row="8" Orientation="Horizontal">
-                    <TextBlock  Text="下降深度(mm)" Style="{StaticResource TextBlockSty}"  Width="108"/>
-                    <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" MaxValue="160" MinValue="0"
-                          DoubleValue="{Binding  ZCurrentPosition,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
-                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Margin="12 0 0 0" Content="下降" Background="#FFDDDDDD" Foreground="Black"
-                                Click="MoveToZCommand"  Tag="CurrentZ">
-                        <Button.IsEnabled>
-                            <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
-                                <MultiBinding.ConverterParameter>
-                                    <x:Array Type="{x:Type System:Boolean}">
-                                        <System:Boolean>True</System:Boolean>
-                                        <System:Boolean>True</System:Boolean>
-                                    </x:Array>
-                                </MultiBinding.ConverterParameter>
-                                <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
-                                <Binding Path="IsConnect" Mode="OneWay"/>
-                            </MultiBinding>
-                        </Button.IsEnabled>
-                    </Button>
-                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Height="32" Margin="12 0 0 0" Content="抬起" Background="#FFDDDDDD" Foreground="Black"
-                                Click="MoveToZCommand"  Tag="ResetZ">
-                        <Button.IsEnabled>
-                            <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
-                                <MultiBinding.ConverterParameter>
-                                    <x:Array Type="{x:Type System:Boolean}">
-                                        <System:Boolean>True</System:Boolean>
-                                        <System:Boolean>True</System:Boolean>
-                                    </x:Array>
-                                </MultiBinding.ConverterParameter>
-                                <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
-                                <Binding Path="IsConnect" Mode="OneWay"/>
-                            </MultiBinding>
-                        </Button.IsEnabled>
-                    </Button>
-                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Height="32" Margin="12 0 0 0" Content="复位零点" Background="#FFDDDDDD" Foreground="Black"
-                                Click="MoveToZCommand" Tag="ResetZ_0">
-                        <Button.IsEnabled>
-                            <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
-                                <MultiBinding.ConverterParameter>
-                                    <x:Array Type="{x:Type System:Boolean}">
-                                        <System:Boolean>True</System:Boolean>
-                                        <System:Boolean>True</System:Boolean>
-                                    </x:Array>
-                                </MultiBinding.ConverterParameter>
-                                <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
-                                <Binding Path="IsConnect" Mode="OneWay"/>
-                            </MultiBinding>
-                        </Button.IsEnabled>
-                    </Button>
-
-                </StackPanel>
-                <StackPanel Grid.Row="6" Orientation="Horizontal">
-                    <TextBlock  Text="抬起高度(mm)" Style="{StaticResource TextBlockSty}"  Width="108"/>
-                    <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Height="32" MaxValue="170" MinValue="0" 
+                            <Button Width="74" Margin="12 0 0 0" Click="GoToXYCommand" Content="走位" Style="{StaticResource ButtonAccentSty}" Background="#FFDDDDDD" Foreground="Black">
+                                <Button.IsEnabled>
+                                    <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                                        <MultiBinding.ConverterParameter>
+                                            <x:Array Type="{x:Type System:Boolean}">
+                                                <System:Boolean>True</System:Boolean>
+                                                <System:Boolean>True</System:Boolean>
+                                            </x:Array>
+                                        </MultiBinding.ConverterParameter>
+                                        <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
+                                        <Binding Path="IsConnect" Mode="OneWay"/>
+                                    </MultiBinding>
+                                </Button.IsEnabled>
+                            </Button>
+                        </StackPanel>
+                        <StackPanel Grid.Row="6" Grid.Column="0" Orientation="Horizontal">
+                            <TextBlock  Text="抬起高度(mm)" Style="{StaticResource TextBlockSty}"  Width="108"/>
+                            <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Height="32" MaxValue="169" MinValue="0" 
                           DoubleValue="{Binding  CalibrationInfo.ZResetPosition,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
-                    <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="12 0 0 0" Content="设置" Background="#FFDDDDDD" Foreground="Black"
+                            <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="12 0 0 0" Content="设置" Background="#FFDDDDDD" Foreground="Black"
                                  Click="SavePosCommand" Tag="save2">
-                        <Button.IsEnabled>
-                            <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
-                                <MultiBinding.ConverterParameter>
-                                    <x:Array Type="{x:Type System:Boolean}">
-                                        <System:Boolean>True</System:Boolean>
-                                        <System:Boolean>True</System:Boolean>
-                                    </x:Array>
-                                </MultiBinding.ConverterParameter>
-                                <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
-                                <Binding Path="IsConnect" Mode="OneWay"/>
-                            </MultiBinding>
-                        </Button.IsEnabled>
-                    </Button>
+                                <Button.IsEnabled>
+                                    <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                                        <MultiBinding.ConverterParameter>
+                                            <x:Array Type="{x:Type System:Boolean}">
+                                                <System:Boolean>True</System:Boolean>
+                                                <System:Boolean>True</System:Boolean>
+                                            </x:Array>
+                                        </MultiBinding.ConverterParameter>
+                                        <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
+                                        <Binding Path="IsConnect" Mode="OneWay"/>
+                                    </MultiBinding>
+                                </Button.IsEnabled>
+                            </Button>
 
-                </StackPanel>
-                <!--<StackPanel Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Right">
+                        </StackPanel>
+                        <TextBlock  Grid.Row="7" Text="大于瓶口高度" Style="{StaticResource TextBlockSty}" FontSize="11" Foreground="Red" Width="108" Height="15" HorizontalAlignment="Left"/>
+                        <StackPanel  Grid.Row="8" Orientation="Horizontal">
+                            <TextBlock  Text="液面高度(mm)" Style="{StaticResource TextBlockSty}"  Width="108"/>
+                            <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Height="32" MaxValue="169" MinValue="0" 
+                          DoubleValue="{Binding  Liquid_level,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
+                            <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="12 0 0 0" Content="下降" Background="#FFDDDDDD" Foreground="Black"
+                                 Click="MoveToZCommand" Tag="liquid_level">
+                                <Button.IsEnabled>
+                                    <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                                        <MultiBinding.ConverterParameter>
+                                            <x:Array Type="{x:Type System:Boolean}">
+                                                <System:Boolean>True</System:Boolean>
+                                                <System:Boolean>True</System:Boolean>
+                                            </x:Array>
+                                        </MultiBinding.ConverterParameter>
+                                        <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
+                                        <Binding Path="IsConnect" Mode="OneWay"/>
+                                    </MultiBinding>
+                                </Button.IsEnabled>
+                            </Button>
+
+                        </StackPanel>
+                        <StackPanel Grid.Row="10" Orientation="Horizontal">
+                            <TextBlock  Text="吸液高度(mm)" Style="{StaticResource TextBlockSty}"  Width="108"/>
+                            <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" MaxValue="169" MinValue="0"
+                          DoubleValue="{Binding  ZCurrentPosition,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
+                            <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Margin="12 0 0 0" Content="下降" Background="#FFDDDDDD" Foreground="Black"
+                                Click="MoveToZCommand"  Tag="imbibition_level">
+                                <Button.IsEnabled>
+                                    <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                                        <MultiBinding.ConverterParameter>
+                                            <x:Array Type="{x:Type System:Boolean}">
+                                                <System:Boolean>True</System:Boolean>
+                                                <System:Boolean>True</System:Boolean>
+                                            </x:Array>
+                                        </MultiBinding.ConverterParameter>
+                                        <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
+                                        <Binding Path="IsConnect" Mode="OneWay"/>
+                                    </MultiBinding>
+                                </Button.IsEnabled>
+                            </Button>
+
+                        </StackPanel>
+                        <StackPanel  Grid.Row="12" Orientation="Horizontal" Margin="182,0,0,0">
+                            <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Height="32" Margin="12 0 0 0" Content="抬起" Background="#FFDDDDDD" Foreground="Black"
+                                Click="MoveToZCommand"  Tag="ResetZ">
+                                <Button.IsEnabled>
+                                    <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                                        <MultiBinding.ConverterParameter>
+                                            <x:Array Type="{x:Type System:Boolean}">
+                                                <System:Boolean>True</System:Boolean>
+                                                <System:Boolean>True</System:Boolean>
+                                            </x:Array>
+                                        </MultiBinding.ConverterParameter>
+                                        <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
+                                        <Binding Path="IsConnect" Mode="OneWay"/>
+                                    </MultiBinding>
+                                </Button.IsEnabled>
+                            </Button>
+                            <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Height="32" Margin="12 0 0 0" Content="抬起到液面" Background="#FFDDDDDD" Foreground="Black"
+                                Click="MoveToZCommand" Tag="ResetZ_Liquid">
+                                <Button.IsEnabled>
+                                    <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                                        <MultiBinding.ConverterParameter>
+                                            <x:Array Type="{x:Type System:Boolean}">
+                                                <System:Boolean>True</System:Boolean>
+                                                <System:Boolean>True</System:Boolean>
+                                            </x:Array>
+                                        </MultiBinding.ConverterParameter>
+                                        <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
+                                        <Binding Path="IsConnect" Mode="OneWay"/>
+                                    </MultiBinding>
+                                </Button.IsEnabled>
+                            </Button>
+
+                        </StackPanel>
+
+                        <!--<StackPanel Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button Style="{StaticResource  ButtonPrimarySty}"  Width="76" Margin="0,0,10,0"  Content="槽打开"  IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"
                              Click="open_click"/>
                     <Button Style="{StaticResource  ButtonAccentSty}"  Width="76"  Margin="0 0 60 0" Content="槽关闭"
                               IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Click="close_click"/>
                 </StackPanel>-->
 
-                <!--<StackPanel Grid.Row="12" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <!--<StackPanel Grid.Row="12" Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button Style="{StaticResource  ButtonPrimarySty}"  Width="76" Margin="0,0,5,0"  Content="{DynamicResource ButtonContent_Cancel}"  IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"
                             Click="CancelCommand"/>
                     <Button Style="{StaticResource  ButtonAccentSty}"  Width="76"  Margin="10 0 5 0" Content="{DynamicResource ButtonContent_Save}"
                             Click="SavePosCommand"  IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Tag="save2"/>
                 </StackPanel>-->
 
-                <!--<StackPanel Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Style="{StaticResource  ButtonPrimarySty}"  Width="76" Margin="0,0,10,0"  Content="{DynamicResource ButtonContent_Cancel}"  IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"
-                            />
-                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="76"  Margin="10 0 2 0" Content="{DynamicResource ButtonContent_Save}"
-                              IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"/>
-                </StackPanel>-->
+                    </Grid>
+                    <Grid Grid.Column="1">
+                            <Image Margin="-15,-25,0,0" Source="/Totalab_L;component/Images/mechanical_arm1x.png" Width="180" Height="230" Stretch="None"/>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0"/>
+                        <RowDefinition Height="32"/>
+                        <!--<RowDefinition Height="14"/>-->
+                        <RowDefinition Height="12"/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="12"/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="12"/>
+                        <RowDefinition Height="32"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <TextBlock Text="进样针抬起速度设置" Style="{StaticResource UCtlTitleTextBlockSty}" FontSize="16" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="3" Orientation="Horizontal">
+                        <TextBlock  Text="抬起速度1(%)" Style="{StaticResource TextBlockSty}"  Width="108"/>
+                        <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Height="32" MaxValue="100" MinValue="0" 
+                          DoubleValue="{Binding  CalibrationInfo.Speed1_value,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
+                        <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="12 0 0 0" Content="设置" Background="#FFDDDDDD" Foreground="Black"
+                                 Click="PutUp_SpeedCommand" Tag="Set1">
+                            <Button.IsEnabled>
+                                <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                                    <MultiBinding.ConverterParameter>
+                                        <x:Array Type="{x:Type System:Boolean}">
+                                            <System:Boolean>True</System:Boolean>
+                                            <System:Boolean>True</System:Boolean>
+                                        </x:Array>
+                                    </MultiBinding.ConverterParameter>
+                                    <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
+                                    <Binding Path="IsConnect" Mode="OneWay"/>
+                                </MultiBinding>
+                            </Button.IsEnabled>
+                        </Button>
+                        <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="12 0 0 0" Content="测试" Background="#FFDDDDDD" Foreground="Black"
+                                 Click="MoveToZCommand" Tag="TestSpeed">
+                            <Button.IsEnabled>
+                                <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                                    <MultiBinding.ConverterParameter>
+                                        <x:Array Type="{x:Type System:Boolean}">
+                                            <System:Boolean>True</System:Boolean>
+                                            <System:Boolean>True</System:Boolean>
+                                        </x:Array>
+                                    </MultiBinding.ConverterParameter>
+                                    <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
+                                    <Binding Path="IsConnect" Mode="OneWay"/>
+                                </MultiBinding>
+                            </Button.IsEnabled>
+                        </Button>
 
+                    </StackPanel>
+                    <TextBlock  Grid.Row="4" Text="吸液高度到液面高度之间得抬起速度" Style="{StaticResource TextBlockSty}" FontSize="11" Foreground="Red" Width="188" Height="15" HorizontalAlignment="Left"/>
+
+                    <StackPanel Grid.Row="5" Orientation="Horizontal">
+                        <TextBlock  Text="抬起速度2(%)" Style="{StaticResource TextBlockSty}"  Width="108"/>
+                        <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Height="32" MaxValue="100" MinValue="0" 
+                          DoubleValue="{Binding CalibrationInfo.Speed2_value,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
+                        <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="12 0 0 0" Content="设置" Background="#FFDDDDDD" Foreground="Black"
+                                 Click="PutUp_SpeedCommand" Tag="Set2">
+                            <Button.IsEnabled>
+                                <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                                    <MultiBinding.ConverterParameter>
+                                        <x:Array Type="{x:Type System:Boolean}">
+                                            <System:Boolean>True</System:Boolean>
+                                            <System:Boolean>True</System:Boolean>
+                                        </x:Array>
+                                    </MultiBinding.ConverterParameter>
+                                    <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
+                                    <Binding Path="IsConnect" Mode="OneWay"/>
+                                </MultiBinding>
+                            </Button.IsEnabled>
+                        </Button>
+                        <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="12 0 0 0" Content="测试" Background="#FFDDDDDD" Foreground="Black"
+                                 Click="MoveToZCommand" Tag="ResetZ_0">
+                            <Button.IsEnabled>
+                                <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                                    <MultiBinding.ConverterParameter>
+                                        <x:Array Type="{x:Type System:Boolean}">
+                                            <System:Boolean>True</System:Boolean>
+                                            <System:Boolean>True</System:Boolean>
+                                        </x:Array>
+                                    </MultiBinding.ConverterParameter>
+                                    <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
+                                    <Binding Path="IsConnect" Mode="OneWay"/>
+                                </MultiBinding>
+                            </Button.IsEnabled>
+                        </Button>
+
+                    </StackPanel>
+                    <TextBlock  Grid.Row="6" Text="液面高度到抬起高度之间得抬起速度" Style="{StaticResource TextBlockSty}" FontSize="11" Foreground="Red" Width="188" Height="15" HorizontalAlignment="Left"/>
+
+                </Grid>
             </Grid>
 
         </Grid>

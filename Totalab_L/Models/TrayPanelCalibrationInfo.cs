@@ -180,6 +180,28 @@ namespace Totalab_L.Models
             }
         }
         private double _zResetPosition = 0;
+        //抬针速度百分比
+        public double Speed1_value
+        {
+            get => _speed1_value;
+            set
+            {
+                _speed1_value = value;
+                Notify("Speed1_value");
+            }
+        }
+        private double _speed1_value;
+        //抬针速度2
+        public double Speed2_value
+        {
+            get => _speed2_value;
+            set
+            {
+                _speed2_value = value;
+                Notify("Speed2_value");
+            }
+        }
+        private double _speed2_value;
 
         #region 校准清洗位置
         public double W1PointX
@@ -228,6 +250,18 @@ namespace Totalab_L.Models
 
 
         #region 偏移量
+        //补偿角度
+        public double OffsetCalibrationW
+        {
+            get => _offsetCalibrationW;
+            set
+            {
+                _offsetCalibrationW = value;
+                Notify("OffsetCalibrationW");
+            }
+        }
+        private double _offsetCalibrationW;
+
         //平移偏移量左边
         public double OffsetValueLeftX
         {

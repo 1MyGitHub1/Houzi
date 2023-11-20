@@ -216,5 +216,16 @@ namespace Totalab_L.Models
             }
         }
         private bool _isWash2Open;
+        //漏液盘是否常开
+        public bool IsLeakage_tankOpen
+        {
+            get => _isLeakage_tankOpen;
+            set
+            {
+                _isLeakage_tankOpen = value;
+                Notify("IsLeakage_tankOpen");
+            }
+        }
+        private bool _isLeakage_tankOpen;
     }
 }

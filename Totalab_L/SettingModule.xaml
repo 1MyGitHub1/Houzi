@@ -105,25 +105,32 @@
                     <RowDefinition Height="24"/>
                 </Grid.RowDefinitions>
                 <!--位置参数-->
-                <TextBlock Text="{DynamicResource AutoSampler_LocationParam}" Style="{StaticResource UCtlChildTitleTextBlockSty}"/>
+                <TextBlock Text="机械臂参数" Style="{StaticResource UCtlChildTitleTextBlockSty}"/>
                 <!--<Button Grid.Column="1" Content="{DynamicResource ButtonContent_Reset}" Style="{StaticResource ButtonPrimaryWidStretchSty}"
                         Click="GoToHomeCommand"/>-->
-                <TextBlock Text="{DynamicResource AutoSampler_SamplingTube}" Grid.Row="2"/>
-                <TextBlock Grid.Row="4" Text="{DynamicResource AutoSampler_Location}" Style="{StaticResource TextBlockFore60Sty}"/>
-                <ltCtl:CustomNumericBox Grid.Row="4" Grid.Column="1" Text="{Binding PosNumber}" IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"
-                                        IsUseShortInt="True"  Style="{StaticResource CustomNumericBoxSty}"/>
-
-                <Button Grid.Row="4" Grid.Column="3" Click="GoToXYCommand"
+                <!--<TextBlock Text="{DynamicResource AutoSampler_SamplingTube}" Grid.Row="2"/>-->
+                
+                <!--<TextBlock Grid.Row="4" Text="{DynamicResource AutoSampler_Location}" Style="{StaticResource TextBlockFore60Sty}"/>-->
+                <!--<ltCtl:CustomNumericBox Grid.Row="4" Grid.Column="1" Text="{Binding PosNumber}" IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"
+                                        IsUseShortInt="True"  Style="{StaticResource CustomNumericBoxSty}"/>-->
+                <!--<Button Grid.Row="4" Grid.Column="3" Click="GoToXYCommand"
                         IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"
-                        Content="{DynamicResource AutoSampler_Go}" Style="{StaticResource ButtonPrimaryWidStretchSty}"/>
+                        Content="{DynamicResource AutoSampler_Go}" Style="{StaticResource ButtonPrimaryWidStretchSty}"/>-->
 
-                <TextBlock Grid.Row="6" Text="{DynamicResource AutoSampler_SamplingDepth}" Style="{StaticResource TextBlockFore60Sty}"/>
-                <ltCtl:CustomNumericBox Grid.Row="6" Grid.Column="1" Text="{Binding SettingInfo.SamplingDepth,Source={x:Static global:GlobalInfo.Instance}}"
-                                        MaxValue="160" MinValue="0" IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}">
+                <TextBlock Grid.Row="4" Text="{DynamicResource AutoSampler_SamplingDepth}" Style="{StaticResource TextBlockFore60Sty}"/>
+                <ltCtl:CustomNumericBox Grid.Row="4" Grid.Column="1" Text="{Binding SettingInfo.SamplingDepth,Source={x:Static global:GlobalInfo.Instance}}"
+                                        MaxValue="169" MinValue="0" IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}">
                 </ltCtl:CustomNumericBox>
                 <!--进样针设置-->
-                <Button Grid.Row="6"  Grid.Column="3" Style="{StaticResource ButtonPrimaryWidStretchSty}" Content="{DynamicResource ButtonContent_Set}"
+                <Button Grid.Row="4"  Grid.Column="3" Style="{StaticResource ButtonPrimaryWidStretchSty}" Content="{DynamicResource ButtonContent_Set}"
                         Click="SetCommand" IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"/>
+                
+                <TextBlock Grid.Row="2" Text="接液盘常开" Style="{StaticResource TextBlockFore60Sty}"/>
+                <!--<Button Grid.Row="6"  Grid.Column="3" Style="{StaticResource ButtonPrimaryWidStretchSty}" Content="{DynamicResource ButtonContent_Set}"
+                         IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"/>-->
+                <ToggleButton Grid.Column="1" Grid.Row="2"  Style="{StaticResource ToggleButtonSwitchSty}"  Grid.ColumnSpan="3" Width="80" HorizontalAlignment="Left"
+                             IsChecked="{Binding SettingInfo.IsLeakage_tankOpen,Source={x:Static global:GlobalInfo.Instance},UpdateSourceTrigger=PropertyChanged}" 
+                              IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"/>
 
                 <!--<Button Grid.Row="6"  Grid.Column="3" Style="{StaticResource ButtonPrimaryWidStretchSty}" Content="{DynamicResource ButtonContent_Set}"
                         Click="SetCommand" IsEnabled="{Binding IsCanZ}" Visibility="{Binding IsSetDepth,Converter={StaticResource CompareToVisibilityConverter},ConverterParameter= true}"/>-->
@@ -158,17 +165,17 @@
                     <RowDefinition Height="24"/>
                 </Grid.RowDefinitions>
                 <TextBlock  Text="{DynamicResource AutoSampler_WashSetting}" Style="{StaticResource UCtlChildTitleTextBlockSty}"/>
-                <Button Grid.Column="1"  Content="{DynamicResource ButtonContent_Reset}"
+                <!--<Button Grid.Column="1"  Content="{DynamicResource ButtonContent_Reset}"
                         IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"
-                        Style="{StaticResource ButtonPrimaryWidStretchSty}"/>
+                        Style="{StaticResource ButtonPrimaryWidStretchSty}"/>-->
 
-                <Button Grid.Column="3"  Content="{DynamicResource AutoSampler_Rinse}" 
+                <Button Grid.Column="1"  Content="{DynamicResource AutoSampler_Rinse}" 
                         Visibility="{Binding IsRinse,Converter={StaticResource CompareToVisibilityConverter},ConverterParameter=False}"
                         IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"
                         Style="{StaticResource ButtonAccentWidStretchSty}"
                         Click="RinseCommand"/>
 
-                <Button Grid.Column="3"  Content="{DynamicResource ButtonContent_Stop}" 
+                <Button Grid.Column="1"  Content="{DynamicResource ButtonContent_Stop}" 
                         Visibility="{Binding IsRinse,Converter={StaticResource CompareToVisibilityConverter},ConverterParameter=True}"
                         Style="{StaticResource ButtonAccentWidStretchSty}"
                         Click="StopRinseCommand"/>

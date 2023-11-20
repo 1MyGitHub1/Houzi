@@ -386,6 +386,9 @@
     <Resource Include="Images\turn_left%402x.png" />
     <Resource Include="Images\turn_right%402x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\mechanical_arm1x.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

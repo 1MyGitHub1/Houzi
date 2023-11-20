@@ -482,6 +482,32 @@ namespace Totalab_L.Serials
             SendMsg(CmdMsg.GetMsg(frameArray));
         }
 
+        //Z轴抬针速度
+        public void SetZSpeed(byte motorID, int actionType)
+        {
+            _TimeOutTime = Timeout.Infinite;
+            byte[] frameArray = new byte[17];
+            frameArray[0] = 0x5a;
+            frameArray[1] = 0x1A;
+            frameArray[2] = 0x00;
+            frameArray[3] = 0x00;
+            frameArray[4] = 0x22;
+            frameArray[5] = 0x08;
+            frameArray[6] = motorID;
+            frameArray[7] = 0x81;
+            frameArray[8] = 0x60;
+            frameArray[9] = 0x00;
+            frameArray[10] = (byte)(actionType % 65536 % 256);
+            frameArray[11] = (byte)(actionType % 65536 / 256);
+            frameArray[12] = (byte)(actionType / 65536 % 256);
+            frameArray[13] = (byte)(actionType / 65536 / 256);
+            int crc = CRCVerify(frameArray);
+            frameArray[14] = (byte)(crc / 256);
+            frameArray[15] = (byte)(crc % 256);
+            frameArray[16] = 0xa5;
+            SendMsg(CmdMsg.GetMsg(frameArray));
+        }
+
         //重新读取实际位置
         public void ReadMotorPosition(byte motorID)
         {
@@ -507,7 +533,7 @@ namespace Totalab_L.Serials
             frameArray[16] = 0xa5;
             SendMsg(CmdMsg.GetMsg(frameArray));
         }
-
+        //复位
         public void XWZHome()
         {
             _TimeOutTime = Timeout.Infinite;

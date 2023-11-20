@@ -52,5 +52,9 @@ namespace Totalab_L.Enum
         SetMotorActionOk,
         ReadCurrentPosition,
         ReadCurrentPositionOk,
+        SetZSpeed,          //设置Z轴升降速度
+        SetZSpeedOK,
+        OpenWettedParts,        //打开接液盘
+        OpenWettedPartsOK
     }
 }

@@ -31,11 +31,12 @@ namespace Totalab_L
         public static bool Uplift = false;
 
         public static bool status = false;                  //漏液槽状态
-        public static bool calibration_status=false;            //校准页漏液槽状态
+        public static bool calibration_status=false;            //校准页漏液槽不需要关
 
         public static int returnPositionX = 0;              //移动后返回的值
         public static int returnPositionW = 0;
 
+        public static double deviation_angle = 0;           //补偿角度
         public static string MethodName;
 
         ///<summary>
