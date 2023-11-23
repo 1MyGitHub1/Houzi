@@ -514,7 +514,7 @@
                             <ColumnDefinition Width="504"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel>
-                            <Button Content="Tray C" IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"  Height="32" FontSize="14"  FontFamily="SegoeUI" FontWeight="SemiBold" HorizontalContentAlignment="Left" 
+                            <Button Content="Tray C"  Height="32" FontSize="14"  FontFamily="SegoeUI" FontWeight="SemiBold" HorizontalContentAlignment="Left" 
                                     Style="{StaticResource ButtonTextSty}" Background="Transparent" Width="70" HorizontalAlignment="Left"
                                     Click="StdTrayTypeBtn_ClickCommand"/>
                             <TextBlock Style="{StaticResource TextBlockSty}" Text="{Binding TrayCleanInfos.TrayType,Source={x:Static global:GlobalInfo.Instance}}"  Foreground="#3C000000"

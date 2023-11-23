@@ -133,28 +133,28 @@ namespace Totalab_L.Common
                     };
                     GlobalInfo.Instance.TrayBInfos.TrayItemList.Add(item);
                 }
-                GlobalInfo.Instance.TraySTD1Infos.TrayStartNumber = GlobalInfo.Instance.TrayBInfos.TrayEndNumber + 1;
-                GlobalInfo.Instance.TraySTD1Infos.TrayEndNumber = GlobalInfo.Instance.TrayBInfos.TrayEndNumber + GlobalInfo.Instance.TraySTD1Infos.TrayItemCount;
-                for (int i = GlobalInfo.Instance.TraySTD1Infos.TrayStartNumber; i < GlobalInfo.Instance.TraySTD1Infos.TrayEndNumber + 1; i++)
-                {
-                    ItemData item = new ItemData
-                    {
-                        ItemContent = i.ToString()
-                    };
-                    GlobalInfo.Instance.TraySTD1Infos.TrayItemList.Add(item);
-                }
-                GlobalInfo.Instance.TraySTD2Infos.TrayStartNumber = GlobalInfo.Instance.TraySTD1Infos.TrayEndNumber + 1;
-                GlobalInfo.Instance.TraySTD2Infos.TrayEndNumber = GlobalInfo.Instance.TraySTD1Infos.TrayEndNumber + GlobalInfo.Instance.TraySTD2Infos.TrayItemCount;
-                for (int i = GlobalInfo.Instance.TraySTD2Infos.TrayStartNumber; i < GlobalInfo.Instance.TraySTD2Infos.TrayEndNumber + 1; i++)
-                {
-                    ItemData item = new ItemData
-                    {
-                        ItemContent = i.ToString()
-                    };
-                    GlobalInfo.Instance.TraySTD2Infos.TrayItemList.Add(item);
-                }
-                GlobalInfo.Instance.TrayDInfos.TrayStartNumber = GlobalInfo.Instance.TraySTD2Infos.TrayEndNumber + 1;
-                GlobalInfo.Instance.TrayDInfos.TrayEndNumber = GlobalInfo.Instance.TraySTD2Infos.TrayEndNumber + GlobalInfo.Instance.TrayDInfos.TrayItemCount;
+                //GlobalInfo.Instance.TraySTD1Infos.TrayStartNumber = GlobalInfo.Instance.TrayBInfos.TrayEndNumber + 1;
+                //GlobalInfo.Instance.TraySTD1Infos.TrayEndNumber = GlobalInfo.Instance.TrayBInfos.TrayEndNumber + GlobalInfo.Instance.TraySTD1Infos.TrayItemCount;
+                //for (int i = GlobalInfo.Instance.TraySTD1Infos.TrayStartNumber; i < GlobalInfo.Instance.TraySTD1Infos.TrayEndNumber + 1; i++)
+                //{
+                //    ItemData item = new ItemData
+                //    {
+                //        ItemContent = i.ToString()
+                //    };
+                //    GlobalInfo.Instance.TraySTD1Infos.TrayItemList.Add(item);
+                //}
+                //GlobalInfo.Instance.TraySTD2Infos.TrayStartNumber = GlobalInfo.Instance.TraySTD1Infos.TrayEndNumber + 1;
+                //GlobalInfo.Instance.TraySTD2Infos.TrayEndNumber = GlobalInfo.Instance.TraySTD1Infos.TrayEndNumber + GlobalInfo.Instance.TraySTD2Infos.TrayItemCount;
+                //for (int i = GlobalInfo.Instance.TraySTD2Infos.TrayStartNumber; i < GlobalInfo.Instance.TraySTD2Infos.TrayEndNumber + 1; i++)
+                //{
+                //    ItemData item = new ItemData
+                //    {
+                //        ItemContent = i.ToString()
+                //    };
+                //    GlobalInfo.Instance.TraySTD2Infos.TrayItemList.Add(item);
+                //}
+                GlobalInfo.Instance.TrayDInfos.TrayStartNumber = GlobalInfo.Instance.TrayBInfos.TrayEndNumber + 1;
+                GlobalInfo.Instance.TrayDInfos.TrayEndNumber = GlobalInfo.Instance.TrayBInfos.TrayEndNumber + GlobalInfo.Instance.TrayDInfos.TrayItemCount;
                 for (int i = GlobalInfo.Instance.TrayDInfos.TrayStartNumber; i < GlobalInfo.Instance.TrayDInfos.TrayEndNumber + 1; i++)
                 {
                     ItemData item = new ItemData
@@ -173,8 +173,29 @@ namespace Totalab_L.Common
                     };
                     GlobalInfo.Instance.TrayEInfos.TrayItemList.Add(item);
                 }
+                GlobalInfo.Instance.TraySTD1Infos.TrayStartNumber = GlobalInfo.Instance.TrayEInfos.TrayEndNumber + 1;
+                GlobalInfo.Instance.TraySTD1Infos.TrayEndNumber = GlobalInfo.Instance.TrayEInfos.TrayEndNumber + GlobalInfo.Instance.TraySTD1Infos.TrayItemCount;
+                for (int i = GlobalInfo.Instance.TraySTD1Infos.TrayStartNumber; i < GlobalInfo.Instance.TraySTD1Infos.TrayEndNumber + 1; i++)
+                {
+                    ItemData item = new ItemData
+                    {
+                        ItemContent = i.ToString()
+                    };
+                    GlobalInfo.Instance.TraySTD1Infos.TrayItemList.Add(item);
+                }
+                GlobalInfo.Instance.TraySTD2Infos.TrayStartNumber = GlobalInfo.Instance.TraySTD1Infos.TrayEndNumber + 1;
+                GlobalInfo.Instance.TraySTD2Infos.TrayEndNumber = GlobalInfo.Instance.TraySTD1Infos.TrayEndNumber + GlobalInfo.Instance.TraySTD2Infos.TrayItemCount;
+                for (int i = GlobalInfo.Instance.TraySTD2Infos.TrayStartNumber; i < GlobalInfo.Instance.TraySTD2Infos.TrayEndNumber + 1; i++)
+                {
+                    ItemData item = new ItemData
+                    {
+                        ItemContent = i.ToString()
+                    };
+                    GlobalInfo.Instance.TraySTD2Infos.TrayItemList.Add(item);
+                }
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MainLogHelper.Instance.Error("TrayInfoHelper [GetTrayNumber]", ex);
             }

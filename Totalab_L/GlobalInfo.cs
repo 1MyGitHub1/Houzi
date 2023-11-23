@@ -139,7 +139,7 @@ namespace Totalab_L
             }
         }
         private bool _isCanRunning = true;
-
+        //当前是否正在忙碌
         public bool IsBusy
         {
             get => _isBusy;

@@ -1500,7 +1500,7 @@ namespace Totalab_L
                         }
                         OperationMode = null;
                     }
-                    SampleItemInfo info = GlobalInfo.Instance.SampleInfos[samplingIndex];
+                    SampleItemInfo info = GlobalInfo.Instance.SampleInfos[samplingIndex];           //查询25条样品信息的第某条信息
                     if (GlobalInfo.Instance.IsHimassConnState)
                     {
                         info = GlobalInfo.Instance.SampleInfos[samplingIndex];
@@ -2162,6 +2162,39 @@ namespace Totalab_L
                                 {
                                     Thread.Sleep(100);
                                 }
+                                if (GlobalInfo.Instance.RunningStep != RunningStep_Status.SetZSpeedOK)
+                                {
+                                    if (count < GlobalInfo.Instance.MaxConnectionTimes)
+                                    {
+                                        //GlobalInfo.Instance.Totalab_LSerials.EndWork();
+                                        try
+                                        {
+                                            GlobalInfo.Instance.RunningStep = RunningStep_Status.SetZSpeed;
+                                            GlobalInfo.Instance.Totalab_LSerials.SetZSpeed(0x03, (int)(Math.Round(GlobalInfo.Instance.CalibrationInfo.Speed2_value / 100, 2) * 700));
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            MainLogHelper.Instance.Error("[GoToTargetPosition]：", ex);
+                                        }
+
+                                        count++;
+                                    }
+                                    else
+                                    {
+                                        ConntectWaring();
+                                        return;
+                                    }
+                                }
+                                else
+                                {
+                                    //while (ExpStatus == Exp_Status.Pause)
+                                    //{
+                                    //    Thread.Sleep(20);
+                                    //}
+                                    //if (stopType == 2 && IsStopWash == false)
+                                    //    return;
+                                    break;
+                                }
 
                             }
                         }
@@ -2441,7 +2474,7 @@ namespace Totalab_L
             }
         }
         /// <summary>
-        /// 自动运行
+        /// 自动运行--位移
         /// </summary>
         /// <param name="loc"></param>
         public void GoToTargetPosition(string loc)
@@ -2550,6 +2583,39 @@ namespace Totalab_L
                                 {
                                     Thread.Sleep(100);
                                 }
+                                if (GlobalInfo.Instance.RunningStep != RunningStep_Status.SetZSpeedOK)
+                                {
+                                    if (count < GlobalInfo.Instance.MaxConnectionTimes)
+                                    {
+                                        //GlobalInfo.Instance.Totalab_LSerials.EndWork();
+                                        try
+                                        {
+                                            GlobalInfo.Instance.RunningStep = RunningStep_Status.SetZSpeed;
+                                            GlobalInfo.Instance.Totalab_LSerials.SetZSpeed(0x03, (int)(Math.Round(GlobalInfo.Instance.CalibrationInfo.Speed2_value / 100, 2) * 700));
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            MainLogHelper.Instance.Error("[GoToTargetPosition]：", ex);
+                                        }
+
+                                        count++;
+                                    }
+                                    else
+                                    {
+                                        ConntectWaring();
+                                        return;
+                                    }
+                                }
+                                else
+                                {
+                                    //while (ExpStatus == Exp_Status.Pause)
+                                    //{
+                                    //    Thread.Sleep(20);
+                                    //}
+                                    //if (stopType == 2 && IsStopWash == false)
+                                    //    return;
+                                    break;
+                                }
 
                             }
                         }
@@ -2557,7 +2623,7 @@ namespace Totalab_L
                         GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
                         GlobalInfo.Instance.IsMotorXSetTargetPositionOk = false;
                         GlobalInfo.Instance.IsMotorWSetTargetPositionOk = false;
-                        GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x03, (int)(50 / GlobalInfo.ZLengthPerCircle * 3600.0 + GlobalInfo.Instance.TrayPanelHomeZ));
+                        GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x03, (int)(GlobalInfo.Instance.CalibrationInfo.ZResetLiquid_level / GlobalInfo.ZLengthPerCircle * 3600.0 + GlobalInfo.Instance.TrayPanelHomeZ));
                         count = 0;
                         while (true)
                         {
@@ -2583,7 +2649,7 @@ namespace Totalab_L
                                                 //GlobalInfo.Instance.Totalab_LSerials.StartWork();
                                                 GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
                                                 GlobalInfo.status = true;
-                                                GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x03, (int)(50 / GlobalInfo.ZLengthPerCircle * 3600.0 + GlobalInfo.Instance.TrayPanelHomeZ));
+                                                GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x03, (int)(GlobalInfo.Instance.CalibrationInfo.ZResetLiquid_level / GlobalInfo.ZLengthPerCircle * 3600.0 + GlobalInfo.Instance.TrayPanelHomeZ));
                                             }
                                             catch (Exception ex)
                                             {
@@ -2761,6 +2827,39 @@ namespace Totalab_L
                             while (GlobalInfo.Instance.RunningStep != RunningStep_Status.SetZSpeedOK && (DateTime.Now.Ticks / 10000 - longseconds) / 1000 < 5 && GlobalInfo.Instance.RunningStep != RunningStep_Status.Error)
                             {
                                 Thread.Sleep(100);
+                            }
+                            if (GlobalInfo.Instance.RunningStep != RunningStep_Status.SetZSpeedOK)
+                            {
+                                if (count < GlobalInfo.Instance.MaxConnectionTimes)
+                                {
+                                    //GlobalInfo.Instance.Totalab_LSerials.EndWork();
+                                    try
+                                    {
+                                        GlobalInfo.Instance.RunningStep = RunningStep_Status.SetZSpeed;
+                                        GlobalInfo.Instance.Totalab_LSerials.SetZSpeed(0x03, (int)(Math.Round(GlobalInfo.Instance.CalibrationInfo.Speed2_value / 100, 2) * 700));
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        MainLogHelper.Instance.Error("[GoToTargetPosition]：", ex);
+                                    }
+
+                                    count++;
+                                }
+                                else
+                                {
+                                    ConntectWaring();
+                                    return;
+                                }
+                            }
+                            else
+                            {
+                                //while (ExpStatus == Exp_Status.Pause)
+                                //{
+                                //    Thread.Sleep(20);
+                                //}
+                                //if (stopType == 2 && IsStopWash == false)
+                                //    return;
+                                break;
                             }
 
                         }

@@ -271,7 +271,7 @@
                                 <DataTemplate>
                                     <ltCtl:CustomNumericBox  ShortIntValue="{Binding SampleLoc,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
                                                 sfdatagrid:FocusManagerHelper.FocusedElement="True" IsUseShortInt="True" MinValue="1" 
-                                                MaxValue="{Binding TrayEInfos.TrayEndNumber,Source={x:Static global:GlobalInfo.Instance}}"
+                                                MaxValue="{Binding TraySTD2Infos.TrayEndNumber,Source={x:Static global:GlobalInfo.Instance}}"
                                                             Tag="{Binding DataContext,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                             LostFocus="SampleLocationLostFocus" Style="{StaticResource DGCellCustomNumericBoxBor0Sty}">
                                         <TextBox.IsEnabled>

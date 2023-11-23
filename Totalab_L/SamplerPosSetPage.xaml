@@ -716,14 +716,14 @@
             <Grid x:Name="SetData3_Visibility" Grid.Row="1" Visibility="Collapsed" Margin="0,5,0,25">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="16"/>
-                    <RowDefinition Height="32"/>
-                    <RowDefinition Height="314"/>
+                    <RowDefinition Height="48"/>
+                    <RowDefinition Height="272"/>
                     <RowDefinition Height="200"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="1">
                     <StackPanel Grid.Row="0" Orientation="Horizontal">
                         <TextBlock Text="机械臂控制" Style="{StaticResource UCtlTitleTextBlockSty}" Width="140" FontSize="16" VerticalAlignment="Center"/>
-                        <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="55 0 0 0" Content="初始化" Background="#FFDDDDDD" Foreground="Black"
+                        <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Height="32" Margin="55 0 0 0" Content="初始化" Background="#FFDDDDDD" Foreground="Black"
                                  Click="HomeCommand">
                             <Button.IsEnabled>
                                 <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
@@ -738,7 +738,7 @@
                                 </MultiBinding>
                             </Button.IsEnabled>
                         </Button>
-                        <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="12 0 0 0" Content="样品针复位" Background="#FFDDDDDD" Foreground="Black"
+                        <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Height="32" Margin="12 0 0 0" Content="样品针复位" Background="#FFDDDDDD" Foreground="Black"
                                  Click="MoveToZCommand" Tag="ResetZ_0">
                             <Button.IsEnabled>
                                 <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
@@ -775,7 +775,7 @@
                             <RowDefinition Height="12"/>
                             <RowDefinition Height="32"/>
                             <RowDefinition Height="12"/>
-                            <RowDefinition Height="32"/>
+                            <!--<RowDefinition Height="32"/>-->
                         </Grid.RowDefinitions>
                         <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
                             <TextBlock Text="样品管参数" Style="{StaticResource UCtlTitleTextBlockSty}" Width="140" FontSize="16" VerticalAlignment="Center"/>
@@ -808,7 +808,7 @@
                             <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Height="32" MaxValue="169" MinValue="0" 
                           DoubleValue="{Binding  CalibrationInfo.ZResetPosition,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
                             <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="12 0 0 0" Content="设置" Background="#FFDDDDDD" Foreground="Black"
-                                 Click="SavePosCommand" Tag="save2">
+                                 Click="Set_ValueCommand" Tag="SetZReset">
                                 <Button.IsEnabled>
                                     <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
                                         <MultiBinding.ConverterParameter>
@@ -829,6 +829,21 @@
                             <TextBlock  Text="液面高度(mm)" Style="{StaticResource TextBlockSty}"  Width="108"/>
                             <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Height="32" MaxValue="169" MinValue="0" 
                           DoubleValue="{Binding  Liquid_level,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
+                            <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="12 0 0 0" Content="设置" Background="#FFDDDDDD" Foreground="Black"
+                                 Click="Set_ValueCommand" Tag="SetLiquid_level">
+                                <Button.IsEnabled>
+                                    <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                                        <MultiBinding.ConverterParameter>
+                                            <x:Array Type="{x:Type System:Boolean}">
+                                                <System:Boolean>True</System:Boolean>
+                                                <System:Boolean>True</System:Boolean>
+                                            </x:Array>
+                                        </MultiBinding.ConverterParameter>
+                                        <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
+                                        <Binding Path="IsConnect" Mode="OneWay"/>
+                                    </MultiBinding>
+                                </Button.IsEnabled>
+                            </Button>
                             <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="12 0 0 0" Content="下降" Background="#FFDDDDDD" Foreground="Black"
                                  Click="MoveToZCommand" Tag="liquid_level">
                                 <Button.IsEnabled>
@@ -867,39 +882,9 @@
                             </Button>
 
                         </StackPanel>
-                        <StackPanel  Grid.Row="12" Orientation="Horizontal" Margin="182,0,0,0">
-                            <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Height="32" Margin="12 0 0 0" Content="抬起" Background="#FFDDDDDD" Foreground="Black"
-                                Click="MoveToZCommand"  Tag="ResetZ">
-                                <Button.IsEnabled>
-                                    <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
-                                        <MultiBinding.ConverterParameter>
-                                            <x:Array Type="{x:Type System:Boolean}">
-                                                <System:Boolean>True</System:Boolean>
-                                                <System:Boolean>True</System:Boolean>
-                                            </x:Array>
-                                        </MultiBinding.ConverterParameter>
-                                        <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
-                                        <Binding Path="IsConnect" Mode="OneWay"/>
-                                    </MultiBinding>
-                                </Button.IsEnabled>
-                            </Button>
-                            <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Height="32" Margin="12 0 0 0" Content="抬起到液面" Background="#FFDDDDDD" Foreground="Black"
-                                Click="MoveToZCommand" Tag="ResetZ_Liquid">
-                                <Button.IsEnabled>
-                                    <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
-                                        <MultiBinding.ConverterParameter>
-                                            <x:Array Type="{x:Type System:Boolean}">
-                                                <System:Boolean>True</System:Boolean>
-                                                <System:Boolean>True</System:Boolean>
-                                            </x:Array>
-                                        </MultiBinding.ConverterParameter>
-                                        <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
-                                        <Binding Path="IsConnect" Mode="OneWay"/>
-                                    </MultiBinding>
-                                </Button.IsEnabled>
-                            </Button>
+                        <!--<StackPanel  Grid.Row="12" Orientation="Horizontal" Margin="182,0,0,0">
 
-                        </StackPanel>
+                        </StackPanel>-->
 
                         <!--<StackPanel Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button Style="{StaticResource  ButtonPrimarySty}"  Width="76" Margin="0,0,10,0"  Content="槽打开"  IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"
@@ -917,7 +902,7 @@
 
                     </Grid>
                     <Grid Grid.Column="1">
-                            <Image Margin="-15,-25,0,0" Source="/Totalab_L;component/Images/mechanical_arm1x.png" Width="180" Height="230" Stretch="None"/>
+                            <Image Margin="0,0,0,0" Source="/Totalab_L;component/Images/mechanical_arm1x.png" Width="180" Height="230" Stretch="None"/>
                     </Grid>
                 </Grid>
                 <Grid Grid.Row="3">
@@ -940,7 +925,7 @@
                         <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Height="32" MaxValue="100" MinValue="0" 
                           DoubleValue="{Binding  CalibrationInfo.Speed1_value,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
                         <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="12 0 0 0" Content="设置" Background="#FFDDDDDD" Foreground="Black"
-                                 Click="PutUp_SpeedCommand" Tag="Set1">
+                                 Click="Set_ValueCommand" Tag="SetSpeed1">
                             <Button.IsEnabled>
                                 <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
                                     <MultiBinding.ConverterParameter>
@@ -954,7 +939,23 @@
                                 </MultiBinding>
                             </Button.IsEnabled>
                         </Button>
-                        <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="12 0 0 0" Content="测试" Background="#FFDDDDDD" Foreground="Black"
+                        <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Height="32" Margin="12 0 0 0" Content="抬起到液面" Background="#FFDDDDDD" Foreground="Black"
+                                Click="MoveToZCommand" Tag="ResetZ_Liquid">
+                            <Button.IsEnabled>
+                                <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                                    <MultiBinding.ConverterParameter>
+                                        <x:Array Type="{x:Type System:Boolean}">
+                                            <System:Boolean>True</System:Boolean>
+                                            <System:Boolean>True</System:Boolean>
+                                        </x:Array>
+                                    </MultiBinding.ConverterParameter>
+                                    <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
+                                    <Binding Path="IsConnect" Mode="OneWay"/>
+                                </MultiBinding>
+                            </Button.IsEnabled>
+                        </Button>
+
+                        <!--<Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="12 0 0 0" Content="测试" Background="#FFDDDDDD" Foreground="Black"
                                  Click="MoveToZCommand" Tag="TestSpeed">
                             <Button.IsEnabled>
                                 <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
@@ -968,7 +969,7 @@
                                     <Binding Path="IsConnect" Mode="OneWay"/>
                                 </MultiBinding>
                             </Button.IsEnabled>
-                        </Button>
+                        </Button>-->
 
                     </StackPanel>
                     <TextBlock  Grid.Row="4" Text="吸液高度到液面高度之间得抬起速度" Style="{StaticResource TextBlockSty}" FontSize="11" Foreground="Red" Width="188" Height="15" HorizontalAlignment="Left"/>
@@ -978,7 +979,7 @@
                         <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Height="32" MaxValue="100" MinValue="0" 
                           DoubleValue="{Binding CalibrationInfo.Speed2_value,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
                         <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="12 0 0 0" Content="设置" Background="#FFDDDDDD" Foreground="Black"
-                                 Click="PutUp_SpeedCommand" Tag="Set2">
+                                 Click="Set_ValueCommand" Tag="SetSpeed2">
                             <Button.IsEnabled>
                                 <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
                                     <MultiBinding.ConverterParameter>
@@ -992,7 +993,23 @@
                                 </MultiBinding>
                             </Button.IsEnabled>
                         </Button>
-                        <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="12 0 0 0" Content="测试" Background="#FFDDDDDD" Foreground="Black"
+                        <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Height="32" Margin="12 0 0 0" Content="抬起" Background="#FFDDDDDD" Foreground="Black"
+                                Click="MoveToZCommand"  Tag="ResetZ">
+                            <Button.IsEnabled>
+                                <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
+                                    <MultiBinding.ConverterParameter>
+                                        <x:Array Type="{x:Type System:Boolean}">
+                                            <System:Boolean>True</System:Boolean>
+                                            <System:Boolean>True</System:Boolean>
+                                        </x:Array>
+                                    </MultiBinding.ConverterParameter>
+                                    <Binding Path="IsCanRunning" Mode="OneWay" Source="{x:Static global:GlobalInfo.Instance}"/>
+                                    <Binding Path="IsConnect" Mode="OneWay"/>
+                                </MultiBinding>
+                            </Button.IsEnabled>
+                        </Button>
+
+                        <!--<Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="12 0 0 0" Content="测试" Background="#FFDDDDDD" Foreground="Black"
                                  Click="MoveToZCommand" Tag="ResetZ_0">
                             <Button.IsEnabled>
                                 <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
@@ -1006,7 +1023,7 @@
                                     <Binding Path="IsConnect" Mode="OneWay"/>
                                 </MultiBinding>
                             </Button.IsEnabled>
-                        </Button>
+                        </Button>-->
 
                     </StackPanel>
                     <TextBlock  Grid.Row="6" Text="液面高度到抬起高度之间得抬起速度" Style="{StaticResource TextBlockSty}" FontSize="11" Foreground="Red" Width="188" Height="15" HorizontalAlignment="Left"/>

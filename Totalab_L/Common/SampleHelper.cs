@@ -352,7 +352,7 @@ namespace Totalab_L.Common
             {
                 if (pos != null)
                 {
-                    if (pos < GlobalInfo.Instance.TrayEInfos.TrayEndNumber)
+                    if (pos < GlobalInfo.Instance.TraySTD2Infos.TrayEndNumber)
                     {
                        pos++;
                         return (int)pos;

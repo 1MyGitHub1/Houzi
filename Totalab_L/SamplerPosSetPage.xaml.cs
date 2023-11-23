@@ -137,7 +137,7 @@ namespace Totalab_L
                 Notify("ZCurrentPosition");
             }
         }
-        private double _zCurrentPosition = 100;
+        private double _zCurrentPosition = 120;
         //进样针下降到液面高度
         public double Liquid_level
         {
@@ -1507,6 +1507,39 @@ namespace Totalab_L
                                 {
                                     Thread.Sleep(100);
                                 }
+                                if (GlobalInfo.Instance.RunningStep != RunningStep_Status.SetZSpeedOK)
+                                {
+                                    if (count < GlobalInfo.Instance.MaxConnectionTimes)
+                                    {
+                                        //GlobalInfo.Instance.Totalab_LSerials.EndWork();
+                                        try
+                                        {
+                                            GlobalInfo.Instance.RunningStep = RunningStep_Status.SetZSpeed;
+                                            GlobalInfo.Instance.Totalab_LSerials.SetZSpeed(0x03, ZSpeedValue);
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            MainLogHelper.Instance.Error("[GoToTargetPosition]：", ex);
+                                        }
+
+                                        count++;
+                                    }
+                                    else
+                                    {
+                                        ConntectWaring();
+                                        return;
+                                    }
+                                }
+                                else
+                                {
+                                    //while (ExpStatus == Exp_Status.Pause)
+                                    //{
+                                    //    Thread.Sleep(20);
+                                    //}
+                                    //if (stopType == 2 && IsStopWash == false)
+                                    //    return;
+                                    break;
+                                }
 
                             }
                         }
@@ -2575,19 +2608,6 @@ namespace Totalab_L
                     else
                         new MessagePage().ShowDialog("Message_Error1002".GetWord(), "MessageTitle_Error".GetWord(), false, Enum_MessageType.Error);
                 }
-                else if (btn.Tag.ToString() == "save2")
-                {
-                    GlobalInfo.Instance.CalibrationInfo.ZResetPosition = CalibrationInfo.ZResetPosition;
-
-                    string SavePath = "";
-                    SavePath = System.IO.Path.Combine(SampleHelper.AssemblyDirectory, "Parameters", "SamplerPos.ini");
-                    byte[] content = XmlObjSerializer.Serialize(GlobalInfo.Instance.CalibrationInfo);
-                    bool result = FileHelper.WriteEncrypt(SavePath, content);
-                    if (result == true)
-                        new MessagePage().ShowDialog("MessageContent_SaveSuccessful".GetWord(), "MessageTitle_Information".GetWord(), false, Enum_MessageType.Information, this);
-                    else
-                        new MessagePage().ShowDialog("Message_Error1002".GetWord(), "MessageTitle_Error".GetWord(), false, Enum_MessageType.Error);
-                }
             }
             catch (Exception ex)
             {
@@ -3320,6 +3340,10 @@ namespace Totalab_L
                     Control_Shell.StatusColors = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFBDBDBD"));
                     Control_Shell.StatusText = "D/C";
                 }));
+
+                Thread threadConnect1 = new Thread(Control_Shell.ConnectStatus);
+                threadConnect1.Start();
+
             }
             catch (Exception ex)
             {
@@ -4487,33 +4511,37 @@ namespace Totalab_L
 
         }
 
-        private void PutUp_SpeedCommand(object sender, RoutedEventArgs e)
+        private void Set_ValueCommand(object sender, RoutedEventArgs e)
         {
             Button btn = sender as Button;
-            if (btn.Tag.ToString() == "Set1")         //抬起到液面
+            if (btn.Tag.ToString() == "SetZReset")
+            {
+                GlobalInfo.Instance.CalibrationInfo.ZResetPosition = CalibrationInfo.ZResetPosition;
+
+            }
+            else if (btn.Tag.ToString() == "SetLiquid_level")
+            {
+                GlobalInfo.Instance.CalibrationInfo.ZResetLiquid_level = Liquid_level;
+            }
+
+            else if (btn.Tag.ToString() == "SetSpeed1")         //抬起到液面
             {
                 GlobalInfo.Instance.CalibrationInfo.Speed1_value = CalibrationInfo.Speed1_value;
-                string SavePath = "";
-                SavePath = System.IO.Path.Combine(SampleHelper.AssemblyDirectory, "Parameters", "SamplerPos.ini");
-                byte[] content = XmlObjSerializer.Serialize(GlobalInfo.Instance.CalibrationInfo);
-                bool result = FileHelper.WriteEncrypt(SavePath, content);
-                if (result == true)
-                    new MessagePage().ShowDialog("MessageContent_SaveSuccessful".GetWord(), "MessageTitle_Information".GetWord(), false, Enum_MessageType.Information, this);
-                else
-                    new MessagePage().ShowDialog("Message_Error1002".GetWord(), "MessageTitle_Error".GetWord(), false, Enum_MessageType.Error);
+              
             }
-            else if (btn.Tag.ToString() == "Set2")         //抬起到设置
+            else if (btn.Tag.ToString() == "SetSpeed2")         //抬起到设置
             {
                 GlobalInfo.Instance.CalibrationInfo.Speed2_value = CalibrationInfo.Speed2_value;
-                string SavePath = "";
-                SavePath = System.IO.Path.Combine(SampleHelper.AssemblyDirectory, "Parameters", "SamplerPos.ini");
-                byte[] content = XmlObjSerializer.Serialize(GlobalInfo.Instance.CalibrationInfo);
-                bool result = FileHelper.WriteEncrypt(SavePath, content);
-                if (result == true)
-                    new MessagePage().ShowDialog("MessageContent_SaveSuccessful".GetWord(), "MessageTitle_Information".GetWord(), false, Enum_MessageType.Information, this);
-                else
-                    new MessagePage().ShowDialog("Message_Error1002".GetWord(), "MessageTitle_Error".GetWord(), false, Enum_MessageType.Error);
             }
+            string SavePath = "";
+            SavePath = System.IO.Path.Combine(SampleHelper.AssemblyDirectory, "Parameters", "SamplerPos.ini");
+            byte[] content = XmlObjSerializer.Serialize(GlobalInfo.Instance.CalibrationInfo);
+            bool result = FileHelper.WriteEncrypt(SavePath, content);
+            if (result == true)
+                new MessagePage().ShowDialog("MessageContent_SaveSuccessful".GetWord(), "MessageTitle_Information".GetWord(), false, Enum_MessageType.Information, this);
+            else
+                new MessagePage().ShowDialog("Message_Error1002".GetWord(), "MessageTitle_Error".GetWord(), false, Enum_MessageType.Error);
+
         }
 
         ////漏液装置状态

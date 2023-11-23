@@ -1587,7 +1587,7 @@ namespace Totalab_L
             try
             {
                 GoToXYCommand("W1"); //移动到清洗位
-                Thread.Sleep(1000);
+                Thread.Sleep(100);
                 GlobalInfo.Instance.IsBusy = true;
                 if (GlobalInfo.Instance.IsHimassConnState)
                 {

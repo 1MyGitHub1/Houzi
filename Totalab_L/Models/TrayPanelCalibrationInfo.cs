@@ -108,28 +108,6 @@ namespace Totalab_L.Models
 
         #endregion
 
-        //进样针向左时的中心位置
-        public double XCalibrationPosition_left
-        {
-            get => _xCalibrationPosition_left;
-            set
-            {
-                _xCalibrationPosition_left = value;
-                Notify("XCalibrationPosition_left");
-            }
-        }
-        private double _xCalibrationPosition_left;
-        //进样针向左时的中心位置
-        public double XCalibrationPosition_right
-        {
-            get => _xCalibrationPosition_right;
-            set
-            {
-                _xCalibrationPosition_right = value;
-                Notify("XCalibrationPosition_right");
-            }
-        }
-        private double _xCalibrationPosition_right;
         //X轴中心位置
         public double XCalibrationPosition
         {
@@ -168,7 +146,7 @@ namespace Totalab_L.Models
         private string _posNumber = "60";
 
         /// <summary>
-        /// 进样针复位位置
+        /// 进样针抬起高度
         /// </summary>
         public double ZResetPosition
         {
@@ -180,6 +158,20 @@ namespace Totalab_L.Models
             }
         }
         private double _zResetPosition = 0;
+        /// <summary>
+        /// 抬起到液面高度
+        /// </summary>
+        public double ZResetLiquid_level
+        {
+            get => _zResetLiquid_level;
+            set
+            {
+                _zResetLiquid_level = value;
+                Notify("ZResetLiquid_level");
+            }
+        }
+        private double _zResetLiquid_level;
+
         //抬针速度百分比
         public double Speed1_value
         {
