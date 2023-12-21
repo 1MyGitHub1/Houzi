@@ -36,6 +36,7 @@ namespace Totalab_L
             InitializeComponent();
             this.DataContext = this;
             GlobalInfo.Instance.Totalab_LSerials.MsgCome += Sampler_MsgCome;
+            //IsConnect = true;                 //单机调试使用
             ConnectThread = new Thread(Connect);
             ConnectThread.Start();
 
@@ -62,39 +63,47 @@ namespace Totalab_L
         }
 
         public void ConnectStatus()
-        {
-
-            foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
-            {
-                GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
-                GlobalInfo.Instance.Totalab_LSerials.StartWork();
-            }
+        {  
             try
             {
                 while (true)
                 {
-                    GlobalInfo.Instance.Totalab_LSerials.Connect();
-                    Thread.Sleep(1000);
-                    if (IsConnect)
+                    if (System.IO.Ports.SerialPort.GetPortNames()!= null)
                     {
-                        Application.Current.Dispatcher.Invoke((Action)(() =>
+                        foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
                         {
-                            new MessagePage().ShowDialog("重新连接成功", "提示", false, Enum_MessageType.Information);
-                        }));
+                            GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
+                            GlobalInfo.Instance.Totalab_LSerials.StartWork();
+                            GlobalInfo.Instance.Totalab_LSerials.Connect();
+                        }
+                        Thread.Sleep(500);
+                        if (IsConnect)
+                        {
+                            Application.Current.Dispatcher.Invoke((Action)(() =>
+                            {
+                                new MessagePage().ShowDialog("重新连接成功", "提示", false, Enum_MessageType.Information);
+                            }));
+                            if (GlobalInfo.Instance.IsHimassConnState)
+                            {
+                                MainWindow_AutoSamplerSendObjectDataEvent(null,new ObjectEventArgs() { MessParamType = EnumMessParamType.ASSerialPortConnOpen, Parameter = IsConnect });
+                            }
+                            GlobalInfo.Instance.IsCanRunning = true;
+                            GlobalInfo.Instance.IsBusy = false;
+                            MoveToHomeCommand(null, null);
+                            //GlobalInfo.Instance.Totalab_LSerials.XWZHome();
+                            break;
+                        }
+                        else
+                        {
+                            //MainLogHelper.Instance.Info($"[ 端口号 ={PortName}");
+                            ////GlobalInfo.Instance.Totalab_LSerials.MsgCome -= Sampler_MsgCome;
+                            GlobalInfo.Instance.Totalab_LSerials.EndWork();
+                            //IsConnect = false;
+                            //MainWindow_AutoSamplerSendObjectDataEvent(null, new ObjectEventArgs() { MessParamType = EnumMessParamType.ASSerialPortConnOpen, Parameter = IsConnect });
+                        }
 
-                        GlobalInfo.Instance.IsCanRunning = true;
-                        GlobalInfo.Instance.IsBusy = true;
-                        GlobalInfo.Instance.Totalab_LSerials.XWZHome();
-                        break;
                     }
-                    else
-                    {
-                        //MainLogHelper.Instance.Info($"[ 端口号 ={PortName}");
-                        ////GlobalInfo.Instance.Totalab_LSerials.MsgCome -= Sampler_MsgCome;
-                        //GlobalInfo.Instance.Totalab_LSerials.EndWork();
-                        IsConnect = false;
-                        //MainWindow_AutoSamplerSendObjectDataEvent(null, new ObjectEventArgs() { MessParamType = EnumMessParamType.ASSerialPortConnOpen, Parameter = IsConnect });
-                    }
+                    Thread.Sleep(1000);
                 }
             }
             catch (Exception ex)
@@ -107,13 +116,14 @@ namespace Totalab_L
         #region 变量
         Thread ConnectThread;
         public bool _IsTestConnection;
-        Thread ConnectionTestThead;
+        //Thread ConnectionTestThead;
         bool _IsRecived;
-        bool _IsSNWindowShow;////当前SN窗口是否弹出，避免和mass联机的时候Load和重连的时候重复弹出
+        bool _IsSNWindowShow;//                                                         //当前SN窗口是否弹出，避免和mass联机的时候Load和重连的时候重复弹出
         ContextMenu TrayTypeMenu = new ContextMenu();
         ContextMenu StdTrayTypeMenu = new ContextMenu();
         string ButtonContent;
-        public bool _IsFirst = true;//刚打开软件
+        public bool _IsFirst = true;                                                        //刚打开软件
+        private bool _isHandReconnection = false;                                           //是否手动重新连接（避免勾选使用进样器得时候再次初始化）
         //private int ConnectMaxTimes = 10;
 
         SamplerPosSetPage samplerPosSetPage = new SamplerPosSetPage();                      //点位移之前先Z轴复位
@@ -640,8 +650,11 @@ namespace Totalab_L
                         // } 
                         }
                     }));
-                    GlobalInfo.Instance.IsBusy = false;
-                    GlobalInfo.Instance.IsCanRunning = true;
+                    if (IsConnect)
+                    {
+                        GlobalInfo.Instance.IsBusy = false;
+                        GlobalInfo.Instance.IsCanRunning = true;
+                    }
                     source?.Cancel();
                     source?.Dispose();
 
@@ -673,7 +686,7 @@ namespace Totalab_L
         {
             try
             {
-                if (!GlobalInfo.Instance.Totalab_LSerials.IsConnect)
+                if (!IsConnect)
                 {
                     isHand = true;
                     Connect();
@@ -902,7 +915,7 @@ namespace Totalab_L
 
                         //#region  防止撞针
                         samplerPosSetPage.MoveToZ_0Command();
-                        Thread.Sleep(500);
+                        Thread.Sleep(100);
 
                         Point pt = new Point();
                         int isCollisionStatus = 0;
@@ -926,7 +939,7 @@ namespace Totalab_L
                             GlobalInfo.Instance.IsMotorWSetTargetPositionOk = false;
                             GlobalInfo.Instance.IsMotorXSetTargetPositionOk = false;
                             GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
-                            GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x01, (int)(100 / GlobalInfo.XLengthPerCircle * 3600.0 + GlobalInfo.Instance.TrayPanelHomeX));
+                            GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x01, (int)(140 / GlobalInfo.XLengthPerCircle * 3600.0 + GlobalInfo.Instance.TrayPanelHomeX));
                             Thread.Sleep(300);
                             GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x02, (int)pt.Y);
                             count = 0;
@@ -1516,8 +1529,11 @@ namespace Totalab_L
                     finally
                     {
                         IsSamplerManual = false;
-                        GlobalInfo.Instance.IsBusy = false;
-                        GlobalInfo.Instance.IsCanRunning = true;
+                        if (IsConnect)
+                        {
+                            GlobalInfo.Instance.IsBusy = false;
+                            GlobalInfo.Instance.IsCanRunning = true;
+                        }
                         source?.Cancel();
                         source?.Dispose();
                     }
@@ -1556,7 +1572,7 @@ namespace Totalab_L
                             }
                         }
                         GlobalInfo.Instance.Totalab_LSerials.SetLeakage_tank(0x14);     //打开
-                        Thread.Sleep(500);
+                        Thread.Sleep(200);
                         //samplerPosSetPage.MoveToZ_0Command();
                         //Thread.Sleep(1000);
 
@@ -1630,6 +1646,60 @@ namespace Totalab_L
                                     break;
                             }
                         }
+
+                        //设置Z轴速度
+                        GlobalInfo.Instance.RunningStep = RunningStep_Status.SetZSpeed;
+                        GlobalInfo.Instance.Totalab_LSerials.SetZSpeed(0x03, (int)(Math.Round(GlobalInfo.Instance.CalibrationInfo.Speed2_value / 100, 2) * 700));
+                        while (true)
+                        {
+                            longseconds = DateTime.Now.Ticks / 10000;
+                            if (GlobalInfo.Instance.RunningStep == RunningStep_Status.SetZSpeedOK)
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                while (GlobalInfo.Instance.RunningStep != RunningStep_Status.SetZSpeedOK && (DateTime.Now.Ticks / 10000 - longseconds) / 1000 < 5 && GlobalInfo.Instance.RunningStep != RunningStep_Status.Error)
+                                {
+                                    Thread.Sleep(100);
+                                }
+                                if (GlobalInfo.Instance.RunningStep != RunningStep_Status.SetZSpeedOK)
+                                {
+                                    if (count < GlobalInfo.Instance.MaxConnectionTimes)
+                                    {
+                                        //GlobalInfo.Instance.Totalab_LSerials.EndWork();
+                                        try
+                                        {
+                                            GlobalInfo.Instance.RunningStep = RunningStep_Status.SetZSpeed;
+                                            GlobalInfo.Instance.Totalab_LSerials.SetZSpeed(0x03, (int)(Math.Round(GlobalInfo.Instance.CalibrationInfo.Speed2_value / 100, 2) * 700));
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            MainLogHelper.Instance.Error("[GoToTargetPosition]：", ex);
+                                        }
+
+                                        count++;
+                                    }
+                                    else
+                                    {
+                                        ConntectWaring();
+                                        return;
+                                    }
+                                }
+                                else
+                                {
+                                    //while (ExpStatus == Exp_Status.Pause)
+                                    //{
+                                    //    Thread.Sleep(20);
+                                    //}
+                                    //if (stopType == 2 && IsStopWash == false)
+                                    //    return;
+                                    break;
+                                }
+
+                            }
+                        }
+                        //抬起针
                         GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
                         GlobalInfo.status = true;
                         GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x03, (int)(GlobalInfo.Instance.CalibrationInfo.ZResetPosition / GlobalInfo.ZLengthPerCircle * 3600.0 + GlobalInfo.Instance.TrayPanelHomeZ));
@@ -1806,8 +1876,11 @@ namespace Totalab_L
                     finally
                     {
                         IsSamplerManual = false;
-                        GlobalInfo.Instance.IsBusy = false;
-                        GlobalInfo.Instance.IsCanRunning = true;
+                        if (IsConnect)
+                        {
+                            GlobalInfo.Instance.IsBusy = false;
+                            GlobalInfo.Instance.IsCanRunning = true;
+                        }
                         source?.Cancel();
                         source?.Dispose();
                     }
@@ -1829,14 +1902,23 @@ namespace Totalab_L
                 {
                     try
                     {
+                        GlobalInfo.Instance.IsMotorXError = true;
+                        GlobalInfo.Instance.IsMotorWError = true;
+                        GlobalInfo.Instance.IsMotorZError = true;
                         if (GlobalInfo.Instance.IsMotorXError || GlobalInfo.Instance.IsMotorWError || GlobalInfo.Instance.IsMotorZError)
                         {
                             bool result = MotorActionHelper.MotorClearError();
                             if (result == false)
                             {
-                                MainLogHelper.Instance.Info("清错失败，进入重连状态");
+                                //MainLogHelper.Instance.Info("清错失败，进入重连状态");
                                 ConntectWaring();
                                 //return;
+                            }
+                            else
+                            {
+                                GlobalInfo.Instance.IsMotorXError = false;
+                                GlobalInfo.Instance.IsMotorWError = false;
+                                GlobalInfo.Instance.IsMotorZError = false;
                             }
                         }
 
@@ -1890,11 +1972,11 @@ namespace Totalab_L
                                     break;
                             }
                         }
-
-                        this.Dispatcher.Invoke(new Action(delegate
-                        {
-                            GlobalInfo.Instance.LogInfo.Insert(0, DateTime.Now.ToString("hh:mm:ss") + "蠕动泵停止");
-                        }));
+                        Thread.Sleep(100);
+                        //this.Dispatcher.Invoke(new Action(delegate
+                        //{
+                        //    GlobalInfo.Instance.LogInfo.Insert(0, DateTime.Now.ToString("hh:mm:ss") + "蠕动泵停止");
+                        //}));
 
                         GlobalInfo.Instance.RunningStep = RunningStep_Status.XYZHome;
                         GlobalInfo.Instance.Totalab_LSerials.XWZHome();
@@ -2247,8 +2329,11 @@ namespace Totalab_L
                     finally
                     {
                         IsSamplerManual = false;
-                        GlobalInfo.Instance.IsBusy = false;
-                        GlobalInfo.Instance.IsCanRunning = true;
+                        if (IsConnect)
+                        {
+                            GlobalInfo.Instance.IsBusy = false;
+                            GlobalInfo.Instance.IsCanRunning = true;
+                        }
                         source?.Cancel();
                         source?.Dispose();
                     }
@@ -2265,7 +2350,7 @@ namespace Totalab_L
             if (GlobalInfo.Instance.IsHimassConnState && IsUseAutoSampler)
             {
                 GlobalInfo.Instance.SampleInfos = new ObservableCollection<SampleItemInfo>();
-                SampleHelper.CreateSampleInfos(25);
+                //SampleHelper.CreateSampleInfos(1);//运行显示25
 
                 //更新是否使用自动进样器的状态消息
                 this.Dispatcher.Invoke((Action)(() =>
@@ -2274,8 +2359,12 @@ namespace Totalab_L
                 }));
 
                 //勾选进样器后复位初始化
-                GlobalInfo.Instance.IsBusy = true;
-                GlobalInfo.Instance.Totalab_LSerials.XWZHome();           //系统复位初始化
+                if (_isHandReconnection==false)
+                {
+                    MoveToHomeCommand(null, null);
+                }
+                //GlobalInfo.Instance.IsBusy = true;
+                //GlobalInfo.Instance.Totalab_LSerials.XWZHome();           //系统复位初始化
             }
             else
             {
@@ -2350,7 +2439,6 @@ namespace Totalab_L
         {
             try
             {
-
                 if (GlobalInfo.Instance.IsHimassConnState)
                 {
                     List<AutoSampler_SamInfo> list = new List<AutoSampler_SamInfo>();
@@ -2377,8 +2465,9 @@ namespace Totalab_L
                         });
                     }
                 }
+                Control_SettingView.Method_Name = "";                   //清空一下方法名称
                 GlobalInfo.Instance.SampleInfos = new ObservableCollection<SampleItemInfo>();
-                SampleHelper.CreateSampleInfos(25);
+                //SampleHelper.CreateSampleInfos(1);//运行显示25
                 CurrentRotationIndex = 0;
                 GlobalInfo.Instance.SettingInfo = new SettingInfo();
                 SampleHelper.RefreshSamplerItemStatus(Exp_Status.Free);
@@ -2641,12 +2730,12 @@ namespace Totalab_L
             {
                 IsSNRegistered = true;
                 MainWindow_AutoSamplerSendObjectDataEvent(null, new ObjectEventArgs() { MessParamType = EnumMessParamType.AutoSamplerDeviceType, Parameter = registSN.GetProductSN() });
-                if (_IsFirst)
-                {
-                    GlobalInfo.Instance.IsCanRunning = false;
-                    GlobalInfo.Instance.IsBusy = true;
-                    GlobalInfo.Instance.Totalab_LSerials.XWZHome();
-                }
+                //if (_IsFirst)
+                //{
+                //    GlobalInfo.Instance.IsCanRunning = false;
+                //    GlobalInfo.Instance.IsBusy = true;
+                //    GlobalInfo.Instance.Totalab_LSerials.XWZHome();
+                //}
             }
             else
             {
@@ -2693,12 +2782,12 @@ namespace Totalab_L
                         {
                             IsSNRegistered = true;
                             MainWindow_AutoSamplerSendObjectDataEvent(null, new ObjectEventArgs() { MessParamType = EnumMessParamType.AutoSamplerDeviceType, Parameter = registSN.GetProductSN() });
-                            if (_IsFirst)
-                            {
-                                GlobalInfo.Instance.IsCanRunning = false;
-                                GlobalInfo.Instance.IsBusy = true;
-                                GlobalInfo.Instance.Totalab_LSerials.XWZHome();
-                            }
+                            //if (_IsFirst)
+                            //{
+                            //    GlobalInfo.Instance.IsCanRunning = false;
+                            //    GlobalInfo.Instance.IsBusy = true;
+                            //    GlobalInfo.Instance.Totalab_LSerials.XWZHome();
+                            //}
                         }
                         registerSNPage = null;
                     }));
@@ -2726,7 +2815,7 @@ namespace Totalab_L
                 new MessagePage().ShowDialog("Message_Error1002".GetWord(), "MessageTitle_Error".GetWord(), false, Enum_MessageType.Error);
             }
         }
-        //运行初始化
+        //运行初始化架子数据
         private void InitData()
         {
             try
@@ -2871,14 +2960,20 @@ namespace Totalab_L
                             _IsTestConnection = true;
                             if (isHand)
                             {
+                                _isHandReconnection = true;
                                 Application.Current.Dispatcher.Invoke((Action)(() =>
                                 {
                                     new MessagePage().ShowDialog("重新连接成功", "提示", false, Enum_MessageType.Information);
                                 }));
+                                if (GlobalInfo.Instance.IsHimassConnState)
+                                {
+                                    MainWindow_AutoSamplerSendObjectDataEvent(null, new ObjectEventArgs() { MessParamType = EnumMessParamType.ASSerialPortConnOpen, Parameter = IsConnect });
+                                }
                                 isHand = false;
                                 GlobalInfo.Instance.IsCanRunning = true;
-                                GlobalInfo.Instance.IsBusy = true;
-                                GlobalInfo.Instance.Totalab_LSerials.XWZHome();
+                                GlobalInfo.Instance.IsBusy = false;
+                                MoveToHomeCommand(null, null);
+                                //GlobalInfo.Instance.Totalab_LSerials.XWZHome();
                                 //MoveToWashW1Command(null,null);
                             }
                             //if (ConnectionTestThead == null)
@@ -3084,6 +3179,17 @@ namespace Totalab_L
                         }
                         if (e.Msg.Cmd == 0xA2)
                             GlobalInfo.Instance.IsWriteMCUOk = true;
+                        if (e.Msg.Cmd == 0xAA)
+                        {
+                            GlobalInfo.IsAgainPower = true;
+                            this.Dispatcher.Invoke((Action)(() =>
+                            {
+                                GlobalInfo.Instance.LogInfo.Insert(0, DateTime.Now.ToString("hh:mm:ss") + "进样器已重启,重新连接");
+                                //new MessagePage().ShowDialog("MessageContent_SaveSuccessful".GetWord(), "MessageTitle_Information".GetWord(), false, Enum_MessageType.Information);
+                            }));
+                            //GlobalInfo.Instance.Totalab_LSerials.EndWork();
+                            //ConnectStatus();
+                        }
                         break;
                     case 0x85:
                         if (e.Msg.Cmd == 0x50)//////////////////////正确的校验
@@ -3361,7 +3467,7 @@ namespace Totalab_L
                             if (content != null)
                             {
                                 GlobalInfo.Instance.CalibrationInfo = XmlObjSerializer.Deserialize<TrayPanelCalibrationInfo>(content);
-                                GlobalInfo.Instance.TrayPanelCenter = GlobalInfo.Instance.CalibrationInfo.TrayPanelCenterX;
+                               GlobalInfo.Instance.TrayPanelCenter = GlobalInfo.Instance.CalibrationInfo.TrayPanelCenterX;
                                 GlobalInfo.Instance.TrayPanel_leftW = GlobalInfo.Instance.CalibrationInfo.TrayCenterToLeftW;
                                 GlobalInfo.Instance.TrayPanel_rightW = GlobalInfo.Instance.CalibrationInfo.CalibrationRightW;
                                 MainLogHelper.Instance.Info("读取配置文件中心点位置：X：" + GlobalInfo.Instance.TrayPanelCenter + "\n" +
@@ -3372,6 +3478,7 @@ namespace Totalab_L
                             }
                             else
                             {
+                                new MessagePage().ShowDialog("校准参数为空，请重新校准", "MessageTitle_Error".GetWord(), false, Enum_MessageType.Error);
                                 GlobalInfo.Instance.TrayPanelCenter = GlobalInfo.Instance.CalibrationInfo.TrayPanelCenterX;
                                 GlobalInfo.Instance.TrayPanel_leftW = GlobalInfo.Instance.CalibrationInfo.TrayCenterToLeftW;
                                 GlobalInfo.Instance.TrayPanel_rightW = GlobalInfo.Instance.CalibrationInfo.CalibrationRightW;
@@ -3424,6 +3531,16 @@ namespace Totalab_L
                             GlobalInfo.Instance.Totalab_LSerials.ReadMotorPosition((byte)0x01);
                             GlobalInfo.Instance.IsBusy = false;
 
+                        }
+                        else if(e.Msg.DataLength == 1)
+                        {
+                            if (e.Msg.Data[0] == 0xee)
+                            {
+                                this.Dispatcher.Invoke((Action)(() =>
+                                {
+                                    new MessagePage().ShowDialog("初始化错误，请重新初始化", "MessageTitle_Information".GetWord(), false, Enum_MessageType.Information);
+                                }));
+                            }
                         }
                         break;
                     case 0xee:
@@ -3479,12 +3596,6 @@ namespace Totalab_L
                             }
                         }, source.Token);
                         break;
-                    //case 0x23:
-                    //    if (e.Msg.Data[1] == 0x01)
-                    //    {
-
-                    //    }
-                            //break;
                     default:
                         break;
                 }
@@ -3498,33 +3609,61 @@ namespace Totalab_L
         {
             try
             {
-                IsConnect = false;
-                if (!GlobalInfo.Instance.IsHimassConnState)
+                if (GlobalInfo.IsAgainPower)
+                {
+                    GlobalInfo.Instance.Totalab_LSerials.XWZHome();
+                    GlobalInfo.IsAgainPower = false;
+                }
+                else if (GlobalInfo.Instance.IsMotorXError|| GlobalInfo.Instance.IsMotorWError|| GlobalInfo.Instance.IsMotorZError)
                 {
                     Application.Current.Dispatcher.Invoke((Action)(() =>
                     {
-                        new MessagePage().ShowDialog("Message_Error2013".GetWord(), "MessageTitle_Error".GetWord(), false, Enum_MessageType.Error);
+                        StatusColors = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFBDBDBD"));
+                        StatusText = "D/C";
+                    }));
+
+                    this.Dispatcher.Invoke((Action)(() =>
+                    {
+                        bool? ErrorResult = new MessagePage().ShowDialog("运行错误，进样针故障!", "警告", true, Enum_MessageType.Error, yesContent: "确定");
+                        if ((bool)ErrorResult)
+                        {
+                            //清错
+                            MotorActionHelper.MotorClearError();
+                        }
                     }));
                 }
-                GlobalInfo.Instance.Totalab_LSerials.EndWork();
-                if (GlobalInfo.Instance.IsHimassConnState)
+                else
                 {
-                    MainWindow_AutoSamplerSendObjectDataEvent(null,
-                                  new ObjectEventArgs() { MessParamType = EnumMessParamType.ASSerialPortConnOpen, Parameter = IsConnect });
+                    GlobalInfo.Instance.IsBusy = true;
+                    GlobalInfo.Instance.IsCanRunning = false;
+
+                    IsConnect = false;
+                    if (!GlobalInfo.Instance.IsHimassConnState)
+                    {
+                        Application.Current.Dispatcher.Invoke((Action)(() =>
+                        {
+                            new MessagePage().ShowDialog("Message_Error2013".GetWord(), "MessageTitle_Error".GetWord(), false, Enum_MessageType.Error);
+                        }));
+                    }
+                    GlobalInfo.Instance.Totalab_LSerials.EndWork();
+                    if (GlobalInfo.Instance.IsHimassConnState)
+                    {
+                        MainWindow_AutoSamplerSendObjectDataEvent(null,
+                                      new ObjectEventArgs() { MessParamType = EnumMessParamType.ASSerialPortConnOpen, Parameter = IsConnect });
+                        Application.Current.Dispatcher.Invoke((Action)(() =>
+                        {
+                            new MessagePage().ShowDialog("Message_Error2013".GetWord(), "MessageTitle_Error".GetWord(), false, Enum_MessageType.Error);
+                        }));
+
+                    }
                     Application.Current.Dispatcher.Invoke((Action)(() =>
                     {
-                        new MessagePage().ShowDialog("Message_Error2013".GetWord(), "MessageTitle_Error".GetWord(), false, Enum_MessageType.Error);
+                        StatusColors = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFBDBDBD"));
+                        StatusText = "D/C";
                     }));
-
+                    Thread threadConnect1 = new Thread(ConnectStatus);
+                    threadConnect1.Start();
                 }
-                Application.Current.Dispatcher.Invoke((Action)(() =>
-                {
-                    StatusColors = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFBDBDBD"));
-                    StatusText = "D/C";
-                }));
-                Thread threadConnect1 = new Thread(ConnectStatus);
-                threadConnect1.Start();
-
             }
             catch (Exception ex)
             {
@@ -3588,14 +3727,17 @@ namespace Totalab_L
                 MainLogHelper.Instance.Info($"[PublisherAutoSamplerSendObjectDataEvent IsUseAutoSampler ={IsUseAutoSampler}");
             }
         }
-
         public void MainWindow_AutoSamplerSendObjectDataEvent(object sender, ObjectEventArgs e)
         {
             PublisherAutoSamplerSendObjectDataEvent(e);
             //SubscribeMassSendObjectEvent(sender, e);
         }
         #endregion
-        //连接Mass的时候会调用
+        /// <summary>
+        /// 连接Mass时接收
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="msgArg"></param>
         [EventSubscription("topic://AutoSampler_MassSendSamData", typeof(Publisher))]
         public void SubscribeMassSendSamDataEvent(object sender, AutoSamplerEventArgs msgArg)
         {
@@ -3730,7 +3872,7 @@ namespace Totalab_L
 
                             //CommonSampleMethod.RefreshSamplerItemStatus(Control_SampleListView.ExpStatus);
                         }
-                        else if (samInfo.OperationMode == EnumSamOperationMode.StartInjection)
+                        else if (samInfo.OperationMode == EnumSamOperationMode.StartInjection)          //分析
                         {
 
                             Control_SampleListView.ExpStatus = Exp_Status.Running;
@@ -3771,6 +3913,10 @@ namespace Totalab_L
                                             SamInfoList = list
                                         });
                                     }
+                                    Application.Current.Dispatcher.Invoke((Action)(() =>
+                                    {
+                                        new MessagePage().ShowDialog("样品位置超出限制！", "警告", false, Enum_MessageType.Information);
+                                    }));
                                 }
                                 else
                                 {
@@ -3812,11 +3958,40 @@ namespace Totalab_L
 
                             ////没有找到guid发送错误
                         }
-                        else if (samInfo.OperationMode == EnumSamOperationMode.StartAutoTuning)
+                        else if (samInfo.OperationMode == EnumSamOperationMode.StartAutoTuning)         //调谐
                         {
-                            int location = samInfo.Location;
-                            GlobalInfo.Instance.IsBusy = true;
-                            Control_SampleListView.ExcuteGotoTargetLocation(location, samInfo.SamID);
+                            //MainLogHelper.Instance.Info(DateTime.Now.ToString("hh:mm:ss") + "到达位置-超出" + samInfo.Location + "," + GlobalInfo.Instance.TraySTD2Infos.TrayEndNumber);
+                            GlobalInfo.Instance.IsCanRunning = false;
+                            if (samInfo.Location <= GlobalInfo.Instance.TraySTD2Infos.TrayEndNumber)
+                            {
+                                int location = samInfo.Location;
+                                GlobalInfo.Instance.IsBusy = true;
+                                Control_SampleListView.ExcuteGotoTargetLocation(location, samInfo.SamID);           //调谐
+                                //MainLogHelper.Instance.Info(DateTime.Now.ToString("hh:mm:ss") + "hyx2" + location);
+                            }
+                            else
+                            {
+                                GlobalInfo.IsLoctionError = true;               //位置超限了
+                                List<AutoSampler_SamInfo> list = new List<AutoSampler_SamInfo>();
+                                AutoSampler_SamInfo samplingtempinfo = new AutoSampler_SamInfo();
+                                //samplingtempinfo.SamName = "";
+                                //samplingtempinfo.Location = 0;
+                                //samplingtempinfo.IsAnalyze = false;
+                                //samplingtempinfo.OverWash = 0;
+                                samplingtempinfo.AnalysisType = Enum_AnalysisType.AutoTune;
+                                samplingtempinfo.SamID = samInfo.SamID;
+                                samplingtempinfo.OperationMode = EnumSamOperationMode.Error;
+                                MainLogHelper.Instance.Info(DateTime.Now.ToString("hh:mm:ss") + "到达位置-超出");
+                                list.Add(samplingtempinfo);
+                                MainWindow_AutoSamplerSendSamDataEvent(null, new AutoSamplerEventArgs()
+                                {
+                                    SamInfoList = list
+                                });
+                                Application.Current.Dispatcher.Invoke((Action)(() =>
+                                {
+                                    new MessagePage().ShowDialog("样品位置超出限制！", "警告", false, Enum_MessageType.Information);
+                                }));
+                            }
                         }
                         else if (samInfo.OperationMode == EnumSamOperationMode.Ready)
                         {
@@ -4006,6 +4181,12 @@ namespace Totalab_L
             }
         }
         [EventSubscription("topic://AutoSampler_MassSendObjectData", typeof(Publisher))]
+
+        /// <summary>
+        /// 连接Mass时接收处理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="msgArg"></param>
         public void SubscribeMassSendObjectEvent(object sender, ObjectEventArgs msgArg)
         {
             try
@@ -4022,7 +4203,7 @@ namespace Totalab_L
                         {
                             //CommonSampleMethod.CreateSampleInfos(500);
                             GlobalInfo.Instance.SampleInfos = new ObservableCollection<SampleItemInfo>();
-                            SampleHelper.CreateSampleInfos(25);
+                            //SampleHelper.CreateSampleInfos(1);                          //运行显示25
                             this.Dispatcher.Invoke((Action)(() =>
                             {
                                 GlobalInfo.Instance.LogInfo.Insert(0, DateTime.Now.ToString("hh:mm:ss") + "自动进样器使用");
@@ -4156,6 +4337,7 @@ namespace Totalab_L
                         }));
                         _IsTestConnection = true;
                         //GlobalInfo.Instance.Totalab_LSerials.ZHOME();
+                        //MainLogHelper.Instance.Info(DateTime.Now.ToString("hh:mm:ss") + "立刻停止");
                         Control_SampleListView.StopMethod();
                         //else if (msgArg.MessParamType == EnumMessParamType.ChlPump_LoadFinish)
                         //    IsQuickSamplerLoadFinish = true;
@@ -4172,21 +4354,28 @@ namespace Totalab_L
                         {
                             GlobalInfo.Instance.LogInfo.Insert(0, DateTime.Now.ToString("hh:mm:ss") + "开始自动调谐");
                         }));
+                        GlobalInfo.Instance.IsBusy = true;              //新增11-30
                         _IsTestConnection = false;
                         GlobalInfo.IsAutoTuning = true;
                         Control_SampleListView.stopType = 0;
                         Control_SampleListView.CurrnentLoc = "";
                         Control_SampleListView.IsStopWash = false;
+                        GlobalInfo.IsStopOptimization = false;              //为了
                     }
                     else if (msgArg.MessParamType == EnumMessParamType.StopAutoTuningTask)
                     {
+                        GlobalInfo.IsStopOptimization = true;               //停止优化
                         this.Dispatcher.Invoke((Action)(() =>
                         {
                             GlobalInfo.Instance.LogInfo.Insert(0, DateTime.Now.ToString("hh:mm:ss") + "自动调谐完成");
                         }));
                         //_IsTestConnection = true;
-                        GlobalInfo.IsAutoTuning = false;
-                        Control_SampleListView.AutoTuningStop(Guid.Empty);
+                        if (GlobalInfo.IsLoctionError == false)
+                        {
+                            GlobalInfo.IsAutoTuning = false;
+                            Control_SampleListView.AutoTuningStop(Guid.Empty);
+                        }
+                        GlobalInfo.Instance.IsCanRunning = false;
                     }
                     Trace.WriteLine(string.Format("ObjectData Type:[{0}]", msgArg.MessParamType));
                 }

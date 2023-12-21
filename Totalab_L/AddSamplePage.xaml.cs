@@ -149,6 +149,7 @@ namespace Totalab_L
         #endregion
 
         #region 事件
+        //添加样品确定
         private void Btn_Done_Click(object sender, RoutedEventArgs e)
         {
             try

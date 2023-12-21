@@ -44,4 +44,28 @@
     <Style x:Key="SfDataGridAlternatingRowSty" TargetType="{x:Type sfdatagrid:VirtualizingCellsControl}" BasedOn="{StaticResource SfDataGridSelectionRowSty}">
         <Setter Property="Background" Value="{StaticResource CommonWhiteBrush}"/>
     </Style>
+
+    <Style x:Key="AddNewRowControlSty" TargetType="{x:Type sfdatagrid:AddNewRowControl}">
+        <Setter Property="Foreground" Value="{StaticResource ForegroundNormal}" />
+        <Setter Property="FontFamily" Value="{StaticResource FontFamilyNormal}"/>
+        <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="Background" Value="{StaticResource CommonWhiteBrush001}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource CommonBlackBrush40}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Height" Value="32"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="TextMargin" Value="0"/>
+        <Setter Property="CurrentFocusBorderMargin" Value="0"/>
+    </Style>
 </ResourceDictionary>

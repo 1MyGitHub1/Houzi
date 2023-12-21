@@ -104,6 +104,7 @@ namespace Totalab_L
         #endregion
 
         #region 事件
+        //双击和完成按钮
         private void Btn_Done_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -134,7 +135,7 @@ namespace Totalab_L
                     if (!(GlobalInfo.Instance.IsHimassConnState && ShellPageModule.IsUseAutoSampler))
                     {
                         GlobalInfo.Instance.SampleInfos = new ObservableCollection<SampleItemInfo>();
-                        SampleHelper.CreateSampleInfos(25);
+                        //SampleHelper.CreateSampleInfos(1);//运行显示25
                         if (GlobalInfo.Instance.CurrentMethod.SampleInfos != null)
                         {
                             for (int i = 0; i < GlobalInfo.Instance.CurrentMethod.SampleInfos.Count; i++)

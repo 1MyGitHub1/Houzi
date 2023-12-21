@@ -1716,8 +1716,11 @@ namespace Totalab_L
                     }
                     finally
                     {
-                        GlobalInfo.Instance.IsBusy = false;
-                        GlobalInfo.Instance.IsCanRunning = true;
+                        if (IsConnect)
+                        {
+                            GlobalInfo.Instance.IsBusy = false;
+                            GlobalInfo.Instance.IsCanRunning = true;
+                        }
                         source?.Cancel();
                         source?.Dispose();
                     }
@@ -1746,7 +1749,7 @@ namespace Totalab_L
                     }
                 }
                 GlobalInfo.Instance.Totalab_LSerials.SetLeakage_tank(0x14);     //打开
-                Thread.Sleep(500);
+                Thread.Sleep(200);
 
                 if (GlobalInfo.Instance.CurrentWorkType != Enum_MotorWorkType.Position)
                 {
@@ -1755,9 +1758,9 @@ namespace Totalab_L
                     GlobalInfo.Instance.IsMotorZSetWorkModeOk = false;
                     GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMortorWorkMode;
                     GlobalInfo.Instance.Totalab_LSerials.SetMotorWorkType(0x01, 0x01);
-                    Thread.Sleep(300);
+                    Thread.Sleep(200);
                     GlobalInfo.Instance.Totalab_LSerials.SetMotorWorkType(0x02, 0x01);
-                    Thread.Sleep(300);
+                    Thread.Sleep(200);
                     GlobalInfo.Instance.Totalab_LSerials.SetMotorWorkType(0x03, 0x01);
                     longseconds = DateTime.Now.Ticks / 10000;
                     count = 0;
@@ -1818,9 +1821,61 @@ namespace Totalab_L
                             break;
                     }
                 }
+                //设置Z轴速度
+                GlobalInfo.Instance.RunningStep = RunningStep_Status.SetZSpeed;
+                GlobalInfo.Instance.Totalab_LSerials.SetZSpeed(0x03, (int)(Math.Round(GlobalInfo.Instance.CalibrationInfo.Speed2_value / 100, 2) * 700));
+                while (true)
+                {
+                    longseconds = DateTime.Now.Ticks / 10000;
+                    if (GlobalInfo.Instance.RunningStep == RunningStep_Status.SetZSpeedOK)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        while (GlobalInfo.Instance.RunningStep != RunningStep_Status.SetZSpeedOK && (DateTime.Now.Ticks / 10000 - longseconds) / 1000 < 5 && GlobalInfo.Instance.RunningStep != RunningStep_Status.Error)
+                        {
+                            Thread.Sleep(100);
+                        }
+                        if (GlobalInfo.Instance.RunningStep != RunningStep_Status.SetZSpeedOK)
+                        {
+                            if (count < GlobalInfo.Instance.MaxConnectionTimes)
+                            {
+                                //GlobalInfo.Instance.Totalab_LSerials.EndWork();
+                                try
+                                {
+                                    GlobalInfo.Instance.RunningStep = RunningStep_Status.SetZSpeed;
+                                    GlobalInfo.Instance.Totalab_LSerials.SetZSpeed(0x03, (int)(Math.Round(GlobalInfo.Instance.CalibrationInfo.Speed2_value / 100, 2) * 700));
+                                }
+                                catch (Exception ex)
+                                {
+                                    MainLogHelper.Instance.Error("[GoToTargetPosition]：", ex);
+                                }
+
+                                count++;
+                            }
+                            else
+                            {
+                                ConntectWaring();
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            //while (ExpStatus == Exp_Status.Pause)
+                            //{
+                            //    Thread.Sleep(20);
+                            //}
+                            //if (stopType == 2 && IsStopWash == false)
+                            //    return;
+                            break;
+                        }
+
+                    }
+                }
 
                 GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
-                double Z_height = CalibrationInfo.ZResetPosition + GlobalInfo.Instance.TrayPanelHomeZ;
+                double Z_height = CalibrationInfo.ZResetPosition / GlobalInfo.ZLengthPerCircle * 3600.0 + GlobalInfo.Instance.TrayPanelHomeZ;
 
                 GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x03, (int)Z_height);
                 while (true)
@@ -1932,6 +1987,7 @@ namespace Totalab_L
                 }
                 GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMotorAction;
                 GlobalInfo.Instance.Totalab_LSerials.MotorMove(0x03, 0x3f);
+                Thread.Sleep(300);
                 count = 0;
                 while (true)
                 {
@@ -1993,8 +2049,11 @@ namespace Totalab_L
             finally
             {
                 GlobalInfo.Uplift = false;
-                GlobalInfo.Instance.IsBusy = false;
-                GlobalInfo.Instance.IsCanRunning = true;
+                if (IsConnect)
+                {
+                    GlobalInfo.Instance.IsBusy = false;
+                    GlobalInfo.Instance.IsCanRunning = true;
+                }
                 source?.Cancel();
                 source?.Dispose();
             }
@@ -2272,8 +2331,11 @@ namespace Totalab_L
                     }
                     finally
                     {
-                        GlobalInfo.Instance.IsBusy = false;
-                        GlobalInfo.Instance.IsCanRunning = true;
+                        if (IsConnect)
+                        {
+                            GlobalInfo.Instance.IsBusy = false;
+                            GlobalInfo.Instance.IsCanRunning = true;
+                        }
                         source?.Cancel();
                         source?.Dispose();
                     }
@@ -3045,6 +3107,15 @@ namespace Totalab_L
             {
                 GlobalInfo.Instance.IsBusy = true;
                 GlobalInfo.Instance.IsCanRunning = false;
+                if (GlobalInfo.Instance.IsMotorXError || GlobalInfo.Instance.IsMotorWError || GlobalInfo.Instance.IsMotorZError)
+                {
+                    bool result_ClearError = MotorActionHelper.MotorClearError();
+                    if (result_ClearError == false)
+                    {
+                        ConntectWaring();
+                        return;
+                    }
+                }
                 CancellationTokenSource source = new CancellationTokenSource();
                 Button btn = sender as Button;
                 string str = btn.Tag.ToString();
@@ -3320,29 +3391,52 @@ namespace Totalab_L
         {
             try
             {
-                Control_Shell.IsConnect = false;
-                IsConnect = false;
-                if (!GlobalInfo.Instance.IsHimassConnState)
+                if (GlobalInfo.IsAgainPower)
                 {
-                    Application.Current.Dispatcher.Invoke((Action)(() =>
+                    GlobalInfo.Instance.Totalab_LSerials.XWZHome();
+                    GlobalInfo.IsAgainPower = false;
+                }
+                else if (GlobalInfo.Instance.IsMotorXError || GlobalInfo.Instance.IsMotorWError || GlobalInfo.Instance.IsMotorZError)
+                {
+                    this.Dispatcher.Invoke((Action)(() =>
                     {
-                        new MessagePage().ShowDialog("Message_Error2013".GetWord(), "MessageTitle_Error".GetWord(), false, Enum_MessageType.Error);
+                        bool? ErrorResult = new MessagePage().ShowDialog("运行错误，进样针故障!", "警告", true, Enum_MessageType.Error, yesContent: "确定");
+                        if ((bool)ErrorResult)
+                        {
+                            //清错
+                            MotorActionHelper.MotorClearError();
+                        }
                     }));
                 }
-                GlobalInfo.Instance.Totalab_LSerials.EndWork();
-                if (GlobalInfo.Instance.IsHimassConnState)
+                else
                 {
-                    Control_Shell.MainWindow_AutoSamplerSendObjectDataEvent(null,
-                                  new ObjectEventArgs() { MessParamType = EnumMessParamType.ASSerialPortConnOpen, Parameter = Control_Shell.IsConnect });
-                }
-                Application.Current.Dispatcher.Invoke((Action)(() =>
-                {
-                    Control_Shell.StatusColors = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFBDBDBD"));
-                    Control_Shell.StatusText = "D/C";
-                }));
+                    //GlobalInfo.Instance.IsBusy = true;
+                    //GlobalInfo.Instance.IsCanRunning = false;
 
-                Thread threadConnect1 = new Thread(Control_Shell.ConnectStatus);
-                threadConnect1.Start();
+                    Control_Shell.IsConnect = false;
+                    IsConnect = false;
+                    if (!GlobalInfo.Instance.IsHimassConnState)
+                    {
+                        Application.Current.Dispatcher.Invoke((Action)(() =>
+                        {
+                            new MessagePage().ShowDialog("Message_Error2013".GetWord(), "MessageTitle_Error".GetWord(), false, Enum_MessageType.Error);
+                        }));
+                    }
+                    GlobalInfo.Instance.Totalab_LSerials.EndWork();
+                    if (GlobalInfo.Instance.IsHimassConnState)
+                    {
+                        Control_Shell.MainWindow_AutoSamplerSendObjectDataEvent(null,
+                                      new ObjectEventArgs() { MessParamType = EnumMessParamType.ASSerialPortConnOpen, Parameter = Control_Shell.IsConnect });
+                    }
+                    Application.Current.Dispatcher.Invoke((Action)(() =>
+                    {
+                        Control_Shell.StatusColors = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFBDBDBD"));
+                        Control_Shell.StatusText = "D/C";
+                    }));
+
+                    Thread threadConnect1 = new Thread(Control_Shell.ConnectStatus);
+                    threadConnect1.Start();
+                }
 
             }
             catch (Exception ex)
@@ -3362,6 +3456,10 @@ namespace Totalab_L
                 {
                     try
                     {
+                        GlobalInfo.Instance.IsMotorXError = true;
+                        GlobalInfo.Instance.IsMotorWError = true;
+                        GlobalInfo.Instance.IsMotorZError = true;
+
                         if (GlobalInfo.Instance.IsMotorXError || GlobalInfo.Instance.IsMotorWError || GlobalInfo.Instance.IsMotorZError)
                         {
                             bool result = MotorActionHelper.MotorClearError();
@@ -3369,6 +3467,13 @@ namespace Totalab_L
                             {
                                 ConntectWaring();
                                 return;
+                            }
+                            else
+                            {
+                                GlobalInfo.Instance.IsMotorXError = false;
+                                GlobalInfo.Instance.IsMotorWError = false;
+                                GlobalInfo.Instance.IsMotorZError = false;
+
                             }
                         }
                     }
@@ -3687,6 +3792,7 @@ namespace Totalab_L
                             GlobalInfo.Instance.Totalab_LSerials.MotorMove(0x01, 0x3f);
                             Thread.Sleep(100);
                             GlobalInfo.Instance.Totalab_LSerials.MotorMove(0x02, 0x3f);
+                            Thread.Sleep(100);
                             count = 0;
                             while (true)
                             {
@@ -4123,11 +4229,13 @@ namespace Totalab_L
                         GlobalInfo.Instance.IsMotorXActionOk = false;
                         GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMotorAction;
                         GlobalInfo.Instance.Totalab_LSerials.MotorMove(0x01, 0x3f);
+                        Thread.Sleep(100);
                         if (isCollisionStatus == 0)
                         {
                             GlobalInfo.Instance.IsMotorWActionOk = false;
                             Thread.Sleep(100);
                             GlobalInfo.Instance.Totalab_LSerials.MotorMove(0x02, 0x3f);
+                            Thread.Sleep(100);
                         }
                         else
                             GlobalInfo.Instance.IsMotorWActionOk = true;
@@ -4211,8 +4319,11 @@ namespace Totalab_L
                         CalibrationLeftShowW = Math.Round((GlobalInfo.returnPositionW - GlobalInfo.Instance.TrayPanelHomeW) / 60.0,2);
 
                         //Control_ParentView.IsSamplerManual = false;
-                        GlobalInfo.Instance.IsBusy = false;
-                        GlobalInfo.Instance.IsCanRunning = true;
+                        if (IsConnect)
+                        {
+                            GlobalInfo.Instance.IsBusy = false;
+                            GlobalInfo.Instance.IsCanRunning = true;
+                        }
                         source?.Cancel();
                         source?.Dispose();
                     }
@@ -4236,6 +4347,7 @@ namespace Totalab_L
             {
                 GlobalInfo.Instance.IsBusy = true;
                 GlobalInfo.Instance.IsCanRunning = false;
+
                 CancellationTokenSource source = new CancellationTokenSource();
                 Button btn = sender as Button;
                 string str = btn.Tag.ToString();
@@ -4265,8 +4377,11 @@ namespace Totalab_L
                     GlobalInfo.Instance.PositionW = GlobalInfo.returnPositionW;
                     GlobalInfo.Instance.PositionX = GlobalInfo.returnPositionX;
 
-                    GlobalInfo.Instance.IsBusy = false;
-                    GlobalInfo.Instance.IsCanRunning = true;
+                    if (IsConnect)
+                    {
+                        GlobalInfo.Instance.IsBusy = false;
+                        GlobalInfo.Instance.IsCanRunning = true;
+                    }
                     source?.Cancel();
                     source?.Dispose();
 
@@ -4287,6 +4402,7 @@ namespace Totalab_L
             {
                 GlobalInfo.Instance.IsBusy = true;
                 GlobalInfo.Instance.IsCanRunning = false;
+
                 CancellationTokenSource source = new CancellationTokenSource();
                 Button btn = sender as Button;
                 string str = btn.Tag.ToString();
@@ -4316,8 +4432,11 @@ namespace Totalab_L
                     GlobalInfo.Instance.PositionW = GlobalInfo.returnPositionW;
                     GlobalInfo.Instance.PositionX = GlobalInfo.returnPositionX;
 
-                    GlobalInfo.Instance.IsBusy = false;
-                    GlobalInfo.Instance.IsCanRunning = true;
+                    if (IsConnect)
+                    {
+                        GlobalInfo.Instance.IsBusy = false;
+                        GlobalInfo.Instance.IsCanRunning = true;
+                    }
                     source?.Cancel();
                     source?.Dispose();
 

@@ -9,6 +9,8 @@
     xmlns:model ="clr-namespace:Totalab_L.Enum"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:ltCtl="clr-namespace:LabTech.UITheme;assembly=LabTech.UITheme"
+    xmlns:cal="http://www.caliburnproject.org" 
+    xmlns:converter="clr-namespace:Totalab_L.Common"
     mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800"
     Loaded="UserControl_Loaded">
 
@@ -17,6 +19,146 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Totalab_L;component/Themes/Generic.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+
+            <Style x:Key="SfDataGridSty" TargetType="{x:Type sfdatagrid:SfDataGrid}">
+                <Setter Property="RowDragDropTemplate" Value="{x:Null}"/>
+                <Setter Property="Foreground" Value="{StaticResource ForegroundNormal}"/>
+                <Setter Property="FontFamily" Value="{StaticResource FontFamilyNormal}"/>
+                <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}"/>
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <ImageBrush ImageSource="/LabTech.UITheme;component/Images/backgroud/datagrid_cell32_head32.png" Stretch="None" TileMode="Tile" AlignmentX="Left" AlignmentY="Top"
+                            ViewportUnits="Absolute" Viewport="0,0,1920,1088"/>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="HeaderRowHeight" Value="{DynamicResource DataGridHeader_Height}"/>
+                <Setter Property="RowHeight" Value="{DynamicResource DataGridRow_Height}"/>
+                <Setter Property="RowHoverHighlightingBrush" Value="Transparent"/>
+                <Setter Property="RowSelectionBrush" Value="Transparent"/>
+                <Setter Property="SelectionForegroundBrush" Value="Transparent"/>
+                <Setter Property="GroupRowSelectionBrush" Value="Transparent"/>
+                <Setter Property="CurrentCellBorderBrush" Value="Transparent"/>
+                <Setter Property="CurrentCellBorderThickness" Value="0"/>
+                <Setter Property="GridCopyOption" Value="None"/>
+                <Setter Property="GridPasteOption" Value="None"/>
+                <Setter Property="NavigationMode" Value="Cell"/>
+                <Setter Property="SelectionMode" Value="Single"/>
+                <Setter Property="SelectionUnit" Value="Cell"/>
+                <Setter Property="LiveDataUpdateMode" Value="AllowChildViewUpdate,AllowDataShaping"/>
+                <Setter Property="EnableDataVirtualization" Value="True"/>
+                <Setter Property="VirtualizingPanel.VirtualizationMode" Value="Recycling"/>
+                <Setter Property="VirtualizingPanel.IsVirtualizing" Value="True"/>
+                <Setter Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="True"/>
+                <Setter Property="VirtualizingPanel.ScrollUnit" Value="Item"/>
+                <Setter Property="ColumnSizer" Value="AutoWithLastColumnFill"/>
+                <Setter Property="AlternationCount" Value="2"/>
+                <Setter Property="ShowRowHeader" Value="False"/>
+                <Setter Property="RowHeaderWidth" Value="30"/>
+                <Setter Property="ShowGroupDropArea" Value="False"/>
+                <Setter Property="ShowDetailsViewIndentCell" Value="False"/>
+                <Setter Property="ShowColumnWhenGrouped" Value="False"/>
+                <Setter Property="ShowToolTip" Value="False"/>
+                <Setter Property="ShowSortNumbers" Value="False"/>
+                <Setter Property="IndentColumnWidth" Value="0"/>
+                <Setter Property="ExpanderColumnWidth" Value="0"/>
+                <Setter Property="IsManipulationEnabled" Value="True"/>
+                <Setter Property="IsDynamicItemsSource" Value="False"/>
+                <Setter Property="IsGroupDropAreaExpanded" Value="True"/>
+                <Setter Property="AutoExpandGroups" Value="False"/>
+                <Setter Property="AutoGenerateColumns" Value="False"/>
+                <Setter Property="AutoGenerateColumnsForCustomType" Value="False"/>
+                <Setter Property="AutoGenerateColumnsModeForCustomType" Value="Both"/>
+                <Setter Property="AutoGenerateColumnsMode" Value="None"/>
+                <Setter Property="AutoGenerateRelations" Value="False"/>
+                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+                <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+                <Setter Property="ScrollViewer.PanningMode" Value="Both"/>
+                <Setter Property="ScrollViewer.PanningRatio" Value="1"/>
+                <Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False"/>
+                <!--<Setter Property="AllowCollectionView" Value="False"/>-->
+                <Setter Property="AllowDeleting" Value="False"/>
+                <Setter Property="AllowDraggingColumns" Value="False"/>
+                <Setter Property="AllowDraggingRows" Value="False"/>
+                <Setter Property="AllowDrop" Value="False"/>
+                <Setter Property="AllowEditing" Value="False"/>
+                <Setter Property="AllowFiltering" Value="False"/>
+                <Setter Property="AllowFrozenGroupHeaders" Value="False"/>
+                <Setter Property="AllowGrouping" Value="False"/>
+                <Setter Property="AllowResizingColumns" Value="False"/>
+                <Setter Property="AllowResizingHiddenColumns" Value="False"/>
+                <Setter Property="AllowRowHoverHighlighting" Value="False"/>
+                <Setter Property="AllowSelectionOnPointerPressed" Value="False"/>
+                <Setter Property="AllowSorting" Value="False"/>
+                <Setter Property="AllowTriStateSorting" Value="False"/>
+                <Setter Property="AddNewRowPosition" Value="None"/>
+                <Setter Property="AddNewRowText" Value="{DynamicResource Theme_DataGrid_Add}"/>
+                <Setter Property="SnapsToDevicePixels" Value="True"/>
+                <Setter Property="HeaderStyle" Value="{StaticResource SfDataGridHeaderCellSty}"/>
+                <Setter Property="AlternatingRowStyle" Value="{StaticResource SfDataGridAlternatingRowSty}"/>
+                <Setter Property="RowStyle" Value="{StaticResource SfDataGridRowSty}"/>
+                <!--<Setter Property="RowStyleSelector" Value="{x:Null}"/>-->
+                <Setter Property="CellStyle" Value="{StaticResource SfDataGridCellSty}"/>
+                <Setter Property="DetailsViewDataGridStyle" Value="{StaticResource DetailsViewDataGridSty}"/>
+                <Setter Property="DetailsViewPadding" Value="0"/>
+                <Setter Property="ReuseRowsOnItemssourceChange" Value="True"/>
+                <Setter Property="IsTabStop" Value="False"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="Margin" Value="0"/>
+                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type sfdatagrid:SfDataGrid}">
+                            <Grid SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal"/>
+                                        <VisualState x:Name="Busy">
+                                            <Storyboard>
+                                                <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="IsBusyIndicatorShowing" Storyboard.TargetName="PART_BusyDecorator">
+                                                    <DiscreteBooleanKeyFrame KeyTime="0" Value="True"/>
+                                                </BooleanAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Border Background="White" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
+                                    <ScrollViewer x:Name="PART_ScrollViewer" Background="{TemplateBinding Background}" BorderThickness="0" BorderBrush="Transparent"
+                                          IsTabStop="{TemplateBinding IsTabStop}" CanContentScroll="True" 
+                                          FlowDirection="{TemplateBinding FlowDirection}" 
+                                          HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" 
+                                          VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                                          IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
+                                          PanningMode="{TemplateBinding ScrollViewer.PanningMode}" 
+                                          PanningRatio="{TemplateBinding ScrollViewer.PanningRatio}"
+                                          Template="{StaticResource SfDataGridScrollViewerTemplate}"
+                                          Padding="0" Margin="0" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                                        <sfdatagrid:VisualContainer x:Name="PART_VisualContainer" AllowFixedGroupCaptions="False" Background="Transparent" 
+                                                            CanHorizontallyScroll="True" ColumnCount="0" CanVerticallyScroll="True" FrozenRows="0" 
+                                                            FrozenColumns="0" FooterColumns="0" FooterRows="0" HorizontalPixelScroll="True" 
+                                                            HorizontalPadding="0" RowsGenerator="{x:Null}" RowCount="0" ScrollOwner="{x:Null}"
+                                                            ScrollableOwner="{x:Null}" VerticalPixelScroll="True" VerticalPadding="0">
+                                            <sfdatagrid:VisualContainer.RowHeightManager>
+                                                <sfdatagrid:RowHeightManager/>
+                                            </sfdatagrid:VisualContainer.RowHeightManager>
+                                            <Line x:Name="PART_HorizontalLine" Stroke="Transparent"/>
+                                            <Line x:Name="PART_VerticalLine" Stroke="Transparent"/>
+                                        </sfdatagrid:VisualContainer>
+                                    </ScrollViewer>
+                                </Border>
+                                <sfdatagrid:BusyDecorator x:Name="PART_BusyDecorator" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="ScrollViewer.VerticalScrollBarVisibility" Value="Visible">
+                                    <Setter Property="Background" Value="{StaticResource CommonWhiteBrush}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -41,15 +183,34 @@
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="1" Style="{StaticResource UCtlChildTitleTextBlockSty}"
                            Text="{DynamicResource AutoSampler_Main_SampleList}"/>
+                <!--<Button Grid.Row="1" x:Name="Btn_AddNew" Content="ADD"  Width="80" Margin="80 0 0 0"
+                                                       Click="AddElementCommand" Style="{StaticResource ButtonAddNewRowSty}"/>-->
                 <sfdatagrid:SfDataGrid Grid.Row="3" FrozenColumnCount="3" x:Name="Sample_DataGrid"
                                        ItemsSource="{Binding SampleInfos,Source={x:Static global:GlobalInfo.Instance}}"                                
                                        ColumnSizer="AutoLastColumnFill" SelectionMode="Extended" SelectionUnit="Row" 
                                        SelectedIndex="{Binding SelectedSampleIndex}"
                                        SelectedItems="{Binding SelectedSampleInfo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                                       IsEnabled="{Binding Control_ParentView.IsUseAutoSampler}"
-                                       KeyUp="PreviewKeyUpCommand">
+                                       IsEnabled="{Binding Control_ParentView.IsUseAutoSampler}" 
+                                       AddNewRowPosition="Bottom" AllowSorting="True">
+                    <!--KeyUp="PreviewKeyUpCommand"-->
                     <sfdatagrid:SfDataGrid.Resources>
-                        <ContextMenu x:Key="DataGridRowContextMenuRadyTemplate" Style="{StaticResource ContextMenuSty}" MinWidth="120" >
+                        <Style TargetType="{x:Type sfdatagrid:AddNewRowControl}" BasedOn="{StaticResource AddNewRowControlSty}">
+                                <Setter Property="Padding" Value="44 2 0 0"/>
+                                <!--<Setter Property="Background" Value="{Binding Path=ItemsSource.Count,Converter={StaticResource CountToDGAddRowBackConverter},RelativeSource={RelativeSource AncestorType={x:Type sfdatagrid:SfDataGrid}}}"/>-->
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type sfdatagrid:AddNewRowControl}">
+                                            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                                                <Button x:Name="Btn_AddNew" Content="{TemplateBinding AddNewRowText}" Padding="0" Margin="50,0,0,0"
+                                                        Click="AddElementCommand" sfdatagrid:FocusManagerHelper.FocusedElement="True" 
+                                                        Style="{StaticResource ButtonAddNewRowSty}"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                            <ContextMenu x:Key="DataGridRowContextMenuRadyTemplate" Style="{StaticResource ContextMenuSty}" MinWidth="120" >
                             <MenuItem Header="{DynamicResource MenuItem_Header_InsertRowBelow}" Click ="InsertRowCommand" Style="{StaticResource ContextMenuItemSty}"/>
                             <MenuItem Header="{DynamicResource AutoSampler_Run_AddSample}" Click ="AddSampleCommand" Style="{StaticResource ContextMenuItemSty}"/>
                             <MenuItem Header="{DynamicResource MenuItem_Header_Copy}" Click ="CopyCommand" Style="{StaticResource ContextMenuItemSty}"/>

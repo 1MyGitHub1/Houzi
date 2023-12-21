@@ -212,6 +212,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="CircleAutoSamplerCommon.cs" />
+    <Compile Include="Common\CountToDGRowBackConverter.cs" />
     <Compile Include="Common\MotorActionHelper.cs" />
     <Compile Include="Common\GetPositionInfoHelper.cs" />
     <Compile Include="Common\SampleHelper.cs" />
@@ -323,6 +324,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ShellPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Converter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

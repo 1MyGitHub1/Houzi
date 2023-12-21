@@ -17,6 +17,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Totalab_L;component/Themes/Generic.xaml"/>
+                <ResourceDictionary Source="/Totalab_L;component/Themes/Dictionary_Chinese.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -184,7 +185,7 @@
                         </Button.Content>
                     </Button>
                     <Button Style="{StaticResource ButtonCmdHeight48MinWidth100LeftSty}"
-                        Click="SaveMethodCommand">
+                        Click="SaveMethodCommand" Height="48" VerticalAlignment="Top">
                         <Button.IsEnabled>
                             <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
                                 <MultiBinding.ConverterParameter>
@@ -234,7 +235,7 @@
                                     </MultiBinding>
                                 </Button.IsEnabled>
                             </Button>
-                            <Button Content="初始化" Click="MoveToHomeCommand" Style="{StaticResource ButtonPopupBoxSty}">
+                            <Button Content="{DynamicResource AutoSampler_Main_Initialize}" Click="MoveToHomeCommand" Style="{StaticResource ButtonPopupBoxSty}">
                                 <Button.IsEnabled>
                                     <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
                                         <MultiBinding.ConverterParameter>
@@ -272,7 +273,7 @@
                                     </MultiBinding>
                                 </Button.IsEnabled>
                             </Button>
-                            <Button x:Name="Btn_Change" Content="更换进样针" Click="Btn_Change_Click" Style="{StaticResource ButtonPopupBoxSty}">
+                            <Button x:Name="Btn_Change" Content="{DynamicResource AutoSampler_Main_ChangeNeedle}" Click="Btn_Change_Click" Style="{StaticResource ButtonPopupBoxSty}">
                                 <Button.IsEnabled>
                                     <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
                                         <MultiBinding.ConverterParameter>
@@ -382,9 +383,9 @@
                                 IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"/>
                         <Button Grid.Column="4" Style="{StaticResource ButtonPrimarySty}" Content="{DynamicResource AutoSampler_Main_PositionMove}" Width="72"
                                 IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Click ="MoveToPositionCommand"/>
-                        <Button Grid.Column="8" Style="{StaticResource ButtonPrimarySty}" Content="抬起" Width="72" 
+                        <Button Grid.Column="8" Style="{StaticResource ButtonPrimarySty}" Content="{DynamicResource AutoSampler_Main_UpLift}" Width="72" 
                             IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Click="MoveToZHomeCommand"/>
-                        <Button Grid.Column="10" Style="{StaticResource ButtonPrimarySty}" Content="清洗位" Width="72" 
+                        <Button Grid.Column="10" Style="{StaticResource ButtonPrimarySty}" Content="{DynamicResource AutoSampler_Main_CleanPosition}" Width="72" 
                             IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Click="MoveToWashW1Command"/>
                     </Grid>
                     

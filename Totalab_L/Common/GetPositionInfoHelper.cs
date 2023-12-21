@@ -272,7 +272,7 @@ namespace Totalab_L.Common
                 xwMovePoint.X = xStep / GlobalInfo.XLengthPerCircle * 3600.0 + GlobalInfo.Instance.TrayPanelHomeX;
                 //下发的W要旋转的角度（含Zero）
                 xwMovePoint.Y = yStep * 60.0 + GlobalInfo.Instance.TrayPanelHomeW;
-                MainLogHelper.Instance.Info( itemNum + "号下发时的绝对距离(含Zero)：" +"["+ (xStep+ GlobalInfo.Instance.TrayPanelHomeX * GlobalInfo.XLengthPerCircle / 3600.0) + "," + (yStep + GlobalInfo.Instance.TrayPanelHomeW / 60.0) + "]" +"\n" +"(不含Zero)："+"["+xStep+","+yStep+"]");
+                MainLogHelper.Instance.Info( itemNum + "号下发时的位置(含Zero)：" +"["+ (xStep+ GlobalInfo.Instance.TrayPanelHomeX * GlobalInfo.XLengthPerCircle / 3600.0) + "," + (yStep + GlobalInfo.Instance.TrayPanelHomeW / 60.0) + "]" +"\n" +"(不含Zero)："+"["+xStep+","+yStep+"]");
                 return xwMovePoint;
             }
             catch(Exception ex)
@@ -297,14 +297,14 @@ namespace Totalab_L.Common
                     length = Math.Sqrt(Math.Pow(ArmLength, 2) - Math.Pow(itemXToCenter, 2)) - 49;
                     xStep = GlobalInfo.Instance.TrayPanelCenter  + length;
                     angle = 180.0 * Math.Asin(itemXToCenter / ArmLength) / Math.PI;
-                    yStep = GlobalInfo.Instance.TrayPanel_leftW  - angle;
+                    yStep = GlobalInfo.Instance.TrayPanel_leftW  - angle + GlobalInfo.Instance.CalibrationInfo.OffsetCalibrationW / 2;
                 }
                 else if (washPos == "W2")
                 {
                     length = Math.Sqrt(Math.Pow(ArmLength, 2) - Math.Pow(itemXToCenter, 2)) - 22;
                     xStep = GlobalInfo.Instance.TrayPanelCenter + length;
                     angle = 180.0 * Math.Asin(itemXToCenter / ArmLength) / Math.PI;
-                    yStep = GlobalInfo.Instance.TrayPanel_leftW  - angle;
+                    yStep = GlobalInfo.Instance.TrayPanel_leftW  - angle + GlobalInfo.Instance.CalibrationInfo.OffsetCalibrationW / 2;
                 }
                 xwMovePoint.X = xStep / GlobalInfo.XLengthPerCircle * 3600.0 + GlobalInfo.Instance.TrayPanelHomeX;
                 xwMovePoint.Y = yStep * 60.0 + GlobalInfo.Instance.TrayPanelHomeW;
@@ -325,7 +325,7 @@ namespace Totalab_L.Common
             int isCollisionStatus = 0;
             if (itemNum >= GlobalInfo.Instance.TrayAInfos.TrayStartNumber && itemNum <= GlobalInfo.Instance.TrayBInfos.TrayEndNumber)//旋转左
             {
-                if ((pt.X - GlobalInfo.Instance.TrayPanelHomeX) / 3600.0 * GlobalInfo.XLengthPerCircle < 152.5 - 109.5) { isCollisionStatus = 1; }
+                if ((pt.X - GlobalInfo.Instance.TrayPanelHomeX) / 3600.0 * GlobalInfo.XLengthPerCircle < 80) { isCollisionStatus = 1; }
                     
                 //if ((GlobalInfo.returnPositionX - GlobalInfo.Instance.TrayPanelHomeX) / 3600.0 * GlobalInfo.XLengthPerCircle < 130)
                 //    isCollisionStatus = 1;
@@ -339,6 +339,10 @@ namespace Totalab_L.Common
                 //if (454 - (GlobalInfo.returnPositionX - GlobalInfo.Instance.TrayPanelHomeX) / 3600.0 * GlobalInfo.XLengthPerCircle < 152.5 - 109.5) { isCollisionStatus = 2; }
                 MainLogHelper.Instance.Info("右边当前会碰撞点的位置：" + pt.X.ToString());
             }
+            //else if (Math.Abs(pt.X- GlobalInfo.LastPositionX) > 200 && Math.Abs(pt.Y-GlobalInfo.LastPositionW) > 270)
+            //{
+            //    isCollisionStatus = 3;
+            //}
 
             return isCollisionStatus;
         }

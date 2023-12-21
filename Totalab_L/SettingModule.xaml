@@ -14,6 +14,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Totalab_L;component/Themes/Generic.xaml"/>
+                <ResourceDictionary Source="/Totalab_L;component/Themes/Dictionary_Chinese.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <global:RadioButtonConvert x:Key="radioConverterRes"/>
             <global:MultiVisibleConvert x:Key="MultiVisibleConvertKey"/>
@@ -36,8 +37,8 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
-            <TextBlock Text="参数文件名称:" Style="{StaticResource UCtlChildTitleTextBlockSty}" VerticalAlignment="Center" />
-            <TextBlock x:Name="name_parameter" Text="{Binding Method_Name}" VerticalAlignment="Center" Width="300" Margin="30,0,0,0"/>
+            <TextBlock Text="{DynamicResource AutoSampler_Main_ParameterFileName}" Style="{StaticResource UCtlChildTitleTextBlockSty}" VerticalAlignment="Center" />
+            <TextBlock x:Name="name_parameter" Text="{Binding Method_Name}" VerticalAlignment="Center" Width="300" Margin="50,0,0,0"/>
             <Button  Style="{StaticResource ButtonCmdHeight48MinWidth100LeftSty}" Click="OpenParaCommand" Margin="240,0,0,0">
                 <Button.IsEnabled>
                     <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
@@ -105,7 +106,7 @@
                     <RowDefinition Height="24"/>
                 </Grid.RowDefinitions>
                 <!--位置参数-->
-                <TextBlock Text="机械臂参数" Style="{StaticResource UCtlChildTitleTextBlockSty}"/>
+                <TextBlock Text="{DynamicResource AutoSampler_Main_MechanicalArmPara}" Style="{StaticResource UCtlChildTitleTextBlockSty}"/>
                 <!--<Button Grid.Column="1" Content="{DynamicResource ButtonContent_Reset}" Style="{StaticResource ButtonPrimaryWidStretchSty}"
                         Click="GoToHomeCommand"/>-->
                 <!--<TextBlock Text="{DynamicResource AutoSampler_SamplingTube}" Grid.Row="2"/>-->
@@ -124,8 +125,8 @@
                 <!--进样针设置-->
                 <Button Grid.Row="4"  Grid.Column="3" Style="{StaticResource ButtonPrimaryWidStretchSty}" Content="{DynamicResource ButtonContent_Set}"
                         Click="SetCommand" IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"/>
-                
-                <TextBlock Grid.Row="2" Text="接液盘常开" Style="{StaticResource TextBlockFore60Sty}"/>
+
+                <TextBlock Grid.Row="2" Text="{DynamicResource AutoSampler_Main_WettedParts}" Style="{StaticResource TextBlockFore60Sty}"/>
                 <!--<Button Grid.Row="6"  Grid.Column="3" Style="{StaticResource ButtonPrimaryWidStretchSty}" Content="{DynamicResource ButtonContent_Set}"
                          IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"/>-->
                 <ToggleButton Grid.Column="1" Grid.Row="2"  Style="{StaticResource ToggleButtonSwitchSty}"  Grid.ColumnSpan="3" Width="80" HorizontalAlignment="Left"
@@ -180,12 +181,12 @@
                         Style="{StaticResource ButtonAccentWidStretchSty}"
                         Click="StopRinseCommand"/>
 
-                <TextBlock Grid.Row="2"  Text="1号洗针位" Style="{StaticResource TextBlockFore60Sty}"/>
+                <TextBlock Grid.Row="2"  Text="{DynamicResource AutoSampler_Main_FirstNeedleWashingPosition}" Style="{StaticResource TextBlockFore60Sty}"/>
                 <ToggleButton Grid.Column="1" Grid.Row="2"  Style="{StaticResource ToggleButtonSwitchSty}" Grid.ColumnSpan="3" Width="80" HorizontalAlignment="Left"
                               IsChecked="{Binding SettingInfo.IsWash1Open,Source={x:Static global:GlobalInfo.Instance},UpdateSourceTrigger=PropertyChanged}"
                               IsEnabled="False"/>
                 <TextBlock Grid.Row="4"  Text="{DynamicResource AutoSampler_ConstSet_PumpRate}" Style="{StaticResource TextBlockFore60Sty}"/>
-                <ltCtl:CustomNumericBox Grid.Row="4" Grid.Column="1" DecimalPrecision="1" 
+                <ltCtl:CustomNumericBox Grid.Row="4" Grid.Column="1" DecimalPrecision="1" MinValue="0"
                                         Text="{Binding SettingInfo.PumpSpeed1,Source={x:Static global:GlobalInfo.Instance}}"
                                     Style="{StaticResource CustomNumericBoxSty}" IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"/>
 
@@ -193,25 +194,25 @@
                 <!--清洗时间-->
                 <TextBlock Grid.Row="6"  Text="{DynamicResource AutoSampler_ConstSet_WashTime}" Style="{StaticResource TextBlockFore60Sty}"/>
                 <ltCtl:CustomNumericBox Grid.Row="6" Grid.Column="1" DecimalPrecision="0"
-                                    IsUseShortInt="True"  Text="{Binding SettingInfo.Wash1Time,Source={x:Static global:GlobalInfo.Instance}}"
+                                    IsUseShortInt="True" MinValue="0"  Text="{Binding SettingInfo.Wash1Time,Source={x:Static global:GlobalInfo.Instance}}"
                                     Style="{StaticResource CustomNumericBoxSty}" IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"/>
 
                 <TextBlock Grid.Row="6" Grid.Column="3" Text="s" IsHyphenationEnabled="True" Style="{StaticResource TextBlockFore60Sty}"/>
-                
-                
-                <TextBlock Grid.Row="2"  Grid.Column=" 6" Text="2号洗针位" Style="{StaticResource TextBlockFore60Sty}"/>
+
+
+                <TextBlock Grid.Row="2"  Grid.Column=" 6" Text="{DynamicResource AutoSampler_Main_FirstNeedleWashingPosition}" Style="{StaticResource TextBlockFore60Sty}"/>
                 <ToggleButton Grid.Column="8" Grid.Row="2"  Style="{StaticResource ToggleButtonSwitchSty}"  Grid.ColumnSpan="3" Width="80" HorizontalAlignment="Left"
                              IsChecked="{Binding SettingInfo.IsWash2Open,Source={x:Static global:GlobalInfo.Instance},UpdateSourceTrigger=PropertyChanged}" 
                               IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"/>
                 <TextBlock Grid.Column="6" Grid.Row="4"  Text="{DynamicResource AutoSampler_ConstSet_PumpRate}" Style="{StaticResource TextBlockFore60Sty}"/>
-                <ltCtl:CustomNumericBox Grid.Row="4" Grid.Column="8" DecimalPrecision="1" 
+                <ltCtl:CustomNumericBox Grid.Row="4" Grid.Column="8" DecimalPrecision="1" MinValue="0"
                                         Text="{Binding SettingInfo.PumpSpeed2,Source={x:Static global:GlobalInfo.Instance}}"
                                     Style="{StaticResource CustomNumericBoxSty}" IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"/>
 
                 <TextBlock Grid.Row="4" Grid.Column="10" Text="rpm" IsHyphenationEnabled="True" Style="{StaticResource TextBlockFore60Sty}"/>
                 <!--清洗时间-->
                 <TextBlock Grid.Row="6" Grid.Column="6"  Text="{DynamicResource AutoSampler_ConstSet_WashTime}" Style="{StaticResource TextBlockFore60Sty}"/>
-                <ltCtl:CustomNumericBox Grid.Row="6" Grid.Column="8" DecimalPrecision="0"
+                <ltCtl:CustomNumericBox Grid.Row="6" Grid.Column="8" DecimalPrecision="0" MinValue="0"
                                     IsUseShortInt="True"  Text="{Binding SettingInfo.Wash2Time,Source={x:Static global:GlobalInfo.Instance}}"
                                     Style="{StaticResource CustomNumericBoxSty}" IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"/>
 

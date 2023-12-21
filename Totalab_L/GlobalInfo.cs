@@ -24,20 +24,26 @@ namespace Totalab_L
         public const double ZLengthPerCircle = 31.9966;                 //48;///Z齿轮转一圈的长度
 
         public static bool IsAutoTuning = false;
+        public static bool IsStopOptimization = false;                  //调谐--是否点了停止优化
 
         public static double Zlength = 1;                   //进样针下降深度
         public static double ZPut_up = 0;                   //进样针抬起高度
 
         public static bool Uplift = false;
 
-        public static bool status = false;                  //漏液槽状态
+        public static bool status = false;                  //漏液槽状态--复位后如果要关闭就置为true
         public static bool calibration_status=false;            //校准页漏液槽不需要关
 
         public static int returnPositionX = 0;              //移动后返回的值
         public static int returnPositionW = 0;
 
         public static double deviation_angle = 0;           //补偿角度
-        public static string MethodName;
+        public static string MethodName;                    //设置界面打开的方法名称
+        public static double LastPositionX = 0;              //上一个位置X
+        public static double LastPositionW = 0;              //上一个位置W
+
+        public static bool IsLoctionError = false;            //输入的样品位置超限
+        public static bool IsAgainPower = false;            //是否重新上电
 
         ///<summary>
         ///自动进样器通信接口
@@ -94,6 +100,20 @@ namespace Totalab_L
             }
         }
         private MethodInfo _currentMethod = new MethodInfo();
+        ///// <summary>
+        ///// 设置界面的方法名称
+        ///// </summary>
+        //public string Method_Name
+        //{
+        //    get => _method_Name;
+        //    set
+        //    {
+        //        _method_Name = value;
+        //        NotifyPropertyChanged("Method_Name");
+        //    }
+
+        //}
+        //private string _method_Name;
 
         public SettingInfo SettingInfo
         {

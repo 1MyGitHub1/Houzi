@@ -205,7 +205,7 @@ namespace Totalab_L.Common
                 {
                     longseconds = DateTime.Now.Ticks / 10000;
                     while (!(GlobalInfo.Instance.IsMotorXError == false && GlobalInfo.Instance.IsMotorWError == false && GlobalInfo.Instance.IsMotorZError == false)
-                        && (DateTime.Now.Ticks / 10000 - longseconds) / 1000 < 10)
+                        && (DateTime.Now.Ticks / 10000 - longseconds) / 1000 < 5)
                     {
                         Thread.Sleep(100);
                     }
