@@ -533,8 +533,8 @@ namespace Totalab_L
                     SampleItemInfo samplingInfo = GlobalInfo.Instance.SampleInfos[SelectedSampleIndex];
                     int samplingCount = GlobalInfo.Instance.SampleInfos.Where(m => m.ExpStatus == Exp_Status.Ready).Count();
                     List<AutoSampler_SamInfo> list = new List<AutoSampler_SamInfo>();
-                    if (SelectedSampleIndex < samplingCount)
-                    {
+                    //if (SelectedSampleIndex < samplingCount)
+                    //{
                         GlobalInfo.Instance.SampleInfos[SelectedSampleIndex].ExpStatus = CopySamplingInfo.ExpStatus;
                         GlobalInfo.Instance.SampleInfos[SelectedSampleIndex].IsChecked = CopySamplingInfo.IsChecked;
                         GlobalInfo.Instance.SampleInfos[SelectedSampleIndex].Overwash = CopySamplingInfo.Overwash;
@@ -555,43 +555,54 @@ namespace Totalab_L
                                 OperationMode = EnumSamOperationMode.Update
                             };
                             list.Add(info);
-                        }
-                    }
-                    else
-                    {
-                        for (int i = samplingCount; i < SelectedSampleIndex + 1; i++)
-                        {
-                            GlobalInfo.Instance.SampleInfos[i].IsChecked = CopySamplingInfo.IsChecked;
-                            GlobalInfo.Instance.SampleInfos[i].ExpStatus = CopySamplingInfo.ExpStatus;
-                            GlobalInfo.Instance.SampleInfos[i].Overwash = CopySamplingInfo.Overwash;
-                            GlobalInfo.Instance.SampleInfos[i].SampleName = CopySamplingInfo.SampleName;
-                            GlobalInfo.Instance.SampleInfos[i].SampleLoc = CopySamplingInfo.SampleLoc;
-                            GlobalInfo.Instance.SampleInfos[i].MethodType = CopySamplingInfo.MethodType;
-                            GlobalInfo.Instance.SampleInfos[i].SampleGuid = Guid.NewGuid();
-                            if (GlobalInfo.Instance.IsHimassConnState && Control_ParentView.IsUseAutoSampler)
+                            if (list.Count > 0)
                             {
-                                AutoSampler_SamInfo info = new AutoSampler_SamInfo
+                                Control_ParentView.MainWindow_AutoSamplerSendSamDataEvent(null, new AutoSamplerEventArgs()
                                 {
-                                    SamID = GlobalInfo.Instance.SampleInfos[i].SampleGuid,
-                                    SamName = GlobalInfo.Instance.SampleInfos[i].SampleName,
-                                    Location = GlobalInfo.Instance.SampleInfos[i].SampleLoc.Value,
-                                    IsAnalyze = GlobalInfo.Instance.SampleInfos[i].IsChecked,
-                                    AnalysisType = GlobalInfo.Instance.SampleInfos[i].MethodType.Value,
-                                    OverWash = GlobalInfo.Instance.SampleInfos[i].Overwash == null ? 0 : GlobalInfo.Instance.SampleInfos[i].Overwash.Value,
-                                    OperationMode = EnumSamOperationMode.Add
-                                };
-                                list.Add(info);
+                                    SamInfoList = list
+                                });
                             }
+                            RefreshSampleNum();
+
                         }
-                        if (list.Count > 0)
-                        {
-                            Control_ParentView.MainWindow_AutoSamplerSendSamDataEvent(null, new AutoSamplerEventArgs()
-                            {
-                                SamInfoList = list
-                            });
-                        }
-                        RefreshSampleNum();
-                    }
+                    //}
+                    //23-12-26修改（只更新1条）
+                    //else
+                    //{
+                    //    for (int i = samplingCount; i < SelectedSampleIndex + 1; i++)
+                    //    {
+                    //        GlobalInfo.Instance.SampleInfos[i].IsChecked = CopySamplingInfo.IsChecked;
+                    //        GlobalInfo.Instance.SampleInfos[i].ExpStatus = CopySamplingInfo.ExpStatus;
+                    //        GlobalInfo.Instance.SampleInfos[i].Overwash = CopySamplingInfo.Overwash;
+                    //        GlobalInfo.Instance.SampleInfos[i].SampleName = CopySamplingInfo.SampleName;
+                    //        GlobalInfo.Instance.SampleInfos[i].SampleLoc = CopySamplingInfo.SampleLoc;
+                    //        GlobalInfo.Instance.SampleInfos[i].MethodType = CopySamplingInfo.MethodType;
+                    //        GlobalInfo.Instance.SampleInfos[i].SampleGuid = Guid.NewGuid();
+                    //        if (GlobalInfo.Instance.IsHimassConnState && Control_ParentView.IsUseAutoSampler)
+                    //        {
+                    //            AutoSampler_SamInfo info = new AutoSampler_SamInfo
+                    //            {
+                    //                SamID = GlobalInfo.Instance.SampleInfos[i].SampleGuid,
+                    //                SamName = GlobalInfo.Instance.SampleInfos[i].SampleName,
+                    //                Location = GlobalInfo.Instance.SampleInfos[i].SampleLoc.Value,
+                    //                IsAnalyze = GlobalInfo.Instance.SampleInfos[i].IsChecked,
+                    //                AnalysisType = GlobalInfo.Instance.SampleInfos[i].MethodType.Value,
+                    //                OverWash = GlobalInfo.Instance.SampleInfos[i].Overwash == null ? 0 : GlobalInfo.Instance.SampleInfos[i].Overwash.Value,
+                    //                //OperationMode = EnumSamOperationMode.Add
+                    //                OperationMode = EnumSamOperationMode.Update
+                    //            };
+                    //            list.Add(info);
+                    //        }
+                    //    }
+                    //    if (list.Count > 0)
+                    //    {
+                    //        Control_ParentView.MainWindow_AutoSamplerSendSamDataEvent(null, new AutoSamplerEventArgs()
+                    //        {
+                    //            SamInfoList = list
+                    //        });
+                    //    }
+                    //    RefreshSampleNum();
+                    //}
                 }
             }
             catch (Exception ex) { MainLogHelper.Instance.Error("RunningPage [PasteHereCommand]：", ex); }
@@ -782,15 +793,48 @@ namespace Totalab_L
 
             try
             {
+                List<AutoSampler_SamInfo> list = new List<AutoSampler_SamInfo>();
                 if (sender is FrameworkElement frameworkElement && frameworkElement != null
                  && frameworkElement.DataContext is SampleItemInfo samplinginfo && samplinginfo != null && samplinginfo.ExpStatus == Exp_Status.Ready)
                 {
                     int row = GlobalInfo.Instance.SampleInfos.IndexOf(samplinginfo);
                     for (int i = 0; i < row; i++)
                     {
-                        GlobalInfo.Instance.SampleInfos[i].IsChecked = false;
+                        if (GlobalInfo.Instance.SampleInfos[i - 1].ExpStatus == Exp_Status.Running)
+                        {
+                            GlobalInfo.Instance.SampleInfos[i].IsChecked = true;
+                        }
+                        else
+                        {
+                            GlobalInfo.Instance.SampleInfos[i].IsChecked = false;
+                        }
                     }
                     IsSamplingSelectedAll = GlobalInfo.Instance.SampleInfos.Where(item => item.ExpStatus == Exp_Status.Ready).Count(item => item.IsChecked == false) == 0 ? true : false;
+                    if (GlobalInfo.Instance.IsHimassConnState && Control_ParentView.IsUseAutoSampler)
+                    {
+                        int allrow = GlobalInfo.Instance.SampleInfos.Where(m => m.ExpStatus != Exp_Status.Free).Count();
+                        for (int i = 0; i < allrow; i++)
+                        {
+                            AutoSampler_SamInfo info = new AutoSampler_SamInfo
+                            {
+                                SamID = GlobalInfo.Instance.SampleInfos[i].SampleGuid,
+                                SamName = GlobalInfo.Instance.SampleInfos[i].SampleName,
+                                Location = GlobalInfo.Instance.SampleInfos[i].SampleLoc.Value,
+                                IsAnalyze = GlobalInfo.Instance.SampleInfos[i].IsChecked,
+                                AnalysisType = GlobalInfo.Instance.SampleInfos[i].MethodType.Value,
+                                OverWash = (long)GlobalInfo.Instance.SampleInfos[i].Overwash,
+                                OperationMode = EnumSamOperationMode.Update
+                            };
+                            list.Add(info);
+                        }
+                        if (list.Count > 0)
+                        {
+                            Control_ParentView.MainWindow_AutoSamplerSendSamDataEvent(null, new AutoSamplerEventArgs()
+                            {
+                                SamInfoList = list
+                            });
+                        }
+                    }
                 }
             }
             catch (Exception ex) { MainLogHelper.Instance.Error("RunningPage [StartThisRowCommand]：", ex); }
@@ -1297,6 +1341,7 @@ namespace Totalab_L
                 {
                     samplingIndex = 0;
                 }
+                GlobalInfo.IsStopOptimization = false;                  //停止调谐后接着分析样品，主要控制取样下扎
                 methodTask = new Thread(MethodRun);
                 methodTask.Start();
             }
@@ -1510,7 +1555,7 @@ namespace Totalab_L
                         }
                         OperationMode = null;
                         //GlobalInfo.Instance.IsBusy = true;
-                        GlobalInfo.Instance.IsCanRunning = false;               //锁住
+                        //GlobalInfo.Instance.IsCanRunning = false;               //锁住
 
                     }
                     SampleItemInfo info = GlobalInfo.Instance.SampleInfos[samplingIndex];           //查询25条样品信息的第某条信息
@@ -1763,7 +1808,10 @@ namespace Totalab_L
                             GlobalInfo.Instance.RunningStep = RunningStep_Status.PreWashOk;
                         }
                         else
+                        {
+                            isFirstRun = true;
                             GlobalInfo.Instance.RunningStep = RunningStep_Status.PreWashOk;
+                        }
                         #endregion
 
                         #region 如果预清洗完成，就去样品位置
@@ -5251,7 +5299,7 @@ namespace Totalab_L
                 List<AutoSampler_SamInfo> list = new List<AutoSampler_SamInfo>();
                 int sampleCount = GlobalInfo.Instance.SampleInfos.Where(m => m.SampleNum != null).Count();
                 insertIndex = sampleCount - 1;
-                if (sampleCount<=0)
+                if (sampleCount <= 0)
                 {
                     if (SelectedSampleIndex < 0)
                     {
@@ -5298,17 +5346,18 @@ namespace Totalab_L
                 }
                 else
                 {
-                    SampleItemInfo lastSamplingInfo = GlobalInfo.Instance.SampleInfos.Where(m => m.ExpStatus == Exp_Status.Ready|| m.ExpStatus == Exp_Status.Complete|| m.ExpStatus == Exp_Status.Standby).LastOrDefault();
+                    SampleItemInfo lastSamplingInfo = GlobalInfo.Instance.SampleInfos.Where(m => m.ExpStatus == Exp_Status.Ready || m.ExpStatus == Exp_Status.Complete || m.ExpStatus == Exp_Status.Standby).LastOrDefault();
                     if (lastSamplingInfo != null)
                     {
                         insertIndex = insertIndex + 1;
                         SampleItemInfo newSamplingInfo = new SampleItemInfo()
                         {
+                            //SampleGuid = GlobalInfo.Instance.SampleInfos[SelectedSampleIndex].SampleGuid,
                             SampleGuid = Guid.NewGuid(),
                             ExpStatus = Exp_Status.Ready,
                             IsChecked = true,
                             SampleName = string.IsNullOrEmpty(lastSamplingInfo.SampleName) ? null : GetNextSampleID(lastSamplingInfo.SampleName),
-                            SampleNum = lastSamplingInfo.SampleNum+1,
+                            SampleNum = lastSamplingInfo.SampleNum + 1,
                             SampleLoc = lastSamplingInfo.SampleLoc.Value + 1,
                             MethodType = lastSamplingInfo.MethodType,
                             PreMethodType = lastSamplingInfo.MethodType,
@@ -5342,78 +5391,7 @@ namespace Totalab_L
                         SampleHelper.RefreshSamplerItemStatus(ExpStatus);
 
                     }
-                    //else
-                    //{
-                    //    SampleItemInfo lastSamplingCompleteInfo = GlobalInfo.Instance.SampleInfos.Where(m => m.ExpStatus == Exp_Status.Complete).LastOrDefault();
-                    //    if (lastSamplingCompleteInfo != null)
-                    //    {
-                    //        insertIndex = insertIndex + 1;
-                    //        SampleItemInfo newSamplingInfo = new SampleItemInfo()
-                    //        {
-                    //            SampleGuid = Guid.NewGuid(),
-                    //            ExpStatus = Exp_Status.Ready,
-                    //            IsChecked = true,
-                    //            SampleName = string.IsNullOrEmpty(lastSamplingCompleteInfo.SampleName) ? null : GetNextSampleID(lastSamplingCompleteInfo.SampleName),
-                    //            SampleNum = lastSamplingCompleteInfo.SampleNum,
-                    //            SampleLoc = lastSamplingCompleteInfo.SampleLoc.Value + 1,
-                    //            MethodType = lastSamplingCompleteInfo.MethodType,
-                    //            PreMethodType = lastSamplingCompleteInfo.MethodType,
-                    //            Overwash = lastSamplingCompleteInfo.Overwash,
-                    //        };
-                    //        GlobalInfo.Instance.SampleInfos.Insert(insertIndex, newSamplingInfo);
-                    //        IsSamplingSelectedAll = GlobalInfo.Instance.SampleInfos.Where(item => item.ExpStatus == Exp_Status.Ready).Count(item => item.IsChecked == false) == 0 ? true : false;
-                    //        if (GlobalInfo.Instance.IsHimassConnState && Control_ParentView.IsUseAutoSampler)
-                    //        {
-                    //            AutoSampler_SamInfo info = new AutoSampler_SamInfo
-                    //            {
-                    //                SamID = newSamplingInfo.SampleGuid,
-                    //                SamName = newSamplingInfo.SampleName,
-                    //                Location = newSamplingInfo.SampleLoc.Value,
-                    //                IsAnalyze = newSamplingInfo.IsChecked,
-                    //                AnalysisType = newSamplingInfo.MethodType.Value,
-                    //                OverWash = newSamplingInfo.Overwash == null ? 0 : newSamplingInfo.Overwash.Value,
-                    //                OperationMode = EnumSamOperationMode.Add
-                    //            };
-                    //            list.Add(info);
-                    //            if (list.Count > 0)
-                    //            {
-                    //                Control_ParentView.MainWindow_AutoSamplerSendSamDataEvent(null, new AutoSamplerEventArgs()
-                    //                {
-                    //                    SamInfoList = list
-                    //                });
-                    //            }
-                    //        }
-
-                    //        RefreshSampleNum();
-                    //        SampleHelper.RefreshSamplerItemStatus(ExpStatus);
-
-                    //    }
-
-
-                    //}
                 }
-                //    if (GlobalInfo.Instance.IsHimassConnState && Control_ParentView.IsUseAutoSampler)
-                //    {
-                //        AutoSampler_SamInfo info = new AutoSampler_SamInfo
-                //        {
-                //            SamID = newSamplingInfo.SampleGuid,
-                //            SamName = newSamplingInfo.SampleName,
-                //            Location = newSamplingInfo.SampleLoc.Value,
-                //            IsAnalyze = newSamplingInfo.IsChecked,
-                //            AnalysisType = newSamplingInfo.MethodType.Value,
-                //            OverWash = newSamplingInfo.Overwash == null ? 0 : newSamplingInfo.Overwash.Value,
-                //            OperationMode = EnumSamOperationMode.Add
-                //        };
-                //        list.Add(info);
-                //    }
-                //SampleHelper.RefreshSamplerItemStatus(ExpStatus);
-                //if (list.Count > 0)
-                //{
-                //    Control_ParentView.MainWindow_AutoSamplerSendSamDataEvent(null, new AutoSamplerEventArgs()
-                //    {
-                //        SamInfoList = list
-                //    });
-                //}
             }
             catch (Exception ex)
             {

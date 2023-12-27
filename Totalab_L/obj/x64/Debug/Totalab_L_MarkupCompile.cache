@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 
-15-151043195
+16-2046327502
 
 48499817569
 156-1088601131
-AboutPage.xaml;AddSamplePage.xaml;MessagePage.xaml;MethodSelectorPage.xaml;RegisterSNPage.xaml;SampleListModule.xaml;SamplerPosSetPage.xaml;SettingModule.xaml;ShellPage.xaml;Themes\Converter.xaml;Themes\Dictionary_Chinese.xaml;Themes\RadioButtonTheme.xaml;Themes\SfDataGridRowSty.xaml;Themes\Generic.xaml;Themes\TrayControlTheme.xaml;
+AboutPage.xaml;AddSamplePage.xaml;MessagePage.xaml;MethodSelectorPage.xaml;RegisterSNPage.xaml;SampleListModule.xaml;SamplerPosSetPage.xaml;SettingModule.xaml;ShellPage.xaml;Themes\Converter.xaml;Themes\Dictionary_Chinese.xaml;Themes\Dictionary_English.xaml;Themes\RadioButtonTheme.xaml;Themes\SfDataGridRowSty.xaml;Themes\Generic.xaml;Themes\TrayControlTheme.xaml;
 
 False
 

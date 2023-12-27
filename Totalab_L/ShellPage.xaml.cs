@@ -36,7 +36,7 @@ namespace Totalab_L
             InitializeComponent();
             this.DataContext = this;
             GlobalInfo.Instance.Totalab_LSerials.MsgCome += Sampler_MsgCome;
-            //IsConnect = true;                 //单机调试使用
+            IsConnect = true;                 //单机调试使用
             ConnectThread = new Thread(Connect);
             ConnectThread.Start();
 
@@ -916,7 +916,19 @@ namespace Totalab_L
                         //#region  防止撞针
                         samplerPosSetPage.MoveToZ_0Command();
                         Thread.Sleep(100);
-
+                        if (GlobalInfo.Instance.IsMotorXError || GlobalInfo.Instance.IsMotorWError || GlobalInfo.Instance.IsMotorZError)
+                        {
+                            bool result = MotorActionHelper.MotorClearError();
+                            if (result == false)
+                            {
+                                ConntectWaring();
+                                return;
+                            }
+                            else
+                            {
+                                samplerPosSetPage.MoveToZ_0Command();
+                            }
+                        }
                         Point pt = new Point();
                         int isCollisionStatus = 0;
                         if (CurrentPosition == "W1")
@@ -2465,7 +2477,10 @@ namespace Totalab_L
                         });
                     }
                 }
-                Control_SettingView.Method_Name = "";                   //清空一下方法名称
+                if (Control_SettingView != null)
+                {
+                    Control_SettingView.Method_Name = "";                   //清空一下方法名称
+                }
                 GlobalInfo.Instance.SampleInfos = new ObservableCollection<SampleItemInfo>();
                 //SampleHelper.CreateSampleInfos(1);//运行显示25
                 CurrentRotationIndex = 0;
@@ -3526,11 +3541,12 @@ namespace Totalab_L
                             //GlobalInfo.Instance.Totalab_LSerials.SetMotorWorkType(0x02, 0x01);
                             //Thread.Sleep(300);
                             //}
+                            GlobalInfo.Instance.IsBusy = false;
+                            GlobalInfo.Instance.IsCanRunning = true;
+
                             GlobalInfo.Instance.Totalab_LSerials.SetMotorWorkType(0x03, 0x01);
                             Thread.Sleep(300);
                             GlobalInfo.Instance.Totalab_LSerials.ReadMotorPosition((byte)0x01);
-                            GlobalInfo.Instance.IsBusy = false;
-
                         }
                         else if(e.Msg.DataLength == 1)
                         {
@@ -3689,7 +3705,8 @@ namespace Totalab_L
                     for (int i = 0; i < msgArg.SamInfoList.Count; i++)
                     {
                         AutoSampler_SamInfo samInfo = msgArg.SamInfoList[i];
-                        //MainLogHelper.Instance.Info(samInfo.SamName + "[" + samInfo.SamID + "]" + samInfo.Location + samInfo.OperationMode + samInfo.IsAnalyze + samInfo.AnalysisType+ samInfo.NextSamID);
+                        //MainLogHelper.Instance.Info("进样器发送："+ samInfo.SamName + "[" + samInfo.SamID + "]" + samInfo.Location + samInfo.OperationMode + samInfo.IsAnalyze + samInfo.AnalysisType + samInfo.NextSamID);
+                        //Trace.WriteLine("进样器发送：" + samInfo.SamName + "[" + samInfo.SamID + "]" + samInfo.Location + samInfo.OperationMode + samInfo.IsAnalyze + samInfo.AnalysisType + samInfo.NextSamID);
                     }
                 }
 
@@ -3734,7 +3751,7 @@ namespace Totalab_L
         }
         #endregion
         /// <summary>
-        /// 连接Mass时接收
+        /// 连接Mass时接收/发送
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="msgArg"></param>
@@ -4170,7 +4187,8 @@ namespace Totalab_L
                                 }));
                             }
                         }
-                        Trace.WriteLine(string.Format("Name:[{0}] Mode:[{1}] Location:[{2}] Type:[{3}] ID:[{4}]", samInfo.SamName, samInfo.OperationMode, samInfo.Location, samInfo.AnalysisType, samInfo.SamID));
+                        //MainLogHelper.Instance.Info(string.Format("Mass发送：Name:[{0}] Mode:[{1}] Location:[{2}] Type:[{3}] ID:[{4}]", samInfo.SamName, samInfo.OperationMode, samInfo.Location, samInfo.AnalysisType, samInfo.SamID));
+                        //Trace.WriteLine(string.Format("Name:[{0}] Mode:[{1}] Location:[{2}] Type:[{3}] ID:[{4}]", samInfo.SamName, samInfo.OperationMode, samInfo.Location, samInfo.AnalysisType, samInfo.SamID));
                     }
                 }
             }
@@ -4193,6 +4211,7 @@ namespace Totalab_L
             {
                 if (msgArg != null)
                 {
+                    MainLogHelper.Instance.Info(string.Format("Auto Sampler ObjectData Type:[{0}]", msgArg.MessParamType));
                     Trace.WriteLine(string.Format("Auto Sampler ObjectData Type:[{0}]", msgArg.MessParamType));
 
                     //更新是否使用自动进样器的状态消息
@@ -4360,7 +4379,7 @@ namespace Totalab_L
                         Control_SampleListView.stopType = 0;
                         Control_SampleListView.CurrnentLoc = "";
                         Control_SampleListView.IsStopWash = false;
-                        GlobalInfo.IsStopOptimization = false;              //为了
+                        GlobalInfo.IsStopOptimization = false;              //为了在电点击停止优化的时候更及时的停止进样器
                     }
                     else if (msgArg.MessParamType == EnumMessParamType.StopAutoTuningTask)
                     {

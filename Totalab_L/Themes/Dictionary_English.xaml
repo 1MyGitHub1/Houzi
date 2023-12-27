@@ -1,0 +1,55 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <system:String x:Key="AutoSampler_Main_UpLift">Lift</system:String>
+    <system:String x:Key="AutoSampler_Main_CleanPosition">Clean position</system:String>
+    <system:String x:Key="AutoSampler_Main_ChangeNeedle">Replace needle</system:String>
+    <system:String x:Key="AutoSampler_Main_Sampling">Sampling</system:String>
+    <system:String x:Key="AutoSampler_Main_Initialize">Initialize</system:String>
+    <system:String x:Key="AutoSampler_Main_ParameterFileName">ParameterFileName:</system:String>
+    <system:String x:Key="AutoSampler_Main_MechanicalArmPara">Manipulator parameter</system:String>
+    <system:String x:Key="AutoSampler_Main_WettedParts">WettedPartsNormallyOpen</system:String>
+    <system:String x:Key="AutoSampler_Main_FirstNeedleWashingPosition">Cleaning position W1:</system:String>
+    <system:String x:Key="AutoSampler_Main_SecondNeedleWashingPosition">Cleaning position W2:</system:String>
+
+    <system:String x:Key="AutoSampler_AdvancedSetPage_SetCalibrationPara">Point calibration</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_SetTestPara">Point test</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_SetSamplePara">Sample tube parameter</system:String>
+
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleLocationPara">Position parameter</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleCalibrationLocPara">Calibration position parameter</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleHandControl">Arm trimming</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleTestPositionPara">Test point location parameters</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleRobotArmControl">Manipulator control</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleSampleCellPara">Sample tube parameter</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleNeedleSpeedSet">Needle lift speed setting</system:String>
+
+
+    <system:String x:Key="AutoSampler_AdvancedSetPage_ClearErrors">Debugging</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TranslationPara">Translation distance(mm)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_AnglePara">Rotation Angle(rds)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_DeclineHeightPara">Descent height(mm)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_NeedleReset">Needle reduction</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_FineTuningX">Fine distance(mm)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_FineTuningW">Fine angle(rds)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_CurrentPlace">Current position(mm):</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_CurrentAngle">Current angle(rds):</system:String>
+
+    <system:String x:Key="AutoSampler_AdvancedSetPage_SampleNum">Sample tube（num）</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftHeight">Lifting height（mm）</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_LiquidLevelHeight">Liquid level height（mm）</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_ImbibitionHeight">Suction height（mm）</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_set">Settings</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftSpeed1">Lifting speed 1(%)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftSpeed2">Lifting speed 2(%)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftToLiquidLevel">Lift to liquid level</system:String>
+
+    <!--红字-->
+    <system:String x:Key="AutoSampler_AdvancedSetPage_Text1">Please place the sample shelf first, and set information on the left</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_Text2">Greater than the mouth of the bottle</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_Text3">Lift speed between suction height and liquid level</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_Text4">Lift speed between liquid level and lift height</system:String>
+
+    <system:String x:Key="AutoSampler_AdvancedSetPage_Text5">Please remove all test tube racks before calibration and initialization</system:String>
+
+</ResourceDictionary>

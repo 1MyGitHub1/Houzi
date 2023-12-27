@@ -175,8 +175,8 @@ namespace Monster.AutoSampler.ViewModels
                     for (int i = 0; i < msgArg.SamInfoList.Count; i++)
                     {
                         AutoSampler_SamInfo samInfo = msgArg.SamInfoList[i];
-                        Trace.WriteLine(samInfo.SamName + "[" + samInfo.SamID + "]" + samInfo.Location + samInfo.OperationMode + samInfo.IsAnalyze + samInfo.AnalysisType
-                           +samInfo.NextSamID);
+                        //Trace.WriteLine(samInfo.SamName + "[" + samInfo.SamID + "]" + samInfo.Location + samInfo.OperationMode + samInfo.IsAnalyze + samInfo.AnalysisType
+                        //   +samInfo.NextSamID);
                     }
                 }
             }

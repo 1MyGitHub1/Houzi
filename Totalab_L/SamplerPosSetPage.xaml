@@ -19,6 +19,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Totalab_L;component/Themes/Generic.xaml"/>
+                <ResourceDictionary Source="/Totalab_L;component/Themes/Dictionary_Chinese.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </ltCtl:CustomWindow.Resources>
@@ -382,13 +383,14 @@
             <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="-11,0,0,0" VerticalAlignment="Center">
                 <!--<RadioButton GroupName="AutoSamplerHeadMenu" Content="{DynamicResource AutoSampler_Main_SampleList}" IsChecked="True"
                              Style="{StaticResource RadioBtnNavHorMinWid120Sty}"  Click ="SampleListCommand"/>-->
-                <RadioButton GroupName="AutoSamplerHeadMenu" Content="校准点位校准" FontSize="16" IsChecked="True"
+                <RadioButton GroupName="AutoSamplerHeadMenu" Content="{DynamicResource AutoSampler_AdvancedSetPage_SetCalibrationPara}" FontSize="16" IsChecked="True" Margin="-8,0,0,0"
                              Style="{StaticResource RadioBtnNavHorMinWid120Sty}" Click = "SetCalibrationCommand"/>
-                <RadioButton GroupName="AutoSamplerHeadMenu" Content="测试点位测试" FontSize="16"
+                <RadioButton GroupName="AutoSamplerHeadMenu" Content="{DynamicResource AutoSampler_AdvancedSetPage_SetTestPara}" FontSize="16"
                              Style="{StaticResource RadioBtnNavHorMinWid120Sty}" Click = "SetTestCommand"/>
-                <RadioButton GroupName="AutoSamplerHeadMenu" Content="样品管参数" FontSize="16"
+                <RadioButton GroupName="AutoSamplerHeadMenu" Content="{DynamicResource AutoSampler_AdvancedSetPage_SetSamplePara}" FontSize="16"
                              Style="{StaticResource RadioBtnNavHorMinWid120Sty}" Click = "SetSampleCommand"/>
             </StackPanel>
+            
             <Grid x:Name="SetData1_Visibility" Grid.Row="1" Visibility="Visible" Margin="0,0,0,25">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0"/>
@@ -416,11 +418,11 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="2" Orientation="Horizontal">
-                    <TextBlock Text="位置参数" Style="{StaticResource UCtlTitleTextBlockSty}" Width="140" FontSize="16" VerticalAlignment="Center"/>
+                    <TextBlock Text="{DynamicResource AutoSampler_AdvancedSetPage_TitleLocationPara}" Style="{StaticResource UCtlTitleTextBlockSty}" Width="140" FontSize="16" VerticalAlignment="Center"/>
                     <!--复位-->
                     <!--<Button Style="{StaticResource  ButtonAccentSty}"  Width="76" Content="{DynamicResource AutoSampler_Home}"  Margin="95 0 0 0"
                                 Click="HomeCommand">-->
-                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="76" Height="32" Content="初始化"  Margin="55 0 0 0" Background="#FFDDDDDD" Foreground="Black"
+                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="76" Height="32" Content="{DynamicResource AutoSampler_Main_Initialize}"  Margin="55 0 0 0" Background="#FFDDDDDD" Foreground="Black"
                                 Click="HomeCommand">
                         <Button.IsEnabled>
                             <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
@@ -436,7 +438,7 @@
                         </Button.IsEnabled>
                     </Button>
                     <!--清错-->
-                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="76" Height="32" Content="清错"  Margin="12 0 0 0"
+                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="76" Height="32" Content="{DynamicResource AutoSampler_AdvancedSetPage_ClearErrors}"  Margin="12 0 0 0"
                                 Click="ClearErrorCommand">
                         <Button.IsEnabled>
                             <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
@@ -452,18 +454,18 @@
                         </Button.IsEnabled>
                     </Button>
                 </StackPanel>
-                <TextBlock Grid.Row="3" Text="校准前请先将全部试管架取走，然后单击初始化按键，初始化位置参数信息。" Style="{StaticResource TextBlockSty}" Foreground="Red" FontSize="11" VerticalAlignment="Top"/>
-                <TextBlock Grid.Row="5" Text="校准点位置参数" Style="{StaticResource UCtlTitleTextBlockSty}" FontSize="16" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="3" Text="{DynamicResource AutoSampler_AdvancedSetPage_Text5}" Style="{StaticResource TextBlockSty}" Foreground="Red" FontSize="11" VerticalAlignment="Top"/>
+                <TextBlock Grid.Row="5" Text="{DynamicResource AutoSampler_AdvancedSetPage_TitleCalibrationLocPara}" Style="{StaticResource UCtlTitleTextBlockSty}" FontSize="16" VerticalAlignment="Center"/>
                 <StackPanel Grid.Row="7" Orientation="Horizontal">
-                    <TextBlock  Text="平移距离(mm)" Style="{StaticResource TextBlockSty}"  Width="108" VerticalAlignment="Center"/>
+                    <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_TranslationPara}" Style="{StaticResource TextBlockSty}"  Width="108" VerticalAlignment="Center"/>
                     <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="76" Height="32" MinValue="0"
                         DoubleValue="{Binding  CalibrationInfo.CalibrationLeftX,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
                 </StackPanel>
                 <StackPanel Grid.Row="9" Orientation="Horizontal">
-                    <TextBlock  Text="转动角度(rds)" Style="{StaticResource TextBlockSty}"  Width="108" Margin="0 0 0 0" VerticalAlignment="Center"/>
+                    <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_AnglePara}" Style="{StaticResource TextBlockSty}"  Width="108" Margin="0 0 0 0" VerticalAlignment="Center"/>
                     <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="76" Margin="0 0 0 0"
                           DoubleValue="{Binding  CalibrationInfo.CalibrationLeftW,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
-                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="76" Height="32"  Margin="12 0 0 0" Content="走位" Tag="left" Background="#FFDDDDDD" Foreground="Black"
+                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="76" Height="32"  Margin="12 0 0 0" Content="{DynamicResource AutoSampler_Main_PositionMove}" Tag="left" Background="#FFDDDDDD" Foreground="Black"
                                 Click="MoveToTargetLocationCommand">
                         <Button.IsEnabled>
                             <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
@@ -480,10 +482,10 @@
                     </Button>
                 </StackPanel>
                 <StackPanel Grid.Row="11" Orientation="Horizontal">
-                    <TextBlock  Text="下降高度(mm)" Style="{StaticResource TextBlockSty}"  Width="108" VerticalAlignment="Center"/>
+                    <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_DeclineHeightPara}" Style="{StaticResource TextBlockSty}"  Width="108" VerticalAlignment="Center"/>
                     <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="76" MaxValue="169" MinValue="0"
                           DoubleValue="{Binding  ZCurrentPosition,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
-                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="76" Height="32" Margin="12 0 0 0" Content="下降" Background="#FFDDDDDD" Foreground="Black"
+                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="76" Height="32" Margin="12 0 0 0" Content="{DynamicResource AutoSampler_Main_Sampling}" Background="#FFDDDDDD" Foreground="Black"
                                 Click="MoveToZCommand"  Tag="imbibition_level">
                         <Button.IsEnabled>
                             <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
@@ -498,7 +500,7 @@
                             </MultiBinding>
                         </Button.IsEnabled>
                     </Button>
-                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="76" Height="32" Margin="12 0 0 0" Content="针复位" Background="#FFDDDDDD" Foreground="Black"
+                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="76" Height="32" Margin="12 0 0 0" Content="{DynamicResource AutoSampler_AdvancedSetPage_NeedleReset}" Background="#FFDDDDDD" Foreground="Black"
                                 Click="MoveToZCommand" Tag="ResetZ_0">
                         <Button.IsEnabled>
                             <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
@@ -514,18 +516,18 @@
                         </Button.IsEnabled>
                     </Button>
                 </StackPanel>
-                <TextBlock Grid.Row="13" Text="机械臂手动控制" Style="{StaticResource UCtlTitleTextBlockSty}" FontSize="16"/>
+                <TextBlock Grid.Row="13" Text="{DynamicResource AutoSampler_AdvancedSetPage_TitleHandControl}" Style="{StaticResource UCtlTitleTextBlockSty}" FontSize="16" VerticalAlignment="Center"/>
                 <StackPanel Grid.Row="15" Orientation="Horizontal">
                     <Image Source="/Totalab_L;component/Images/zhen.png" Width="64" Height="74" Margin="10,0,0,0" Stretch="Fill"/>
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal" Margin="40,0,0,5" Height="30">
-                            <TextBlock  Text="当前移动距离(mm)：" Style="{StaticResource TextBlockSty}"  Width="130" Height="20" VerticalAlignment="Center"/>
+                            <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_CurrentPlace}" Style="{StaticResource TextBlockSty}"  Width="130" Height="20" VerticalAlignment="Center"/>
                             <TextBlock Width="76" Height="20" Text="{Binding CalibrationLeftShowX,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalAlignment="Center" Margin="10,0,0,0"/>
                             <!--<ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Margin="10,0,0,0"
                           DoubleValue="{Binding CalibrationLeftShowX,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2" IsReadOnly="True" Background="#FFDDDDDD"/>-->
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="40,5,0,10" Height="30">
-                            <TextBlock  Text="当前转动角度(rds)：" Style="{StaticResource TextBlockSty}"  Width="130"  Height="20" VerticalAlignment="Center"/>
+                            <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_CurrentAngle}" Style="{StaticResource TextBlockSty}"  Width="130"  Height="20" VerticalAlignment="Center"/>
                             <TextBlock Width="76" Height="20" Text="{Binding CalibrationLeftShowW,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalAlignment="Center" Margin="10,0,0,0" />
                             <!--<ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Margin="10,0,0,0"
                           DoubleValue="{Binding CalibrationLeftShowW,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2" IsReadOnly="True" Background="#FFDDDDDD"/>-->
@@ -533,7 +535,7 @@
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Grid.Row="17" Orientation="Horizontal">
-                    <TextBlock  Text="微调距离(mm)" Style="{StaticResource TextBlockSty}"  Width="108" VerticalAlignment="Center"/>
+                    <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_FineTuningX}" Style="{StaticResource TextBlockSty}"  Width="108" VerticalAlignment="Center"/>
                     <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="76" Height="32" 
                           DoubleValue="{Binding XAdjustPosition,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2" FontSize="16" IsReadOnly="True" Background="#FFDDDDDD"/>
 
@@ -575,7 +577,7 @@
                     </Button>
                 </StackPanel>
                 <StackPanel Grid.Row="19" Orientation="Horizontal">
-                    <TextBlock  Text="微调角度(rds)" Style="{StaticResource TextBlockSty}"  Width="108" VerticalAlignment="Center"/>
+                    <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_FineTuningW}" Style="{StaticResource TextBlockSty}"  Width="108" VerticalAlignment="Center"/>
                     <!--<ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Margin="20,0,0,0"
                           DoubleValue="{Binding CalibrationLeftShowX,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2" IsReadOnly="True" Background="#FFDDDDDD"/>-->
                     <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="76" Height="32"
@@ -641,18 +643,18 @@
                     <RowDefinition Height="32"/>
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="1" Orientation="Horizontal">
-                    <TextBlock Text="测试点位置参数" Style="{StaticResource UCtlTitleTextBlockSty}" Width="140" FontSize="16" VerticalAlignment="Center"/>
+                    <TextBlock Text="{DynamicResource AutoSampler_AdvancedSetPage_TitleTestPositionPara}" Style="{StaticResource UCtlTitleTextBlockSty}" Width="140" FontSize="16" VerticalAlignment="Center"/>
                 </StackPanel>
                 <StackPanel Grid.Row="3" Orientation="Horizontal">
-                    <TextBlock  Text="平移距离(mm)" Style="{StaticResource TextBlockSty}"  Width="108" VerticalAlignment="Center"/>
+                    <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_TranslationPara}" Style="{StaticResource TextBlockSty}"  Width="108" VerticalAlignment="Center"/>
                     <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="76" Height="32" MinValue="0"
                         DoubleValue="{Binding  CalibrationInfo.CalibrationRightX,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
                 </StackPanel>
                 <StackPanel Grid.Row="5" Orientation="Horizontal">
-                    <TextBlock  Text="转动角度(rds)" Style="{StaticResource TextBlockSty}"  Width="108" Margin="0 0 0 0" VerticalAlignment="Center"/>
+                    <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_AnglePara}" Style="{StaticResource TextBlockSty}"  Width="108" Margin="0 0 0 0" VerticalAlignment="Center"/>
                     <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="76" Height="32"
                           DoubleValue="{Binding  CalibrationInfo.CalibrationRightW,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
-                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="76" Margin="12 0 0 0" Content="走位" Tag="right" Background="#FFDDDDDD" Foreground="Black"
+                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="76" Margin="12 0 0 0" Content="{DynamicResource AutoSampler_Main_PositionMove}" Tag="right" Background="#FFDDDDDD" Foreground="Black"
                                 Click="MoveToTargetLocationCommand">
                         <Button.IsEnabled>
                             <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
@@ -669,10 +671,10 @@
                     </Button>
                 </StackPanel>
                 <StackPanel Grid.Row="7" Orientation="Horizontal">
-                    <TextBlock  Text="下降高度(mm)" Style="{StaticResource TextBlockSty}"  Width="108" VerticalAlignment="Center"/>
+                    <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_DeclineHeightPara}" Style="{StaticResource TextBlockSty}"  Width="108" VerticalAlignment="Center"/>
                     <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="76" Height="32" MaxValue="169" MinValue="0"
                           DoubleValue="{Binding  ZCurrentPosition,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
-                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="76" Margin="12 0 0 0" Content="下降" Background="#FFDDDDDD" Foreground="Black"
+                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="76" Margin="12 0 0 0" Content="{DynamicResource AutoSampler_Main_Sampling}" Background="#FFDDDDDD" Foreground="Black"
                                 Click="MoveToZCommand"  Tag="imbibition_level">
                         <Button.IsEnabled>
                             <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
@@ -687,7 +689,7 @@
                             </MultiBinding>
                         </Button.IsEnabled>
                     </Button>
-                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="76"  Margin="12 0 0 0" Content="针复位" Background="#FFDDDDDD" Foreground="Black"
+                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="76"  Margin="12 0 0 0" Content="{DynamicResource AutoSampler_AdvancedSetPage_NeedleReset}" Background="#FFDDDDDD" Foreground="Black"
                                  Click="MoveToZCommand" Tag="ResetZ_0">
                         <Button.IsEnabled>
                             <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
@@ -722,8 +724,8 @@
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="1">
                     <StackPanel Grid.Row="0" Orientation="Horizontal">
-                        <TextBlock Text="机械臂控制" Style="{StaticResource UCtlTitleTextBlockSty}" Width="140" FontSize="16" VerticalAlignment="Center"/>
-                        <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Height="32" Margin="55 0 0 0" Content="初始化" Background="#FFDDDDDD" Foreground="Black"
+                        <TextBlock Text="{DynamicResource AutoSampler_AdvancedSetPage_TitleRobotArmControl}" Style="{StaticResource UCtlTitleTextBlockSty}" Width="140" FontSize="16" VerticalAlignment="Center"/>
+                        <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Height="32" Margin="55 0 0 0" Content="{DynamicResource AutoSampler_Main_Initialize}" Background="#FFDDDDDD" Foreground="Black"
                                  Click="HomeCommand">
                             <Button.IsEnabled>
                                 <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
@@ -738,7 +740,7 @@
                                 </MultiBinding>
                             </Button.IsEnabled>
                         </Button>
-                        <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Height="32" Margin="12 0 0 0" Content="样品针复位" Background="#FFDDDDDD" Foreground="Black"
+                        <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Height="32" Margin="12 0 0 0" Content="{DynamicResource AutoSampler_AdvancedSetPage_NeedleReset}" Background="#FFDDDDDD" Foreground="Black"
                                  Click="MoveToZCommand" Tag="ResetZ_0">
                             <Button.IsEnabled>
                                 <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
@@ -778,17 +780,17 @@
                             <!--<RowDefinition Height="32"/>-->
                         </Grid.RowDefinitions>
                         <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
-                            <TextBlock Text="样品管参数" Style="{StaticResource UCtlTitleTextBlockSty}" Width="140" FontSize="16" VerticalAlignment="Center"/>
+                            <TextBlock Text="{DynamicResource AutoSampler_AdvancedSetPage_TitleSampleCellPara}" Style="{StaticResource UCtlTitleTextBlockSty}" FontSize="16" VerticalAlignment="Center"/>
                         </StackPanel>
                         <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
-                            <TextBlock Text="请先放置样品架，并再左侧设置相应的样品架信息" Style="{StaticResource TextBlockSty}" Foreground="Red" FontSize="11"  VerticalAlignment="Top"/>
+                            <TextBlock Text="{DynamicResource AutoSampler_AdvancedSetPage_Text1}" Style="{StaticResource TextBlockSty}" Foreground="Red" FontSize="11"  VerticalAlignment="Top"/>
                         </StackPanel>
                         <!--Content="{DynamicResource AutoSampler_Go}"-->
                         <StackPanel Grid.Row="4" Grid.Column="0" Orientation="Horizontal">
-                            <TextBlock  Text="样品管（号）" Style="{StaticResource TextBlockSty}"  Width="108"/>
+                            <TextBlock  Text="{DynamicResource  AutoSampler_AdvancedSetPage_SampleNum}" Style="{StaticResource TextBlockSty}"  Width="108"/>
                             <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Height="32"
                           Text="{Binding CalibrationInfo.PosNumber,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"/>
-                            <Button Width="74" Margin="12 0 0 0" Click="GoToXYCommand" Content="走位" Style="{StaticResource ButtonAccentSty}" Background="#FFDDDDDD" Foreground="Black">
+                            <Button Width="74" Margin="12 0 0 0" Click="GoToXYCommand" Content="{DynamicResource AutoSampler_Main_PositionMove}" Style="{StaticResource ButtonAccentSty}" Background="#FFDDDDDD" Foreground="Black">
                                 <Button.IsEnabled>
                                     <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
                                         <MultiBinding.ConverterParameter>
@@ -804,10 +806,10 @@
                             </Button>
                         </StackPanel>
                         <StackPanel Grid.Row="6" Grid.Column="0" Orientation="Horizontal">
-                            <TextBlock  Text="抬起高度(mm)" Style="{StaticResource TextBlockSty}"  Width="108"/>
+                            <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_UpliftHeight}" Style="{StaticResource TextBlockSty}"  Width="108"/>
                             <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Height="32" MaxValue="169" MinValue="0" 
                           DoubleValue="{Binding  CalibrationInfo.ZResetPosition,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
-                            <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="12 0 0 0" Content="设置" Background="#FFDDDDDD" Foreground="Black"
+                            <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="12 0 0 0" Content="{DynamicResource AutoSampler_AdvancedSetPage_set}" Background="#FFDDDDDD" Foreground="Black"
                                  Click="Set_ValueCommand" Tag="SetZReset">
                                 <Button.IsEnabled>
                                     <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
@@ -824,12 +826,12 @@
                             </Button>
 
                         </StackPanel>
-                        <TextBlock  Grid.Row="7" Text="大于瓶口高度" Style="{StaticResource TextBlockSty}" FontSize="11" Foreground="Red" Width="108" Height="15" HorizontalAlignment="Left"/>
+                        <TextBlock  Grid.Row="7" Text="{DynamicResource AutoSampler_AdvancedSetPage_Text2}" Style="{StaticResource TextBlockSty}" FontSize="11" Foreground="Red" Height="15" HorizontalAlignment="Left"/>
                         <StackPanel  Grid.Row="8" Orientation="Horizontal">
-                            <TextBlock  Text="液面高度(mm)" Style="{StaticResource TextBlockSty}"  Width="108"/>
+                            <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_LiquidLevelHeight}" Style="{StaticResource TextBlockSty}"  Width="108"/>
                             <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Height="32" MaxValue="169" MinValue="0" 
                           DoubleValue="{Binding  Liquid_level,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
-                            <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="12 0 0 0" Content="设置" Background="#FFDDDDDD" Foreground="Black"
+                            <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="12 0 0 0" Content="{DynamicResource AutoSampler_AdvancedSetPage_set}" Background="#FFDDDDDD" Foreground="Black"
                                  Click="Set_ValueCommand" Tag="SetLiquid_level">
                                 <Button.IsEnabled>
                                     <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
@@ -844,7 +846,7 @@
                                     </MultiBinding>
                                 </Button.IsEnabled>
                             </Button>
-                            <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="12 0 0 0" Content="下降" Background="#FFDDDDDD" Foreground="Black"
+                            <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="12 0 0 0" Content="{DynamicResource AutoSampler_Main_Sampling}" Background="#FFDDDDDD" Foreground="Black"
                                  Click="MoveToZCommand" Tag="liquid_level">
                                 <Button.IsEnabled>
                                     <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
@@ -862,10 +864,10 @@
 
                         </StackPanel>
                         <StackPanel Grid.Row="10" Orientation="Horizontal">
-                            <TextBlock  Text="吸液高度(mm)" Style="{StaticResource TextBlockSty}"  Width="108"/>
+                            <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_ImbibitionHeight}" Style="{StaticResource TextBlockSty}"  Width="108"/>
                             <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" MaxValue="169" MinValue="0"
                           DoubleValue="{Binding  ZCurrentPosition,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
-                            <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Margin="12 0 0 0" Content="下降" Background="#FFDDDDDD" Foreground="Black"
+                            <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Margin="12 0 0 0" Content="{DynamicResource AutoSampler_Main_Sampling}" Background="#FFDDDDDD" Foreground="Black"
                                 Click="MoveToZCommand"  Tag="imbibition_level">
                                 <Button.IsEnabled>
                                     <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
@@ -918,13 +920,13 @@
                         <RowDefinition Height="32"/>
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="1" Orientation="Horizontal">
-                        <TextBlock Text="进样针抬起速度设置" Style="{StaticResource UCtlTitleTextBlockSty}" FontSize="16" VerticalAlignment="Center"/>
+                        <TextBlock Text="{DynamicResource AutoSampler_AdvancedSetPage_TitleNeedleSpeedSet}" Style="{StaticResource UCtlTitleTextBlockSty}" FontSize="16" VerticalAlignment="Center"/>
                     </StackPanel>
                     <StackPanel Grid.Row="3" Orientation="Horizontal">
-                        <TextBlock  Text="抬起速度1(%)" Style="{StaticResource TextBlockSty}"  Width="108"/>
+                        <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_UpliftSpeed1}" Style="{StaticResource TextBlockSty}"  Width="108"/>
                         <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Height="32" MaxValue="100" MinValue="0" 
                           DoubleValue="{Binding  CalibrationInfo.Speed1_value,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
-                        <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="12 0 0 0" Content="设置" Background="#FFDDDDDD" Foreground="Black"
+                        <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="12 0 0 0" Content="{DynamicResource AutoSampler_AdvancedSetPage_set}" Background="#FFDDDDDD" Foreground="Black"
                                  Click="Set_ValueCommand" Tag="SetSpeed1">
                             <Button.IsEnabled>
                                 <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
@@ -939,7 +941,7 @@
                                 </MultiBinding>
                             </Button.IsEnabled>
                         </Button>
-                        <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Height="32" Margin="12 0 0 0" Content="抬起到液面" Background="#FFDDDDDD" Foreground="Black"
+                        <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Height="32" Margin="12 0 0 0" Content="{DynamicResource AutoSampler_AdvancedSetPage_UpliftToLiquidLevel}" Background="#FFDDDDDD" Foreground="Black"
                                 Click="MoveToZCommand" Tag="ResetZ_Liquid">
                             <Button.IsEnabled>
                                 <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
@@ -972,13 +974,13 @@
                         </Button>-->
 
                     </StackPanel>
-                    <TextBlock  Grid.Row="4" Text="吸液高度到液面高度之间得抬起速度" Style="{StaticResource TextBlockSty}" FontSize="11" Foreground="Red" Width="188" Height="15" HorizontalAlignment="Left"/>
+                    <TextBlock  Grid.Row="4" Text="{DynamicResource AutoSampler_AdvancedSetPage_Text3}" Style="{StaticResource TextBlockSty}" FontSize="11" Foreground="Red" Height="15" HorizontalAlignment="Left"/>
 
                     <StackPanel Grid.Row="5" Orientation="Horizontal">
-                        <TextBlock  Text="抬起速度2(%)" Style="{StaticResource TextBlockSty}"  Width="108"/>
+                        <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_UpliftSpeed2}" Style="{StaticResource TextBlockSty}"  Width="108"/>
                         <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Height="32" MaxValue="100" MinValue="0" 
                           DoubleValue="{Binding CalibrationInfo.Speed2_value,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
-                        <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="12 0 0 0" Content="设置" Background="#FFDDDDDD" Foreground="Black"
+                        <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="12 0 0 0" Content="{DynamicResource AutoSampler_AdvancedSetPage_set}" Background="#FFDDDDDD" Foreground="Black"
                                  Click="Set_ValueCommand" Tag="SetSpeed2">
                             <Button.IsEnabled>
                                 <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
@@ -993,7 +995,7 @@
                                 </MultiBinding>
                             </Button.IsEnabled>
                         </Button>
-                        <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Height="32" Margin="12 0 0 0" Content="抬起" Background="#FFDDDDDD" Foreground="Black"
+                        <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Height="32" Margin="12 0 0 0" Content="{DynamicResource AutoSampler_Main_UpLift}" Background="#FFDDDDDD" Foreground="Black"
                                 Click="MoveToZCommand"  Tag="ResetZ">
                             <Button.IsEnabled>
                                 <MultiBinding Converter="{StaticResource MultiBoolToObjectConverter}">
@@ -1026,7 +1028,7 @@
                         </Button>-->
 
                     </StackPanel>
-                    <TextBlock  Grid.Row="6" Text="液面高度到抬起高度之间得抬起速度" Style="{StaticResource TextBlockSty}" FontSize="11" Foreground="Red" Width="188" Height="15" HorizontalAlignment="Left"/>
+                    <TextBlock  Grid.Row="6" Text="{DynamicResource AutoSampler_AdvancedSetPage_Text4}" Style="{StaticResource TextBlockSty}" FontSize="11" Foreground="Red" Height="15" HorizontalAlignment="Left"/>
 
                 </Grid>
             </Grid>

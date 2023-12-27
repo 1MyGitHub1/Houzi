@@ -16,6 +16,8 @@
 
                 <ResourceDictionary Source="/Totalab_L;component/Themes/Generic.xaml"/>
                 <ResourceDictionary Source="/Totalab_L;component/Themes/Dictionary_Chinese.xaml"/>
+                <ResourceDictionary Source="/Totalab_L;component/Themes/Dictionary_English.xaml"/>
+
                 <!--<ResourceDictionary>
                     <local:Bootstrapper x:Key="bootstrapper"/>
                 </ResourceDictionary>-->

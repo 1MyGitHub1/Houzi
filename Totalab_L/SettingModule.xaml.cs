@@ -848,9 +848,10 @@ namespace Totalab_L
                     GlobalInfo.Instance.IsMotorWActionOk = false;
                     GlobalInfo.Instance.IsMotorXActionOk = false;
                     GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMotorAction;
-                    GlobalInfo.Instance.Totalab_LSerials.MotorMove(0x02, 0x3f);
-                    Thread.Sleep(200);
                     GlobalInfo.Instance.Totalab_LSerials.MotorMove(0x01, 0x3f);
+                    Thread.Sleep(200);
+                    GlobalInfo.Instance.Totalab_LSerials.MotorMove(0x02, 0x3f);
+
                     count = 0;
                     while (true)
                     {

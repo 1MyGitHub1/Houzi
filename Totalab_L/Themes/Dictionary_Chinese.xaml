@@ -12,6 +12,44 @@
     <system:String x:Key="AutoSampler_Main_FirstNeedleWashingPosition">1号洗针位</system:String>
     <system:String x:Key="AutoSampler_Main_SecondNeedleWashingPosition">2号洗针位:</system:String>
 
+    <system:String x:Key="AutoSampler_AdvancedSetPage_SetCalibrationPara">点位校准</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_SetTestPara">点位测试</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_SetSamplePara">样品管参数</system:String>
 
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleLocationPara">位置参数</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleCalibrationLocPara">校准位置参数</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleHandControl">机械臂微调</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleTestPositionPara">测试点位置参数</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleRobotArmControl">机械臂控制</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleSampleCellPara">样品管参数</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleNeedleSpeedSet">进样针抬起速度设置</system:String>
+
+
+    <system:String x:Key="AutoSampler_AdvancedSetPage_ClearErrors">清错</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TranslationPara">平移距离(mm)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_AnglePara">转动角度(rds)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_DeclineHeightPara">下降高度(mm)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_NeedleReset">针复位</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_FineTuningX">微调距离(mm)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_FineTuningW">微调角度(rds)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_CurrentPlace">当前位置(mm):</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_CurrentAngle">当前角度(rds):</system:String>
+
+    <system:String x:Key="AutoSampler_AdvancedSetPage_SampleNum">样品管（号）</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftHeight">抬起高度（mm）</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_LiquidLevelHeight">液面高度（mm）</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_ImbibitionHeight">吸液高度（mm）</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_set">设置</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftSpeed1">抬起速度1(%)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftSpeed2">抬起速度2(%)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftToLiquidLevel">抬起到液面</system:String>
+
+    <!--红字-->
+    <system:String x:Key="AutoSampler_AdvancedSetPage_Text1">请先放置样品架，并再左侧设置相应的样品架信息</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_Text2">大于瓶口高度</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_Text3">吸液高度到液面高度之间得抬起速度</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_Text4">液面高度到抬起高度之间得抬起速度</system:String>
+
+    <system:String x:Key="AutoSampler_AdvancedSetPage_Text5">校准前请先将全部试管架取走，然后单击初始化按键，初始化位置参数信息</system:String>
 
 </ResourceDictionary>

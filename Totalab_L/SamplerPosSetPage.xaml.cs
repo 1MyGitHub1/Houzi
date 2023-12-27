@@ -1748,7 +1748,7 @@ namespace Totalab_L
                         return;
                     }
                 }
-                GlobalInfo.Instance.Totalab_LSerials.SetLeakage_tank(0x14);     //打开
+                GlobalInfo.Instance.Totalab_LSerials.SetLeakage_tank(0x14);     //打开ok
                 Thread.Sleep(200);
 
                 if (GlobalInfo.Instance.CurrentWorkType != Enum_MotorWorkType.Position)
