@@ -1,0 +1,268 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <!--*************** MainWindow ***************-->
+    <system:String x:Key="AutoSampler_Main_UseAutoSampler">Use Auto Sampler</system:String>
+    <system:String x:Key="AutoSampler_Main_SampleList">Sample List</system:String>
+    <system:String x:Key="AutoSampler_Main_Settings">Settings</system:String>
+    <system:String x:Key="AutoSampler_Main_SamplerType">Sampler Mode</system:String>
+    <system:String x:Key="AutoSampler_Main_ConstantInjection">Constant Injection</system:String>
+    <system:String x:Key="AutoSampler_Main_MicroInjection">Micro Injection</system:String>
+    <system:String x:Key="AutoSampler_Main_SampleTray">Sample Tray</system:String>
+    <system:String x:Key="AutoSampler_Main_TrayA">TrayA</system:String>
+    <system:String x:Key="AutoSampler_Main_TrayB">TrayB</system:String>
+    <system:String x:Key="AutoSampler_Main_TrayC">TrayC</system:String>
+    <system:String x:Key="AutoSampler_Main_PipetteTipsMap">Pipette Tips Map</system:String>
+    <system:String x:Key="AutoSampler_Main_Log">Log</system:String>
+    <system:String x:Key="AutoSampler_Main_AdvancedSet">Advanced Settings</system:String>
+
+    <system:String x:Key="AutoSampler_Main_Test">Test</system:String>
+    <system:String x:Key="AutoSampler_Main_PositionMove">Go To</system:String>
+    <system:String x:Key="AutoSampler_Main_Sampling">Sampling</system:String>
+    <system:String x:Key="AutoSampler_Main_WashLocation">Rinse</system:String>
+
+    <system:String x:Key="AutoSampler_Main_PreFlush">Pre Wash</system:String>
+    <system:String x:Key="AutoSampler_Main_PreRun">Pre Analyze</system:String>
+    <system:String x:Key="AutoSampler_Main_Flush">Flush</system:String>
+    <system:String x:Key="AutoSampler_Main_Delay">Delay</system:String>
+    <system:String x:Key="AutoSampler_Main_Analysis">Analyze</system:String>
+    <system:String x:Key="AutoSampler_Main_PostRun">After Run</system:String>
+    <system:String x:Key="AutoSampler_Main_InjectNeedleFlushSam">Wash Needle (Sample)</system:String>
+    <system:String x:Key="AutoSampler_Main_InjectNeedleFlushStdSam">Wash Needle (Stds)</system:String>
+    <system:String x:Key="AutoSampler_Main_WashNeedle">Wash Needle</system:String>
+    <system:String x:Key="AutoSampler_Main_Wash">Wash</system:String>
+
+    <!--*************** Running Page ***************-->
+    <system:String x:Key="AutoSampler_Run_Diluent">Diluent</system:String>
+    <system:String x:Key="AutoSampler_Run_Sampling">Sampling</system:String>
+    <system:String x:Key="AutoSampler_Run_AddSample">Add Sample</system:String>
+    <system:String x:Key="AutoSampler_Run_StartThisRow">Start From This Row</system:String>
+    <system:String x:Key="AutoSampler_Run_Skip">Skip</system:String>
+    <system:String x:Key="AutoSampler_Run_BringToTop">Bring To Top</system:String>
+    <system:String x:Key="AutoSampler_Run_ToAnalyze">To Analyze</system:String>
+
+    <system:String x:Key="AutoSampler_Run_No">No.</system:String>
+    <system:String x:Key="AutoSampler_Run_LiquorLocation">Liquor&#13;Loc.</system:String>
+    <system:String x:Key="AutoSampler_Run_LiquorLocation1">Liquor Loc.</system:String>
+    <system:String x:Key="AutoSampler_Run_SampleVolume">Sample&#13;Vol. (μL)</system:String>
+    <system:String x:Key="AutoSampler_Run_SampleVolume1">Sample Vol. (μL)</system:String>
+    <system:String x:Key="AutoSampler_Run_SampleLocation">Sam.&#13;Loc.</system:String>
+    <system:String x:Key="AutoSampler_Run_SampleLocation1">Sample Loc.</system:String>
+    <system:String x:Key="AutoSampler_Run_SolventVolume">Solvent&#13;Vol. (mL)</system:String>
+    <system:String x:Key="AutoSampler_Run_SolventVolume1">Solvent Vol. (mL)</system:String>
+    <system:String x:Key="AutoSampler_Run_Solvent">Solvent</system:String>
+    <system:String x:Key="AutoSampler_Run_MixTimes">Mix</system:String>
+    <system:String x:Key="AutoSampler_Run_MixTimes1">Mix</system:String>
+    <system:String x:Key="AutoSampler_Run_AnalysisType">Ana. Type</system:String>
+    <system:String x:Key="AutoSampler_Run_Park">Park (s)</system:String>
+    <system:String x:Key="AutoSampler_Run_Park1">Park (s)</system:String>
+    <system:String x:Key="AutoSampler_Run_OverWash">Over&#13;Wash (s)</system:String>
+    <system:String x:Key="AutoSampler_Run_OverWash1">Over Wash (s)</system:String>
+    <system:String x:Key="AutoSampler_AnaType_Quantitative">Quantitative</system:String>
+    <system:String x:Key="AutoSampler_AnaType_SemiQuantative">Semi-quant.</system:String>
+
+    <system:String x:Key="AutoSampler_Run_PauseImmediately">Pause Immediately</system:String>
+    <system:String x:Key="AutoSampler_Run_PauseAfterCurrentSam">Pause After Current Sample</system:String>
+    <system:String x:Key="AutoSampler_Run_StopAfterCurrentSam">Stop After Current Sample</system:String>
+    <system:String x:Key="AutoSampler_Run_StopImmediately">Stop Immediately</system:String>
+    <system:String x:Key="AutoSampler_Run_GoToRinseImmediatelyStop">Go To Rinse Immediately And Stop</system:String>
+
+    <!--*************** ConstSetting Page ***************-->  
+    <system:String x:Key="AutoSampler_ConstSet_WashSolvent">Wash Solvent</system:String>
+
+    <system:String x:Key="AutoSampler_ConstSet_MixSettings">Mix Settings</system:String>
+    <system:String x:Key="AutoSampler_ConstSet_MixAir">Mix (Air)</system:String>
+    <system:String x:Key="AutoSampler_ConstSet_Mix">Mix</system:String>
+    <system:String x:Key="AutoSampler_ConstSet_MixTime">Time</system:String>
+    <system:String x:Key="AutoSampler_ConstSet_MixFlowRate">Flow Rate</system:String>
+
+    <system:String x:Key="AutoSampler_ConstSet_PumpRate">Pump Rate</system:String>
+    <system:String x:Key="AutoSampler_ConstSet_WashTime">Wash Time</system:String>
+   
+    <system:String x:Key="AutoSampler_ConstSet_SyncTimeOptionMass">Synchronizing Time Options With Mass</system:String>
+    <system:String x:Key="AutoSampler_ConstSet_UseMinSamTime">Use Min Sampling Time</system:String>
+    <system:String x:Key="AutoSampler_ConstSet_UseMaxSamTime">Use Max Sampling Time</system:String>
+    <system:String x:Key="AutoSampler_ConstSet_DecidedByEachwOwnSet">Decided By Each Own Settings</system:String>
+
+    <!--*************** MiroSetting Page ***************-->
+    <system:String x:Key="AutoSampler_MicroSet_SampleLoading">Sample Loading</system:String>
+    <system:String x:Key="AutoSampler_MicroSet_SampleVolume">Sample Volume</system:String>
+    <system:String x:Key="AutoSampler_MicroSet_SamplingSpeed">Sampling Speed</system:String>
+    <system:String x:Key="AutoSampler_MicroSet_InjectionSpeed">Injection Speed</system:String>
+    <system:String x:Key="AutoSampler_MicroSet_InjectionTime">Injection Time</system:String>
+
+    <system:String x:Key="AutoSampler_MicroSet_NumberOfTimes">Number Of Times</system:String>
+
+    <system:String x:Key="AutoSampler_MicroSet_InternalNeedleClean">内针清洗</system:String>
+    <system:String x:Key="AutoSampler_MicroSet_WashVolume">Volume</system:String>
+
+    <system:String x:Key="AutoSampler_MicroSet_ExternalNeedleClean">外针清洗</system:String>
+    <system:String x:Key="AutoSampler_MicroSet_WashPumpSpeed">清洗泵泵速</system:String>
+    <system:String x:Key="AutoSampler_MicroSet_WashTime">Time</system:String>
+
+    <system:String x:Key="AutoSampler_MicroSet_InjectionPipelineClean">进样管路清洗</system:String>
+
+    <system:String x:Key="AutoSampler_Method_OpenMethodTitle">Open Method</system:String>
+    <system:String x:Key="AutoSampler_Method_SaveMethodTitle">Save Method</system:String>
+    <system:String x:Key="AutoSampler_Method_MethodName">Method Name</system:String>
+    <system:String x:Key="AutoSampler_Method_Name">Name</system:String>
+
+    <system:String x:Key="AutoSampler_LocationParam">Loc. Settings</system:String>
+
+    <system:String x:Key="AutoSampler_SamplerPipette">Sampler/Pipette</system:String>
+    <system:String x:Key="AutoSampler_Location">Location</system:String>
+    <system:String x:Key="AutoSampler_Loading">Loading (Z)</system:String>
+    <system:String x:Key="AutoSampler_Ejecting">Ejecting (Z)</system:String>
+    <system:String x:Key="AutoSampler_LoadingAir">Loading Air (Z)</system:String>
+    <system:String x:Key="AutoSampler_EjectingAir">Ejecting Air (Z)</system:String>
+
+    <system:String x:Key="AutoSampler_SamplingTube">Sampling Tube</system:String>
+    <system:String x:Key="AutoSampler_SamplingDepth">Depth (Z)</system:String>
+
+    <system:String x:Key="AutoSampler_DiluentSetting">Diluent Setting</system:String>
+    <system:String x:Key="AutoSampler_FillVolume">Volume</system:String>
+    <system:String x:Key="AutoSampler_FillIn">Fill In</system:String>
+
+    <system:String x:Key="AutoSampler_TriggerMode">Trigger Mode</system:String>
+    <system:String x:Key="AutoSampler_Lowlevel">Low level</system:String>
+    <system:String x:Key="AutoSampler_Highlevel">High level</system:String>
+
+    <system:String x:Key="AutoSampler_WashSetting">Wash Setting</system:String>
+    <system:String x:Key="AutoSampler_Rinse">Rinse</system:String>
+
+    <system:String x:Key="AutoSampler_GoToNewSamLocTrigger">Enable and trigger when go to a new sample location</system:String>
+    <system:String x:Key="AutoSampler_ArrivingToNewSamLocTrigger">Enable and trigger when arriving to a new sample location</system:String>
+    <system:String x:Key="AutoSampler_SolenoidValveTrigger">Enable and trigger aynchronizing with solenoid valve.</system:String>
+    <system:String x:Key="AutoSampler_DisableTrigger">Disable trigger</system:String>
+    <system:String x:Key="AutoSampler_ExternalReadTrigger">External read trigger</system:String>
+    
+    <system:String x:Key="AutoSampler_Home">Home</system:String>
+    <system:String x:Key="AutoSampler_Go">Go</system:String>
+
+    <system:String x:Key="AutoSampler_AddSam_Title">Add Samples</system:String>
+    <system:String x:Key="AutoSampler_AddSam_SelectSamType">Select Sample Types To Add</system:String>
+    <system:String x:Key="AutoSampler_AddSam_NewSample">New sample</system:String>
+    <system:String x:Key="AutoSampler_AddSam_CopySample">Copy of samples</system:String>
+    <system:String x:Key="AutoSampler_AddSam_ImportSamFile">Import details of samples for file</system:String>
+    <system:String x:Key="AutoSampler_AddSam_SelectAddSamNum">Select Number Of Samples To Add</system:String>
+    <system:String x:Key="AutoSampler_AddSam_SelectSamList">Select position of new samples in sample list</system:String>
+    <system:String x:Key="AutoSampler_AddSam_InsertBeforeSam">Insert before sample</system:String>
+    <system:String x:Key="AutoSampler_AddSam_AppendSamListEnd">Append to end of sample list</system:String>
+
+    <system:String x:Key="AutoSampler_I_Step">Step</system:String>
+    <system:String x:Key="AutoSampler_I_Action">Action</system:String>
+    <system:String x:Key="AutoSampler_I_Time">Time（s）</system:String>
+    <system:String x:Key="AutoSampler_I_PumpSpeed">Ppm（r/min）</system:String>
+    <system:String x:Key="AutoSampler_I_ClearArea">Clear Area</system:String>
+    <system:String x:Key="AutoSampler_I_Method">Method</system:String>
+    <system:String x:Key="AutoSampler_I_Custom">Custom</system:String>
+    <system:String x:Key="AutoSampler_I_SampleLoc">Sample Loc.</system:String>
+    <system:String x:Key="AutoSampler_I_RinseLoc">Rinse Loc.</system:String>
+    
+    <!--补充-->
+    <system:String x:Key="AutoSampler_Main_UpLift">Lift</system:String>
+    <system:String x:Key="AutoSampler_Main_CleanPosition">Clean position</system:String>
+    <system:String x:Key="AutoSampler_Main_ChangeNeedle">Replace needle</system:String>
+    <!--<system:String x:Key="AutoSampler_Main_Sampling">Sampling</system:String>-->
+    <system:String x:Key="AutoSampler_Main_Initialize">Initialize</system:String>
+    <system:String x:Key="AutoSampler_Main_ParameterFileName">ParameterFileName:</system:String>
+    <system:String x:Key="AutoSampler_Main_MechanicalArmPara">Manipulator parameter</system:String>
+    <system:String x:Key="AutoSampler_Main_WettedParts">WettedPartsNormallyOpen</system:String>
+    <system:String x:Key="AutoSampler_Main_FirstNeedleWashingPosition">Cleaning position W1:</system:String>
+    <system:String x:Key="AutoSampler_Main_SecondNeedleWashingPosition">Cleaning position W2:</system:String>
+
+    <system:String x:Key="AutoSampler_AdvancedSetPage_SetCalibrationPara">Calibration Point1</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_SetTestPara">Calibration Point2</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_SetSamplePara">Sample tube parameter</system:String>
+
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleLocationPara">Position parameter</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleCalibrationLocPara">Calibration position parameter</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleHandControl">Arm trimming</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleTestPositionPara">Test point location parameters</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleRobotArmControl">Manipulator control</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleSampleCellPara">Sample tube parameter</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleNeedleSpeedSet">Needle lift speed setting</system:String>
+
+
+    <system:String x:Key="AutoSampler_AdvancedSetPage_ClearErrors">Debugging</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TranslationPara">Translation distance(mm)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_AnglePara">Rotation Angle(rds)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_DeclineHeightPara">Descent height(mm)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_NeedleReset">Needle reduction</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_FineTuningX">Fine distance(mm)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_FineTuningW">Fine angle(rds)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_CurrentPlace">Current position(mm):</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_CurrentAngle">Current angle(rds):</system:String>
+
+    <system:String x:Key="AutoSampler_AdvancedSetPage_SampleNum">Sample tube（num）</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftHeight">Lifting height（mm）</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_LiquidLevelHeight">Liquid level height（mm）</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_ImbibitionHeight">Suction height（mm）</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_set">Settings</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftSpeed1">Lifting speed 1(%)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftSpeed2">Lifting speed 2(%)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftToLiquidLevel">Lift to liquid level</system:String>
+
+    <!--红字-->
+    <system:String x:Key="AutoSampler_AdvancedSetPage_Text1">Please place the sample shelf first, and set information on the left</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_Text2">Greater than the mouth of the bottle</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_Text3">Lift speed between suction height and liquid level</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_Text4">Lift speed between liquid level and lift height</system:String>
+
+    <system:String x:Key="AutoSampler_AdvancedSetPage_Text5">Please remove all test tube racks before calibration and initialization</system:String>
+    
+    <!--弹窗提示-->
+    <system:String x:Key="Message_RunError">Run error, syringe failure!</system:String>
+    <system:String x:Key="Message_RoboticArmError">Robotic arm error</system:String>
+    <system:String x:Key="Message_CloseError">The instrument is running, please close the window later</system:String>
+
+
+
+    <!--Mass中的-补的-->
+    <system:String x:Key="ButtonContent_Cancel">Cancel</system:String>
+    <system:String x:Key="ButtonContent_Save">Save</system:String>
+    <system:String x:Key="ButtonContent_Open">Open</system:String>
+    <system:String x:Key="ButtonContent_Create">Create</system:String>
+    <system:String x:Key="ButtonContent_About">About</system:String>
+    <system:String x:Key="ButtonContent_SaveAs">SaveAs</system:String>
+    <system:String x:Key="ButtonContent_Set">Set</system:String>
+    <system:String x:Key="ButtonContent_Done">Done</system:String>
+
+    <system:String x:Key="MessageTitle_Error">Error</system:String>
+    <system:String x:Key="MessageTitle_Exit">Exit</system:String>
+    <!--<system:String x:Key="Message_Error1000">Error[1000]. Program error.</system:String>-->
+    <system:String x:Key="Message_Error1027">Warning[1027]. Are you sure you want to close the application?</system:String>
+    <system:String x:Key="ButtonContent_Close">Close</system:String>
+    <system:String x:Key="ButtonContent_Yes">Yes</system:String>
+    <system:String x:Key="ButtonContent_No">No</system:String>
+    <system:String x:Key="MainMenu_AutoSampler">Auto Sampler</system:String>
+
+    <system:String x:Key="MenuItem_Header_Copy">Copy</system:String>
+    <system:String x:Key="MenuItem_Header_PasteHere">Paste Here</system:String>
+    <system:String x:Key="MenuItem_Header_FillDown">Fill Down</system:String>
+    <system:String x:Key="MenuItem_Header_FillIncrement">Fill Increment</system:String>
+    <system:String x:Key="MenuItem_Header_InsertRowBelow">Insert Row Below</system:String>
+    <system:String x:Key="MenuItem_Header_Delete">Delete</system:String>
+    <system:String x:Key="DataGrid_Header_SampleID">Sample ID</system:String>
+    <system:String x:Key="ButtonContent_Run">Run</system:String>
+    <system:String x:Key="ButtonContent_Stop">Stop</system:String>
+    <system:String x:Key="ButtonContent_Pause">Pause</system:String>
+    <system:String x:Key="ButtonContent_Continue">Continue</system:String>
+    <system:String x:Key="ButtonContent_BackToReady">Back To Ready</system:String>
+
+
+    <system:String x:Key="Common_Content_LicenseFile">License File</system:String>
+    <system:String x:Key="Common_Content_LicenseFileNull">Please select a license file</system:String>
+    <system:String x:Key="Common_Content_LicenseFileError">Unable to validate license file. Please select a valid license file and try again.</system:String>
+    <system:String x:Key="Common_Content_RegisterSuccessful">License Activation succeeded.</system:String>
+    <system:String x:Key="AboutInfo_ReplaceLicSuccessful">License file replacement succeeded.</system:String>
+    <system:String x:Key="AboutInfo_ReplaceLicFailed">Failed to replace license file.</system:String>
+    <system:String x:Key="Message_Error2002">Error[2002]. Error adding sample.</system:String>
+    <system:String x:Key="Message_Error2013">Error[2013]. The autosampler's comunication error, please check connection.</system:String>
+    <system:String x:Key="Message_Error1004">Error[1004]. Open failed.</system:String>
+    <system:String x:Key="Message_Error1002">Error[1002]. Save failed.</system:String>
+    <system:String x:Key="Message_Error1000">Error[1000]. Program error.</system:String>
+
+</ResourceDictionary>

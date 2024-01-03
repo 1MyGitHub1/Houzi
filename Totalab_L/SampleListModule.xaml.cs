@@ -800,7 +800,7 @@ namespace Totalab_L
                     int row = GlobalInfo.Instance.SampleInfos.IndexOf(samplinginfo);
                     for (int i = 0; i < row; i++)
                     {
-                        if (GlobalInfo.Instance.SampleInfos[i - 1].ExpStatus == Exp_Status.Running)
+                        if (i > 0 && GlobalInfo.Instance.SampleInfos[i - 1].ExpStatus == Exp_Status.Running)
                         {
                             GlobalInfo.Instance.SampleInfos[i].IsChecked = true;
                         }
@@ -2513,7 +2513,7 @@ namespace Totalab_L
 
                     this.Dispatcher.Invoke((Action)(() =>
                     {
-                        bool? ErrorResult = new MessagePage().ShowDialog("运行错误，进样针故障!", "警告", true, Enum_MessageType.Error, yesContent: "确定");
+                        bool? ErrorResult = new MessagePage().ShowDialog("Message_RunError".GetWord(), "MessageTitle_Error".GetWord(), true, Enum_MessageType.Error, yesContent: "Message_ButtonOK".GetWord());
                         if ((bool)ErrorResult)
                         {
                             //清错
@@ -3854,7 +3854,7 @@ namespace Totalab_L
                     if (!GlobalInfo.IsStopOptimization)     //如果没有点停止优化
                     {
                         GlobalInfo.Instance.Totalab_LSerials.SetLeakage_tank(0x14);     //打开
-                        Thread.Sleep(300);
+                        Thread.Sleep(200);
                         //取样深度
                         GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
                         GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x03, (int)(GlobalInfo.Instance.SettingInfo.SamplingDepth / GlobalInfo.ZLengthPerCircle * 3600.0 + GlobalInfo.Instance.TrayPanelHomeZ));
@@ -3872,23 +3872,10 @@ namespace Totalab_L
                             {
                                 if (count < GlobalInfo.Instance.MaxConnectionTimes)
                                 {
-                                    //GlobalInfo.Instance.Totalab_LSerials.EndWork();
                                     try
                                     {
-                                        //foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
-                                        {
-                                            try
-                                            {
-                                                //GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
-                                                //GlobalInfo.Instance.Totalab_LSerials.StartWork();
-                                                GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
-                                                GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x03, (int)(GlobalInfo.Instance.SettingInfo.SamplingDepth / GlobalInfo.ZLengthPerCircle * 3600.0 + GlobalInfo.Instance.TrayPanelHomeZ));
-                                            }
-                                            catch (Exception ex)
-                                            {
-                                                MainLogHelper.Instance.Error("[GoToTargetPosition]：", ex);
-                                            }
-                                        }
+                                        GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;
+                                        GlobalInfo.Instance.Totalab_LSerials.SetTargetPosition(0x03, (int)(GlobalInfo.Instance.SettingInfo.SamplingDepth / GlobalInfo.ZLengthPerCircle * 3600.0 + GlobalInfo.Instance.TrayPanelHomeZ));
 
                                     }
                                     catch (Exception ex)
@@ -3931,23 +3918,10 @@ namespace Totalab_L
                             {
                                 if (count < GlobalInfo.Instance.MaxConnectionTimes)
                                 {
-                                    //GlobalInfo.Instance.Totalab_LSerials.EndWork();
                                     try
                                     {
-                                        //foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
-                                        {
-                                            try
-                                            {
-                                                //GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
-                                                //GlobalInfo.Instance.Totalab_LSerials.StartWork();
-                                                GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMotorAction;
-                                                GlobalInfo.Instance.Totalab_LSerials.MotorAction(0x03, 0x0f);
-                                            }
-                                            catch (Exception ex)
-                                            {
-                                                MainLogHelper.Instance.Error("[GoToTargetPosition]：", ex);
-                                            }
-                                        }
+                                        GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMotorAction;
+                                        GlobalInfo.Instance.Totalab_LSerials.MotorAction(0x03, 0x0f);
 
                                     }
                                     catch (Exception ex)
@@ -3990,23 +3964,10 @@ namespace Totalab_L
                             {
                                 if (count < GlobalInfo.Instance.MaxConnectionTimes)
                                 {
-                                    //GlobalInfo.Instance.Totalab_LSerials.EndWork();
                                     try
                                     {
-                                        //foreach (string PortName in System.IO.Ports.SerialPort.GetPortNames())
-                                        {
-                                            try
-                                            {
-                                                //GlobalInfo.Instance.Totalab_LSerials.SPort.PortName = PortName;
-                                                //GlobalInfo.Instance.Totalab_LSerials.StartWork();
-                                                GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMotorAction;
-                                                GlobalInfo.Instance.Totalab_LSerials.MotorMove(0x03, 0x3f);
-                                            }
-                                            catch (Exception ex)
-                                            {
-                                                MainLogHelper.Instance.Error("[GoToTargetPosition]：", ex);
-                                            }
-                                        }
+                                        GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMotorAction;
+                                        GlobalInfo.Instance.Totalab_LSerials.MotorMove(0x03, 0x3f);
 
                                     }
                                     catch (Exception ex)
@@ -4775,7 +4736,7 @@ namespace Totalab_L
                 {
                     this.Dispatcher.Invoke(new Action(delegate
                     {
-                        new MessagePage().ShowDialog("机械臂出错".GetWord(), "MessageTitle_Error".GetWord(), false, Enum_MessageType.Error);
+                        new MessagePage().ShowDialog("Message_RoboticArmError".GetWord(), "MessageTitle_Error".GetWord(), false, Enum_MessageType.Error);
                     }));
                 }
                 if (result == false)

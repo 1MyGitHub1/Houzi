@@ -16,7 +16,7 @@
                 <ResourceDictionary Source="/LabTech.UITheme;component/Themes/UIGenericTheme.xaml"/>-->
 
 
-                <ResourceDictionary Source="/Mass.Language;component/Chinese.xaml"/>
+                <!--<ResourceDictionary Source="/Mass.Language;component/Chinese.xaml"/>-->
                 <ResourceDictionary Source="/LabTech.UITheme;component/Languages/UITheme_Chinese.xaml"/>
                 <ResourceDictionary Source="/LabTech.UITheme;component/DynamicHeight/HeightTheme_Mouse.xaml"/>
                 <ResourceDictionary Source="/LabTech.UITheme;component/Skins/GreenTheme.xaml"/>

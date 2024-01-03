@@ -87,10 +87,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\Mass.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Mass.Language, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Lib\Mass.Language.dll</HintPath>
-    </Reference>
     <Reference Include="Mass.UITheme, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\Mass.UITheme.dll</HintPath>
@@ -217,6 +213,7 @@
     <Compile Include="Common\GetPositionInfoHelper.cs" />
     <Compile Include="Common\SampleHelper.cs" />
     <Compile Include="Common\TrayInfoHelper.cs" />
+    <Compile Include="Enum\Enum_Languagess.cs" />
     <Compile Include="Enum\Enum_MotorWorkType.cs" />
     <Compile Include="Enum\Enum_TrayName.cs" />
     <Compile Include="Enum\Enum_TrayType.cs" />
@@ -327,15 +324,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\AutoSampler_Chinese.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\AutoSampler_English.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Themes\Converter.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Dictionary_Chinese.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Dictionary_English.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

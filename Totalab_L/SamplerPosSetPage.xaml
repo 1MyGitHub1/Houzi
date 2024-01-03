@@ -19,7 +19,6 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Totalab_L;component/Themes/Generic.xaml"/>
-                <ResourceDictionary Source="/Totalab_L;component/Themes/Dictionary_Chinese.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </ltCtl:CustomWindow.Resources>
@@ -457,12 +456,12 @@
                 <TextBlock Grid.Row="3" Text="{DynamicResource AutoSampler_AdvancedSetPage_Text5}" Style="{StaticResource TextBlockSty}" Foreground="Red" FontSize="11" VerticalAlignment="Top"/>
                 <TextBlock Grid.Row="5" Text="{DynamicResource AutoSampler_AdvancedSetPage_TitleCalibrationLocPara}" Style="{StaticResource UCtlTitleTextBlockSty}" FontSize="16" VerticalAlignment="Center"/>
                 <StackPanel Grid.Row="7" Orientation="Horizontal">
-                    <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_TranslationPara}" Style="{StaticResource TextBlockSty}"  Width="108" VerticalAlignment="Center"/>
+                    <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_TranslationPara}" Style="{StaticResource TextBlockSty}"  Width="120" VerticalAlignment="Center"/>
                     <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="76" Height="32" MinValue="0"
                         DoubleValue="{Binding  CalibrationInfo.CalibrationLeftX,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
                 </StackPanel>
                 <StackPanel Grid.Row="9" Orientation="Horizontal">
-                    <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_AnglePara}" Style="{StaticResource TextBlockSty}"  Width="108" Margin="0 0 0 0" VerticalAlignment="Center"/>
+                    <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_AnglePara}" Style="{StaticResource TextBlockSty}"  Width="120" Margin="0 0 0 0" VerticalAlignment="Center"/>
                     <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="76" Margin="0 0 0 0"
                           DoubleValue="{Binding  CalibrationInfo.CalibrationLeftW,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
                     <Button Style="{StaticResource  ButtonAccentSty}"  Width="76" Height="32"  Margin="12 0 0 0" Content="{DynamicResource AutoSampler_Main_PositionMove}" Tag="left" Background="#FFDDDDDD" Foreground="Black"
@@ -482,7 +481,7 @@
                     </Button>
                 </StackPanel>
                 <StackPanel Grid.Row="11" Orientation="Horizontal">
-                    <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_DeclineHeightPara}" Style="{StaticResource TextBlockSty}"  Width="108" VerticalAlignment="Center"/>
+                    <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_DeclineHeightPara}" Style="{StaticResource TextBlockSty}"  Width="120" VerticalAlignment="Center"/>
                     <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="76" MaxValue="169" MinValue="0"
                           DoubleValue="{Binding  ZCurrentPosition,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
                     <Button Style="{StaticResource  ButtonAccentSty}"  Width="76" Height="32" Margin="12 0 0 0" Content="{DynamicResource AutoSampler_Main_Sampling}" Background="#FFDDDDDD" Foreground="Black"
@@ -535,7 +534,7 @@
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Grid.Row="17" Orientation="Horizontal">
-                    <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_FineTuningX}" Style="{StaticResource TextBlockSty}"  Width="108" VerticalAlignment="Center"/>
+                    <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_FineTuningX}" Style="{StaticResource TextBlockSty}"  Width="120" VerticalAlignment="Center"/>
                     <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="76" Height="32" 
                           DoubleValue="{Binding XAdjustPosition,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2" FontSize="16" IsReadOnly="True" Background="#FFDDDDDD"/>
 
@@ -577,7 +576,7 @@
                     </Button>
                 </StackPanel>
                 <StackPanel Grid.Row="19" Orientation="Horizontal">
-                    <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_FineTuningW}" Style="{StaticResource TextBlockSty}"  Width="108" VerticalAlignment="Center"/>
+                    <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_FineTuningW}" Style="{StaticResource TextBlockSty}"  Width="120" VerticalAlignment="Center"/>
                     <!--<ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Margin="20,0,0,0"
                           DoubleValue="{Binding CalibrationLeftShowX,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2" IsReadOnly="True" Background="#FFDDDDDD"/>-->
                     <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="76" Height="32"
@@ -646,12 +645,12 @@
                     <TextBlock Text="{DynamicResource AutoSampler_AdvancedSetPage_TitleTestPositionPara}" Style="{StaticResource UCtlTitleTextBlockSty}" Width="140" FontSize="16" VerticalAlignment="Center"/>
                 </StackPanel>
                 <StackPanel Grid.Row="3" Orientation="Horizontal">
-                    <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_TranslationPara}" Style="{StaticResource TextBlockSty}"  Width="108" VerticalAlignment="Center"/>
+                    <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_TranslationPara}" Style="{StaticResource TextBlockSty}"  Width="120" VerticalAlignment="Center"/>
                     <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="76" Height="32" MinValue="0"
                         DoubleValue="{Binding  CalibrationInfo.CalibrationRightX,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
                 </StackPanel>
                 <StackPanel Grid.Row="5" Orientation="Horizontal">
-                    <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_AnglePara}" Style="{StaticResource TextBlockSty}"  Width="108" Margin="0 0 0 0" VerticalAlignment="Center"/>
+                    <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_AnglePara}" Style="{StaticResource TextBlockSty}"  Width="120" Margin="0 0 0 0" VerticalAlignment="Center"/>
                     <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="76" Height="32"
                           DoubleValue="{Binding  CalibrationInfo.CalibrationRightW,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
                     <Button Style="{StaticResource  ButtonAccentSty}"  Width="76" Margin="12 0 0 0" Content="{DynamicResource AutoSampler_Main_PositionMove}" Tag="right" Background="#FFDDDDDD" Foreground="Black"
@@ -671,7 +670,7 @@
                     </Button>
                 </StackPanel>
                 <StackPanel Grid.Row="7" Orientation="Horizontal">
-                    <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_DeclineHeightPara}" Style="{StaticResource TextBlockSty}"  Width="108" VerticalAlignment="Center"/>
+                    <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_DeclineHeightPara}" Style="{StaticResource TextBlockSty}"  Width="120" VerticalAlignment="Center"/>
                     <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="76" Height="32" MaxValue="169" MinValue="0"
                           DoubleValue="{Binding  ZCurrentPosition,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
                     <Button Style="{StaticResource  ButtonAccentSty}"  Width="76" Margin="12 0 0 0" Content="{DynamicResource AutoSampler_Main_Sampling}" Background="#FFDDDDDD" Foreground="Black"
@@ -707,10 +706,10 @@
                 </StackPanel>
                 <StackPanel Grid.Row="9" Orientation="Horizontal" HorizontalAlignment="Right">
                     <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,132,0">-->
-                    <Button Style="{StaticResource  ButtonPrimarySty}"  Width="76" Height="32" Margin="0,0,12,0"  Content="{DynamicResource ButtonContent_Cancel}"  IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"
+                    <!--<Button Style="{StaticResource  ButtonPrimarySty}"  Width="76" Height="32" Margin="0,0,12,0"  Content="{DynamicResource ButtonContent_Cancel}"  IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"
                                 Click="CancelCommand"/>
-                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="76" Height="32" Margin="0,0,165,0" Content="{DynamicResource ButtonContent_Save}"
-                                Click="SavePosCommand"  IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Tag="save1"/>
+                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="76" Height="32" Margin="0,0,153,0" Content="{DynamicResource ButtonContent_Save}"
+                                Click="SavePosCommand"  IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Tag="save1"/>-->
                 </StackPanel>
 
             </Grid>
@@ -787,7 +786,7 @@
                         </StackPanel>
                         <!--Content="{DynamicResource AutoSampler_Go}"-->
                         <StackPanel Grid.Row="4" Grid.Column="0" Orientation="Horizontal">
-                            <TextBlock  Text="{DynamicResource  AutoSampler_AdvancedSetPage_SampleNum}" Style="{StaticResource TextBlockSty}"  Width="108"/>
+                            <TextBlock  Text="{DynamicResource  AutoSampler_AdvancedSetPage_SampleNum}" Style="{StaticResource TextBlockSty}"  Width="120"/>
                             <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Height="32"
                           Text="{Binding CalibrationInfo.PosNumber,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"/>
                             <Button Width="74" Margin="12 0 0 0" Click="GoToXYCommand" Content="{DynamicResource AutoSampler_Main_PositionMove}" Style="{StaticResource ButtonAccentSty}" Background="#FFDDDDDD" Foreground="Black">
@@ -806,7 +805,7 @@
                             </Button>
                         </StackPanel>
                         <StackPanel Grid.Row="6" Grid.Column="0" Orientation="Horizontal">
-                            <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_UpliftHeight}" Style="{StaticResource TextBlockSty}"  Width="108"/>
+                            <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_UpliftHeight}" Style="{StaticResource TextBlockSty}"  Width="120"/>
                             <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Height="32" MaxValue="169" MinValue="0" 
                           DoubleValue="{Binding  CalibrationInfo.ZResetPosition,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
                             <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="12 0 0 0" Content="{DynamicResource AutoSampler_AdvancedSetPage_set}" Background="#FFDDDDDD" Foreground="Black"
@@ -828,7 +827,7 @@
                         </StackPanel>
                         <TextBlock  Grid.Row="7" Text="{DynamicResource AutoSampler_AdvancedSetPage_Text2}" Style="{StaticResource TextBlockSty}" FontSize="11" Foreground="Red" Height="15" HorizontalAlignment="Left"/>
                         <StackPanel  Grid.Row="8" Orientation="Horizontal">
-                            <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_LiquidLevelHeight}" Style="{StaticResource TextBlockSty}"  Width="108"/>
+                            <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_LiquidLevelHeight}" Style="{StaticResource TextBlockSty}"  Width="120"/>
                             <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Height="32" MaxValue="169" MinValue="0" 
                           DoubleValue="{Binding  Liquid_level,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
                             <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="12 0 0 0" Content="{DynamicResource AutoSampler_AdvancedSetPage_set}" Background="#FFDDDDDD" Foreground="Black"
@@ -864,7 +863,7 @@
 
                         </StackPanel>
                         <StackPanel Grid.Row="10" Orientation="Horizontal">
-                            <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_ImbibitionHeight}" Style="{StaticResource TextBlockSty}"  Width="108"/>
+                            <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_ImbibitionHeight}" Style="{StaticResource TextBlockSty}"  Width="120"/>
                             <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" MaxValue="169" MinValue="0"
                           DoubleValue="{Binding  ZCurrentPosition,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
                             <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Margin="12 0 0 0" Content="{DynamicResource AutoSampler_Main_Sampling}" Background="#FFDDDDDD" Foreground="Black"
@@ -918,13 +917,15 @@
                         <RowDefinition Height="32"/>
                         <RowDefinition Height="12"/>
                         <RowDefinition Height="32"/>
+                        <RowDefinition Height="32"/>
+
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="1" Orientation="Horizontal">
                         <TextBlock Text="{DynamicResource AutoSampler_AdvancedSetPage_TitleNeedleSpeedSet}" Style="{StaticResource UCtlTitleTextBlockSty}" FontSize="16" VerticalAlignment="Center"/>
                     </StackPanel>
                     <StackPanel Grid.Row="3" Orientation="Horizontal">
-                        <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_UpliftSpeed1}" Style="{StaticResource TextBlockSty}"  Width="108"/>
-                        <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Height="32" MaxValue="100" MinValue="0" 
+                        <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_UpliftSpeed1}" Style="{StaticResource TextBlockSty}"  Width="120"/>
+                        <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Height="32" MaxValue="100" MinValue="2" 
                           DoubleValue="{Binding  CalibrationInfo.Speed1_value,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
                         <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="12 0 0 0" Content="{DynamicResource AutoSampler_AdvancedSetPage_set}" Background="#FFDDDDDD" Foreground="Black"
                                  Click="Set_ValueCommand" Tag="SetSpeed1">
@@ -977,8 +978,8 @@
                     <TextBlock  Grid.Row="4" Text="{DynamicResource AutoSampler_AdvancedSetPage_Text3}" Style="{StaticResource TextBlockSty}" FontSize="11" Foreground="Red" Height="15" HorizontalAlignment="Left"/>
 
                     <StackPanel Grid.Row="5" Orientation="Horizontal">
-                        <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_UpliftSpeed2}" Style="{StaticResource TextBlockSty}"  Width="108"/>
-                        <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Height="32" MaxValue="100" MinValue="0" 
+                        <TextBlock  Text="{DynamicResource AutoSampler_AdvancedSetPage_UpliftSpeed2}" Style="{StaticResource TextBlockSty}"  Width="120"/>
+                        <ltCtl:CustomNumericBox Style="{StaticResource  CustomNumericBoxSty}"  Width="74" Height="32" MaxValue="100" MinValue="2" 
                           DoubleValue="{Binding CalibrationInfo.Speed2_value,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" DecimalPrecision="2"/>
                         <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Margin="12 0 0 0" Content="{DynamicResource AutoSampler_AdvancedSetPage_set}" Background="#FFDDDDDD" Foreground="Black"
                                  Click="Set_ValueCommand" Tag="SetSpeed2">
@@ -1029,7 +1030,13 @@
 
                     </StackPanel>
                     <TextBlock  Grid.Row="6" Text="{DynamicResource AutoSampler_AdvancedSetPage_Text4}" Style="{StaticResource TextBlockSty}" FontSize="11" Foreground="Red" Height="15" HorizontalAlignment="Left"/>
+                    <StackPanel Grid.Row="8" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,7,0">
+                        <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Height="32" Margin="0,0,12,0"  Content="{DynamicResource ButtonContent_Cancel}"  IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"
+                                Click="CancelCommand"/>
+                        <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Height="32" Margin="0,0,153,0" Content="{DynamicResource ButtonContent_Save}"
+                                Click="SavePosCommand"  IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Tag="save1"/>
 
+                    </StackPanel>
                 </Grid>
             </Grid>
 

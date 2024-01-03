@@ -13,7 +13,9 @@
         <ResourceDictionary Source="/Mass.Language;component/Chinese.xaml"/>
         <ResourceDictionary Source="/Mass.UITheme;component/Themes/UIGenericTheme.xaml" />-->
          <!--!-->
-        
+       
+        <ResourceDictionary Source="/Totalab_L;component/Themes/AutoSampler_English.xaml"/>
+        <ResourceDictionary Source="/Totalab_L;component/Themes/AutoSampler_Chinese.xaml"/>
         <ResourceDictionary Source="/Totalab_L;component/Themes/SfDataGridRowSty.xaml"/>
         <ResourceDictionary Source="/Totalab_L;component/Themes/RadioButtonTheme.xaml"/>
         <ResourceDictionary Source="/Totalab_L;component/Themes/TrayControlTheme.xaml"/>

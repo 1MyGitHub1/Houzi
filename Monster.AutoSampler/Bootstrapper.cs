@@ -119,11 +119,12 @@ namespace Monster.AutoSampler
                 Environment.Exit(0);
             }
             bool rlt = true;
-            Enum_Languages currentLangName = Enum_Languages.English;
+            Enum_Languages currentLangName = Enum_Languages.Chinese;
             Enum_ThemeColor currentSkinThemeName = Enum_ThemeColor.Red;
             List<string> languageList = new List<string>
             {
-                "/Mass.Language;component/"
+                //"/Mass.Language;component/",
+                "/Totalab_L;component/Themes/AutoSampler_"
             };
             try
             {

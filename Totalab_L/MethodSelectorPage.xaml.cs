@@ -109,6 +109,11 @@ namespace Totalab_L
         {
             try
             {
+                //this.Dispatcher.Invoke((Action)(() =>
+                //{
+                //    new MessagePage().ShowDialog("AutoSampler_Main_SampleTray".GetWord(), "MessageTitle_Information".GetWord(), false, Enum_MessageType.Information, this);
+                //}));
+
                 if (SelectionMethodIndex < 0)
                     return;
                 if (!IsSettingsOpen)
@@ -191,7 +196,7 @@ namespace Totalab_L
                         //GlobalInfo.Instance.SettingInfo = new SettingInfo();
                         this.Dispatcher.Invoke((Action)(() =>
                         {
-                            new MessagePage().ShowDialog("Message_Error1004".GetWord(), "MessageTitle_Information".GetWord(), false, Enum_MessageType.Information,this);
+                            new MessagePage().ShowDialog("Message_Error1004".GetWord(), "MessageTitle_Information".GetWord(), false, Enum_MessageType.Information, this);
                         }));
                         return;
                     }
@@ -355,7 +360,7 @@ namespace Totalab_L
             {
                     new PreWashItemInfo
                     {
-                        StepName = "AutoSampler_Main_PreFlush".GetWord(),
+                        StepName = (string)Application.Current.FindResource("AutoSampler_Main_PreFlush"),
                         IsOpenAction = true,
                         WashLoc="1",
                         WashPumpSpeed = 40,
@@ -382,8 +387,8 @@ namespace Totalab_L
             { 
                     new ParaItemInfo
                     {
-                        StepName = "AutoSampler_Main_PostRun".GetWord(),
-                        WashAction="AutoSampler_Main_InjectNeedleFlushSam".GetWord(),
+                        StepName = (string)Application.Current.FindResource("AutoSampler_Main_PostRun"),
+                        WashAction=(string)Application.Current.FindResource("AutoSampler_Main_InjectNeedleFlushSam"),
                         WashActionKey=1,
                         WashLoc="1",
                         WashPumpSpeed = 40,
@@ -391,7 +396,7 @@ namespace Totalab_L
                     },
                     new ParaItemInfo
                     {
-                        WashAction="AutoSampler_Main_InjectNeedleFlushStdSam".GetWord(),
+                        WashAction=(string)Application.Current.FindResource("AutoSampler_Main_InjectNeedleFlushStdSam"),
                         WashActionKey=2,
                         WashLoc ="1",
                         WashPumpSpeed = 40,

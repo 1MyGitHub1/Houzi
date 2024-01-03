@@ -1,4 +1,4 @@
-﻿<Application x:Class="CircleAutoSampler.App"
+﻿<Application x:Class="Totalab_L.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Totalab_L"
@@ -6,7 +6,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Mass.Language;component/Chinese.xaml"/>
+                <!--<ResourceDictionary Source="/Mass.Language;component/Chinese.xaml"/>-->
                 <ResourceDictionary Source="/LabTech.UITheme;component/Languages/UITheme_Chinese.xaml"/>
                 <ResourceDictionary Source="/LabTech.UITheme;component/DynamicHeight/HeightTheme_Mouse.xaml"/>
                 <ResourceDictionary Source="/LabTech.UITheme;component/Skins/RedTheme.xaml"/>
@@ -15,8 +15,8 @@
                 <ResourceDictionary Source="/Mass.UITheme;component/Themes/UIGenericTheme.xaml" />
 
                 <ResourceDictionary Source="/Totalab_L;component/Themes/Generic.xaml"/>
-                <ResourceDictionary Source="/Totalab_L;component/Themes/Dictionary_Chinese.xaml"/>
-                <ResourceDictionary Source="/Totalab_L;component/Themes/Dictionary_English.xaml"/>
+                <ResourceDictionary Source="/Totalab_L;component/Themes/AutoSampler_English.xaml"/>
+                <ResourceDictionary Source="/Totalab_L;component/Themes/AutoSampler_Chinese.xaml"/>
 
                 <!--<ResourceDictionary>
                     <local:Bootstrapper x:Key="bootstrapper"/>

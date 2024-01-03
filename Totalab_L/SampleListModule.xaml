@@ -298,6 +298,7 @@
                     </sfdatagrid:SfDataGrid.Style>
                     <sfdatagrid:SfDataGrid.Columns>
                         <sfdatagrid:GridTemplateColumn Width="40" HeaderStyle="{StaticResource SfDataGridHeaderCellBor0Sty}">
+                            <!--多选框-->
                             <sfdatagrid:GridTemplateColumn.HeaderTemplate>
                                 <DataTemplate>
                                     <CheckBox sfdatagrid:FocusManagerHelper.FocusedElement="True" Click="SamplingSelectedAllCommand" 
@@ -374,22 +375,26 @@
                         </sfdatagrid:GridTemplateColumn>
                         <sfdatagrid:GridTemplateColumn Width="40" HeaderStyle="{StaticResource SfDataGridHeaderCellBor0Sty}">
                             <sfdatagrid:GridTemplateColumn.HeaderTemplate>
+                                <!--序号-->
                                 <DataTemplate>
                                     <TextBlock Text="{DynamicResource AutoSampler_Run_No}" Style="{StaticResource DGHeaderTextBlockSty}"/>
                                 </DataTemplate>
                             </sfdatagrid:GridTemplateColumn.HeaderTemplate>
                             <sfdatagrid:GridTemplateColumn.CellTemplate>
+                                <!--样品编号-->
                                 <DataTemplate>
                                     <TextBlock Text="{Binding SampleNum,Mode=OneWay}" Style="{StaticResource DGCellTextBlockFore60Sty}"/>
                                 </DataTemplate>
                             </sfdatagrid:GridTemplateColumn.CellTemplate>
                         </sfdatagrid:GridTemplateColumn>
                         <sfdatagrid:GridTemplateColumn MinimumWidth="210">
+                            <!--表头样品名-->
                             <sfdatagrid:GridTemplateColumn.HeaderTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{DynamicResource DataGrid_Header_SampleID}" Style="{StaticResource DGHeaderTextBlockSty}"/>
                                 </DataTemplate>
                             </sfdatagrid:GridTemplateColumn.HeaderTemplate>
+                            <!--样品名-->
                             <sfdatagrid:GridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBox Text="{Binding SampleName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
@@ -459,6 +464,7 @@
                                 </DataTemplate>
                             </sfdatagrid:GridTemplateColumn.CellTemplate>
                         </sfdatagrid:GridTemplateColumn>
+                        <!--分析类型-->
                         <sfdatagrid:GridTemplateColumn MinimumWidth="150" IsHidden="{Binding IsHimassConnState,Converter={StaticResource CompareToFalseConverter},ConverterParameter=True,Source={x:Static global:GlobalInfo.Instance}}">
                             <sfdatagrid:GridTemplateColumn.HeaderTemplate>
                                 <DataTemplate>
@@ -533,6 +539,7 @@
                                 </DataTemplate>
                             </sfdatagrid:GridTemplateColumn.CellTemplate>
                         </sfdatagrid:GridTemplateColumn>
+                        <!--额外清洗-->
                         <sfdatagrid:GridTemplateColumn>
                             <sfdatagrid:GridTemplateColumn.HeaderTemplate>
                                 <DataTemplate>

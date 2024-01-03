@@ -14,7 +14,6 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Totalab_L;component/Themes/Generic.xaml"/>
-                <ResourceDictionary Source="/Totalab_L;component/Themes/Dictionary_Chinese.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <global:RadioButtonConvert x:Key="radioConverterRes"/>
             <global:MultiVisibleConvert x:Key="MultiVisibleConvertKey"/>
@@ -200,7 +199,7 @@
                 <TextBlock Grid.Row="6" Grid.Column="3" Text="s" IsHyphenationEnabled="True" Style="{StaticResource TextBlockFore60Sty}"/>
 
 
-                <TextBlock Grid.Row="2"  Grid.Column=" 6" Text="{DynamicResource AutoSampler_Main_FirstNeedleWashingPosition}" Style="{StaticResource TextBlockFore60Sty}"/>
+                <TextBlock Grid.Row="2"  Grid.Column=" 6" Text="{DynamicResource AutoSampler_Main_SecondNeedleWashingPosition}" Style="{StaticResource TextBlockFore60Sty}"/>
                 <ToggleButton Grid.Column="8" Grid.Row="2"  Style="{StaticResource ToggleButtonSwitchSty}"  Grid.ColumnSpan="3" Width="80" HorizontalAlignment="Left"
                              IsChecked="{Binding SettingInfo.IsWash2Open,Source={x:Static global:GlobalInfo.Instance},UpdateSourceTrigger=PropertyChanged}" 
                               IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"/>
@@ -228,7 +227,7 @@
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Width="200">
                     <DataGridTemplateColumn.Header>
-                        <TextBlock Text="{DynamicResource DataGrid_Header_Action}" Style="{StaticResource DGHeaderTextBlockSty}"/>
+                        <TextBlock Text="{DynamicResource AutoSampler_I_Action}" Style="{StaticResource DGHeaderTextBlockSty}"/>
                     </DataGridTemplateColumn.Header>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Width="200">
@@ -294,7 +293,7 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Rpm (r/min)" Width="200">
+                        <DataGridTemplateColumn Header="Rpm (r/min)" Width="188">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <ltCtl:CustomNumericBox MinValue="-100" MaxValue="100" DecimalPrecision="1" MaxLength="6"
@@ -303,7 +302,7 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Loc" Width="120">
+                        <DataGridTemplateColumn Header="Loc" Width="130">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <ComboBox SelectedItem="{Binding WashLoc,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DGCellComboBoxSty}"

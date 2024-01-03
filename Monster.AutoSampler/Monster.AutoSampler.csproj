@@ -110,10 +110,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\Mass.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Mass.Language, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Lib\Mass.Language.dll</HintPath>
-    </Reference>
     <Reference Include="Mass.UITheme, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\Mass.UITheme.dll</HintPath>
@@ -246,6 +242,14 @@
     <Compile Include="Views\DeviceModuleView.xaml.cs">
       <DependentUpon>DeviceModuleView.xaml</DependentUpon>
     </Compile>
+    <Page Include="AutoSampler_Chinese.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AutoSampler_English.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\MessagePageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

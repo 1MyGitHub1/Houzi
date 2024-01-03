@@ -34,6 +34,7 @@ namespace Totalab_L
         {
             InitializeComponent();
             this.DataContext = this;
+            GlobalInfo.LgDictionary = Application.LoadComponent(new Uri(@"/Totalab_L;component/Themes/AutoSampler_Chinese.xaml", UriKind.RelativeOrAbsolute)) as ResourceDictionary;
 
         }
 
@@ -1277,7 +1278,6 @@ namespace Totalab_L
                 Control_ParentView._IsTestConnection = false;
                 GlobalInfo.Instance.RunningStep = RunningStep_Status.SetPumpSpeed;
                 GlobalInfo.Instance.Totalab_LSerials.PumpRunSpeed(GlobalInfo.Instance.SettingInfo.PumpSpeed1);
-                //}
 
                 Console.WriteLine("PumpRunSpeed");
 
@@ -1418,11 +1418,10 @@ namespace Totalab_L
                     while (GlobalInfo.Instance.RunningStep != RunningStep_Status.ClosePumpOk && (DateTime.Now.Ticks / 10000 - longseconds) / 1000 < 5)
                     {
                         Thread.Sleep(20);
-
                     }
-
                     if (GlobalInfo.Instance.RunningStep == RunningStep_Status.ClosePumpOk)
                     {
+                        samplerPosSetPage.MoveToZ_0Command();           //清洗完升针
                         isW1complete = true;
                         GlobalInfo.Instance.IsCanRunning = true;
                         GlobalInfo.Instance.IsBusy = false;

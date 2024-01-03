@@ -17,7 +17,6 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Totalab_L;component/Themes/Generic.xaml"/>
-                <ResourceDictionary Source="/Totalab_L;component/Themes/Dictionary_Chinese.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>

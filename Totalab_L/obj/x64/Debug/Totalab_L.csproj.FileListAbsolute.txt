@@ -1299,7 +1299,6 @@ C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\bin\x64\Debug\LabTech.UIT
 C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\bin\x64\Debug\LabTech.UITheme.Tlk.dll
 C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\bin\x64\Debug\log4net.dll
 C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\bin\x64\Debug\Mass.Common.dll
-C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\bin\x64\Debug\Mass.Language.dll
 C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\bin\x64\Debug\Mass.UITheme.dll
 C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\bin\x64\Debug\Microsoft.Expression.Interactions.dll
 C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\bin\x64\Debug\SharpDX.Direct2D1.dll
@@ -1341,7 +1340,6 @@ C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\obj\x64\Debug\AddSamplePa
 C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\obj\x64\Debug\MessagePage.baml
 C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\obj\x64\Debug\MethodSelectorPage.baml
 C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\obj\x64\Debug\RegisterSNPage.baml
-C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\obj\x64\Debug\Themes\Dictionary_Chinese.baml
 C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\obj\x64\Debug\Themes\RadioButtonTheme.baml
 C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\obj\x64\Debug\Themes\SfDataGridRowSty.baml
 C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\obj\x64\Debug\Themes\Generic.baml
@@ -1368,4 +1366,5 @@ C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\obj\x64\Debug\Totalab_L.c
 C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\obj\x64\Debug\Totalab_L.dll
 C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\obj\x64\Debug\Totalab_L.pdb
 C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\obj\x64\Debug\Themes\Converter.baml
-C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\obj\x64\Debug\Themes\Dictionary_English.baml
+C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\obj\x64\Debug\Themes\AutoSampler_Chinese.baml
+C:\labte\Project\Organic\Totalab-L\Totalab-L\Totalab_L\obj\x64\Debug\Themes\AutoSampler_English.baml

@@ -35,6 +35,7 @@ namespace Totalab_L
         {
             InitializeComponent();
             this.DataContext = this;
+            GlobalInfo.status = false;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -148,7 +149,7 @@ namespace Totalab_L
                 Notify("Liquid_level");
             }
         }
-        private double _liquid_level = 100;
+        private double _liquid_level;
 
         public TrayPanelCalibrationInfo CalibrationInfo
         {
@@ -1659,7 +1660,7 @@ namespace Totalab_L
                         while (true)
                         {
                             longseconds = DateTime.Now.Ticks / 10000;
-                            while (GlobalInfo.Instance.RunningStep != RunningStep_Status.SetMotorActionOk && (DateTime.Now.Ticks / 10000 - longseconds) / 1000 < 5 && GlobalInfo.Instance.RunningStep != RunningStep_Status.Error)
+                            while (GlobalInfo.Instance.RunningStep != RunningStep_Status.SetMotorActionOk && (DateTime.Now.Ticks / 10000 - longseconds) / 1000 < 10 && GlobalInfo.Instance.RunningStep != RunningStep_Status.Error)
                             {
                                 Thread.Sleep(100);
                             }
@@ -3092,12 +3093,19 @@ namespace Totalab_L
                 e.Cancel = true;
                 if (GlobalInfo.Instance.IsCanRunning == false)
                 {
-                    new MessagePage().ShowDialog("仪器正在运行中，请稍后关闭窗口".GetWord(), "MessageTitle_Information".GetWord(), false, Enum_MessageType.Information);
+                    new MessagePage().ShowDialog("Message_CloseError".GetWord(), "MessageTitle_Information".GetWord(), false, Enum_MessageType.Information);
                     return;
                 }
-                e.Cancel = false;
+                else
+                {
+                    bool? result = new MessagePage().ShowDialog("Message_CloseInformation".GetWord(), "MessageTitle_Information".GetWord(), true, Enum_MessageType.Information, yesContent: "Message_ButtonOK".GetWord());
+                    if ((bool)result)
+                    {
+                        e.Cancel = false;
+                        GlobalInfo.calibration_status = false;          //漏液槽
+                    }
+                }
             }
-            GlobalInfo.calibration_status = false;          //漏液槽
 
         }
         //移动到当前设置位置-----左边校准点
@@ -3192,6 +3200,7 @@ namespace Totalab_L
                     GlobalInfo.Instance.TrayPanel_leftW = CalibrationInfo.CalibrationLeftW;
                     GlobalInfo.Instance.TrayPanel_rightW = CalibrationInfo.CalibrationRightW;
                     CalibrationInfo.ZResetPosition = CalibrationInfo.ZResetPosition;
+                    Liquid_level = CalibrationInfo.ZResetLiquid_level;
                     XAdjustPosition = 0.20;
                     WAdjustPosition = 0.50;
                     //InitSettingInfo();
@@ -3400,7 +3409,7 @@ namespace Totalab_L
                 {
                     this.Dispatcher.Invoke((Action)(() =>
                     {
-                        bool? ErrorResult = new MessagePage().ShowDialog("运行错误，进样针故障!", "警告", true, Enum_MessageType.Error, yesContent: "确定");
+                        bool? ErrorResult = new MessagePage().ShowDialog("Message_RunError".GetWord(), "MessageTitle_Error".GetWord(), true, Enum_MessageType.Error, yesContent: "Message_ButtonOK".GetWord());
                         if ((bool)ErrorResult)
                         {
                             //清错

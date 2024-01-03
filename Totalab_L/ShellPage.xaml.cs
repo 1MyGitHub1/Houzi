@@ -23,6 +23,7 @@ using System.Windows.Controls;
 using Totalab_L.Common;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
+using LabTech.UITheme.Helper;
 
 namespace Totalab_L
 {
@@ -39,6 +40,8 @@ namespace Totalab_L
             IsConnect = true;                 //单机调试使用
             ConnectThread = new Thread(Connect);
             ConnectThread.Start();
+
+            GlobalInfo.LgDictionary = Application.LoadComponent(new Uri(@"/Totalab_L;component/Themes/AutoSampler_Chinese.xaml", UriKind.RelativeOrAbsolute)) as ResourceDictionary;
 
             //ConnectionTestThead = new Thread(ConnectStatus);
             //ConnectionTestThead.Start();
@@ -60,6 +63,11 @@ namespace Totalab_L
             Configuration config = ConfigurationManager.OpenMappedExeConfiguration(map, ConfigurationUserLevel.None);
             IsMedicalSoft = Convert.ToBoolean(config.AppSettings.Settings["IsMedical"].Value);
             GlobalInfo.Instance.MaxConnectionTimes = Convert.ToInt32(config.AppSettings.Settings["MaxConnectTimes"].Value);
+            //List<string> languageList = new List<string>
+            //{
+            //    "/Totalab_L;component/Themes/AutoSampler_"
+            //};
+            //ResourceDictionaryHelper.SwitchLanguage(Enum_Languages.Chinese, languageList);
         }
 
         public void ConnectStatus()
@@ -81,7 +89,7 @@ namespace Totalab_L
                         {
                             Application.Current.Dispatcher.Invoke((Action)(() =>
                             {
-                                new MessagePage().ShowDialog("重新连接成功", "提示", false, Enum_MessageType.Information);
+                                new MessagePage().ShowDialog("Message_Connection".GetWord(), "Message_Information".GetWord(), false, Enum_MessageType.Information);
                             }));
                             if (GlobalInfo.Instance.IsHimassConnState)
                             {
@@ -512,7 +520,7 @@ namespace Totalab_L
 
                         new PreWashItemInfo
                         {
-                            StepName = "AutoSampler_Main_PreFlush".GetWord(),
+                            StepName = GlobalInfo.LgDictionary["AutoSampler_Main_PreFlush"].ToString(),
                             IsOpenAction = true,
                             WashLoc="RinseLoc",
                             WashPumpSpeed = 40,
@@ -540,8 +548,8 @@ namespace Totalab_L
                     {
                         new ParaItemInfo
                         {
-                            StepName = "AutoSampler_Main_PostRun".GetWord(),
-                            WashAction="AutoSampler_Main_InjectNeedleFlushSam".GetWord(),
+                            StepName = GlobalInfo.LgDictionary["AutoSampler_Main_PostRun"].ToString(),
+                            WashAction=GlobalInfo.LgDictionary["AutoSampler_Main_InjectNeedleFlushSam"].ToString(),
                             WashActionKey=1,
                             WashLoc="RinseLoc",
                             WashPumpSpeed = 40,
@@ -549,7 +557,7 @@ namespace Totalab_L
                         },
                         new ParaItemInfo
                         {
-                            WashAction="AutoSampler_Main_InjectNeedleFlushStdSam".GetWord(),
+                            WashAction=GlobalInfo.LgDictionary["AutoSampler_Main_InjectNeedleFlushStdSam"].ToString(),
                             WashActionKey=2,
                             WashLoc="RinseLoc",
                             WashPumpSpeed = 40,
@@ -615,9 +623,10 @@ namespace Totalab_L
                 {
                     this.Dispatcher.Invoke((Action)(() =>
                     {
-                        bool? result1 = new MessagePage().ShowDialog("更换进样针钱，请先移除C位试管架，然后单击更换按钮，等待机械臂移动到适宜操作位置。", "更换进样针", true, yesContent: "更换", cancelContent: "取消");
+                        bool? result1 = new MessagePage().ShowDialog("Message_ReplaceNeedle".GetWord(), "Message_TitleReplaceNeedle".GetWord(), true, yesContent: "Message_ButtonOK".GetWord(), cancelContent: "ButtonContent_Cancel".GetWord());
                         if (result1 == true)
                         {
+                            //更换前
                             #region  防止撞针
                             samplerPosSetPage.MoveToZ_0Command();
                             Thread.Sleep(500);
@@ -632,8 +641,9 @@ namespace Totalab_L
                             }
                             else
                             {
+                                //更换完后
                                 samplerPosSetPage.MoveToZ_ChangeCommand();
-                                bool? result2 = new MessagePage().ShowDialog("进样针更换完毕后点击确定，机械臂复位", "更换进样针", true, yesContent: "确定");
+                                bool? result2 = new MessagePage().ShowDialog("Message_ReplaceNeedleEnd".GetWord(), "Message_TitleReplaceNeedle".GetWord(), true, yesContent: "Message_ButtonOK".GetWord());
                                 if (result2 == true)
                                 {
                                     GlobalInfo.Instance.IsCanRunning = false;
@@ -2491,7 +2501,7 @@ namespace Totalab_L
                 {
                     new PreWashItemInfo
                     {
-                        StepName = "AutoSampler_Main_PreFlush".GetWord(),
+                        StepName = GlobalInfo.LgDictionary["AutoSampler_Main_PreFlush"].ToString(),
                         IsOpenAction = true,
                         WashLoc="RinseLoc",
                         WashPumpSpeed = 40,
@@ -2518,8 +2528,8 @@ namespace Totalab_L
                 {
                     new ParaItemInfo
                     {
-                        StepName = "AutoSampler_Main_PostRun".GetWord(),
-                        WashAction="AutoSampler_Main_InjectNeedleFlushSam".GetWord(),
+                        StepName = GlobalInfo.LgDictionary["AutoSampler_Main_PostRun"].ToString(),
+                        WashAction=GlobalInfo.LgDictionary["AutoSampler_Main_InjectNeedleFlushSam"].ToString(),
                         WashActionKey=1,
                         WashLoc="RinseLoc",
                         WashPumpSpeed = 40,
@@ -2527,7 +2537,7 @@ namespace Totalab_L
                     },
                     new ParaItemInfo
                     {
-                        WashAction="AutoSampler_Main_InjectNeedleFlushStdSam".GetWord(),
+                        WashAction=GlobalInfo.LgDictionary["AutoSampler_Main_InjectNeedleFlushStdSam"].ToString(),
                         WashActionKey=2,
                         WashLoc ="RinseLoc",
                         WashPumpSpeed = 40,
@@ -2978,7 +2988,7 @@ namespace Totalab_L
                                 _isHandReconnection = true;
                                 Application.Current.Dispatcher.Invoke((Action)(() =>
                                 {
-                                    new MessagePage().ShowDialog("重新连接成功", "提示", false, Enum_MessageType.Information);
+                                    new MessagePage().ShowDialog("Message_Connection".GetWord(), "Message_Information".GetWord(), false, Enum_MessageType.Information);
                                 }));
                                 if (GlobalInfo.Instance.IsHimassConnState)
                                 {
@@ -3047,7 +3057,7 @@ namespace Totalab_L
 
                     this.Dispatcher.Invoke((Action)(() =>
                     {
-                        new MessagePage().ShowDialog("缺少架子信息，请添加", "MessageTitle_Information".GetWord(), false, Enum_MessageType.Information);
+                        new MessagePage().ShowDialog("Message_TrayInfoError".GetWord(), "MessageTitle_Information".GetWord(), false, Enum_MessageType.Information);
                     }));
                 }
                 content = FileHelper.Read(System.IO.Path.Combine(SampleHelper.AssemblyDirectory, "Parameters", "StdTrayInfo.ini"));
@@ -3060,7 +3070,7 @@ namespace Totalab_L
 
                     this.Dispatcher.Invoke((Action)(() =>
                     {
-                        new MessagePage().ShowDialog("缺少架子信息，请添加", "MessageTitle_Information".GetWord(), false, Enum_MessageType.Information);
+                        new MessagePage().ShowDialog("Message_TrayInfoError".GetWord(), "MessageTitle_Information".GetWord(), false, Enum_MessageType.Information);
                     }));
                 }
             }
@@ -3493,7 +3503,7 @@ namespace Totalab_L
                             }
                             else
                             {
-                                new MessagePage().ShowDialog("校准参数为空，请重新校准", "MessageTitle_Error".GetWord(), false, Enum_MessageType.Error);
+                                new MessagePage().ShowDialog("Message_CalibrationError".GetWord(), "MessageTitle_Error".GetWord(), false, Enum_MessageType.Error);
                                 GlobalInfo.Instance.TrayPanelCenter = GlobalInfo.Instance.CalibrationInfo.TrayPanelCenterX;
                                 GlobalInfo.Instance.TrayPanel_leftW = GlobalInfo.Instance.CalibrationInfo.TrayCenterToLeftW;
                                 GlobalInfo.Instance.TrayPanel_rightW = GlobalInfo.Instance.CalibrationInfo.CalibrationRightW;
@@ -3554,7 +3564,7 @@ namespace Totalab_L
                             {
                                 this.Dispatcher.Invoke((Action)(() =>
                                 {
-                                    new MessagePage().ShowDialog("初始化错误，请重新初始化", "MessageTitle_Information".GetWord(), false, Enum_MessageType.Information);
+                                    new MessagePage().ShowDialog("Message_InitializeError".GetWord(), "MessageTitle_Information".GetWord(), false, Enum_MessageType.Information);
                                 }));
                             }
                         }
@@ -3640,7 +3650,7 @@ namespace Totalab_L
 
                     this.Dispatcher.Invoke((Action)(() =>
                     {
-                        bool? ErrorResult = new MessagePage().ShowDialog("运行错误，进样针故障!", "警告", true, Enum_MessageType.Error, yesContent: "确定");
+                        bool? ErrorResult = new MessagePage().ShowDialog("Message_RunError".GetWord(), "MessageTitle_Error".GetWord(), true, Enum_MessageType.Error, yesContent: "Message_ButtonOK".GetWord());
                         if ((bool)ErrorResult)
                         {
                             //清错
@@ -3705,7 +3715,7 @@ namespace Totalab_L
                     for (int i = 0; i < msgArg.SamInfoList.Count; i++)
                     {
                         AutoSampler_SamInfo samInfo = msgArg.SamInfoList[i];
-                        //MainLogHelper.Instance.Info("进样器发送："+ samInfo.SamName + "[" + samInfo.SamID + "]" + samInfo.Location + samInfo.OperationMode + samInfo.IsAnalyze + samInfo.AnalysisType + samInfo.NextSamID);
+                        //MainLogHelper.Instance.Info("进样器发送：" + samInfo.SamName + "[" + samInfo.SamID + "]" + samInfo.Location + samInfo.OperationMode + samInfo.IsAnalyze + samInfo.AnalysisType + samInfo.NextSamID);
                         //Trace.WriteLine("进样器发送：" + samInfo.SamName + "[" + samInfo.SamID + "]" + samInfo.Location + samInfo.OperationMode + samInfo.IsAnalyze + samInfo.AnalysisType + samInfo.NextSamID);
                     }
                 }
@@ -3932,7 +3942,7 @@ namespace Totalab_L
                                     }
                                     Application.Current.Dispatcher.Invoke((Action)(() =>
                                     {
-                                        new MessagePage().ShowDialog("样品位置超出限制！", "警告", false, Enum_MessageType.Information);
+                                        new MessagePage().ShowDialog("Message_PositionError".GetWord(), "MessageTitle_Error".GetWord(), false, Enum_MessageType.Information);
                                     }));
                                 }
                                 else
@@ -4006,7 +4016,7 @@ namespace Totalab_L
                                 });
                                 Application.Current.Dispatcher.Invoke((Action)(() =>
                                 {
-                                    new MessagePage().ShowDialog("样品位置超出限制！", "警告", false, Enum_MessageType.Information);
+                                    new MessagePage().ShowDialog("MessageContent_PositionOverrun".GetWord(), "MessageTitle_Error".GetWord(), false, Enum_MessageType.Information);
                                 }));
                             }
                         }
@@ -4209,6 +4219,11 @@ namespace Totalab_L
         {
             try
             {
+                List<string> languageList = new List<string>
+                {
+                    //"/Mass.Language;component/",
+                    "/Totalab_L;component/Themes/AutoSampler_"
+                };
                 if (msgArg != null)
                 {
                     MainLogHelper.Instance.Info(string.Format("Auto Sampler ObjectData Type:[{0}]", msgArg.MessParamType));
@@ -4395,6 +4410,26 @@ namespace Totalab_L
                             Control_SampleListView.AutoTuningStop(Guid.Empty);
                         }
                         GlobalInfo.Instance.IsCanRunning = false;
+                    }
+                    else if (msgArg.MessParamType == EnumMessParamType.CurrentLanguage)
+                    {
+                        if (Enum_Languages.Chinese.ToString()=="Chinese")
+                        {
+                            ResourceDictionaryHelper.SwitchLanguage(Enum_Languages.Chinese, languageList);
+
+                            //GlobalInfo.LgDictionary = Application.LoadComponent(new Uri(@"/Totalab_L;component/Themes/AutoSampler_Chinese.xaml", UriKind.RelativeOrAbsolute)) as ResourceDictionary;
+                            //Application.Current.Resources.MergedDictionaries.Remove(GlobalInfo.LgDictionary);
+                            //Application.Current.Resources.MergedDictionaries.Add(GlobalInfo.LgDictionary);
+                        }
+                        else if(Enum_Languages.English.ToString() == "English")
+                        {
+                            ResourceDictionaryHelper.SwitchLanguage(Enum_Languages.English, languageList);
+
+                            //GlobalInfo.LgDictionary = Application.LoadComponent(new Uri(@"/Totalab_L;component/Themes/AutoSampler_English.xaml", UriKind.RelativeOrAbsolute)) as ResourceDictionary;
+                            //Application.Current.Resources.MergedDictionaries.Remove(GlobalInfo.LgDictionary);
+                            //Application.Current.Resources.MergedDictionaries.Add(GlobalInfo.LgDictionary);
+                        }
+                        //Enum.TryParse(runLanguage, out Enum_Languages language)
                     }
                     Trace.WriteLine(string.Format("ObjectData Type:[{0}]", msgArg.MessParamType));
                 }

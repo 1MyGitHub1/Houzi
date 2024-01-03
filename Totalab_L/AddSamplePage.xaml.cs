@@ -175,8 +175,8 @@ namespace Totalab_L
                         sampleInfo.PreMethodType = GlobalInfo.Instance.SampleInfos[PreSampletcount - 1].PreMethodType;
                         sampleInfo.Overwash = GlobalInfo.Instance.SampleInfos[PreSampletcount - 1].Overwash;
                     }
-                }
-                if (!IsAddNewSample)
+                }   //新样品
+                if (!IsAddNewSample)        //复制加入
                 {
                     sampleInfo.SampleName = SampleName;
                     int row = GlobalInfo.Instance.SampleInfos.IndexOf(GlobalInfo.Instance.SampleInfos.Where(m => m.SampleName == sampleInfo.SampleName).FirstOrDefault());
@@ -247,7 +247,7 @@ namespace Totalab_L
                         }
 
                     }
-                }
+                }   //追加
                 if (!IsAddLast)////插入
                 {
                     int InsertRow = 0;
@@ -313,7 +313,18 @@ namespace Totalab_L
                                     OperationMode = EnumSamOperationMode.Insert,
                                     NextSamID = guid
                                 };
-                                list.Add(info);
+                                list.Insert(0, info);
+                                //MainLogHelper.Instance.Error("发送到Mass端的样品位置" + info.Location.ToString() + list.Count.ToString());
+                                //if (i == 0)
+                                //{
+                                //    list.Add(info);
+                                //    MainLogHelper.Instance.Error("发送到Mass端的样品位置" + info.Location.ToString() + list.Count.ToString());
+                                //}
+                                //else
+                                //{
+                                //    list.Insert(0, info);
+
+                                //}
                             }
                         }
                     }

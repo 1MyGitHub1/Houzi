@@ -45,6 +45,8 @@ namespace Totalab_L
         public static bool IsLoctionError = false;            //输入的样品位置超限
         public static bool IsAgainPower = false;            //是否重新上电
 
+        public static ResourceDictionary LgDictionary = new ResourceDictionary();
+
         ///<summary>
         ///自动进样器通信接口
         ///</summary>
@@ -710,5 +712,30 @@ namespace Totalab_L
 
         }
         private double _positionW;
+
+        /// <summary>
+        /// 更换语言包
+        /// </summary>
+        public static void UpdateLanguage(string Language)
+        {
+            List<ResourceDictionary> dictionaryList = new List<ResourceDictionary>();
+            foreach (ResourceDictionary dictionary in Application.Current.Resources.MergedDictionaries)
+            {
+                dictionaryList.Add(dictionary);
+            }
+            string requestedLanguage = string.Format(@"/Common/{0}.xaml", Language);
+            ResourceDictionary resourceDictionary = dictionaryList.FirstOrDefault(d => d.Source.OriginalString.Equals(requestedLanguage));
+            if (resourceDictionary == null)
+            {
+                requestedLanguage = @"/Common/zh-cn.xaml";
+                resourceDictionary = dictionaryList.FirstOrDefault(d => d.Source.OriginalString.Equals(requestedLanguage));
+            }
+            if (resourceDictionary != null)
+            {
+                Application.Current.Resources.MergedDictionaries.Remove(resourceDictionary);
+                Application.Current.Resources.MergedDictionaries.Add(resourceDictionary);
+            }
+        }
+
     }
 }

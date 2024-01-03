@@ -1,0 +1,217 @@
+﻿<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <!--*************** MainWindow ***************-->
+    <system:String x:Key="AutoSampler_Main_UseAutoSampler">使用自动进样器</system:String>
+    <system:String x:Key="AutoSampler_Main_SampleList">样品列表</system:String>
+    <system:String x:Key="AutoSampler_Main_Settings">设置</system:String>
+    <system:String x:Key="AutoSampler_Main_SamplerType">进样类型</system:String>
+    <system:String x:Key="AutoSampler_Main_ConstantInjection">常量</system:String>
+    <system:String x:Key="AutoSampler_Main_MicroInjection">微量</system:String>
+    <system:String x:Key="AutoSampler_Main_SampleTray">样品架</system:String>
+    <system:String x:Key="AutoSampler_Main_TrayA">TrayA</system:String>
+    <system:String x:Key="AutoSampler_Main_TrayB">TrayB</system:String>
+    <system:String x:Key="AutoSampler_Main_TrayC">TrayC</system:String>
+    <system:String x:Key="AutoSampler_Main_PipetteTipsMap">枪头架</system:String>
+    <system:String x:Key="AutoSampler_Main_Log">日志</system:String>
+    <system:String x:Key="AutoSampler_Main_AdvancedSet">高级设置</system:String>
+
+    <system:String x:Key="AutoSampler_Main_Test">测试</system:String>
+    <system:String x:Key="AutoSampler_Main_PositionMove">位移</system:String>
+    <system:String x:Key="AutoSampler_Main_Sampling">取样</system:String>
+    <system:String x:Key="AutoSampler_Main_WashLocation">清洗位</system:String>
+
+    <system:String x:Key="AutoSampler_Main_PreFlush">预清洗</system:String>
+    <system:String x:Key="AutoSampler_Main_PreRun">预运行</system:String>
+    <system:String x:Key="AutoSampler_Main_Flush">清洗</system:String>
+    <system:String x:Key="AutoSampler_Main_Delay">延迟</system:String>
+    <system:String x:Key="AutoSampler_Main_Analysis">分析</system:String>
+    <system:String x:Key="AutoSampler_Main_PostRun">运行结束</system:String>
+    <system:String x:Key="AutoSampler_Main_InjectNeedleFlushSam">清洗进样针 (样品)</system:String>
+    <system:String x:Key="AutoSampler_Main_InjectNeedleFlushStdSam">清洗进样针 (标准)</system:String>
+    <system:String x:Key="AutoSampler_Main_WashNeedle">清洗进样针</system:String>
+    <system:String x:Key="AutoSampler_Main_Wash">清洗</system:String>
+
+    <!--*************** Running Page ***************-->
+    <system:String x:Key="AutoSampler_Run_Diluent">稀释</system:String>
+    <system:String x:Key="AutoSampler_Run_Sampling">进样</system:String>
+    <system:String x:Key="AutoSampler_Run_AddSample">添加样品</system:String>
+    <system:String x:Key="AutoSampler_Run_StartThisRow">从这一行开始</system:String>
+    <system:String x:Key="AutoSampler_Run_Skip">跳过</system:String>
+    <system:String x:Key="AutoSampler_Run_BringToTop">置顶</system:String>
+    <system:String x:Key="AutoSampler_Run_ToAnalyze">跳至分析</system:String>
+
+    <system:String x:Key="AutoSampler_Run_No">序号</system:String>
+    <system:String x:Key="AutoSampler_Run_LiquorLocation">母液&#13;位置</system:String>
+    <system:String x:Key="AutoSampler_Run_LiquorLocation1">母液位置</system:String>
+    <system:String x:Key="AutoSampler_Run_SampleVolume">取样量&#13;(μL)</system:String>
+    <system:String x:Key="AutoSampler_Run_SampleVolume1">取样量 (μL)</system:String>
+    <system:String x:Key="AutoSampler_Run_SampleLocation">样品&#13;位置</system:String>
+    <system:String x:Key="AutoSampler_Run_SampleLocation1">样品位置</system:String>
+    <system:String x:Key="AutoSampler_Run_SolventVolume">溶剂体积&#13;(mL)</system:String>
+    <system:String x:Key="AutoSampler_Run_SolventVolume1">溶剂体积 (mL)</system:String>
+    <system:String x:Key="AutoSampler_Run_Solvent">溶剂</system:String>
+    <system:String x:Key="AutoSampler_Run_MixTimes">混匀&#13;次数</system:String>
+    <system:String x:Key="AutoSampler_Run_MixTimes1">混匀次数</system:String>
+    <system:String x:Key="AutoSampler_Run_AnalysisType">分析类型</system:String>
+    <system:String x:Key="AutoSampler_Run_Park">停留时间&#13;(s)</system:String>
+    <system:String x:Key="AutoSampler_Run_Park1">停留时间 (s)</system:String>
+    <system:String x:Key="AutoSampler_Run_OverWash">额外冲洗&#13;(s)</system:String>
+    <system:String x:Key="AutoSampler_Run_OverWash1">额外冲洗 (s)</system:String>
+    <system:String x:Key="AutoSampler_AnaType_Quantitative">定量</system:String>
+    <system:String x:Key="AutoSampler_AnaType_SemiQuantative">半定量</system:String>
+    
+    <system:String x:Key="AutoSampler_Run_PauseImmediately">立刻暂停</system:String>
+    <system:String x:Key="AutoSampler_Run_PauseAfterCurrentSam">执行完当前样品暂停</system:String>
+    <system:String x:Key="AutoSampler_Run_StopAfterCurrentSam">执行完当前样品停止</system:String>
+    <system:String x:Key="AutoSampler_Run_StopImmediately">立刻停止</system:String>
+    <system:String x:Key="AutoSampler_Run_GoToRinseImmediatelyStop">立即冲洗并停止</system:String>
+
+    <!--*************** ConstSetting Page ***************-->
+    <system:String x:Key="AutoSampler_ConstSet_WashSolvent">清洗溶剂</system:String>
+
+    <system:String x:Key="AutoSampler_ConstSet_MixSettings">吹气混匀参数</system:String>
+    <system:String x:Key="AutoSampler_ConstSet_MixAir">Mix (Air)</system:String>
+    <system:String x:Key="AutoSampler_ConstSet_Mix">Mix</system:String>
+    <system:String x:Key="AutoSampler_ConstSet_MixTime">时间</system:String>
+    <system:String x:Key="AutoSampler_ConstSet_MixFlowRate">流速</system:String>
+
+    <system:String x:Key="AutoSampler_ConstSet_PumpRate">清洗泵泵速</system:String>
+    <system:String x:Key="AutoSampler_ConstSet_WashTime">清洗时间</system:String>
+
+    <system:String x:Key="AutoSampler_ConstSet_SyncTimeOptionMass">Synchronizing Time Options With Mass</system:String>
+    <system:String x:Key="AutoSampler_ConstSet_UseMinSamTime">使用最小采样时间</system:String>
+    <system:String x:Key="AutoSampler_ConstSet_UseMaxSamTime">使用最大采样时间</system:String>
+    <system:String x:Key="AutoSampler_ConstSet_DecidedByEachwOwnSet">由各自的设置决定</system:String>
+
+    <!--*************** MiroSetting Page ***************-->
+    <system:String x:Key="AutoSampler_MicroSet_SampleLoading">上样</system:String>
+    <system:String x:Key="AutoSampler_MicroSet_SampleVolume">取样量</system:String>
+    <system:String x:Key="AutoSampler_MicroSet_SamplingSpeed">取样速度</system:String>
+    <system:String x:Key="AutoSampler_MicroSet_InjectionSpeed">送样速度</system:String>
+    <system:String x:Key="AutoSampler_MicroSet_InjectionTime">送样时间</system:String>
+
+    <system:String x:Key="AutoSampler_MicroSet_NumberOfTimes">次数</system:String>
+
+    <system:String x:Key="AutoSampler_MicroSet_InternalNeedleClean">内针清洗</system:String>
+    <system:String x:Key="AutoSampler_MicroSet_WashVolume">体积</system:String>
+
+    <system:String x:Key="AutoSampler_MicroSet_ExternalNeedleClean">外针清洗</system:String>
+    <system:String x:Key="AutoSampler_MicroSet_WashPumpSpeed">清洗泵泵速</system:String>
+    <system:String x:Key="AutoSampler_MicroSet_WashTime">时间</system:String>
+
+    <system:String x:Key="AutoSampler_MicroSet_InjectionPipelineClean">进样管路清洗</system:String>
+
+    <system:String x:Key="AutoSampler_Method_OpenMethodTitle">打开方法</system:String>
+    <system:String x:Key="AutoSampler_Method_SaveMethodTitle">保存方法</system:String>
+    <system:String x:Key="AutoSampler_Method_MethodName">方法名称</system:String>
+    <system:String x:Key="AutoSampler_Method_Name">名称</system:String>
+
+    <system:String x:Key="AutoSampler_LocationParam">位置参数</system:String>
+    
+    <system:String x:Key="AutoSampler_SamplerPipette">取样器位置</system:String>
+    <system:String x:Key="AutoSampler_Location">位置</system:String>
+    <system:String x:Key="AutoSampler_Loading">取样深度 (Z)</system:String>
+    <system:String x:Key="AutoSampler_Ejecting">放样深度 (Z)</system:String>
+    <system:String x:Key="AutoSampler_LoadingAir">吸气深度 (Z)</system:String>
+    <system:String x:Key="AutoSampler_EjectingAir">吐气深度 (Z)</system:String>
+    
+    <system:String x:Key="AutoSampler_SamplingTube">进样针位置</system:String>
+    <system:String x:Key="AutoSampler_SamplingDepth">进样深度(Z)</system:String>
+
+
+    <system:String x:Key="AutoSampler_DiluentSetting">稀释参数</system:String>
+    <system:String x:Key="AutoSampler_FillVolume">填充体积</system:String>
+    <system:String x:Key="AutoSampler_FillIn">填充</system:String>
+
+    <system:String x:Key="AutoSampler_TriggerMode">触发方式</system:String>
+    <system:String x:Key="AutoSampler_Lowlevel">低电平</system:String>
+    <system:String x:Key="AutoSampler_Highlevel">高电平</system:String>
+    
+    <system:String x:Key="AutoSampler_WashSetting">清洗参数</system:String>
+    <system:String x:Key="AutoSampler_Rinse">清洗</system:String>
+
+    <system:String x:Key="AutoSampler_GoToNewSamLocTrigger">在转到新样本位置时启用并触发</system:String>
+    <system:String x:Key="AutoSampler_ArrivingToNewSamLocTrigger">到达新样本位置时启用并触发</system:String>
+    <system:String x:Key="AutoSampler_SolenoidValveTrigger">Enable and trigger aynchronizing with solenoid valve.</system:String>
+    <system:String x:Key="AutoSampler_DisableTrigger">禁止触发</system:String>
+    <system:String x:Key="AutoSampler_ExternalReadTrigger">外部读取触发</system:String>
+    
+    <system:String x:Key="AutoSampler_Home">复位</system:String>
+    <system:String x:Key="AutoSampler_Go">Go</system:String>
+
+    <system:String x:Key="AutoSampler_AddSam_Title">添加样品</system:String>
+    <system:String x:Key="AutoSampler_AddSam_SelectSamType">选择添加样品的方式</system:String>
+    <system:String x:Key="AutoSampler_AddSam_NewSample">新样品</system:String>
+    <system:String x:Key="AutoSampler_AddSam_CopySample">复制样品</system:String>
+    <system:String x:Key="AutoSampler_AddSam_ImportSamFile">导入样品</system:String>
+    <system:String x:Key="AutoSampler_AddSam_SelectAddSamNum">添加样品的数量</system:String>
+    <system:String x:Key="AutoSampler_AddSam_SelectSamList">添加样品的位置</system:String>
+    <system:String x:Key="AutoSampler_AddSam_InsertBeforeSam">样品之前插入</system:String>
+    <system:String x:Key="AutoSampler_AddSam_AppendSamListEnd">追加到样品列表</system:String>
+
+    <system:String x:Key="AutoSampler_I_Step">步骤</system:String>
+    <system:String x:Key="AutoSampler_I_Action">指令</system:String>
+    <system:String x:Key="AutoSampler_I_Time">时间（s）</system:String>
+    <system:String x:Key="AutoSampler_I_PumpSpeed">泵速（r/min）</system:String>
+    <system:String x:Key="AutoSampler_I_ClearArea">清空区域</system:String>
+    <system:String x:Key="AutoSampler_I_Method">方法</system:String>
+    <system:String x:Key="AutoSampler_I_Custom">自定义</system:String>
+    <system:String x:Key="AutoSampler_I_SampleLoc">样品位</system:String>
+    <system:String x:Key="AutoSampler_I_RinseLoc">清洗位</system:String>
+    
+    <!--补充-->
+    <system:String x:Key="AutoSampler_Main_UpLift">抬起</system:String>
+    <system:String x:Key="AutoSampler_Main_CleanPosition">清洗位</system:String>
+    <system:String x:Key="AutoSampler_Main_ChangeNeedle">更换进样针</system:String>
+    <!--<system:String x:Key="AutoSampler_Main_Sampling">取样</system:String>-->
+    <system:String x:Key="AutoSampler_Main_Initialize">初始化</system:String>
+    <system:String x:Key="AutoSampler_Main_ParameterFileName">参数文件名称:</system:String>
+    <system:String x:Key="AutoSampler_Main_MechanicalArmPara">机械臂参数</system:String>
+    <system:String x:Key="AutoSampler_Main_WettedParts">接液盘常开</system:String>
+    <system:String x:Key="AutoSampler_Main_FirstNeedleWashingPosition">1号洗针位</system:String>
+    <system:String x:Key="AutoSampler_Main_SecondNeedleWashingPosition">2号洗针位:</system:String>
+
+    <system:String x:Key="AutoSampler_AdvancedSetPage_SetCalibrationPara">点位校准</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_SetTestPara">点位测试</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_SetSamplePara">样品管参数</system:String>
+
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleLocationPara">位置参数</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleCalibrationLocPara">校准位置参数</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleHandControl">机械臂微调</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleTestPositionPara">测试点位置参数</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleRobotArmControl">机械臂控制</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleSampleCellPara">样品管参数</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleNeedleSpeedSet">进样针抬起速度设置</system:String>
+
+
+    <system:String x:Key="AutoSampler_AdvancedSetPage_ClearErrors">清错</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TranslationPara">平移距离(mm)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_AnglePara">转动角度(rds)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_DeclineHeightPara">下降高度(mm)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_NeedleReset">针复位</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_FineTuningX">微调距离(mm)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_FineTuningW">微调角度(rds)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_CurrentPlace">当前位置(mm):</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_CurrentAngle">当前角度(rds):</system:String>
+
+    <system:String x:Key="AutoSampler_AdvancedSetPage_SampleNum">样品管（号）</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftHeight">抬起高度（mm）</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_LiquidLevelHeight">液面高度（mm）</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_ImbibitionHeight">吸液高度（mm）</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_set">设置</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftSpeed1">抬起速度1(%)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftSpeed2">抬起速度2(%)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftToLiquidLevel">抬起到液面</system:String>
+
+    <!--红字-->
+    <system:String x:Key="AutoSampler_AdvancedSetPage_Text1">请先放置样品架，并再左侧设置相应的样品架信息</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_Text2">大于瓶口高度</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_Text3">吸液高度到液面高度之间得抬起速度</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_Text4">液面高度到抬起高度之间得抬起速度</system:String>
+
+    <system:String x:Key="AutoSampler_AdvancedSetPage_Text5">校准前请先将全部试管架取走，然后单击初始化按键，初始化位置参数信息</system:String>
+
+</ResourceDictionary>
