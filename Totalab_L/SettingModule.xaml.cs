@@ -34,7 +34,7 @@ namespace Totalab_L
         {
             InitializeComponent();
             this.DataContext = this;
-            GlobalInfo.LgDictionary = Application.LoadComponent(new Uri(@"/Totalab_L;component/Themes/AutoSampler_Chinese.xaml", UriKind.RelativeOrAbsolute)) as ResourceDictionary;
+            //GlobalInfo.LgDictionary = Application.LoadComponent(new Uri(@"/Totalab_L;component/Themes/AutoSampler_Chinese.xaml", UriKind.RelativeOrAbsolute)) as ResourceDictionary;
 
         }
 

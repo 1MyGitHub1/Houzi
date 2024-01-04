@@ -2632,13 +2632,26 @@ namespace Totalab_L
             try
             {
                 Button btn = sender as Button;
+                if (btn.Tag.ToString() == "save2")
+                {
+                    GlobalInfo.Instance.TrayPanelCenter = CalibrationInfo.CalibrationLeftX + (CalibrationInfo.CalibrationRightX + GetPositionInfoHelper.ArmLength - CalibrationInfo.CalibrationLeftX) / 2;
+                    GlobalInfo.Instance.TrayPanel_leftW = CalibrationInfo.CalibrationLeftW;
+                    GlobalInfo.Instance.TrayPanel_rightW = CalibrationInfo.CalibrationRightW;
+                    if (GlobalInfo.Instance.TrayPanelCenter!= 0&& GlobalInfo.Instance.TrayPanel_leftW!= 0 && GlobalInfo.Instance.TrayPanel_rightW!=0)
+                    {
+                        new MessagePage().ShowDialog("MessageContent_SaveSuccessful".GetWord(), "MessageTitle_Information".GetWord(), false, Enum_MessageType.Information, this);
+                    }
+                }
                 if (btn.Tag.ToString() == "save1")
                 {
                     GlobalInfo.Instance.CalibrationInfo.CalibrationLeftX = CalibrationInfo.CalibrationLeftX;
                     GlobalInfo.Instance.CalibrationInfo.CalibrationRightX = CalibrationInfo.CalibrationRightX;
                     GlobalInfo.Instance.CalibrationInfo.CalibrationLeftW = CalibrationInfo.CalibrationLeftW;
                     GlobalInfo.Instance.CalibrationInfo.CalibrationRightW = CalibrationInfo.CalibrationRightW;
-                    GlobalInfo.Instance.CalibrationInfo.ZResetPosition = CalibrationInfo.ZResetPosition;
+                    GlobalInfo.Instance.CalibrationInfo.ZResetPosition = CalibrationInfo.ZResetPosition;            //抬起高度
+                    GlobalInfo.Instance.CalibrationInfo.ZResetLiquid_level = Liquid_level;                          //抬起到液面高度
+                    GlobalInfo.Instance.CalibrationInfo.Speed1_value = CalibrationInfo.Speed1_value;                //抬起速度1
+                    GlobalInfo.Instance.CalibrationInfo.Speed2_value = CalibrationInfo.Speed2_value;                //抬起速度2
                     GlobalInfo.Instance.CalibrationInfo.OffsetCalibrationW = CalibrationInfo.CalibrationRightW - CalibrationInfo.CalibrationLeftW - 180;
                     //X中心和左边角度
                     GlobalInfo.Instance.CalibrationInfo.TrayPanelCenterX = CalibrationInfo.CalibrationLeftX + (CalibrationInfo.CalibrationRightX + GetPositionInfoHelper.ArmLength - CalibrationInfo.CalibrationLeftX) / 2;
@@ -2647,16 +2660,6 @@ namespace Totalab_L
                     GlobalInfo.Instance.TrayPanelCenter = CalibrationInfo.CalibrationLeftX + (CalibrationInfo.CalibrationRightX + GetPositionInfoHelper.ArmLength - CalibrationInfo.CalibrationLeftX) / 2;
                     GlobalInfo.Instance.TrayPanel_leftW = CalibrationInfo.CalibrationLeftW;
                     GlobalInfo.Instance.TrayPanel_rightW = CalibrationInfo.CalibrationRightW;
-
-                    ////Zero不能存
-                    //GlobalInfo.Instance.CalibrationInfo.CalibrationLeftX = CalibrationInfo.CalibrationLeftX;
-                    //GlobalInfo.Instance.CalibrationInfo.CalibrationRightX = CalibrationInfo.CalibrationLeftX + 167.5 * 2;
-                    //GlobalInfo.Instance.CalibrationInfo.CalibrationLeftW = CalibrationInfo.CalibrationLeftW;
-                    //GlobalInfo.Instance.CalibrationInfo.CalibrationRightW = CalibrationInfo.CalibrationLeftW + 180;
-
-                    //GlobalInfo.Instance.CalibrationInfo.ZResetPosition = CalibrationInfo.ZResetPosition;
-                    //GlobalInfo.Instance.CalibrationInfo.TrayPanelCenterX = (GlobalInfo.Instance.PositionX - GlobalInfo.Instance.TrayPanelHomeX) * GlobalInfo.XLengthPerCircle / 3600.0 + (167.5 - GetPositionInfoHelper.ArmLength);
-                    //GlobalInfo.Instance.CalibrationInfo.TrayCenterToLeftW = (GlobalInfo.Instance.PositionW - GlobalInfo.Instance.TrayPanelHomeW) / 60.0;
 
                     //GlobalInfo.Instance.TrayPanelCenter = (GlobalInfo.Instance.PositionX - GlobalInfo.Instance.TrayPanelHomeX) * GlobalInfo.XLengthPerCircle / 3600.0 + (167.5 - GetPositionInfoHelper.ArmLength);
                     //GlobalInfo.Instance.TrayPanel_leftW = (GlobalInfo.Instance.PositionW - GlobalInfo.Instance.TrayPanelHomeW) / 60.0;

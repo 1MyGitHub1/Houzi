@@ -219,7 +219,7 @@
     <system:String x:Key="Message_RoboticArmError">机械臂出错</system:String>
     <system:String x:Key="Message_CloseError">仪器正在运行中，请稍后关闭窗口</system:String>
     <system:String x:Key="Message_Connection">重新连接成功</system:String>
-    <system:String x:Key="Message_Information">提示</system:String>
+    <!--<system:String x:Key="Message_Information">提示</system:String>-->
     <system:String x:Key="Message_ButtonOK">确定</system:String>
     <system:String x:Key="Message_TitleReplaceNeedle">更换进样针</system:String>
     <system:String x:Key="Message_ReplaceNeedle">更换进样针前，请先移除C位试管架，然后单击更换按钮，等待机械臂移动到适宜操作位置</system:String>
@@ -230,7 +230,7 @@
     <system:String x:Key="Message_PositionError">样品位置超出限制</system:String>
     <system:String x:Key="MessageContent_SaveSuccessful">保存成功</system:String>
     <system:String x:Key="MessageTitle_Information">提示</system:String>
-    <system:String x:Key="MessageContent_PositionOverrun">样品位置超出限制</system:String>
+    <!--<system:String x:Key="MessageContent_PositionOverrun">样品位置超出限制</system:String>-->
     <system:String x:Key="Message_CloseInformation">参数信息已保存，确认关闭</system:String>
     <!--<system:String x:Key="Message_CloseInformation">请确认参数信息是否已保存</system:String>-->
 

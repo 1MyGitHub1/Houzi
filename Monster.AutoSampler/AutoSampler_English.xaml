@@ -173,8 +173,8 @@
     <system:String x:Key="AutoSampler_Main_FirstNeedleWashingPosition">Cleaning position W1:</system:String>
     <system:String x:Key="AutoSampler_Main_SecondNeedleWashingPosition">Cleaning position W2:</system:String>
 
-    <system:String x:Key="AutoSampler_AdvancedSetPage_SetCalibrationPara">Point calibration</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_SetTestPara">Point test</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_SetCalibrationPara">Calibration Point1</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_SetTestPara">Calibration Point2</system:String>
     <system:String x:Key="AutoSampler_AdvancedSetPage_SetSamplePara">Sample tube parameter</system:String>
 
     <system:String x:Key="AutoSampler_AdvancedSetPage_TitleLocationPara">Position parameter</system:String>
@@ -187,7 +187,7 @@
 
 
     <system:String x:Key="AutoSampler_AdvancedSetPage_ClearErrors">Debugging</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_TranslationPara">Translation distance(mm)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TranslationPara">Translate distance(mm)</system:String>
     <system:String x:Key="AutoSampler_AdvancedSetPage_AnglePara">Rotation Angle(rds)</system:String>
     <system:String x:Key="AutoSampler_AdvancedSetPage_DeclineHeightPara">Descent height(mm)</system:String>
     <system:String x:Key="AutoSampler_AdvancedSetPage_NeedleReset">Needle reduction</system:String>
@@ -198,12 +198,12 @@
 
     <system:String x:Key="AutoSampler_AdvancedSetPage_SampleNum">Sample tube（num）</system:String>
     <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftHeight">Lifting height（mm）</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_LiquidLevelHeight">Liquid level height（mm）</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_LiquidLevelHeight">Surface height（mm）</system:String>
     <system:String x:Key="AutoSampler_AdvancedSetPage_ImbibitionHeight">Suction height（mm）</system:String>
     <system:String x:Key="AutoSampler_AdvancedSetPage_set">Settings</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftSpeed1">Lifting speed 1(%)</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftSpeed2">Lifting speed 2(%)</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftToLiquidLevel">Lift to liquid level</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftSpeed1">Lift speed 1(%)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftSpeed2">Lift speed 2(%)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftToLiquidLevel">Lift to surface</system:String>
 
     <!--红字-->
     <system:String x:Key="AutoSampler_AdvancedSetPage_Text1">Please place the sample shelf first, and set information on the left</system:String>
@@ -212,6 +212,71 @@
     <system:String x:Key="AutoSampler_AdvancedSetPage_Text4">Lift speed between liquid level and lift height</system:String>
 
     <system:String x:Key="AutoSampler_AdvancedSetPage_Text5">Please remove all test tube racks before calibration and initialization</system:String>
+
+    <!--弹窗提示-->
+    <system:String x:Key="Message_RunError">Run error, syringe failure!</system:String>
+    <system:String x:Key="Message_RoboticArmError">Robotic arm error</system:String>
+    <system:String x:Key="Message_CloseError">The instrument is running, please close the window later</system:String>
+    <system:String x:Key="Message_Connection">Successfully reconnected</system:String>
+    <!--<system:String x:Key="Message_Information">Prompt</system:String>-->
+    <system:String x:Key="Message_ButtonOK">OK</system:String>
+    <system:String x:Key="Message_TitleReplaceNeedle">Replacing the injection needle</system:String>
+    <system:String x:Key="Message_ReplaceNeedle">Before replacing the injection needle, please remove the C-position test tube holder first, then click the replace button and wait for the robotic arm to move to the appropriate operating position</system:String>
+    <system:String x:Key="Message_ReplaceNeedleEnd">After replacing the sampling needle, click OK to reset the robotic arm</system:String>
+    <system:String x:Key="Message_TrayInfoError">Missing shelf information, please add</system:String>
+    <system:String x:Key="Message_CalibrationError">Calibration parameters are empty, please recalibrate</system:String>
+    <system:String x:Key="Message_InitializeError">Initialization error, please reinitialize</system:String>
+    <system:String x:Key="Message_PositionError">The sample position exceeds the limit</system:String>
+    <system:String x:Key="MessageContent_SaveSuccessful">Successfully saved</system:String>
+    <system:String x:Key="MessageTitle_Information">Prompt</system:String>
+    <system:String x:Key="Message_CloseInformation">Parameter information saved, confirm to close</system:String>
+
+
+    <!--Mass中的-补的-->
+    <system:String x:Key="ButtonContent_Cancel">Cancel</system:String>
+    <system:String x:Key="ButtonContent_Save">Save</system:String>
+    <system:String x:Key="ButtonContent_Open">Open</system:String>
+    <system:String x:Key="ButtonContent_Create">Create</system:String>
+    <system:String x:Key="ButtonContent_About">About</system:String>
+    <system:String x:Key="ButtonContent_SaveAs">SaveAs</system:String>
+    <system:String x:Key="ButtonContent_Set">Set</system:String>
+    <system:String x:Key="ButtonContent_Done">Done</system:String>
+
+    <system:String x:Key="MessageTitle_Error">Error</system:String>
+    <system:String x:Key="MessageTitle_Exit">Exit</system:String>
+    <!--<system:String x:Key="Message_Error1000">Error[1000]. Program error.</system:String>-->
+    <system:String x:Key="Message_Error1027">Warning[1027]. Are you sure you want to close the application?</system:String>
+    <system:String x:Key="ButtonContent_Close">Close</system:String>
+    <system:String x:Key="ButtonContent_Yes">Yes</system:String>
+    <system:String x:Key="ButtonContent_No">No</system:String>
+    <system:String x:Key="MainMenu_AutoSampler">Auto Sampler</system:String>
+
+    <system:String x:Key="MenuItem_Header_Copy">Copy</system:String>
+    <system:String x:Key="MenuItem_Header_PasteHere">Paste Here</system:String>
+    <system:String x:Key="MenuItem_Header_FillDown">Fill Down</system:String>
+    <system:String x:Key="MenuItem_Header_FillIncrement">Fill Increment</system:String>
+    <system:String x:Key="MenuItem_Header_InsertRowBelow">Insert Row Below</system:String>
+    <system:String x:Key="MenuItem_Header_Delete">Delete</system:String>
+    <system:String x:Key="DataGrid_Header_SampleID">Sample ID</system:String>
+    <system:String x:Key="ButtonContent_Run">Run</system:String>
+    <system:String x:Key="ButtonContent_Stop">Stop</system:String>
+    <system:String x:Key="ButtonContent_Pause">Pause</system:String>
+    <system:String x:Key="ButtonContent_Continue">Continue</system:String>
+    <system:String x:Key="ButtonContent_BackToReady">Back To Ready</system:String>
+
+
+    <system:String x:Key="Common_Content_LicenseFile">License File</system:String>
+    <system:String x:Key="Common_Content_LicenseFileNull">Please select a license file</system:String>
+    <system:String x:Key="Common_Content_LicenseFileError">Unable to validate license file. Please select a valid license file and try again.</system:String>
+    <system:String x:Key="Common_Content_RegisterSuccessful">License Activation succeeded.</system:String>
+    <system:String x:Key="AboutInfo_ReplaceLicSuccessful">License file replacement succeeded.</system:String>
+    <system:String x:Key="AboutInfo_ReplaceLicFailed">Failed to replace license file.</system:String>
+    <system:String x:Key="Message_Error2002">Error[2002]. Error adding sample.</system:String>
+    <system:String x:Key="Message_Error2013">Error[2013]. The autosampler's comunication error, please check connection.</system:String>
+    <system:String x:Key="Message_Error1004">Error[1004]. Open failed.</system:String>
+    <system:String x:Key="Message_Error1002">Error[1002]. Save failed.</system:String>
+    <system:String x:Key="Message_Error1000">Error[1000]. Program error.</system:String>
+
 
 
 

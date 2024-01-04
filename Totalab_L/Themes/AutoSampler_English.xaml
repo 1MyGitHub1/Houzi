@@ -187,7 +187,7 @@
 
 
     <system:String x:Key="AutoSampler_AdvancedSetPage_ClearErrors">Debugging</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_TranslationPara">Translation distance(mm)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TranslationPara">Translate distance(mm)</system:String>
     <system:String x:Key="AutoSampler_AdvancedSetPage_AnglePara">Rotation Angle(rds)</system:String>
     <system:String x:Key="AutoSampler_AdvancedSetPage_DeclineHeightPara">Descent height(mm)</system:String>
     <system:String x:Key="AutoSampler_AdvancedSetPage_NeedleReset">Needle reduction</system:String>
@@ -198,12 +198,12 @@
 
     <system:String x:Key="AutoSampler_AdvancedSetPage_SampleNum">Sample tube（num）</system:String>
     <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftHeight">Lifting height（mm）</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_LiquidLevelHeight">Liquid level height（mm）</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_LiquidLevelHeight">Surface height（mm）</system:String>
     <system:String x:Key="AutoSampler_AdvancedSetPage_ImbibitionHeight">Suction height（mm）</system:String>
     <system:String x:Key="AutoSampler_AdvancedSetPage_set">Settings</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftSpeed1">Lifting speed 1(%)</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftSpeed2">Lifting speed 2(%)</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftToLiquidLevel">Lift to liquid level</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftSpeed1">Lift speed 1(%)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftSpeed2">Lift speed 2(%)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftToLiquidLevel">Lift to surface</system:String>
 
     <!--红字-->
     <system:String x:Key="AutoSampler_AdvancedSetPage_Text1">Please place the sample shelf first, and set information on the left</system:String>
@@ -217,7 +217,19 @@
     <system:String x:Key="Message_RunError">Run error, syringe failure!</system:String>
     <system:String x:Key="Message_RoboticArmError">Robotic arm error</system:String>
     <system:String x:Key="Message_CloseError">The instrument is running, please close the window later</system:String>
-
+    <system:String x:Key="Message_Connection">Successfully reconnected</system:String>
+    <!--<system:String x:Key="Message_Information">Prompt</system:String>-->
+    <system:String x:Key="Message_ButtonOK">OK</system:String>
+    <system:String x:Key="Message_TitleReplaceNeedle">Replacing the injection needle</system:String>
+    <system:String x:Key="Message_ReplaceNeedle">Before replacing the injection needle, please remove the C-position test tube holder first, then click the replace button and wait for the robotic arm to move to the appropriate operating position</system:String>
+    <system:String x:Key="Message_ReplaceNeedleEnd">After replacing the sampling needle, click OK to reset the robotic arm</system:String>
+    <system:String x:Key="Message_TrayInfoError">Missing shelf information, please add</system:String>
+    <system:String x:Key="Message_CalibrationError">Calibration parameters are empty, please recalibrate</system:String>
+    <system:String x:Key="Message_InitializeError">Initialization error, please reinitialize</system:String>
+    <system:String x:Key="Message_PositionError">The sample position exceeds the limit</system:String>
+    <system:String x:Key="MessageContent_SaveSuccessful">Successfully saved</system:String>
+    <system:String x:Key="MessageTitle_Information">Prompt</system:String>
+    <system:String x:Key="Message_CloseInformation">Parameter information saved, confirm to close</system:String>
 
 
     <!--Mass中的-补的-->

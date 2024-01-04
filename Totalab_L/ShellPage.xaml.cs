@@ -41,7 +41,7 @@ namespace Totalab_L
             ConnectThread = new Thread(Connect);
             ConnectThread.Start();
 
-            GlobalInfo.LgDictionary = Application.LoadComponent(new Uri(@"/Totalab_L;component/Themes/AutoSampler_Chinese.xaml", UriKind.RelativeOrAbsolute)) as ResourceDictionary;
+            //GlobalInfo.LgDictionary = Application.LoadComponent(new Uri(@"/Totalab_L;component/Themes/AutoSampler_Chinese.xaml", UriKind.RelativeOrAbsolute)) as ResourceDictionary;
 
             //ConnectionTestThead = new Thread(ConnectStatus);
             //ConnectionTestThead.Start();
@@ -89,7 +89,7 @@ namespace Totalab_L
                         {
                             Application.Current.Dispatcher.Invoke((Action)(() =>
                             {
-                                new MessagePage().ShowDialog("Message_Connection".GetWord(), "Message_Information".GetWord(), false, Enum_MessageType.Information);
+                                new MessagePage().ShowDialog("Message_Connection".GetWord(), "MessageTitle_Information".GetWord(), false, Enum_MessageType.Information);
                             }));
                             if (GlobalInfo.Instance.IsHimassConnState)
                             {
@@ -520,7 +520,7 @@ namespace Totalab_L
 
                         new PreWashItemInfo
                         {
-                            StepName = GlobalInfo.LgDictionary["AutoSampler_Main_PreFlush"].ToString(),
+                            StepName = "AutoSampler_Main_PreFlush".GetWord(),
                             IsOpenAction = true,
                             WashLoc="RinseLoc",
                             WashPumpSpeed = 40,
@@ -548,8 +548,8 @@ namespace Totalab_L
                     {
                         new ParaItemInfo
                         {
-                            StepName = GlobalInfo.LgDictionary["AutoSampler_Main_PostRun"].ToString(),
-                            WashAction=GlobalInfo.LgDictionary["AutoSampler_Main_InjectNeedleFlushSam"].ToString(),
+                            StepName = "AutoSampler_Main_PostRun".GetWord(),
+                            WashAction="AutoSampler_Main_InjectNeedleFlushSam".GetWord(),
                             WashActionKey=1,
                             WashLoc="RinseLoc",
                             WashPumpSpeed = 40,
@@ -557,7 +557,7 @@ namespace Totalab_L
                         },
                         new ParaItemInfo
                         {
-                            WashAction=GlobalInfo.LgDictionary["AutoSampler_Main_InjectNeedleFlushStdSam"].ToString(),
+                            WashAction="AutoSampler_Main_InjectNeedleFlushStdSam".GetWord(),
                             WashActionKey=2,
                             WashLoc="RinseLoc",
                             WashPumpSpeed = 40,
@@ -2501,7 +2501,7 @@ namespace Totalab_L
                 {
                     new PreWashItemInfo
                     {
-                        StepName = GlobalInfo.LgDictionary["AutoSampler_Main_PreFlush"].ToString(),
+                        StepName = "AutoSampler_Main_PreFlush".GetWord(),
                         IsOpenAction = true,
                         WashLoc="RinseLoc",
                         WashPumpSpeed = 40,
@@ -2528,8 +2528,8 @@ namespace Totalab_L
                 {
                     new ParaItemInfo
                     {
-                        StepName = GlobalInfo.LgDictionary["AutoSampler_Main_PostRun"].ToString(),
-                        WashAction=GlobalInfo.LgDictionary["AutoSampler_Main_InjectNeedleFlushSam"].ToString(),
+                        StepName = "AutoSampler_Main_PostRun".GetWord(),
+                        WashAction="AutoSampler_Main_InjectNeedleFlushSam".GetWord(),
                         WashActionKey=1,
                         WashLoc="RinseLoc",
                         WashPumpSpeed = 40,
@@ -2537,7 +2537,7 @@ namespace Totalab_L
                     },
                     new ParaItemInfo
                     {
-                        WashAction=GlobalInfo.LgDictionary["AutoSampler_Main_InjectNeedleFlushStdSam"].ToString(),
+                        WashAction="AutoSampler_Main_InjectNeedleFlushStdSam".GetWord(),
                         WashActionKey=2,
                         WashLoc ="RinseLoc",
                         WashPumpSpeed = 40,
@@ -2988,7 +2988,7 @@ namespace Totalab_L
                                 _isHandReconnection = true;
                                 Application.Current.Dispatcher.Invoke((Action)(() =>
                                 {
-                                    new MessagePage().ShowDialog("Message_Connection".GetWord(), "Message_Information".GetWord(), false, Enum_MessageType.Information);
+                                    new MessagePage().ShowDialog("Message_Connection".GetWord(), "MessageTitle_Information".GetWord(), false, Enum_MessageType.Information);
                                 }));
                                 if (GlobalInfo.Instance.IsHimassConnState)
                                 {
@@ -4016,7 +4016,7 @@ namespace Totalab_L
                                 });
                                 Application.Current.Dispatcher.Invoke((Action)(() =>
                                 {
-                                    new MessagePage().ShowDialog("MessageContent_PositionOverrun".GetWord(), "MessageTitle_Error".GetWord(), false, Enum_MessageType.Information);
+                                    new MessagePage().ShowDialog("Message_PositionError".GetWord(), "MessageTitle_Error".GetWord(), false, Enum_MessageType.Information);
                                 }));
                             }
                         }
@@ -4157,7 +4157,7 @@ namespace Totalab_L
                                     if (GlobalInfo.Instance.IsMotorXError == false && GlobalInfo.Instance.IsMotorWError == false && GlobalInfo.Instance.IsMotorZError == false)
                                     {
                                         Control_SampleListView.ErrorWash();
-
+                                        MainLogHelper.Instance.Error("清洗错误ErrorWash：");
                                     }
                                 }
                             }
@@ -4197,7 +4197,7 @@ namespace Totalab_L
                                 }));
                             }
                         }
-                        //MainLogHelper.Instance.Info(string.Format("Mass发送：Name:[{0}] Mode:[{1}] Location:[{2}] Type:[{3}] ID:[{4}]", samInfo.SamName, samInfo.OperationMode, samInfo.Location, samInfo.AnalysisType, samInfo.SamID));
+                        MainLogHelper.Instance.Info(string.Format("Mass发送：Name:[{0}] Mode:[{1}] Location:[{2}] Type:[{3}] ID:[{4}]", samInfo.SamName, samInfo.OperationMode, samInfo.Location, samInfo.AnalysisType, samInfo.SamID));
                         //Trace.WriteLine(string.Format("Name:[{0}] Mode:[{1}] Location:[{2}] Type:[{3}] ID:[{4}]", samInfo.SamName, samInfo.OperationMode, samInfo.Location, samInfo.AnalysisType, samInfo.SamID));
                     }
                 }
@@ -4219,11 +4219,6 @@ namespace Totalab_L
         {
             try
             {
-                List<string> languageList = new List<string>
-                {
-                    //"/Mass.Language;component/",
-                    "/Totalab_L;component/Themes/AutoSampler_"
-                };
                 if (msgArg != null)
                 {
                     MainLogHelper.Instance.Info(string.Format("Auto Sampler ObjectData Type:[{0}]", msgArg.MessParamType));
@@ -4413,10 +4408,16 @@ namespace Totalab_L
                     }
                     else if (msgArg.MessParamType == EnumMessParamType.CurrentLanguage)
                     {
+                        List<string> languageList = new List<string>
+                        {
+                            //"/Mass.Language;component/",
+                            "/Totalab_L;component/Themes/AutoSampler_"
+                        };
+                        MainLogHelper.Instance.Error("语言切换");
                         if (Enum_Languages.Chinese.ToString()=="Chinese")
                         {
                             ResourceDictionaryHelper.SwitchLanguage(Enum_Languages.Chinese, languageList);
-
+                            MainLogHelper.Instance.Error("语言切换Chinese");
                             //GlobalInfo.LgDictionary = Application.LoadComponent(new Uri(@"/Totalab_L;component/Themes/AutoSampler_Chinese.xaml", UriKind.RelativeOrAbsolute)) as ResourceDictionary;
                             //Application.Current.Resources.MergedDictionaries.Remove(GlobalInfo.LgDictionary);
                             //Application.Current.Resources.MergedDictionaries.Add(GlobalInfo.LgDictionary);
@@ -4424,7 +4425,7 @@ namespace Totalab_L
                         else if(Enum_Languages.English.ToString() == "English")
                         {
                             ResourceDictionaryHelper.SwitchLanguage(Enum_Languages.English, languageList);
-
+                            MainLogHelper.Instance.Error("语言切换English");
                             //GlobalInfo.LgDictionary = Application.LoadComponent(new Uri(@"/Totalab_L;component/Themes/AutoSampler_English.xaml", UriKind.RelativeOrAbsolute)) as ResourceDictionary;
                             //Application.Current.Resources.MergedDictionaries.Remove(GlobalInfo.LgDictionary);
                             //Application.Current.Resources.MergedDictionaries.Add(GlobalInfo.LgDictionary);

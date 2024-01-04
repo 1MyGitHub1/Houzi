@@ -705,11 +705,10 @@
                     </Button>
                 </StackPanel>
                 <StackPanel Grid.Row="9" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,132,0">-->
                     <!--<Button Style="{StaticResource  ButtonPrimarySty}"  Width="76" Height="32" Margin="0,0,12,0"  Content="{DynamicResource ButtonContent_Cancel}"  IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"
-                                Click="CancelCommand"/>
+                                Click="CancelCommand"/>-->
                     <Button Style="{StaticResource  ButtonAccentSty}"  Width="76" Height="32" Margin="0,0,153,0" Content="{DynamicResource ButtonContent_Save}"
-                                Click="SavePosCommand"  IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Tag="save1"/>-->
+                                Click="SavePosCommand"  IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Tag="save2"/>
                 </StackPanel>
 
             </Grid>

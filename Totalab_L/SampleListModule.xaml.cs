@@ -1429,9 +1429,9 @@ namespace Totalab_L
                 washTask.Start();
                 methodTask.Abort();
             }
-            catch
+            catch(Exception ex)
             {
-
+                MainLogHelper.Instance.Error("ErrorWash：", ex);
             }
         }
 

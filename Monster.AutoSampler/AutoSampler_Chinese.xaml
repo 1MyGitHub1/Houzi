@@ -174,8 +174,8 @@
     <system:String x:Key="AutoSampler_Main_FirstNeedleWashingPosition">1号洗针位</system:String>
     <system:String x:Key="AutoSampler_Main_SecondNeedleWashingPosition">2号洗针位:</system:String>
 
-    <system:String x:Key="AutoSampler_AdvancedSetPage_SetCalibrationPara">点位校准</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_SetTestPara">点位测试</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_SetCalibrationPara">校准点位1</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_SetTestPara">校准点位2</system:String>
     <system:String x:Key="AutoSampler_AdvancedSetPage_SetSamplePara">样品管参数</system:String>
 
     <system:String x:Key="AutoSampler_AdvancedSetPage_TitleLocationPara">位置参数</system:String>
@@ -213,5 +213,72 @@
     <system:String x:Key="AutoSampler_AdvancedSetPage_Text4">液面高度到抬起高度之间得抬起速度</system:String>
 
     <system:String x:Key="AutoSampler_AdvancedSetPage_Text5">校准前请先将全部试管架取走，然后单击初始化按键，初始化位置参数信息</system:String>
+
+    <!--弹窗提示-->
+    <system:String x:Key="Message_RunError">运行错误，进样针故障!</system:String>
+    <system:String x:Key="Message_RoboticArmError">机械臂出错</system:String>
+    <system:String x:Key="Message_CloseError">仪器正在运行中，请稍后关闭窗口</system:String>
+    <system:String x:Key="Message_Connection">重新连接成功</system:String>
+    <!--<system:String x:Key="Message_Information">提示</system:String>-->
+    <system:String x:Key="Message_ButtonOK">确定</system:String>
+    <system:String x:Key="Message_TitleReplaceNeedle">更换进样针</system:String>
+    <system:String x:Key="Message_ReplaceNeedle">更换进样针前，请先移除C位试管架，然后单击更换按钮，等待机械臂移动到适宜操作位置</system:String>
+    <system:String x:Key="Message_ReplaceNeedleEnd">进样针更换完毕后点击确定，机械臂复位</system:String>
+    <system:String x:Key="Message_TrayInfoError">缺少架子信息，请添加</system:String>
+    <system:String x:Key="Message_CalibrationError">校准参数为空，请重新校准</system:String>
+    <system:String x:Key="Message_InitializeError">初始化错误，请重新初始化</system:String>
+    <system:String x:Key="Message_PositionError">样品位置超出限制</system:String>
+    <system:String x:Key="MessageContent_SaveSuccessful">保存成功</system:String>
+    <system:String x:Key="MessageTitle_Information">提示</system:String>
+    <!--<system:String x:Key="MessageContent_PositionOverrun">样品位置超出限制</system:String>-->
+    <system:String x:Key="Message_CloseInformation">参数信息已保存，确认关闭</system:String>
+    <!--<system:String x:Key="Message_CloseInformation">请确认参数信息是否已保存</system:String>-->
+
+
+    <!--Mass中的-补的-->
+    <system:String x:Key="ButtonContent_Cancel">取消</system:String>
+    <system:String x:Key="ButtonContent_Save">保存</system:String>
+    <system:String x:Key="ButtonContent_Open">打开</system:String>
+    <system:String x:Key="ButtonContent_Create">新建</system:String>
+    <system:String x:Key="ButtonContent_About">关于</system:String>
+    <system:String x:Key="ButtonContent_SaveAs">另存为</system:String>
+    <system:String x:Key="ButtonContent_Set">设置</system:String>
+    <system:String x:Key="ButtonContent_Done">打开</system:String>
+
+    <system:String x:Key="MessageTitle_Error">错误</system:String>
+    <!--<system:String x:Key="Message_Error1000">错误[1000]，程序执行错误。</system:String>-->
+    <system:String x:Key="MessageTitle_Exit">退出</system:String>
+    <system:String x:Key="Message_Error1027">警告[1027]，确定要关闭应用程序吗？</system:String>
+    <!--<system:String x:Key="Message_Error2013">警告[2013],</system:String>-->
+    <system:String x:Key="ButtonContent_Yes">是</system:String>
+    <system:String x:Key="ButtonContent_No">否</system:String>
+    <system:String x:Key="ButtonContent_Close">关闭</system:String>
+    <system:String x:Key="MainMenu_AutoSampler">自动进样器</system:String>
+
+    <system:String x:Key="MenuItem_Header_InsertRowBelow">在下面插入行</system:String>
+    <system:String x:Key="MenuItem_Header_Copy">复制</system:String>
+    <system:String x:Key="MenuItem_Header_PasteHere">粘贴这儿</system:String>
+    <system:String x:Key="MenuItem_Header_Delete">删除</system:String>
+    <system:String x:Key="MenuItem_Header_FillDown">向下填充</system:String>
+    <system:String x:Key="MenuItem_Header_FillIncrement">填充增量</system:String>
+    <system:String x:Key="DataGrid_Header_SampleID">样品名</system:String>
+    <system:String x:Key="ButtonContent_Run">运行</system:String>
+    <system:String x:Key="ButtonContent_Stop">停止</system:String>
+    <system:String x:Key="ButtonContent_Pause">暂停</system:String>
+    <system:String x:Key="ButtonContent_Continue">继续</system:String>
+    <system:String x:Key="ButtonContent_BackToReady">回到准备状态</system:String>
+
+
+    <system:String x:Key="Common_Content_LicenseFile">许可文件</system:String>
+    <system:String x:Key="Common_Content_LicenseFileNull">请选择许可文件</system:String>
+    <system:String x:Key="Common_Content_LicenseFileError">无法验证许可证文件。请选择有效的许可证文件，然后重试。</system:String>
+    <system:String x:Key="Common_Content_RegisterSuccessful">许可激活成功。</system:String>
+    <system:String x:Key="AboutInfo_ReplaceLicSuccessful">更换许可文件成功。</system:String>
+    <system:String x:Key="AboutInfo_ReplaceLicFailed">更换许可文件失败。</system:String>
+    <system:String x:Key="Message_Error2002">错误[2002]，添加样品时出错。</system:String>
+    <system:String x:Key="Message_Error2013">错误[2013]，自动进样器连接已断开，请确认通讯是否正常。</system:String>
+    <system:String x:Key="Message_Error1000">错误[1000]，程序执行错误。</system:String>
+    <system:String x:Key="Message_Error1002">错误[1002]，保存失败。</system:String>
+    <system:String x:Key="Message_Error1004">错误[1004]，打开失败。</system:String>
 
 </ResourceDictionary>
