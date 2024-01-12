@@ -25,7 +25,7 @@
 
     <system:String x:Key="AutoSampler_Main_PreFlush">Pre Wash</system:String>
     <system:String x:Key="AutoSampler_Main_PreRun">Pre Analyze</system:String>
-    <system:String x:Key="AutoSampler_Main_Flush">Flush</system:String>
+    <system:String x:Key="AutoSampler_Main_Flush1">Flush</system:String>
     <system:String x:Key="AutoSampler_Main_Delay">Delay</system:String>
     <system:String x:Key="AutoSampler_Main_Analysis">Analyze</system:String>
     <system:String x:Key="AutoSampler_Main_PostRun">After Run</system:String>
@@ -216,8 +216,10 @@
     <system:String x:Key="AutoSampler_AdvancedSetPage_Text5">Please remove all test tube racks before calibration and initialization</system:String>
     
     <!--弹窗提示-->
-    <system:String x:Key="Message_RunError">Run error, syringe failure!</system:String>
-    <system:String x:Key="Message_RoboticArmError">Robotic arm error</system:String>
+    <system:String x:Key="Message_RunError">Run error, syringe failure!(Please refer to the log for details)</system:String>
+    <system:String x:Key="Message_RoboticArmErrorX">Robotic arm X-axis error</system:String>
+    <system:String x:Key="Message_RoboticArmErrorT">Robotic arm T-axis error</system:String>
+    <system:String x:Key="Message_RoboticArmErrorZ">Robotic arm Z-axis error</system:String>
     <system:String x:Key="Message_CloseError">The instrument is running, please close the window later</system:String>
     <system:String x:Key="Message_Connection">Successfully reconnected</system:String>
     <!--<system:String x:Key="Message_Information">Prompt</system:String>-->

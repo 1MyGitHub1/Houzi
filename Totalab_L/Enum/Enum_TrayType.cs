@@ -9,7 +9,7 @@ namespace Totalab_L.Enum
 {
     public enum Enum_TrayType
     {
-        [Description("60*21")]
+        [Description("50*21")]
         _60mL,
         [Description("15*60")]
         _15mL,

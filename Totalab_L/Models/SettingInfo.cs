@@ -26,7 +26,7 @@ namespace Totalab_L.Models
                 Notify("SamplingDepth");
             }
         }
-        private int _samplingDepth = 100;
+        private int _samplingDepth = 160;
 
         public int Wash1Time
         {
@@ -159,7 +159,9 @@ namespace Totalab_L.Models
             }
         }
         private AnalysInfo _analysInfo = new AnalysInfo();
-
+        /// <summary>
+        /// 高/低电平出发
+        /// </summary>
         public int SignalType
         {
             get => _signalType;

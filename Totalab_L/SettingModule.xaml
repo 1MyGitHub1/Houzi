@@ -347,7 +347,7 @@
                             <ColumnDefinition Width="120"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="{DynamicResource AutoSampler_Main_PreRun}" Style="{StaticResource DGCellTextBlockSty}"/>
-                        <TextBlock Text="{DynamicResource AutoSampler_Main_Flush}" Style="{StaticResource DGCellTextBlockSty}" Grid.Column="1"/>
+                        <TextBlock Text="{DynamicResource AutoSampler_Main_Flush1}" Style="{StaticResource DGCellTextBlockSty}" Grid.Column="1"/>
                         <ComboBox x:Name="FlushTime_ComboBox" Grid.Column="2" Style="{StaticResource DGCellComboBoxSty}" 
                                   IsEnabled="{Binding IsHimassConnState,Source={x:Static global:GlobalInfo.Instance}}"
                                   SelectedIndex="{Binding SettingInfo.PreRunningInfo[0].WashTimeTypeIndex,Source={x:Static global:GlobalInfo.Instance}}">

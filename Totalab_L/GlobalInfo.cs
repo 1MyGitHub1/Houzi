@@ -43,7 +43,8 @@ namespace Totalab_L
         public static double LastPositionW = 0;              //上一个位置W
 
         public static bool IsLoctionError = false;            //输入的样品位置超限
-        public static bool IsAgainPower = false;            //是否重新上电
+        public static bool IsAgainPower = false;             //是否重新上电
+        public static bool IsDisconnected = true;               //是否断连接
 
         public static ResourceDictionary LgDictionary = new ResourceDictionary();
 

@@ -526,7 +526,7 @@ namespace Totalab_L
                             IsOpenAction = true,
                             WashLoc="RinseLoc",
                             WashPumpSpeed = 40,
-                            WashTime = 3
+                            WashTime = 5
                         },
                     };
                     GlobalInfo.Instance.SettingInfo.PreRunningInfo = new ObservableCollection<AnalysInfo>
@@ -536,14 +536,14 @@ namespace Totalab_L
                             //WashSpeedTypeIndex = 1,
                             WashPumpSpeed = 40,
                             WashTimeTypeIndex = 1,
-                            WashTime = 10
+                            WashTime = 5
                         },
                         new AnalysInfo
                         {
                             //WashSpeedTypeIndex = 1,
                             WashPumpSpeed = 40,
                             //WashTimeTypeIndex = 1,
-                            WashTime = 10
+                            WashTime = 5
                         },
                     };
                     GlobalInfo.Instance.SettingInfo.AfterRunningInfo = new ObservableCollection<ParaItemInfo>
@@ -555,7 +555,7 @@ namespace Totalab_L
                             WashActionKey=1,
                             WashLoc="RinseLoc",
                             WashPumpSpeed = 40,
-                            WashTime = 3
+                            WashTime = 20
                         },
                         new ParaItemInfo
                         {
@@ -563,7 +563,7 @@ namespace Totalab_L
                             WashActionKey=2,
                             WashLoc="RinseLoc",
                             WashPumpSpeed = 40,
-                            WashTime = 3
+                            WashTime = 20
                         },
                     };
                 }
@@ -2507,7 +2507,7 @@ namespace Totalab_L
                         IsOpenAction = true,
                         WashLoc="RinseLoc",
                         WashPumpSpeed = 40,
-                        WashTime = 3
+                        WashTime = 5
                     },
                 };
                 GlobalInfo.Instance.SettingInfo.PreRunningInfo = new ObservableCollection<AnalysInfo>
@@ -2516,14 +2516,14 @@ namespace Totalab_L
                     {
                         WashPumpSpeed = 40,
                         WashTimeTypeIndex = 1,
-                        WashTime = 10
+                        WashTime = 5
                     },
                     new AnalysInfo
                     {
                         //WashSpeedTypeIndex = 1,
                         WashPumpSpeed = 40,
                         //WashTimeTypeIndex = 1,
-                        WashTime = 10
+                        WashTime = 5
                     },
                 };
                 GlobalInfo.Instance.SettingInfo.AfterRunningInfo = new ObservableCollection<ParaItemInfo>
@@ -2535,7 +2535,7 @@ namespace Totalab_L
                         WashActionKey=1,
                         WashLoc="RinseLoc",
                         WashPumpSpeed = 40,
-                        WashTime = 3
+                        WashTime = 20
                     },
                     new ParaItemInfo
                     {
@@ -2543,7 +2543,7 @@ namespace Totalab_L
                         WashActionKey=2,
                         WashLoc ="RinseLoc",
                         WashPumpSpeed = 40,
-                        WashTime = 3
+                        WashTime = 20
                     },
                 };
                 GlobalInfo.Instance.CurrentMethod.MethodName = "";
@@ -2952,7 +2952,7 @@ namespace Totalab_L
                         WashActionKey=1,
                         WashLoc="RinseLoc",
                         WashPumpSpeed = 40,
-                        WashTime = 3
+                        WashTime = 20
                     },
                     new ParaItemInfo
                     {
@@ -2960,7 +2960,7 @@ namespace Totalab_L
                         WashActionKey=2,
                         WashLoc="RinseLoc",
                         WashPumpSpeed = 40,
-                        WashTime = 3
+                        WashTime = 20
                     },
                 };
             }
@@ -3170,17 +3170,20 @@ namespace Totalab_L
         {
             try
             {
+                GlobalInfo.IsDisconnected = true;                       //判断返回指令前置为true
                 GlobalInfo.Instance.Totalab_LSerials.WaitSendSuccess.Set();
                 _IsRecived = true;
                 if (e == null)
                     return;
                 switch (e.Msg.FunctionCode)
                 {
+                    #region 0x55 0xa1 连接广播
                     case 0x55:
                         if (e.Msg.Cmd == 0xA1)
                         {
                             //this.Dispatcher.Invoke((Action)(() =>
                             //{
+                            GlobalInfo.IsDisconnected = false;                      //运行过程中如果有返回85 50，说明未断连接
                             IsConnect = true;
                             this.Dispatcher.Invoke((Action)(() =>
                             {
@@ -3197,6 +3200,9 @@ namespace Totalab_L
                             //_IsRecived = true;
                         }
                         break;
+                    #endregion
+
+                    #region 0xAA 底层版本号、序列号读取、断电重连
                     case 0xAA:
                         if (e.Msg.Cmd == 0xA1)
                         {
@@ -3214,10 +3220,11 @@ namespace Totalab_L
                                 GlobalInfo.Instance.LogInfo.Insert(0, DateTime.Now.ToString("hh:mm:ss") + "进样器已重启,重新连接");
                                 //new MessagePage().ShowDialog("MessageContent_SaveSuccessful".GetWord(), "MessageTitle_Information".GetWord(), false, Enum_MessageType.Information);
                             }));
-                            //GlobalInfo.Instance.Totalab_LSerials.EndWork();
-                            //ConnectStatus();
                         }
                         break;
+                    #endregion
+
+                    #region 0x85 功能码、校验码
                     case 0x85:
                         if (e.Msg.Cmd == 0x50)//////////////////////正确的校验
                         {
@@ -3244,6 +3251,9 @@ namespace Totalab_L
                             break;
                         }
                         break;
+                    #endregion
+
+                    #region 0x81--Z轴抬针速度
                     case 0x81:
                         if (e.Msg.Cmd == 0x99)
                         {
@@ -3263,29 +3273,33 @@ namespace Totalab_L
                             if (GlobalInfo.Instance.RunningStep == RunningStep_Status.ZHome)
                                 GlobalInfo.Instance.RunningStep = RunningStep_Status.ZHomeOk;
                         }
-                        else if (e.Msg.Cmd == 0x3d)
-                        {
-                            if (GlobalInfo.Instance.RunningStep == RunningStep_Status.ClosePump)
-                                GlobalInfo.Instance.RunningStep = RunningStep_Status.ClosePumpOk;
-                        }
-                        else if (e.Msg.Cmd == 0x09)
-                        {
-                            if (GlobalInfo.Instance.RunningStep == RunningStep_Status.OpenPump)
-                                GlobalInfo.Instance.RunningStep = RunningStep_Status.OpenPumpOk;
-                        }
-                        else if (e.Msg.Cmd == 0x17)
-                        {
-                            if (GlobalInfo.Instance.RunningStep == RunningStep_Status.SetPumpSpeed)
-                                GlobalInfo.Instance.RunningStep = RunningStep_Status.SetPumpSpeedOk;
-                        }
-                        else if (e.Msg.Data[1]==0x03)               //进样针抬起速度
+                        else if (e.Msg.Data[1] == 0x03)               //针抬起速度
                         {
                             if (GlobalInfo.Instance.RunningStep == RunningStep_Status.SetZSpeed)
                             {
                                 GlobalInfo.Instance.RunningStep = RunningStep_Status.SetZSpeedOK;
-                            } 
+                            }
                         }
+
+                        //else if (e.Msg.Cmd == 0x3d)
+                        //{
+                        //    if (GlobalInfo.Instance.RunningStep == RunningStep_Status.ClosePump)
+                        //        GlobalInfo.Instance.RunningStep = RunningStep_Status.ClosePumpOk;
+                        //}
+                        //else if (e.Msg.Cmd == 0x09)
+                        //{
+                        //    if (GlobalInfo.Instance.RunningStep == RunningStep_Status.OpenPump)
+                        //        GlobalInfo.Instance.RunningStep = RunningStep_Status.OpenPumpOk;
+                        //}
+                        //else if (e.Msg.Cmd == 0x17)
+                        //{
+                        //    if (GlobalInfo.Instance.RunningStep == RunningStep_Status.SetPumpSpeed)
+                        //        GlobalInfo.Instance.RunningStep = RunningStep_Status.SetPumpSpeedOk;
+                        //}
                         break;
+                    #endregion
+
+                    #region  0x21 蠕动泵
                     case 0x21:
                         if (e.Msg.Cmd == 0x3d)
                         {
@@ -3303,6 +3317,9 @@ namespace Totalab_L
                                 GlobalInfo.Instance.RunningStep = RunningStep_Status.SetPumpSpeedOk;
                         }
                         break;
+                    #endregion
+
+                    #region 0x61 触发模式
                     case 0x61:
                         if (e.Msg.Cmd == 0x60)
                         {
@@ -3351,10 +3368,13 @@ namespace Totalab_L
                                 GlobalInfo.Instance.RunningStep = RunningStep_Status.RecvTriggerOk;
                         }
                         break;
-                    case 0x98:
+                    #endregion
 
+                    case 0x98:
                         break;
-                    case 0x60://工作模式
+
+                    #region 0x60 工作模式
+                    case 0x60:                                                          //工作模式
                         if (e.Msg.Data[1] == 0x01)
                             GlobalInfo.Instance.IsMotorXSetWorkModeOk = true;
                         else if (e.Msg.Data[1] == 0x02)
@@ -3368,7 +3388,10 @@ namespace Totalab_L
                             GlobalInfo.Instance.CurrentWorkType = Enum_MotorWorkType.Position;
                         }
                         break;
-                    case 0x7a:///设置目标位置
+                    #endregion
+
+                    #region 0x7a 设置目标位置
+                    case 0x7a:                                                      ///设置目标位置
                         if (e.Msg.Data[1] == 0x01)
                             GlobalInfo.Instance.IsMotorXSetTargetPositionOk = true;
                         else if (e.Msg.Data[1] == 0x02)
@@ -3384,7 +3407,10 @@ namespace Totalab_L
 
                         }
                         break;
-                    case 0x40:///执行   3f                            ==下位机返回
+                    #endregion
+
+                    #region 0x40 执行 3f
+                    case 0x40:                                                  ///执行   3f                         
                         //int returnPositionX = 0;
                         //int returnPositionW = 0;
                         if (e.Msg.Data[1] == 0x01)
@@ -3396,7 +3422,9 @@ namespace Totalab_L
                             returnBytesX[2] = e.Msg.Data[4];
                             returnBytesX[3] = e.Msg.Data[5];
                             GlobalInfo.returnPositionX = BitConverter.ToInt32(returnBytesX, 0);
-                            MainLogHelper.Instance.Info("移动完成后返回的位置（含Zero）：" + "X---" + GlobalInfo.returnPositionX * GlobalInfo.XLengthPerCircle / 3600.0 + "\n"+"转换成十六进制："+ Convert.ToString(GlobalInfo.returnPositionX,16).ToUpper().PadLeft(8,'0'));
+                            //MainLogHelper.Instance.Info("移动完成后返回的位置（含Zero）：" + "X---" + GlobalInfo.returnPositionX * GlobalInfo.XLengthPerCircle / 3600.0 + "\n" 
+                            //    +"(不含Zero)："+ "X---" + (GlobalInfo.returnPositionX - GlobalInfo.Instance.TrayPanelHomeX) * GlobalInfo.XLengthPerCircle / 3600.0 + "\n"
+                            //    + "转换成十六进制："+ Convert.ToString(GlobalInfo.returnPositionX,16).ToUpper().PadLeft(8,'0'));
 
                             //GlobalInfo.Instance.Totalab_LSerials.ReadMotorPosition((byte)0x01);
                         }
@@ -3409,7 +3437,9 @@ namespace Totalab_L
                             returnBytesW[2] = e.Msg.Data[4];
                             returnBytesW[3] = e.Msg.Data[5];
                             GlobalInfo.returnPositionW = BitConverter.ToInt32(returnBytesW, 0);
-                            MainLogHelper.Instance.Info("移动完成后返回的位置（含Zero）：" + "W---" + GlobalInfo.returnPositionW / 60.0 + "\n" + "转换成十六进制：" + Convert.ToString(GlobalInfo.returnPositionW, 16).ToUpper().PadLeft(8, '0'));
+                            //MainLogHelper.Instance.Info("移动完成后返回的位置（含Zero）：" + "W---" + GlobalInfo.returnPositionW / 60.0 + "\n"
+                            //    + "(不含Zero)：" + "W---" + (GlobalInfo.returnPositionW - GlobalInfo.Instance.TrayPanelHomeW) / 60.0 + "\n"
+                            //    + "转换成十六进制：" + Convert.ToString(GlobalInfo.returnPositionW, 16).ToUpper().PadLeft(8, '0'));
 
                             //GlobalInfo.Instance.Totalab_LSerials.ReadMotorPosition((byte)0x02);
                         }
@@ -3429,8 +3459,11 @@ namespace Totalab_L
 
                         }
                         break;
-                    case 0x41:///使能，急停，清除错误    0f
-                        if (e.Msg.Data[2] == 0x80)
+                    #endregion
+
+                    #region 0x41 使能，急停，清除错误    0f
+                    case 0x41:
+                        if (e.Msg.Data[2] == 0x80)          //清除错误
                         {
                             if (e.Msg.Data[1] == 0x01)
                                 GlobalInfo.Instance.IsMotorXError = false;
@@ -3447,7 +3480,7 @@ namespace Totalab_L
                                 }));
                             }
                         }
-                        else if (e.Msg.Data[2] == 0x0B)
+                        else if (e.Msg.Data[2] == 0x0B)             //急停
                         {
                             if (e.Msg.Data[1] == 0x01)
                                 GlobalInfo.Instance.IsMotorXStop = true;
@@ -3456,7 +3489,7 @@ namespace Totalab_L
                             else if (e.Msg.Data[1] == 0x03)
                                 GlobalInfo.Instance.IsMotorZStop = true;
                         }
-                        else
+                        else                                      //使能0f
                         {
                             if (e.Msg.Data[1] == 0x01)
                                 GlobalInfo.Instance.IsMotorXActionOk = true;
@@ -3472,7 +3505,10 @@ namespace Totalab_L
                             }
                         }
                         break;
-                    case 0x64:                  //当前实际位置读取
+                    #endregion
+
+                    #region 0x64 当前实际位置读取
+                    case 0x64:                                                  //当前实际位置读取
                         if (_IsFirst)
                         {
                             _IsFirst = false;
@@ -3494,11 +3530,11 @@ namespace Totalab_L
                             if (content != null)
                             {
                                 GlobalInfo.Instance.CalibrationInfo = XmlObjSerializer.Deserialize<TrayPanelCalibrationInfo>(content);
-                               GlobalInfo.Instance.TrayPanelCenter = GlobalInfo.Instance.CalibrationInfo.TrayPanelCenterX;
+                                GlobalInfo.Instance.TrayPanelCenter = GlobalInfo.Instance.CalibrationInfo.TrayPanelCenterX;
                                 GlobalInfo.Instance.TrayPanel_leftW = GlobalInfo.Instance.CalibrationInfo.TrayCenterToLeftW;
                                 GlobalInfo.Instance.TrayPanel_rightW = GlobalInfo.Instance.CalibrationInfo.CalibrationRightW;
                                 MainLogHelper.Instance.Info("读取配置文件中心点位置：X：" + GlobalInfo.Instance.TrayPanelCenter + "\n" +
-                                                                            "Left_point:"+ GlobalInfo.Instance.TrayPanel_leftW +" \n" +
+                                                                            "Left_point:" + GlobalInfo.Instance.TrayPanel_leftW + " \n" +
                                                                             "Right_point:" + GlobalInfo.Instance.TrayPanel_rightW);
 
                                 //GoToXYCommand_linshi();
@@ -3534,6 +3570,9 @@ namespace Totalab_L
 
                         //}
                         break;
+                    #endregion
+
+                    #region 0x22 系统初始化返回
                     case 0x22:
                         if (e.Msg.DataLength == 12)
                         {
@@ -3560,7 +3599,7 @@ namespace Totalab_L
                             Thread.Sleep(300);
                             GlobalInfo.Instance.Totalab_LSerials.ReadMotorPosition((byte)0x01);
                         }
-                        else if(e.Msg.DataLength == 1)
+                        else if (e.Msg.DataLength == 1)
                         {
                             if (e.Msg.Data[0] == 0xee)
                             {
@@ -3571,32 +3610,71 @@ namespace Totalab_L
                             }
                         }
                         break;
+                    #endregion
+
+                    #region  0xee 报错类别
                     case 0xee:
                         if (e.Msg.Data[1] == 0x01)
+                        {
                             GlobalInfo.Instance.IsMotorXError = true;
+                            if (e.Msg.Data[2] == 0xe3)
+                            {
+                                this.Dispatcher.Invoke((Action)(() =>
+                                {
+                                    GlobalInfo.Instance.LogInfo.Insert(0, DateTime.Now.ToString("hh:mm:ss") + "X轴位置超限");
+                                }));
+                            }
+                            else if (e.Msg.Data[2] == 0xe6)
+                            {
+                                this.Dispatcher.Invoke((Action)(() =>
+                                {
+                                    GlobalInfo.Instance.LogInfo.Insert(0, DateTime.Now.ToString("hh:mm:ss") + "X轴追随错误");
+                                }));
+                            }
+                        }
                         else if (e.Msg.Data[1] == 0x02)
+                        {
                             GlobalInfo.Instance.IsMotorWError = true;
+                            if (e.Msg.Data[2] == 0xe3)
+                            {
+                                this.Dispatcher.Invoke((Action)(() =>
+                                {
+                                    GlobalInfo.Instance.LogInfo.Insert(0, DateTime.Now.ToString("hh:mm:ss") + "T轴位置超限");
+                                }));
+                            }
+                            else if (e.Msg.Data[2] == 0xe6)
+                            {
+                                this.Dispatcher.Invoke((Action)(() =>
+                                {
+                                    GlobalInfo.Instance.LogInfo.Insert(0, DateTime.Now.ToString("hh:mm:ss") + "T轴追随错误");
+                                }));
+                            }
+
+                        }
                         else if (e.Msg.Data[1] == 0x03)
+                        {
                             GlobalInfo.Instance.IsMotorZError = true;
+                            if (e.Msg.Data[2] == 0xe3)
+                            {
+                                this.Dispatcher.Invoke((Action)(() =>
+                                {
+                                    GlobalInfo.Instance.LogInfo.Insert(0, DateTime.Now.ToString("hh:mm:ss") + "Z轴位置超限");
+                                }));
+                            }
+                            else if (e.Msg.Data[2] == 0xe6)
+                            {
+                                this.Dispatcher.Invoke((Action)(() =>
+                                {
+                                    GlobalInfo.Instance.LogInfo.Insert(0, DateTime.Now.ToString("hh:mm:ss") + "Z轴追随错误");
+                                }));
+                            }
+                        }
+
                         if (e.Msg.Data[2] == 0xe1)
                         {
                             this.Dispatcher.Invoke((Action)(() =>
                             {
                                 GlobalInfo.Instance.LogInfo.Insert(0, DateTime.Now.ToString("hh:mm:ss") + "复位出错");
-                            }));
-                        }
-                        else if (e.Msg.Data[2] == 0xe2)
-                        {
-                            this.Dispatcher.Invoke((Action)(() =>
-                            {
-                                GlobalInfo.Instance.LogInfo.Insert(0, DateTime.Now.ToString("hh:mm:ss") + "追随错误");
-                            }));
-                        }
-                        else if (e.Msg.Data[2] == 0xe3)
-                        {
-                            this.Dispatcher.Invoke((Action)(() =>
-                            {
-                                GlobalInfo.Instance.LogInfo.Insert(0, DateTime.Now.ToString("hh:mm:ss") + "位置超限");
                             }));
                         }
                         GlobalInfo.Instance.RunningStep = RunningStep_Status.Error;
@@ -3624,6 +3702,8 @@ namespace Totalab_L
                             }
                         }, source.Token);
                         break;
+                    #endregion
+
                     default:
                         break;
                 }
@@ -3642,23 +3722,46 @@ namespace Totalab_L
                     GlobalInfo.Instance.Totalab_LSerials.XWZHome();
                     GlobalInfo.IsAgainPower = false;
                 }
-                else if (GlobalInfo.Instance.IsMotorXError|| GlobalInfo.Instance.IsMotorWError|| GlobalInfo.Instance.IsMotorZError)
+                else if (GlobalInfo.IsDisconnected == false)
                 {
-                    Application.Current.Dispatcher.Invoke((Action)(() =>
+                    if (GlobalInfo.Instance.IsMotorXError || GlobalInfo.Instance.IsMotorWError || GlobalInfo.Instance.IsMotorZError)
                     {
-                        StatusColors = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFBDBDBD"));
-                        StatusText = "D/C";
-                    }));
-
-                    this.Dispatcher.Invoke((Action)(() =>
-                    {
-                        bool? ErrorResult = new MessagePage().ShowDialog("Message_RunError".GetWord(), "MessageTitle_Error".GetWord(), true, Enum_MessageType.Error, yesContent: "Message_ButtonOK".GetWord());
-                        if ((bool)ErrorResult)
+                        Application.Current.Dispatcher.Invoke((Action)(() =>
                         {
+                            StatusColors = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFBDBDBD"));
+                            StatusText = "D/C";
+                        }));
+                        if (GlobalInfo.Instance.IsMotorXError)
+                        {
+                            this.Dispatcher.Invoke((Action)(() =>
+                            {
+                                GlobalInfo.Instance.LogInfo.Insert(0, DateTime.Now.ToString("hh:mm:ss") + "X轴出错");
+                            }));
+                        }
+                        if (GlobalInfo.Instance.IsMotorWError)
+                        {
+                            this.Dispatcher.Invoke((Action)(() =>
+                            {
+                                GlobalInfo.Instance.LogInfo.Insert(0, DateTime.Now.ToString("hh:mm:ss") + "T轴出错");
+                            }));
+                        }
+                        if (GlobalInfo.Instance.IsMotorZError)
+                        {
+                            this.Dispatcher.Invoke((Action)(() =>
+                            {
+                                GlobalInfo.Instance.LogInfo.Insert(0, DateTime.Now.ToString("hh:mm:ss") + "Z轴出错");
+                            }));
+                        }
+                        this.Dispatcher.Invoke((Action)(() =>
+                        {
+                            bool? ErrorResult = new MessagePage().ShowDialog("Message_RunError".GetWord(), "MessageTitle_Error".GetWord(), true, Enum_MessageType.Error, yesContent: "Message_ButtonOK".GetWord());
+                            if ((bool)ErrorResult)
+                            {
                             //清错
                             MotorActionHelper.MotorClearError();
-                        }
-                    }));
+                            }
+                        }));
+                    }
                 }
                 else
                 {

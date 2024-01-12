@@ -364,7 +364,7 @@ namespace Totalab_L
                         IsOpenAction = true,
                         WashLoc="1",
                         WashPumpSpeed = 40,
-                        WashTime = 3
+                        WashTime = 5
                     },
             };
             GlobalInfo.Instance.SettingInfo.PreRunningInfo = new ObservableCollection<AnalysInfo>
@@ -392,7 +392,7 @@ namespace Totalab_L
                         WashActionKey=1,
                         WashLoc="1",
                         WashPumpSpeed = 40,
-                        WashTime = 3
+                        WashTime = 20
                     },
                     new ParaItemInfo
                     {
@@ -400,7 +400,7 @@ namespace Totalab_L
                         WashActionKey=2,
                         WashLoc ="1",
                         WashPumpSpeed = 40,
-                        WashTime = 3
+                        WashTime = 20
                     },
             };
         }

@@ -25,7 +25,7 @@
 
     <system:String x:Key="AutoSampler_Main_PreFlush">预清洗</system:String>
     <system:String x:Key="AutoSampler_Main_PreRun">预运行</system:String>
-    <system:String x:Key="AutoSampler_Main_Flush">清洗</system:String>
+    <system:String x:Key="AutoSampler_Main_Flush1">冲洗</system:String>
     <system:String x:Key="AutoSampler_Main_Delay">延迟</system:String>
     <system:String x:Key="AutoSampler_Main_Analysis">分析</system:String>
     <system:String x:Key="AutoSampler_Main_PostRun">运行结束</system:String>
@@ -217,7 +217,7 @@
     <system:String x:Key="AutoSampler_AdvancedSetPage_Text5">校准前请先将全部试管架取走，然后单击初始化按键，初始化位置参数信息</system:String>
 
     <!--弹窗提示-->
-    <system:String x:Key="Message_RunError">运行错误，进样针故障!</system:String>
+    <system:String x:Key="Message_RunError">运行错误，进样针故障!(详情请看日志)</system:String>
     <system:String x:Key="Message_RoboticArmError">机械臂出错</system:String>
     <system:String x:Key="Message_CloseError">仪器正在运行中，请稍后关闭窗口</system:String>
     <system:String x:Key="Message_Connection">重新连接成功</system:String>

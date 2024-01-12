@@ -167,7 +167,7 @@ namespace Totalab_L
                 Notify("ZCurrentPosition");
             }
         }
-        private double _zCurrentPosition = 120;
+        private double _zCurrentPosition = 160;
         //进样针下降到液面高度
         public double Liquid_level
         {
@@ -2682,7 +2682,9 @@ namespace Totalab_L
                     GlobalInfo.Instance.CalibrationInfo.ZResetLiquid_level = Liquid_level;                          //抬起到液面高度
                     GlobalInfo.Instance.CalibrationInfo.Speed1_value = CalibrationInfo.Speed1_value;                //抬起速度1
                     GlobalInfo.Instance.CalibrationInfo.Speed2_value = CalibrationInfo.Speed2_value;                //抬起速度2
-                    GlobalInfo.Instance.CalibrationInfo.OffsetCalibrationW = CalibrationInfo.CalibrationRightW - CalibrationInfo.CalibrationLeftW - 180;
+                    //补偿角度
+                    //GlobalInfo.Instance.CalibrationInfo.OffsetCalibrationW = (CalibrationInfo.CalibrationRightW - CalibrationInfo.CalibrationLeftW - 180)/2;
+                    GlobalInfo.Instance.CalibrationInfo.OffsetCalibrationW = 0;
                     //X中心和左边角度
                     GlobalInfo.Instance.CalibrationInfo.TrayPanelCenterX = CalibrationInfo.CalibrationLeftX + (CalibrationInfo.CalibrationRightX + GetPositionInfoHelper.ArmLength - CalibrationInfo.CalibrationLeftX) / 2;
                     GlobalInfo.Instance.CalibrationInfo.TrayCenterToLeftW = CalibrationInfo.CalibrationLeftW;
@@ -3145,7 +3147,7 @@ namespace Totalab_L
             }
 
         }
-        //移动到当前设置位置-----左边校准点
+        //左-右校准点
         private void MoveToTargetLocationCommand(object sender, RoutedEventArgs e)
         {
             try
@@ -3185,7 +3187,7 @@ namespace Totalab_L
                         //显示当前位置
                         //CalibrationLeftShowX = Math.Round(GlobalInfo.Instance.TrayPanelCenter - ((GlobalInfo.returnPositionX - GlobalInfo.Instance.TrayPanelHomeX) * GlobalInfo.XLengthPerCircle / 3600.0 + GetPositionInfoHelper.ArmLength), 2);
                         //CalibrationLeftShowW = Math.Round((GlobalInfo.returnPositionW - GlobalInfo.Instance.TrayPanelHomeW) / 60.0 - 180, 2);
-                        CalibrationLeftShowX = Math.Round((GlobalInfo.returnPositionX - GlobalInfo.Instance.TrayPanelHomeX) * GlobalInfo.XLengthPerCircle / 3600.0- GetPositionInfoHelper.ArmLength, 2);
+                        CalibrationLeftShowX = Math.Round((GlobalInfo.returnPositionX - GlobalInfo.Instance.TrayPanelHomeX) * GlobalInfo.XLengthPerCircle / 3600.0 - GetPositionInfoHelper.ArmLength, 2);
                         CalibrationLeftShowW = Math.Round((GlobalInfo.returnPositionW - GlobalInfo.Instance.TrayPanelHomeW) / 60.0, 2);
 
                         GlobalInfo.Instance.PositionW = GlobalInfo.returnPositionW;
@@ -3443,17 +3445,20 @@ namespace Totalab_L
                     GlobalInfo.Instance.Totalab_LSerials.XWZHome();
                     GlobalInfo.IsAgainPower = false;
                 }
-                else if (GlobalInfo.Instance.IsMotorXError || GlobalInfo.Instance.IsMotorWError || GlobalInfo.Instance.IsMotorZError)
+                else if (GlobalInfo.IsDisconnected == false)
                 {
-                    this.Dispatcher.Invoke((Action)(() =>
+                    if (GlobalInfo.Instance.IsMotorXError || GlobalInfo.Instance.IsMotorWError || GlobalInfo.Instance.IsMotorZError)
                     {
-                        bool? ErrorResult = new MessagePage().ShowDialog("Message_RunError".GetWord(), "MessageTitle_Error".GetWord(), true, Enum_MessageType.Error, yesContent: "Message_ButtonOK".GetWord());
-                        if ((bool)ErrorResult)
+                        this.Dispatcher.Invoke((Action)(() =>
                         {
+                            bool? ErrorResult = new MessagePage().ShowDialog("Message_RunError".GetWord(), "MessageTitle_Error".GetWord(), true, Enum_MessageType.Error, yesContent: "Message_ButtonOK".GetWord());
+                            if ((bool)ErrorResult)
+                            {
                             //清错
                             MotorActionHelper.MotorClearError();
-                        }
-                    }));
+                            }
+                        }));
+                    }
                 }
                 else
                 {
@@ -3837,9 +3842,9 @@ namespace Totalab_L
                             GlobalInfo.Instance.IsMotorXActionOk = false;
                             GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMotorAction;
                             GlobalInfo.Instance.Totalab_LSerials.MotorMove(0x01, 0x3f);
-                            Thread.Sleep(100);
+                            Thread.Sleep(200);
                             GlobalInfo.Instance.Totalab_LSerials.MotorMove(0x02, 0x3f);
-                            Thread.Sleep(100);
+                            Thread.Sleep(50);
                             count = 0;
                             while (true)
                             {
@@ -4276,7 +4281,7 @@ namespace Totalab_L
                         GlobalInfo.Instance.IsMotorXActionOk = false;
                         GlobalInfo.Instance.RunningStep = RunningStep_Status.SetMotorAction;
                         GlobalInfo.Instance.Totalab_LSerials.MotorMove(0x01, 0x3f);
-                        Thread.Sleep(100);
+                        Thread.Sleep(150);
                         if (isCollisionStatus == 0)
                         {
                             GlobalInfo.Instance.IsMotorWActionOk = false;
@@ -4707,7 +4712,7 @@ namespace Totalab_L
 
         #endregion
 
-
+        ////漏液装置状态
         private void open_click(object sender, RoutedEventArgs e)
         {
             GlobalInfo.Instance.Totalab_LSerials.SetLeakage_tank(0x14);     //打开
@@ -4756,11 +4761,39 @@ namespace Totalab_L
         }
 
 
-        ////漏液装置状态
-        //private void LouYeCommand(object sender, RoutedEventArgs e)
-        //{
-        //    GlobalInfo.calibration_status = true;
-        //    GlobalInfo.Instance.Totalab_LSerials.SetLeakage_tank(0x14);     //打开漏液槽
-        //}
+        #region //走位测试
+
+        public double XPosition
+        {
+            get => _xPosition;
+            set
+            {
+                _xPosition = value;
+                Notify("XPosition");
+            }
+        }
+        private double _xPosition;
+        public double WPosition
+        {
+            get => _wPosition;
+            set
+            {
+                _wPosition = value;
+                Notify("WPosition");
+            }
+        }
+        private double _wPosition;
+
+        private void TestCommand(object sender, RoutedEventArgs e)
+        {
+            MoveToZ_0Command();
+            Thread.Sleep(200);
+
+            MotorActionHelper.MotorMoveToTargetPosition(XPosition, WPosition);
+            //MainLogHelper.Instance.Info("移动后返回得值" + "(" + pt.X + "," + pt.Y + ")");
+
+        }
+        #endregion
+
     }
 }

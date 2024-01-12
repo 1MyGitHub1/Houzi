@@ -1663,7 +1663,7 @@ namespace Totalab_L
                         }
                         else
                         {
-                            MainLogHelper.Instance.Error("GlobalInfo.Instance.RunningStep != RunningStep_Status.RecvTriggerOk" + GlobalInfo.Instance.RunningStep.ToString());
+                            //MainLogHelper.Instance.Error("GlobalInfo.Instance.RunningStep != RunningStep_Status.RecvTriggerOk" + GlobalInfo.Instance.RunningStep.ToString());
                             ConntectWaring();
                             return;
                         }
@@ -1699,10 +1699,51 @@ namespace Totalab_L
                                             GoToTargetPosition("W1");
                                         }
                                         else
+                                        {
                                             GlobalInfo.Instance.RunningStep = RunningStep_Status.GoToSampleLocOk;
+                                        }
+                                        if (GlobalInfo.Instance.RunningStep == RunningStep_Status.Error)
+                                            break;
+                                        //如果到达位置OK，就运行蠕动泵
+                                        if (GlobalInfo.Instance.RunningStep == RunningStep_Status.GoToSampleLocOk)
+                                        {
+                                            if (GlobalInfo.Instance.SettingInfo.PreWashInfos[i].WashLoc == "RinseLoc" && GlobalInfo.Instance.SettingInfo.IsWash1Open)
+                                            {
+                                                PumpRun((int)GlobalInfo.Instance.SettingInfo.PreWashInfos[i].WashTime);
+                                            }
+                                            else if (GlobalInfo.Instance.SettingInfo.PreWashInfos[i].WashLoc != "RinseLoc")
+                                            {
+                                                long seconds = DateTime.Now.Ticks / 10000;
+                                                long delaySeconds = 0;
+                                                long delayPauseSends = 0;
+                                                while ((GlobalInfo.Instance.SettingInfo.PreWashInfos[i].WashTime - delaySeconds) > 0)
+                                                {
+                                                    if (stopType == 2)
+                                                        return;
+                                                    if (ExpStatus == Exp_Status.Pause)
+                                                    {
+                                                        Totalab_LCommon.DoEvents();
+                                                        Thread.Sleep(200);
+                                                        delayPauseSends = (DateTime.Now.Ticks / 10000 - pauseSeconds) / 1000;
+                                                        continue;
+                                                    }
+                                                    Totalab_LCommon.DoEvents();
+                                                    Thread.Sleep(200);
+                                                    delaySeconds = (DateTime.Now.Ticks / 10000 - seconds) / 1000 - delayPauseSends;
+                                                }
+                                                GlobalInfo.Instance.RunningStep = RunningStep_Status.PumpRunOk;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            MainLogHelper.Instance.Error("W1:GlobalInfo.Instance.RunningStep != RunningStep_Status.GoToSampleLocOk");
+                                            ConntectWaring();
+                                        }
+
+
                                     }
-                                    else
-                                        GlobalInfo.Instance.RunningStep = RunningStep_Status.GoToSampleLocOk;
+                                    //else
+                                    //    MainLogHelper.Instance.Error("清洗位W1未打开");
                                 }
                                 else
                                 {
@@ -1723,43 +1764,7 @@ namespace Totalab_L
                                     }
 
                                 }
-                                if (GlobalInfo.Instance.RunningStep == RunningStep_Status.Error)
-                                    break;
-                                //如果到达位置OK，就运行蠕动泵
-                                if (GlobalInfo.Instance.RunningStep == RunningStep_Status.GoToSampleLocOk)              
-                                {
-                                    if (GlobalInfo.Instance.SettingInfo.PreWashInfos[i].WashLoc == "RinseLoc" && GlobalInfo.Instance.SettingInfo.IsWash1Open)
-                                    {
-                                        PumpRun((int)GlobalInfo.Instance.SettingInfo.PreWashInfos[i].WashTime);
-                                    }
-                                    else if (GlobalInfo.Instance.SettingInfo.PreWashInfos[i].WashLoc != "RinseLoc")
-                                    {
-                                        long seconds = DateTime.Now.Ticks / 10000;
-                                        long delaySeconds = 0;
-                                        long delayPauseSends = 0;
-                                        while ((GlobalInfo.Instance.SettingInfo.PreWashInfos[i].WashTime - delaySeconds) > 0)
-                                        {
-                                            if (stopType == 2)
-                                                return;
-                                            if (ExpStatus == Exp_Status.Pause)
-                                            {
-                                                Totalab_LCommon.DoEvents();
-                                                Thread.Sleep(200);
-                                                delayPauseSends = (DateTime.Now.Ticks / 10000 - pauseSeconds) / 1000;
-                                                continue;
-                                            }
-                                            Totalab_LCommon.DoEvents();
-                                            Thread.Sleep(200);
-                                            delaySeconds = (DateTime.Now.Ticks / 10000 - seconds) / 1000 - delayPauseSends;
-                                        }
-                                        GlobalInfo.Instance.RunningStep = RunningStep_Status.PumpRunOk;
-                                    }
-                                }
-                                else
-                                {
-                                    MainLogHelper.Instance.Error("W1:GlobalInfo.Instance.RunningStep != RunningStep_Status.GoToSampleLocOk");
-                                    ConntectWaring();
-                                }
+
                                 //W1在清洗位---预清洗--完成后，再去清洗W2位置
                                 if (GlobalInfo.Instance.SettingInfo.PreWashInfos[i].WashLoc == "RinseLoc")
                                 {
@@ -1771,30 +1776,31 @@ namespace Totalab_L
                                             GoToTargetPosition("W2");
                                         }
                                         else
+                                        {
                                             GlobalInfo.Instance.RunningStep = RunningStep_Status.GoToSampleLocOk;
-                                    }
-                                    else
-                                        GlobalInfo.Instance.RunningStep = RunningStep_Status.GoToSampleLocOk;
+                                        }
+                                        //如果报错就跳出
+                                        if (GlobalInfo.Instance.RunningStep == RunningStep_Status.Error)
+                                            break;
+                                        //如果到达清洗位置了，就运行蠕动泵
+                                        if (GlobalInfo.Instance.RunningStep == RunningStep_Status.GoToSampleLocOk)
+                                        {
+                                            if (GlobalInfo.Instance.SettingInfo.PreWashInfos[i].WashLoc == "RinseLoc" && GlobalInfo.Instance.SettingInfo.IsWash2Open)
+                                            {
+                                                PumpRun((int)GlobalInfo.Instance.SettingInfo.PreWashInfos[i].WashTime);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            MainLogHelper.Instance.Error("W2:GlobalInfo.Instance.RunningStep:" + GlobalInfo.Instance.RunningStep.ToString());
+                                            MainLogHelper.Instance.Error("W2:GlobalInfo.Instance.RunningStep != RunningStep_Status.GoToSampleLocOk");
+                                            ConntectWaring();
+                                        }
 
-                                }
-                                else
-                                    GlobalInfo.Instance.RunningStep = RunningStep_Status.GoToSampleLocOk;
-                                //如果报错就跳出
-                                if (GlobalInfo.Instance.RunningStep == RunningStep_Status.Error)
-                                    break;
-                                //如果到达清洗位置了，就运行蠕动泵
-                                if (GlobalInfo.Instance.RunningStep == RunningStep_Status.GoToSampleLocOk)
-                                {
-                                    if (GlobalInfo.Instance.SettingInfo.PreWashInfos[i].WashLoc == "RinseLoc" && GlobalInfo.Instance.SettingInfo.IsWash2Open)
-                                    {
-                                        PumpRun((int)GlobalInfo.Instance.SettingInfo.PreWashInfos[i].WashTime);
                                     }
-                                }
-                                else
-                                {
-                                    MainLogHelper.Instance.Error("W2:GlobalInfo.Instance.RunningStep:"+ GlobalInfo.Instance.RunningStep.ToString());
-                                    MainLogHelper.Instance.Error("W2:GlobalInfo.Instance.RunningStep != RunningStep_Status.GoToSampleLocOk");
-                                    ConntectWaring();
+                                    //else
+                                    //    MainLogHelper.Instance.Error("清洗位W2未打开");
+
                                 }
                             }
                             if (GlobalInfo.Instance.RunningStep == RunningStep_Status.Error)
@@ -2518,25 +2524,47 @@ namespace Totalab_L
                     GlobalInfo.Instance.Totalab_LSerials.XWZHome();
                     GlobalInfo.IsAgainPower = false;
                 }
-                else if (GlobalInfo.Instance.IsMotorXError || GlobalInfo.Instance.IsMotorWError || GlobalInfo.Instance.IsMotorZError)
+                else if (GlobalInfo.IsDisconnected == false)
                 {
-                    Application.Current.Dispatcher.Invoke((Action)(() =>
+                    if (GlobalInfo.Instance.IsMotorXError || GlobalInfo.Instance.IsMotorWError || GlobalInfo.Instance.IsMotorZError)
                     {
-                        Control_ParentView.StatusColors = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFBDBDBD"));
-                        Control_ParentView.StatusText = "D/C";
-                    }));
-
-                    this.Dispatcher.Invoke((Action)(() =>
-                    {
-                        bool? ErrorResult = new MessagePage().ShowDialog("Message_RunError".GetWord(), "MessageTitle_Error".GetWord(), true, Enum_MessageType.Error, yesContent: "Message_ButtonOK".GetWord());
-                        if ((bool)ErrorResult)
+                        Application.Current.Dispatcher.Invoke((Action)(() =>
                         {
+                            Control_ParentView.StatusColors = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFBDBDBD"));
+                            Control_ParentView.StatusText = "D/C";
+                        }));
+                        if (GlobalInfo.Instance.IsMotorXError)
+                        {
+                            this.Dispatcher.Invoke((Action)(() =>
+                            {
+                                GlobalInfo.Instance.LogInfo.Insert(0, DateTime.Now.ToString("hh:mm:ss") + "X轴出错");
+                            }));
+                        }
+                        else if (GlobalInfo.Instance.IsMotorWError)
+                        {
+                            this.Dispatcher.Invoke((Action)(() =>
+                            {
+                                GlobalInfo.Instance.LogInfo.Insert(0, DateTime.Now.ToString("hh:mm:ss") + "T轴出错");
+                            }));
+                        }
+                        else if (GlobalInfo.Instance.IsMotorZError)
+                        {
+                            this.Dispatcher.Invoke((Action)(() =>
+                            {
+                                GlobalInfo.Instance.LogInfo.Insert(0, DateTime.Now.ToString("hh:mm:ss") + "Z轴出错");
+                            }));
+                        }
+                        this.Dispatcher.Invoke((Action)(() =>
+                        {
+                            bool? ErrorResult = new MessagePage().ShowDialog("Message_RunError".GetWord(), "MessageTitle_Error".GetWord(), true, Enum_MessageType.Error, yesContent: "Message_ButtonOK".GetWord());
+                            if ((bool)ErrorResult)
+                            {
                             //清错
                             MotorActionHelper.MotorClearError();
-                        }
-                    }));
+                            }
+                        }));
+                    }
                 }
-
                 else
                 {
                     GlobalInfo.Instance.IsBusy = true;
@@ -4011,20 +4039,26 @@ namespace Totalab_L
                                     Thread.Sleep(20);
                                 }
                                 if (stopType == 2 && IsStopWash == false)
+                                {
                                     return;
+                                }
+                                GlobalInfo.Instance.RunningStep = RunningStep_Status.GoToSampleLocOk;
                                 break;
                             }
                         }
                     }
                     #endregion
 
-                    CurrnentLoc = loc;
-                    GlobalInfo.Instance.RunningStep = RunningStep_Status.GoToSampleLocOk;
-
                 }
                 catch (Exception ex)
                 {
                     MainLogHelper.Instance.Error("SampleListModule [GoToTargetPosition]", ex);
+                }
+                finally
+                {
+                    MainLogHelper.Instance.Error("取完样后得状态" + GlobalInfo.Instance.RunningStep);
+                    CurrnentLoc = loc;
+                    GlobalInfo.Instance.RunningStep = RunningStep_Status.GoToSampleLocOk;
                 }
             }
             catch (Exception ex)
@@ -4753,13 +4787,6 @@ namespace Totalab_L
                 }
                 ExpStatus = Exp_Status.Complete;
                 bool result = MotorActionHelper.MotorErrorStopImmediately();
-                if (!GlobalInfo.Instance.IsHimassConnState)
-                {
-                    this.Dispatcher.Invoke(new Action(delegate
-                    {
-                        new MessagePage().ShowDialog("Message_RoboticArmError".GetWord(), "MessageTitle_Error".GetWord(), false, Enum_MessageType.Error);
-                    }));
-                }
                 if (result == false)
                 {
                     Control_ParentView.IsConnect = false;
@@ -4772,7 +4799,6 @@ namespace Totalab_L
                         Control_ParentView.StatusText = "D/C";
                     }));
                 }
-
                 if (GlobalInfo.Instance.IsHimassConnState)
                 {
                     List<AutoSampler_SamInfo> list = new List<AutoSampler_SamInfo>();
@@ -4794,6 +4820,37 @@ namespace Totalab_L
                         });
                     }
                     //Control_ParentView.IsUseAutoSampler = false;
+                }
+                if (GlobalInfo.Instance.IsMotorXError)
+                {
+                    if (!GlobalInfo.Instance.IsHimassConnState)
+                    {
+                        this.Dispatcher.Invoke(new Action(delegate
+                        {
+                            new MessagePage().ShowDialog("Message_RoboticArmErrorX".GetWord(), "MessageTitle_Error".GetWord(), false, Enum_MessageType.Error);
+                        }));
+                    }
+                }
+                else if (GlobalInfo.Instance.IsMotorWError)
+                {
+                    if (!GlobalInfo.Instance.IsHimassConnState)
+                    {
+                        this.Dispatcher.Invoke(new Action(delegate
+                        {
+                            new MessagePage().ShowDialog("Message_RoboticArmErrorT".GetWord(), "MessageTitle_Error".GetWord(), false, Enum_MessageType.Error);
+                        }));
+                    }
+
+                }
+                else if (GlobalInfo.Instance.IsMotorZError)
+                {
+                    if (!GlobalInfo.Instance.IsHimassConnState)
+                    {
+                        this.Dispatcher.Invoke(new Action(delegate
+                        {
+                            new MessagePage().ShowDialog("Message_RoboticArmErrorZ".GetWord(), "MessageTitle_Error".GetWord(), false, Enum_MessageType.Error);
+                        }));
+                    }
                 }
             }
             catch (Exception ex)
