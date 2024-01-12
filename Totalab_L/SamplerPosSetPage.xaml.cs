@@ -104,8 +104,37 @@ namespace Totalab_L
         private IEnumerable<EnumMemberModel> _stdTrayTypeList;
 
         #endregion
-
-
+        //标题选中
+        public bool IsChecked1
+        {
+            get => _isChecked1;
+            set
+            {
+                _isChecked1 = value;
+                Notify("IsChecked1");
+            }
+        }
+        private bool _isChecked1;
+        public bool IsChecked2
+        {
+            get => _isChecked2;
+            set
+            {
+                _isChecked2 = value;
+                Notify("IsChecked2");
+            }
+        }
+        private bool _isChecked2;
+        public bool IsChecked3
+        {
+            get => _isChecked3;
+            set
+            {
+                _isChecked3 = value;
+                Notify("IsChecked3");
+            }
+        }
+        private bool _isChecked3;
         public double XAdjustPosition
         {
             get => _xAdjustPosition;
@@ -2637,10 +2666,11 @@ namespace Totalab_L
                     GlobalInfo.Instance.TrayPanelCenter = CalibrationInfo.CalibrationLeftX + (CalibrationInfo.CalibrationRightX + GetPositionInfoHelper.ArmLength - CalibrationInfo.CalibrationLeftX) / 2;
                     GlobalInfo.Instance.TrayPanel_leftW = CalibrationInfo.CalibrationLeftW;
                     GlobalInfo.Instance.TrayPanel_rightW = CalibrationInfo.CalibrationRightW;
-                    if (GlobalInfo.Instance.TrayPanelCenter!= 0&& GlobalInfo.Instance.TrayPanel_leftW!= 0 && GlobalInfo.Instance.TrayPanel_rightW!=0)
-                    {
-                        new MessagePage().ShowDialog("MessageContent_SaveSuccessful".GetWord(), "MessageTitle_Information".GetWord(), false, Enum_MessageType.Information, this);
-                    }
+                    //if (GlobalInfo.Instance.TrayPanelCenter!= 0&& GlobalInfo.Instance.TrayPanel_leftW!= 0 && GlobalInfo.Instance.TrayPanel_rightW!=0)
+                    //{
+                    //    new MessagePage().ShowDialog("MessageContent_SaveSuccessful".GetWord(), "MessageTitle_Information".GetWord(), false, Enum_MessageType.Information, this);
+                    //}
+                    SetSampleCommand(null, null);               //下一页--样品管参数
                 }
                 if (btn.Tag.ToString() == "save1")
                 {
@@ -3089,6 +3119,7 @@ namespace Totalab_L
             }
             catch (Exception ex) { MainLogHelper.Instance.Error("SamplerPosSetPage [HomeCommand]", ex); }
         }
+        //关闭窗口
         private void WindowCloseCommand(object sender, CancelEventArgs e)
         {
             if (!IsCloseWin)
@@ -3101,9 +3132,12 @@ namespace Totalab_L
                 }
                 else
                 {
-                    bool? result = new MessagePage().ShowDialog("Message_CloseInformation".GetWord(), "MessageTitle_Information".GetWord(), true, Enum_MessageType.Information, yesContent: "Message_ButtonOK".GetWord());
+                    bool? result = new MessagePage().ShowDialog("Message_CloseInformation".GetWord(), "MessageTitle_Information".GetWord(), true, Enum_MessageType.Information, yesContent: "Message_ButtonClose".GetWord());
                     if ((bool)result)
                     {
+                        //Button btn1 = new Button();
+                        //btn1.Tag = "save1";
+                        //SavePosCommand(btn1,null);
                         e.Cancel = false;
                         GlobalInfo.calibration_status = false;          //漏液槽
                     }
@@ -3191,6 +3225,7 @@ namespace Totalab_L
         {
             try
             {
+                SetCalibrationCommand(null, null);
                 Control_Shell = shell;
                 IsConnect = true;
                 GlobalInfo.calibration_status = true;
@@ -4466,9 +4501,13 @@ namespace Totalab_L
         private void ChangeSyringeCommand(object sender, RoutedEventArgs e)
         {
         }
-        //校准点位校准
+        //校准点位1
         private void SetCalibrationCommand(object sender, RoutedEventArgs e)
         {
+            this.RadioName1.IsEnabled = true;
+            this.RadioName2.IsEnabled = false;
+            this.RadioName3.IsEnabled = false;
+
             this.left_point.Visibility = Visibility.Visible;
             this.right_point.Visibility = Visibility.Collapsed;
             this.position_move.Visibility = Visibility.Collapsed;
@@ -4476,10 +4515,19 @@ namespace Totalab_L
             this.SetData1_Visibility.Visibility = Visibility.Visible;
             this.SetData2_Visibility.Visibility = Visibility.Collapsed;
             this.SetData3_Visibility.Visibility = Visibility.Collapsed;
+
+            IsChecked1 = true;
+            IsChecked2 = false;
+            IsChecked3 = false;
+
         }
-        //测试点位测试
+        //校准点位2
         private void SetTestCommand(object sender, RoutedEventArgs e)
         {
+            this.RadioName1.IsEnabled = true;
+            this.RadioName2.IsEnabled = true;
+            this.RadioName3.IsEnabled = false;
+
             this.left_point.Visibility = Visibility.Collapsed;
             this.right_point.Visibility = Visibility.Visible;
             this.position_move.Visibility = Visibility.Collapsed;
@@ -4488,12 +4536,20 @@ namespace Totalab_L
             this.SetData2_Visibility.Visibility = Visibility.Visible;
             this.SetData3_Visibility.Visibility = Visibility.Collapsed;
 
+            IsChecked1 = false;
+            IsChecked2 = true;
+            IsChecked3 = false;
+
             CalibrationInfo.CalibrationRightX = CalibrationInfo.CalibrationRightX;
             CalibrationInfo.CalibrationRightW = CalibrationInfo.CalibrationRightW;
         }
         //样品管参数
         private void SetSampleCommand(object sender, RoutedEventArgs e)
         {
+            this.RadioName1.IsEnabled = true;
+            this.RadioName2.IsEnabled = true;
+            this.RadioName3.IsEnabled = true;
+
             this.left_point.Visibility = Visibility.Collapsed;
             this.right_point.Visibility = Visibility.Collapsed;
             this.position_move.Visibility = Visibility.Visible;
@@ -4502,8 +4558,32 @@ namespace Totalab_L
             this.SetData2_Visibility.Visibility = Visibility.Collapsed;
             this.SetData3_Visibility.Visibility = Visibility.Visible;
 
+            IsChecked1 = false;
+            IsChecked2 = false;
+            IsChecked3 = true;
             //CalibrationInfo.ZResetPosition
         }
+        //下一页
+        private void NextOrPreviousPageCommand(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            string str = btn.Tag.ToString();
+
+            if (str=="nextpage")        //下一页
+            {
+                SetTestCommand(null, null);
+            }
+            if (str == "previouspage1")         //上一页
+            {
+                SetCalibrationCommand(null, null);
+
+            }
+            if (str == "previouspage2")     //上一页
+            {
+                SetTestCommand(null, null);
+            }
+        }
+
         //设置进样针抬起高度
         private void SetZCommand(object sender, RoutedEventArgs e)
         {
@@ -4674,6 +4754,7 @@ namespace Totalab_L
                 new MessagePage().ShowDialog("Message_Error1002".GetWord(), "MessageTitle_Error".GetWord(), false, Enum_MessageType.Error);
 
         }
+
 
         ////漏液装置状态
         //private void LouYeCommand(object sender, RoutedEventArgs e)

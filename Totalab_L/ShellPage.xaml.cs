@@ -37,7 +37,7 @@ namespace Totalab_L
             InitializeComponent();
             this.DataContext = this;
             GlobalInfo.Instance.Totalab_LSerials.MsgCome += Sampler_MsgCome;
-            IsConnect = true;                 //单机调试使用
+            //IsConnect = true;                 //单机调试使用
             ConnectThread = new Thread(Connect);
             ConnectThread.Start();
 
@@ -63,11 +63,6 @@ namespace Totalab_L
             Configuration config = ConfigurationManager.OpenMappedExeConfiguration(map, ConfigurationUserLevel.None);
             IsMedicalSoft = Convert.ToBoolean(config.AppSettings.Settings["IsMedical"].Value);
             GlobalInfo.Instance.MaxConnectionTimes = Convert.ToInt32(config.AppSettings.Settings["MaxConnectTimes"].Value);
-            //List<string> languageList = new List<string>
-            //{
-            //    "/Totalab_L;component/Themes/AutoSampler_"
-            //};
-            //ResourceDictionaryHelper.SwitchLanguage(Enum_Languages.Chinese, languageList);
         }
 
         public void ConnectStatus()
@@ -435,6 +430,13 @@ namespace Totalab_L
         {
             try
             {
+                List<string> languageList = new List<string>
+                {
+                    "/Totalab_L;component/Themes/AutoSampler_"
+                };
+                ResourceDictionaryHelper.SwitchLanguage(Enum_Languages.Chinese, languageList);
+                //ConfigurationHelper.UpdateAppSettings("LanguageName", Enum_Languages.English.ToString());
+
                 if (!IsSNRegistered)
                 {
                     IsSoftwareOffline = false;
@@ -4197,7 +4199,7 @@ namespace Totalab_L
                                 }));
                             }
                         }
-                        MainLogHelper.Instance.Info(string.Format("Mass发送：Name:[{0}] Mode:[{1}] Location:[{2}] Type:[{3}] ID:[{4}]", samInfo.SamName, samInfo.OperationMode, samInfo.Location, samInfo.AnalysisType, samInfo.SamID));
+                        //MainLogHelper.Instance.Info(string.Format("Mass发送：Name:[{0}] Mode:[{1}] Location:[{2}] Type:[{3}] ID:[{4}]", samInfo.SamName, samInfo.OperationMode, samInfo.Location, samInfo.AnalysisType, samInfo.SamID));
                         //Trace.WriteLine(string.Format("Name:[{0}] Mode:[{1}] Location:[{2}] Type:[{3}] ID:[{4}]", samInfo.SamName, samInfo.OperationMode, samInfo.Location, samInfo.AnalysisType, samInfo.SamID));
                     }
                 }
@@ -4408,13 +4410,16 @@ namespace Totalab_L
                     }
                     else if (msgArg.MessParamType == EnumMessParamType.CurrentLanguage)
                     {
+                        //this.Dispatcher.Invoke((Action)(() =>
+                        //{
+                        //    GlobalInfo.Instance.LogInfo.Insert(0, DateTime.Now.ToString("hh:mm:ss") + "语言切换");
+                        //}));
+                        //MainLogHelper.Instance.Error(string.Format("语言切换"));
                         List<string> languageList = new List<string>
                         {
-                            //"/Mass.Language;component/",
                             "/Totalab_L;component/Themes/AutoSampler_"
                         };
-                        MainLogHelper.Instance.Error("语言切换");
-                        if (Enum_Languages.Chinese.ToString()=="Chinese")
+                        if (msgArg.Parameter is Enum_Languages.Chinese)
                         {
                             ResourceDictionaryHelper.SwitchLanguage(Enum_Languages.Chinese, languageList);
                             MainLogHelper.Instance.Error("语言切换Chinese");
@@ -4422,7 +4427,7 @@ namespace Totalab_L
                             //Application.Current.Resources.MergedDictionaries.Remove(GlobalInfo.LgDictionary);
                             //Application.Current.Resources.MergedDictionaries.Add(GlobalInfo.LgDictionary);
                         }
-                        else if(Enum_Languages.English.ToString() == "English")
+                        else if(msgArg.Parameter is Enum_Languages.English)
                         {
                             ResourceDictionaryHelper.SwitchLanguage(Enum_Languages.English, languageList);
                             MainLogHelper.Instance.Error("语言切换English");

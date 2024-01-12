@@ -382,12 +382,12 @@
             <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="-11,0,0,0" VerticalAlignment="Center">
                 <!--<RadioButton GroupName="AutoSamplerHeadMenu" Content="{DynamicResource AutoSampler_Main_SampleList}" IsChecked="True"
                              Style="{StaticResource RadioBtnNavHorMinWid120Sty}"  Click ="SampleListCommand"/>-->
-                <RadioButton GroupName="AutoSamplerHeadMenu" Content="{DynamicResource AutoSampler_AdvancedSetPage_SetCalibrationPara}" FontSize="16" IsChecked="True" Margin="-8,0,0,0"
-                             Style="{StaticResource RadioBtnNavHorMinWid120Sty}" Click = "SetCalibrationCommand"/>
-                <RadioButton GroupName="AutoSamplerHeadMenu" Content="{DynamicResource AutoSampler_AdvancedSetPage_SetTestPara}" FontSize="16"
-                             Style="{StaticResource RadioBtnNavHorMinWid120Sty}" Click = "SetTestCommand"/>
-                <RadioButton GroupName="AutoSamplerHeadMenu" Content="{DynamicResource AutoSampler_AdvancedSetPage_SetSamplePara}" FontSize="16"
-                             Style="{StaticResource RadioBtnNavHorMinWid120Sty}" Click = "SetSampleCommand"/>
+                <RadioButton x:Name="RadioName1" GroupName="AutoSamplerHeadMenu" Content="{DynamicResource AutoSampler_AdvancedSetPage_SetCalibrationPara}" FontSize="16" IsChecked="{Binding IsChecked1,Mode=TwoWay}" Margin="-8,0,0,0"
+                             Style="{StaticResource RadioBtnNavHorMinWid120Sty}" Click="SetCalibrationCommand"/>
+                <RadioButton x:Name="RadioName2" GroupName="AutoSamplerHeadMenu" Content="{DynamicResource AutoSampler_AdvancedSetPage_SetTestPara}" FontSize="16"
+                             Style="{StaticResource RadioBtnNavHorMinWid120Sty}" IsChecked="{Binding IsChecked2,Mode=TwoWay}" Click="SetTestCommand" />
+                <RadioButton x:Name="RadioName3" GroupName="AutoSamplerHeadMenu" Content="{DynamicResource AutoSampler_AdvancedSetPage_SetSamplePara}" FontSize="16"
+                             Style="{StaticResource RadioBtnNavHorMinWid120Sty}" IsChecked="{Binding IsChecked3,Mode=TwoWay}" Click="SetSampleCommand"/>
             </StackPanel>
             
             <Grid x:Name="SetData1_Visibility" Grid.Row="1" Visibility="Visible" Margin="0,0,0,25">
@@ -619,6 +619,10 @@
                     </Button>
                 </StackPanel>
                 <StackPanel Grid.Row="21">
+                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="76" Height="32" Margin="143,0,0,0" 
+                            Content="{DynamicResource AutoSampler_AdvancedSetPage_NextPage}"
+                            Click="NextOrPreviousPageCommand"  IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Tag="nextpage"/>
+
                     <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,132,0">
                         <Button Style="{StaticResource  ButtonPrimarySty}"  Width="76" Height="32"  Content="{DynamicResource ButtonContent_Cancel}"  IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"
                                 Click="CancelCommand"/>
@@ -639,6 +643,7 @@
                     <RowDefinition Height="12"/>
                     <RowDefinition Height="32"/>
                     <RowDefinition Height="12"/>
+                    <RowDefinition Height="313"/>
                     <RowDefinition Height="32"/>
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="1" Orientation="Horizontal">
@@ -704,11 +709,12 @@
                         </Button.IsEnabled>
                     </Button>
                 </StackPanel>
-                <StackPanel Grid.Row="9" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <!--<Button Style="{StaticResource  ButtonPrimarySty}"  Width="76" Height="32" Margin="0,0,12,0"  Content="{DynamicResource ButtonContent_Cancel}"  IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"
-                                Click="CancelCommand"/>-->
-                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="76" Height="32" Margin="0,0,153,0" Content="{DynamicResource ButtonContent_Save}"
-                                Click="SavePosCommand"  IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Tag="save2"/>
+                <StackPanel Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Style="{StaticResource  ButtonPrimarySty}"  Width="76" Height="32" Margin="0,0,12,0"  Content="{DynamicResource AutoSampler_AdvancedSetPage_PerviousPage}"  
+                            IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" 
+                            Click="NextOrPreviousPageCommand" Tag="previouspage1"/>
+                    <Button Style="{StaticResource  ButtonAccentSty}"  Width="76" Height="32" Margin="0,0,153,0" Content="{DynamicResource AutoSampler_AdvancedSetPage_NextPage}"
+                            Click="SavePosCommand"  IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" Tag="save2"/>
                 </StackPanel>
 
             </Grid>
@@ -1030,6 +1036,9 @@
                     </StackPanel>
                     <TextBlock  Grid.Row="6" Text="{DynamicResource AutoSampler_AdvancedSetPage_Text4}" Style="{StaticResource TextBlockSty}" FontSize="11" Foreground="Red" Height="15" HorizontalAlignment="Left"/>
                     <StackPanel Grid.Row="8" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,7,0">
+                        <Button Style="{StaticResource  ButtonPrimarySty}"  Width="76" Height="32" Margin="0,0,12,0"  Content="{DynamicResource AutoSampler_AdvancedSetPage_PerviousPage}"  
+                            IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}" 
+                            Click="NextOrPreviousPageCommand" Tag="previouspage2"/>
                         <Button Style="{StaticResource  ButtonPrimarySty}"  Width="74" Height="32" Margin="0,0,12,0"  Content="{DynamicResource ButtonContent_Cancel}"  IsEnabled="{Binding IsCanRunning,Source={x:Static global:GlobalInfo.Instance}}"
                                 Click="CancelCommand"/>
                         <Button Style="{StaticResource  ButtonAccentSty}"  Width="74" Height="32" Margin="0,0,153,0" Content="{DynamicResource ButtonContent_Save}"

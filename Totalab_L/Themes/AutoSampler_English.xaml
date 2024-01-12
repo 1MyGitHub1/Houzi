@@ -184,6 +184,8 @@
     <system:String x:Key="AutoSampler_AdvancedSetPage_TitleRobotArmControl">Manipulator control</system:String>
     <system:String x:Key="AutoSampler_AdvancedSetPage_TitleSampleCellPara">Sample tube parameter</system:String>
     <system:String x:Key="AutoSampler_AdvancedSetPage_TitleNeedleSpeedSet">Needle lift speed setting</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_NextPage">Next page</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_PerviousPage">Pervious page</system:String>
 
 
     <system:String x:Key="AutoSampler_AdvancedSetPage_ClearErrors">Debugging</system:String>
@@ -229,7 +231,7 @@
     <system:String x:Key="Message_PositionError">The sample position exceeds the limit</system:String>
     <system:String x:Key="MessageContent_SaveSuccessful">Successfully saved</system:String>
     <system:String x:Key="MessageTitle_Information">Prompt</system:String>
-    <system:String x:Key="Message_CloseInformation">Parameter information saved, confirm to close</system:String>
+    <system:String x:Key="Message_CloseInformation">Parameter information saved</system:String>
 
 
     <!--Mass中的-补的-->

@@ -1663,6 +1663,7 @@ namespace Totalab_L
                         }
                         else
                         {
+                            MainLogHelper.Instance.Error("GlobalInfo.Instance.RunningStep != RunningStep_Status.RecvTriggerOk" + GlobalInfo.Instance.RunningStep.ToString());
                             ConntectWaring();
                             return;
                         }
@@ -1687,6 +1688,7 @@ namespace Totalab_L
                             }));
                             for (int i = 0; i < GlobalInfo.Instance.SettingInfo.PreWashInfos.Count; i++)
                             {
+                                //W1清洗位--预清洗
                                 if (GlobalInfo.Instance.SettingInfo.PreWashInfos[i].WashLoc == "RinseLoc")
                                 {
                                     if (GlobalInfo.Instance.SettingInfo.IsWash1Open)
@@ -1755,16 +1757,17 @@ namespace Totalab_L
                                 }
                                 else
                                 {
+                                    MainLogHelper.Instance.Error("W1:GlobalInfo.Instance.RunningStep != RunningStep_Status.GoToSampleLocOk");
                                     ConntectWaring();
                                 }
-                                //预清洗和W1清洗完成后，再去清洗W2位置
+                                //W1在清洗位---预清洗--完成后，再去清洗W2位置
                                 if (GlobalInfo.Instance.SettingInfo.PreWashInfos[i].WashLoc == "RinseLoc")
                                 {
                                     if (GlobalInfo.Instance.SettingInfo.IsWash2Open)
                                     {
                                         if (CurrnentLoc != "W2")
                                         {
-                                            isFirstRun = true;
+                                            //isFirstRun = true;
                                             GoToTargetPosition("W2");
                                         }
                                         else
@@ -1789,6 +1792,8 @@ namespace Totalab_L
                                 }
                                 else
                                 {
+                                    MainLogHelper.Instance.Error("W2:GlobalInfo.Instance.RunningStep:"+ GlobalInfo.Instance.RunningStep.ToString());
+                                    MainLogHelper.Instance.Error("W2:GlobalInfo.Instance.RunningStep != RunningStep_Status.GoToSampleLocOk");
                                     ConntectWaring();
                                 }
                             }
@@ -1910,6 +1915,7 @@ namespace Totalab_L
                         }
                         else
                         {
+                            MainLogHelper.Instance.Error("运行步骤PreWash" + GlobalInfo.Instance.RunningStep.ToString());
                             ConntectWaring();
                             return;
                         }
@@ -1972,6 +1978,7 @@ namespace Totalab_L
                                     }
                                     else
                                     {
+                                        MainLogHelper.Instance.Error("后运行W1：GlobalInfo.Instance.RunningStep != RunningStep_Status.GoToSampleLocOk" + GlobalInfo.Instance.RunningStep.ToString());
                                         ConntectWaring();
                                     }
                                     //判断W2是否打开
@@ -2003,6 +2010,7 @@ namespace Totalab_L
                                     }
                                     else
                                     {
+                                        MainLogHelper.Instance.Error("后运行W2：GlobalInfo.Instance.RunningStep != RunningStep_Status.GoToSampleLocOk" + GlobalInfo.Instance.RunningStep.ToString());
                                         ConntectWaring();
                                     }
                                 }
@@ -2040,6 +2048,7 @@ namespace Totalab_L
                                                 {
                                                     GoToTargetPosition("W1");
                                                 }
+                                                GlobalInfo.Instance.RunningStep = RunningStep_Status.GoToSampleLocOk;
                                             }
                                             else
                                             {
@@ -2047,15 +2056,16 @@ namespace Totalab_L
                                                 {
                                                     GoToTargetPosition(GlobalInfo.Instance.SettingInfo.AfterRunningInfo[i].WashLoc);
                                                 }
-                                                else
-                                                    GlobalInfo.Instance.RunningStep = RunningStep_Status.GoToSampleLocOk;
-                                                //GoToTargetPosition(GlobalInfo.Instance.SettingInfo.AfterRunningInfo[i].WashLoc);
+                                                GlobalInfo.Instance.RunningStep = RunningStep_Status.GoToSampleLocOk;
                                             }
                                         }
                                         else
                                             GlobalInfo.Instance.RunningStep = RunningStep_Status.GoToSampleLocOk;
                                         if (GlobalInfo.Instance.RunningStep == RunningStep_Status.Error)
+                                        {
+                                            MainLogHelper.Instance.Error("运行步骤Error" + GlobalInfo.Instance.RunningStep.ToString());
                                             break;
+                                        }
                                         //如果到达清洗位ok
                                         if (GlobalInfo.Instance.RunningStep == RunningStep_Status.GoToSampleLocOk)
                                         {
@@ -2098,6 +2108,7 @@ namespace Totalab_L
                                         }
                                         else
                                         {
+                                            MainLogHelper.Instance.Error("运行步骤W1" + GlobalInfo.Instance.RunningStep.ToString());
                                             ConntectWaring();
                                         }
                                         //W1清洗位完成后判断是否需要去清洗位W2清洗
@@ -2107,13 +2118,15 @@ namespace Totalab_L
                                             {
                                                 GoToTargetPosition("W2");
                                             }
-                                            else
-                                                GlobalInfo.Instance.RunningStep = RunningStep_Status.GoToSampleLocOk;
+                                            GlobalInfo.Instance.RunningStep = RunningStep_Status.GoToSampleLocOk;
                                         }
                                         else
                                             GlobalInfo.Instance.RunningStep = RunningStep_Status.GoToSampleLocOk;
                                         if (GlobalInfo.Instance.RunningStep == RunningStep_Status.Error)
+                                        {
+                                            MainLogHelper.Instance.Error("运行步骤Error" + GlobalInfo.Instance.RunningStep.ToString());
                                             break;
+                                        }
                                         //如果到达清洗位W2
                                         if (GlobalInfo.Instance.RunningStep == RunningStep_Status.GoToSampleLocOk)
                                         {
@@ -2129,6 +2142,7 @@ namespace Totalab_L
                                         }
                                         else
                                         {
+                                            MainLogHelper.Instance.Error("运行步骤W2" + GlobalInfo.Instance.RunningStep.ToString());
                                             ConntectWaring();
                                         }
                                     }
@@ -2500,6 +2514,7 @@ namespace Totalab_L
             {
                 if (GlobalInfo.IsAgainPower)
                 {
+                    MainLogHelper.Instance.Error("GlobalInfo.IsAgainPower");
                     GlobalInfo.Instance.Totalab_LSerials.XWZHome();
                     GlobalInfo.IsAgainPower = false;
                 }
@@ -2602,16 +2617,22 @@ namespace Totalab_L
                     if (methodTask != null)
                     {
                         methodTask.Abort();
+                        MainLogHelper.Instance.Info("终止methodTask");
                     }
                 }
                 catch
-                { }
+                {
+                    MainLogHelper.Instance.Error("methodTask--Error");
+                }
                 try
                 {
                     if (washTask != null)
                         washTask.Abort();
                 }
-                catch { }
+                catch 
+                {
+                    MainLogHelper.Instance.Error("washTask--Error");
+                }
             }
             catch (Exception ex)
             {

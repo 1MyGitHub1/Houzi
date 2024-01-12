@@ -185,6 +185,8 @@
     <system:String x:Key="AutoSampler_AdvancedSetPage_TitleRobotArmControl">机械臂控制</system:String>
     <system:String x:Key="AutoSampler_AdvancedSetPage_TitleSampleCellPara">样品管参数</system:String>
     <system:String x:Key="AutoSampler_AdvancedSetPage_TitleNeedleSpeedSet">进样针抬起速度设置</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_NextPage">下一步</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_PerviousPage">上一步</system:String>
 
 
     <system:String x:Key="AutoSampler_AdvancedSetPage_ClearErrors">清错</system:String>
@@ -231,8 +233,8 @@
     <system:String x:Key="MessageContent_SaveSuccessful">保存成功</system:String>
     <system:String x:Key="MessageTitle_Information">提示</system:String>
     <!--<system:String x:Key="MessageContent_PositionOverrun">样品位置超出限制</system:String>-->
-    <system:String x:Key="Message_CloseInformation">参数信息已保存，确认关闭</system:String>
-    <!--<system:String x:Key="Message_CloseInformation">请确认参数信息是否已保存</system:String>-->
+    <system:String x:Key="Message_CloseInformation">请确认参数信息已保存</system:String>
+    <system:String x:Key="Message_ButtonClose">关闭</system:String>
 
 
     <!--Mass中的-补的-->

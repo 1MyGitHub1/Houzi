@@ -124,7 +124,7 @@ namespace Monster.AutoSampler
             List<string> languageList = new List<string>
             {
                 //"/Mass.Language;component/",
-                "/Totalab_L;component/Themes/AutoSampler_"
+                "/Totalab_L;component/Themes/AutoSampler_1111"
             };
             try
             {
