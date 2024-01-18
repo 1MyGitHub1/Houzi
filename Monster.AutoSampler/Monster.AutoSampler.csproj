@@ -242,14 +242,6 @@
     <Compile Include="Views\DeviceModuleView.xaml.cs">
       <DependentUpon>DeviceModuleView.xaml</DependentUpon>
     </Compile>
-    <Page Include="AutoSampler_Chinese.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="AutoSampler_English.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\MessagePageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -218,7 +218,9 @@
 
     <!--弹窗提示-->
     <system:String x:Key="Message_RunError">运行错误，进样针故障!(详情请看日志)</system:String>
-    <system:String x:Key="Message_RoboticArmError">机械臂出错</system:String>
+    <system:String x:Key="Message_RoboticArmErrorX">机械臂X轴出错</system:String>
+    <system:String x:Key="Message_RoboticArmErrorT">机械臂T轴出错</system:String>
+    <system:String x:Key="Message_RoboticArmErrorZ">机械臂Z轴出错</system:String>
     <system:String x:Key="Message_CloseError">仪器正在运行中，请稍后关闭窗口</system:String>
     <system:String x:Key="Message_Connection">重新连接成功</system:String>
     <!--<system:String x:Key="Message_Information">提示</system:String>-->
