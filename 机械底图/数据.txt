@@ -1,0 +1,1 @@
+GlobalInfo.Instance.TrayPanelCenter：     247.64479605555559
