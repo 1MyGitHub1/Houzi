@@ -19,8 +19,8 @@
     <system:String x:Key="AutoSampler_Main_AdvancedSet">Advanced Settings</system:String>
 
     <system:String x:Key="AutoSampler_Main_Test">Test</system:String>
-    <system:String x:Key="AutoSampler_Main_PositionMove">Go To</system:String>
-    <system:String x:Key="AutoSampler_Main_Sampling">Sampling</system:String>
+    <system:String x:Key="AutoSampler_Main_PositionMove">Go</system:String>
+    <system:String x:Key="AutoSampler_Main_Sampling">Go</system:String>
     <system:String x:Key="AutoSampler_Main_WashLocation">Rinse</system:String>
 
     <system:String x:Key="AutoSampler_Main_PreFlush">Pre Wash</system:String>
@@ -160,9 +160,11 @@
     <system:String x:Key="AutoSampler_I_Custom">Custom</system:String>
     <system:String x:Key="AutoSampler_I_SampleLoc">Sample Loc.</system:String>
     <system:String x:Key="AutoSampler_I_RinseLoc">Rinse Loc.</system:String>
-    
+
     <!--补充-->
-    <system:String x:Key="AutoSampler_Main_UpLift">Lift</system:String>
+    <system:String x:Key="AutoSampler_Main_Offline">Offline</system:String>
+
+    <system:String x:Key="AutoSampler_Main_UpLift">Up</system:String>
     <system:String x:Key="AutoSampler_Main_CleanPosition">Clean position</system:String>
     <system:String x:Key="AutoSampler_Main_ChangeNeedle">Replace needle</system:String>
     <!--<system:String x:Key="AutoSampler_Main_Sampling">Sampling</system:String>-->
@@ -177,43 +179,42 @@
     <system:String x:Key="AutoSampler_AdvancedSetPage_SetTestPara">Calibration Point2</system:String>
     <system:String x:Key="AutoSampler_AdvancedSetPage_SetSamplePara">Sample tube parameter</system:String>
 
-    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleLocationPara">Position parameter</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleCalibrationLocPara">Calibration position parameter</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleHandControl">Arm trimming</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleTestPositionPara">Test point location parameters</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleRobotArmControl">Manipulator control</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleLocationPara">Parameter</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleCalibrationLocPara">Settings</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleHandControl">Tuning</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleTestPositionPara">Settings</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TitleRobotArmControl">Moving arm control</system:String>
     <system:String x:Key="AutoSampler_AdvancedSetPage_TitleSampleCellPara">Sample tube parameter</system:String>
     <system:String x:Key="AutoSampler_AdvancedSetPage_TitleNeedleSpeedSet">Needle lift speed setting</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_NextPage">Next page</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_PerviousPage">Pervious page</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_NextPage">Next</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_PerviousPage">Back</system:String>
 
 
-    <system:String x:Key="AutoSampler_AdvancedSetPage_ClearErrors">Debugging</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_TranslationPara">Translate distance(mm)</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_AnglePara">Rotation Angle(rds)</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_DeclineHeightPara">Descent height(mm)</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_NeedleReset">Needle reduction</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_FineTuningX">Fine distance(mm)</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_FineTuningW">Fine angle(rds)</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_CurrentPlace">Current position(mm):</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_CurrentAngle">Current angle(rds):</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_ClearErrors">Debug</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_TranslationPara">Horizontal (mm)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_AnglePara">Rotational (rds)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_DeclineHeightPara">Depth (mm)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_NeedleReset">Up to zero</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_FineTuningX">Horizontal (mm)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_FineTuningW">Rotational (rds)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_CurrentPlace">Horizontal (mm):</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_CurrentAngle">Rotational (rds):</system:String>
 
-    <system:String x:Key="AutoSampler_AdvancedSetPage_SampleNum">Sample tube（num）</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftHeight">Lifting height（mm）</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_LiquidLevelHeight">Surface height（mm）</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_ImbibitionHeight">Suction height（mm）</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_set">Settings</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_SampleNum">Sample tube (num)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftHeight">Lifting spot (mm)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_LiquidLevelHeight">Switching spot (mm)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_ImbibitionHeight">Sampling depth (mm)</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_set">Set</system:String>
     <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftSpeed1">Lift speed 1(%)</system:String>
     <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftSpeed2">Lift speed 2(%)</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftToLiquidLevel">Lift to surface</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftToLiquidLevel">Lift to switching</system:String>
 
     <!--红字-->
-    <system:String x:Key="AutoSampler_AdvancedSetPage_Text1">Please place the sample shelf first, and set information on the left</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_Text2">Greater than the mouth of the bottle</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_Text3">Lift speed between suction height and liquid level</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_Text4">Lift speed between liquid level and lift height</system:String>
-
-    <system:String x:Key="AutoSampler_AdvancedSetPage_Text5">Please remove all test tube racks before calibration and initialization</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_Text1">Please place  sample racks first,and set parameter on the left</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_Text2">Higher than the mouth of sampletube</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_Text3">The speed of the height from Sampling Depth to Switching Spot</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_Text4">The speed of the height from Switching Spot to Lifting Positon</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_Text5">Please remove all sample racks before initialization and operation</system:String>
     
     <!--弹窗提示-->
     <system:String x:Key="Message_RunError">Run error, syringe failure!(Please refer to the log for details)</system:String>
@@ -234,6 +235,7 @@
     <system:String x:Key="MessageContent_SaveSuccessful">Successfully saved</system:String>
     <system:String x:Key="MessageTitle_Information">Prompt</system:String>
     <system:String x:Key="Message_CloseInformation">Parameter information saved</system:String>
+    <system:String x:Key="Message_ButtonClose">Close</system:String>
 
 
     <!--Mass中的-补的-->
@@ -245,6 +247,21 @@
     <system:String x:Key="ButtonContent_SaveAs">SaveAs</system:String>
     <system:String x:Key="ButtonContent_Set">Set</system:String>
     <system:String x:Key="ButtonContent_Done">Done</system:String>
+
+    <system:String x:Key="ButtonContent_Browse">Browse</system:String>
+    <system:String x:Key="ButtonContent_Register">Registers</system:String>
+    <!--关于-->
+    <system:String x:Key="AboutInfo_LabMonsterTitle">AboutLabMonster</system:String>
+    <system:String x:Key="AboutInfo_SoftVersion">SoftVersion</system:String>
+    <system:String x:Key="AboutInfo_HardVersion">HardVersion</system:String>
+    <system:String x:Key="AboutInfo_LicenseType">LicenseType</system:String>
+    <system:String x:Key="ButtonContent_Replace">Replace</system:String>
+    <system:String x:Key="AboutInfo_ValidityPeriod">ValidityPeriod</system:String>
+    <system:String x:Key="AboutInfo_Day">Day</system:String>
+    <system:String x:Key="AboutInfo_RemainingValidity">RemainingValidity</system:String>
+    <system:String x:Key="AboutInfo_TechSupport">TechSupport</system:String>
+    <system:String x:Key="AboutInfo_CopyRightInfo">Copyright ©2020 Beijing LebTEC Instrument Co., LTD. All rights reserved. All rights reserved.</system:String>
+
 
     <system:String x:Key="MessageTitle_Error">Error</system:String>
     <system:String x:Key="MessageTitle_Exit">Exit</system:String>

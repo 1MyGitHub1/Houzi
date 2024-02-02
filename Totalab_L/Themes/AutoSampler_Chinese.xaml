@@ -163,6 +163,8 @@
     <system:String x:Key="AutoSampler_I_RinseLoc">清洗位</system:String>
     
     <!--补充-->
+    <system:String x:Key="AutoSampler_Main_Offline">脱机中</system:String>
+
     <system:String x:Key="AutoSampler_Main_UpLift">抬起</system:String>
     <system:String x:Key="AutoSampler_Main_CleanPosition">清洗位</system:String>
     <system:String x:Key="AutoSampler_Main_ChangeNeedle">更换进样针</system:String>
@@ -201,7 +203,7 @@
 
     <system:String x:Key="AutoSampler_AdvancedSetPage_SampleNum">样品管（号）</system:String>
     <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftHeight">抬起高度（mm）</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_LiquidLevelHeight">液面高度（mm）</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_LiquidLevelHeight">分段高度（mm）</system:String>
     <system:String x:Key="AutoSampler_AdvancedSetPage_ImbibitionHeight">吸液高度（mm）</system:String>
     <system:String x:Key="AutoSampler_AdvancedSetPage_set">设置</system:String>
     <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftSpeed1">抬起速度1(%)</system:String>
@@ -209,11 +211,10 @@
     <system:String x:Key="AutoSampler_AdvancedSetPage_UpliftToLiquidLevel">抬起到液面</system:String>
 
     <!--红字-->
-    <system:String x:Key="AutoSampler_AdvancedSetPage_Text1">请先放置样品架，并再左侧设置相应的样品架信息</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_Text2">大于瓶口高度</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_Text3">吸液高度到液面高度之间得抬起速度</system:String>
-    <system:String x:Key="AutoSampler_AdvancedSetPage_Text4">液面高度到抬起高度之间得抬起速度</system:String>
-
+    <system:String x:Key="AutoSampler_AdvancedSetPage_Text1">请先放置样品架，并在左侧设置相应的样品架信息</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_Text2">高于瓶口高度</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_Text3">吸液高度到液面高度之间的抬起速度</system:String>
+    <system:String x:Key="AutoSampler_AdvancedSetPage_Text4">液面高度到抬起高度之间的抬起速度</system:String>
     <system:String x:Key="AutoSampler_AdvancedSetPage_Text5">校准前请先将全部试管架取走，然后单击初始化按键，初始化位置参数信息</system:String>
 
     <!--弹窗提示-->
@@ -248,6 +249,21 @@
     <system:String x:Key="ButtonContent_SaveAs">另存为</system:String>
     <system:String x:Key="ButtonContent_Set">设置</system:String>
     <system:String x:Key="ButtonContent_Done">打开</system:String>
+
+    <system:String x:Key="ButtonContent_Browse">浏览</system:String>
+    <system:String x:Key="ButtonContent_Register">注册</system:String>
+    
+    <!--关于-->
+    <system:String x:Key="AboutInfo_LabMonsterTitle">关于LabMonster</system:String>
+    <system:String x:Key="AboutInfo_SoftVersion">软件版本</system:String>
+    <system:String x:Key="AboutInfo_HardVersion">硬件版本</system:String>
+    <system:String x:Key="AboutInfo_LicenseType">许可类型</system:String>
+    <system:String x:Key="ButtonContent_Replace">更换</system:String>
+    <system:String x:Key="AboutInfo_ValidityPeriod">有效期</system:String>
+    <system:String x:Key="AboutInfo_Day">天</system:String>
+    <system:String x:Key="AboutInfo_RemainingValidity">剩余有效期</system:String>
+    <system:String x:Key="AboutInfo_TechSupport">技术支持</system:String>
+    <system:String x:Key="AboutInfo_CopyRightInfo">版权所有©2020北京莱伯泰科仪器股份有限公司。保留所有权力。</system:String>
 
     <system:String x:Key="MessageTitle_Error">错误</system:String>
     <!--<system:String x:Key="Message_Error1000">错误[1000]，程序执行错误。</system:String>-->

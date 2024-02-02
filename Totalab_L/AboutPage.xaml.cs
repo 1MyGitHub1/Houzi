@@ -31,7 +31,7 @@ namespace Totalab_L
         {
             InitializeComponent();
             this.DataContext = this;
-            SoftwareVersion = "V1.1.0";
+            SoftwareVersion = "V1.1.0.0";
             try
             {
                 RegistSN registSN = RegistSN.GetInstance("LabMonsterTotalab-L");

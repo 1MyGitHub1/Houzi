@@ -46,6 +46,8 @@ namespace Totalab_L
         public static bool IsAgainPower = false;             //是否重新上电
         public static bool IsDisconnected = true;               //是否断连接
 
+        public static bool Imagevisibility = true;                //中英文转换标志
+
         public static ResourceDictionary LgDictionary = new ResourceDictionary();
 
         ///<summary>

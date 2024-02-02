@@ -370,6 +370,10 @@ namespace Totalab_L.Common
                         }
                     }
 
+                    if (GlobalInfo.returnPositionX>)
+                    {
+
+                    }
                     GlobalInfo.Instance.IsMotorWSetTargetPositionOk = false;
                     GlobalInfo.Instance.IsMotorXSetTargetPositionOk = false;
                     GlobalInfo.Instance.RunningStep = RunningStep_Status.SetTargetPosition;

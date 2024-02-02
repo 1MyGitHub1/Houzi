@@ -121,7 +121,7 @@
                             </MultiBinding>
                         </Button.IsEnabled>
                     </Button>
-                    <TextBlock Text="脱机中" Visibility="{Binding IsSoftwareOffline,ConverterParameter=True,Converter={StaticResource BoolToVisibilityConverter}}"
+                    <TextBlock Text="{DynamicResource AutoSampler_Main_Offline}" Visibility="{Binding IsSoftwareOffline,ConverterParameter=True,Converter={StaticResource BoolToVisibilityConverter}}"
                                Style="{StaticResource TextBlockFore60Sty}"/>
                 </StackPanel>
                 <TextBlock Grid.Column="1" x:Name="NameText" 

@@ -3147,7 +3147,7 @@ namespace Totalab_L
             }
 
         }
-        //左-右校准点
+        //左-右校准点--取样
         private void MoveToTargetLocationCommand(object sender, RoutedEventArgs e)
         {
             try
@@ -3318,6 +3318,22 @@ namespace Totalab_L
                     TrayInfoHelper.GetTrayNumber();
                     GlobalInfo.Instance.TrayAInfos.TrayItemList[0].IsItemSelected = true;
                 }));
+                #endregion
+
+                #region 样品管参数-中英文图片切换
+                if (GlobalInfo.Imagevisibility)
+                {
+                    //imageChinese.Visibility = Visibility.Collapsed;
+                    //imageEnglish.Visibility = Visibility.Visible;
+
+                    imageChinese.Visibility = Visibility.Visible;
+                    imageEnglish.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    imageChinese.Visibility = Visibility.Collapsed;
+                    imageEnglish.Visibility = Visibility.Visible;
+                }
                 #endregion
             }
             catch (Exception ex)
@@ -4371,11 +4387,11 @@ namespace Totalab_L
                         CalibrationLeftShowW = Math.Round((GlobalInfo.returnPositionW - GlobalInfo.Instance.TrayPanelHomeW) / 60.0,2);
 
                         //Control_ParentView.IsSamplerManual = false;
-                        if (IsConnect)
-                        {
-                            GlobalInfo.Instance.IsBusy = false;
-                            GlobalInfo.Instance.IsCanRunning = true;
-                        }
+                        //if (IsConnect)
+                        //{
+                        //    GlobalInfo.Instance.IsBusy = false;
+                        //    GlobalInfo.Instance.IsCanRunning = true;
+                        //}
                         source?.Cancel();
                         source?.Dispose();
                     }

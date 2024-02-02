@@ -280,6 +280,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\mechanical_armChinese1x.png" />
+    <Resource Include="Images\mechanical_armEnglish1x.png" />
     <Resource Include="Images\Monster48.png" />
     <Resource Include="Images\Monster72.png" />
   </ItemGroup>
@@ -393,7 +395,7 @@
     <Resource Include="Images\turn_right%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\mechanical_arm1x.png" />
+    <Content Include="LabTech.Common.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
